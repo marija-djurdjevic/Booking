@@ -20,9 +20,9 @@ namespace BookingApp.Model
         public Location Location { get; set; }
 
         public Tour() { }
-        public Tour(int id, string name, string description, string language, int maxTouristsNumber, List<DateTime> tourStartDates, double duration, List<string> imagesPaths, Location location)
+        public Tour( string name, string description, string language, int maxTouristsNumber, List<DateTime> tourStartDates, double duration, List<string> imagesPaths, Location location)
         {
-            Id = id;
+            //Id = id;
             Name = name;
             Description = description;
             Language = language;

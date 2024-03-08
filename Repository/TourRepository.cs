@@ -19,16 +19,59 @@ namespace BookingApp.Repository
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
+
+            if (!System.IO.File.Exists(FilePath))
+            {
+                using (System.IO.File.Create(FilePath)) { }
+            }
+
             _tours = _serializer.FromCSV(FilePath);
         }
 
-        public Tour AddTour(string name, string description, string language, int maxTouristsNumber, List<DateTime> tourStartDates, double duration, List<string> imagesPaths, Location location)
+        public Tour AddTour(Tour tour)
         {
             int nextId = NextId();
-            Tour newTour = new Tour(nextId, name, description, language, maxTouristsNumber, tourStartDates, duration, imagesPaths, location);
-            _tours.Add(newTour);
+            tour.Id = nextId;
+            _tours.Add(tour);
             _serializer.ToCSV(FilePath, _tours);
-            return newTour;
+            return tour;
+        }
+
+        public void UpdateTour(Tour updatedTour)
+        {
+            Tour existingTour = _tours.FirstOrDefault(t => t.Id == updatedTour.Id);
+            if (existingTour != null)
+            {
+                int index = _tours.IndexOf(existingTour);
+                _tours[index] = updatedTour;
+                _serializer.ToCSV(FilePath, _tours);
+            }
+        }
+
+        public void DeleteTour(int tourId)
+        {
+            Tour existingTour = _tours.FirstOrDefault(t => t.Id == tourId);
+            if (existingTour != null)
+            {
+                _tours.Remove(existingTour);
+                _serializer.ToCSV(FilePath, _tours);
+            }
+        }
+
+        public List<Tour> GetAllTours()
+        {
+            return _tours;
+        }
+
+        public Tour GetTourById(int tourId)
+        {
+            return _tours.FirstOrDefault(t => t.Id == tourId);
+        }
+
+
+        private void SaveChanges()
+        {
+            _serializer.ToCSV(FilePath, _tours);
         }
 
         private int NextId()

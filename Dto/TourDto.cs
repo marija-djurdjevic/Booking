@@ -175,10 +175,11 @@ namespace BookingApp.DTO
 
 
 
-       /* public Tour ToTour()
+        public Tour ToTour()
         {
-            return new Tour(id, name, description, language, maxTouristsNumber, tourStartDates, imagesPaths, locationDto.ToLocation());
-        }*/
+            Location location = LocationDTO != null ? LocationDTO.ToLocation() : new Location();
+            return new Tour(Name, Description, Language, MaxTouristNumber, TourStartDates, Duration, ImagesPaths, location);
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
