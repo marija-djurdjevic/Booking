@@ -77,7 +77,7 @@ namespace BookingApp.DTO
             }
         }
 
-        public LocationDto LocationDTO
+        public LocationDto LocationDto
         {
             get { return locationDto; }
             set
@@ -177,7 +177,7 @@ namespace BookingApp.DTO
 
         public Tour ToTour()
         {
-            Location location = LocationDTO != null ? LocationDTO.ToLocation() : new Location();
+            Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
             return new Tour(Name, Description, Language, MaxTouristNumber, TourStartDates, Duration, ImagesPaths, location);
         }
 

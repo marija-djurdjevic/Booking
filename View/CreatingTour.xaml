@@ -35,10 +35,10 @@
         <TextBox Text="{Binding Language, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="Max Tourists Number:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding MaxTouristsNumber, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <TextBox Text="{Binding MaxTouristNumber, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="Tour Start Dates (comma separated):" Grid.Row="4" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding TourStartDates, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+        <TextBox Text="{Binding TourDto.TourStartDates, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="Duration (hours):" Grid.Row="5" Grid.Column="0" Margin="5"/>
         <TextBox Text="{Binding Duration, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
@@ -47,10 +47,10 @@
         <TextBox Text="{Binding ImagesPaths, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="Location - City:" Grid.Row="7" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding LocationDTO.City, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="5"/>
+        <TextBox Text="{Binding LocationDto.City, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="Location - Country:" Grid.Row="8" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding LocationDTO.Country, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5"/>
+        <TextBox Text="{Binding LocationDto.Country, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5"/>
 
         <Button Content="Create Tour" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5" Click="CreateTourButton_Click"/>
 
