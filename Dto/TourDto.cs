@@ -16,19 +16,19 @@ namespace BookingApp.DTO
         private string description;
         private string language;
         private int maxTouristsNumber;
-        private List<DateTime> tourStartDates;
+        private DateTime startDate;
         private double duration;
         private List<string> imagesPaths;
         private LocationDto locationDto;
         public TourDto() { }
 
-        public TourDto(string name, string description, string language, int maxTouristsNumber, List<DateTime> tourStartDates, double duration, List<string> imagesPaths, LocationDto locationDto)
+        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime tourStartDates, double duration, List<string> imagesPaths, LocationDto locationDto)
         {
             this.name = name;
             this.description = description;
             this.language = language;
             this.maxTouristsNumber = maxTouristsNumber;
-            this.tourStartDates = tourStartDates;
+            this.startDate = tourStartDates;
             this.duration = duration;
             this.imagesPaths = imagesPaths;
             this.locationDto = locationDto;
@@ -41,7 +41,7 @@ namespace BookingApp.DTO
             
             language = tour.Language;
             maxTouristsNumber = tour.MaxTouristsNumber;
-            tourStartDates = tour.TourStartDates;
+            startDate = tour.StartDate;
             name = tour.Name;
             description = tour.Description;
             duration = tour.Duration;
@@ -54,7 +54,7 @@ namespace BookingApp.DTO
 
             language = tour.language;
             maxTouristsNumber = tour.maxTouristsNumber;
-            tourStartDates = tour.tourStartDates;
+            startDate = tour.startDate;
             name = tour.name;
             description = tour.description;
             duration = tour.duration;
@@ -146,14 +146,14 @@ namespace BookingApp.DTO
 
 
         
-        public List<DateTime> TourStartDates
+        public DateTime StartDate
         {
-            get { return tourStartDates; }
+            get { return startDate; }
             set
             {
-                if (value != tourStartDates)
+                if (value != startDate)
                 {
-                    tourStartDates = value;
+                    startDate = value;
                     OnPropertyChanged();
                 }
             }
@@ -178,7 +178,7 @@ namespace BookingApp.DTO
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour(Name, Description, Language, MaxTouristNumber, TourStartDates, Duration, ImagesPaths, location);
+            return new Tour(Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

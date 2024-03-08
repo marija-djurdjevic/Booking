@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BookingApp.View
 {
@@ -15,15 +16,16 @@ namespace BookingApp.View
         public CreatingTour()
         {
             InitializeComponent();
+            datePickerStart.Text = DateTime.Now.Date.ToString();
             _tourDto = new TourDto();
-            DataContext = this;
+            DataContext = _tourDto;
             tourRepository = new TourRepository();
         }
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {/*
+           
+            /*
                 if (string.IsNullOrWhiteSpace(_tourDto.Name))
                 {
                     MessageBox.Show("Name is required.");
@@ -78,17 +80,14 @@ namespace BookingApp.View
                     return;
                 }
                 */
-                TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.TourStartDates, _tourDto.Duration, _tourDto.ImagesPaths, _tourDto.LocationDto);
+                TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDate, _tourDto.Duration, _tourDto.ImagesPaths, _tourDto.LocationDto);
 
                 tourRepository.AddTour(newTourDto.ToTour());
 
                 MessageBox.Show("Tour created successfully!");
                 this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
+            
+            
         }
 
     }
