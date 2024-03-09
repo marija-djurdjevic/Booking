@@ -12,7 +12,9 @@ namespace BookingApp.View
     public partial class CreatingTour : Window
     {
         private TourDto _tourDto;
+        
         TourRepository tourRepository;
+        KeyPointsRepository keyPointsRepository;
         public CreatingTour()
         {
             InitializeComponent();
@@ -20,69 +22,42 @@ namespace BookingApp.View
             _tourDto = new TourDto();
             DataContext = _tourDto;
             tourRepository = new TourRepository();
+            keyPointsRepository = new KeyPointsRepository();
+           
         }
+
+        private void AddImagePathButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            string newImagePath = Microsoft.VisualBasic.Interaction.InputBox("Enter a new image path:", "Add Image Path", "");
+
+            if (!string.IsNullOrEmpty(newImagePath))
+            {
+                
+                _tourDto.ImagesPaths.Add(newImagePath);
+            }
+        }
+
+
+
+        private void AddMiddleKeyPoint_Click(object sender, RoutedEventArgs e)
+        {
+            string newMiddleKeyPoint = Microsoft.VisualBasic.Interaction.InputBox("Enter a new middle key point:", "Add Middle Key Point", "");
+
+            if (!string.IsNullOrEmpty(newMiddleKeyPoint))
+            {
+                _tourDto.MiddleKeyPoints.Add(newMiddleKeyPoint);
+            }
+        }
+
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
            
-            /*
-                if (string.IsNullOrWhiteSpace(_tourDto.Name))
-                {
-                    MessageBox.Show("Name is required.");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_tourDto.Description))
-                {
-                    MessageBox.Show("Description is required.");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_tourDto.Language))
-                {
-                    MessageBox.Show("Language is required.");
-                    return;
-                }
-
-                if (_tourDto.MaxTouristNumber <= 0)
-                {
-                    MessageBox.Show("Max Tourists Number must be greater than 0.");
-                    return;
-                }
-
-                if (_tourDto.TourStartDates == null || _tourDto.TourStartDates.Count == 0)
-                {
-                    MessageBox.Show("At least one Tour Start Date must be provided.");
-                    return;
-                }
-
-                if (_tourDto.Duration <= 0)
-                {
-                    MessageBox.Show("Duration must be greater than 0.");
-                    return;
-                }
-
-                if (_tourDto.ImagesPaths == null || _tourDto.ImagesPaths.Count == 0)
-                {
-                    MessageBox.Show("At least one Image Path must be provided.");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_tourDto.LocationDTO.City))
-                {
-                    MessageBox.Show("City is required for Location.");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(_tourDto.LocationDTO.Country))
-                {
-                    MessageBox.Show("Country is required for Location.");
-                    return;
-                }
-                */
-                TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDate, _tourDto.Duration, _tourDto.ImagesPaths, _tourDto.LocationDto);
-
+                TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDate, _tourDto.Duration, _tourDto.LocationDto/* _tourDto.KeyPointId*/,_tourDto.ImagesPaths);
                 tourRepository.AddTour(newTourDto.ToTour());
+                int id = tourRepository.NextId()-1;
+                keyPointsRepository.AddKeyPoint(id, _tourDto.StartKeyPoint, _tourDto.MiddleKeyPoints, _tourDto.EndKeyPoint);
 
                 MessageBox.Show("Tour created successfully!");
                 this.Close();
@@ -90,5 +65,6 @@ namespace BookingApp.View
             
         }
 
+        
     }
 }

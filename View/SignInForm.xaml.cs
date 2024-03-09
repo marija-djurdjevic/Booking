@@ -74,8 +74,10 @@ namespace BookingApp.View
                         case UserRole.Guide:
                             {
                                 MessageBox.Show("You signed in as Guide User!");
-                                CreatingTour creatingTour = new CreatingTour();
-                                creatingTour.Show();
+
+
+                                Guide guide = new Guide();
+                                guide.Show();
                                 Close();
                                 break;
                             }
