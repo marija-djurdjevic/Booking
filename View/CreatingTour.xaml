@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="CreatingTour" Height="336" Width="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Grid>
+        Title="CreatingTour" Height="680" Width="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="0,0,0,-61">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -14,10 +14,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="69"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="Auto" MinHeight="54.96"/>
+            <RowDefinition Height="Auto" MinHeight="39"/>
+            <RowDefinition Height="Auto" MinHeight="47.88"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -25,34 +26,47 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Description:" Grid.Row="1" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Description:" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Language:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Language, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Language:" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding Language, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Max Tourists Number:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding MaxTouristNumber, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Max Tourists Number:" Grid.Row="3" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding MaxTouristNumber, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Start Date:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-        <DatePicker x:Name="datePickerStart" Text="{Binding StartDate, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Start Date:" Grid.Row="4" Grid.Column="0" Margin="5,5,5,5"/>
+        <DatePicker x:Name="datePickerStart" Text="{Binding StartDate, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Duration (hours):" Grid.Row="5" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Duration, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Duration (hours):" Grid.Row="5" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding Duration, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5"/>
 
-        <TextBlock Text="Images Paths (comma separated):" Grid.Row="6" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding ImagesPaths, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Images Paths (comma separated):" Grid.Row="6" Grid.Column="0" Margin="5,5,5,1"/>
+        <ListBox ItemsSource="{Binding ImagesPaths}" Grid.Row="6" Grid.Column="1" Margin="5,5,5,1"/>
+        <Button Content="Add Image Path" Grid.Row="6" Grid.Column="1" Margin="5,5,5,44" Click="AddImagePathButton_Click"/>
 
-        <TextBlock Text="Location - City:" Grid.Row="7" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Path= LocationDto.City, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Location - City:" Grid.Row="8" Grid.Column="0" Margin="5,2,5,35"/>
+        <TextBox Text="{Binding Path= LocationDto.City, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5,2,5,10"/>
 
-        <TextBlock Text="Location - Country:" Grid.Row="8" Grid.Column="0" Margin="5"/>
-        <TextBox Text="{Binding Path= LocationDto.Country, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="Location - Country:" Grid.Row="10" Grid.Column="0" Margin="10,92,587,-89" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path= LocationDto.Country, Mode=TwoWay}" Grid.Row="10" Grid.Column="1" Margin="5,92,5,-89"/>
 
-        <Button Content="Create Tour" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5" Click="CreateTourButton_Click"/>
+        <TextBlock Text="Start Key Point:" Grid.Row="9" Grid.Column="0" Margin="5,5,5,5"/>
+        <TextBox Text="{Binding StartKeyPoint, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" Margin="5,5,5,5"/>
+
+        <TextBlock Text="End Key Point:" Grid.Row="10" Grid.Column="0" Margin="0,48,587,-39" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding EndKeyPoint, Mode=TwoWay}" Grid.Row="10" Grid.Column="1" Margin="5,48,5,-39"/>
+
+
+        <TextBlock Text="Middle Key Points (comma separated):" Grid.Row="10" Grid.Column="0" Margin="0,10,10,5"/>
+        <ListBox ItemsSource="{Binding MiddleKeyPoints}" Grid.Row="10" Grid.Column="1" Margin="5,5,5,5"/>
+        <Button Content="Add Middle Key Point" Grid.Row="10" Grid.Column="1" Margin="5,5,5,5" Click="AddMiddleKeyPoint_Click"/>
+
+
+        <Button Content="Create Tour" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" Margin="180,170,0,-159" Click="CreateTourButton_Click" Width="64"/>
 
     </Grid>
 </Window>

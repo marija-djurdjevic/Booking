@@ -16,6 +16,8 @@ namespace BookingApp.Repository
 
         private List<Tour> _tours;
 
+        public int idd;
+
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
@@ -74,13 +76,19 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tours);
         }
 
-        private int NextId()
+        public int NextId()
         {
             if (_tours.Count < 1)
             {
                 return 1;
             }
             return _tours.Max(t => t.Id) + 1;
+        }
+
+
+        public int GetTourId(Tour tour)
+        {
+            return tour.Id;
         }
     }
 }
