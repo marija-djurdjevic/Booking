@@ -20,7 +20,10 @@ namespace BookingApp.DTO
         private double duration;
         private List<string> imagesPaths;
         private LocationDto locationDto;
-        public TourDto() { }
+        public TourDto() 
+        { 
+            LocationDto = new LocationDto();
+        }
 
         public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime tourStartDates, double duration, List<string> imagesPaths, LocationDto locationDto)
         {
