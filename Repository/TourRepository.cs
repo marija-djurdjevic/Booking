@@ -1,4 +1,4 @@
-﻿using BookingApp.DTO;
+using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
 using System;
@@ -16,6 +16,8 @@ namespace BookingApp.Repository
         private readonly Serializer<Tour> _serializer;
 
         private List<Tour> _tours;
+
+        public int idd;
 
         public TourRepository()
         {
@@ -75,7 +77,7 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tours);
         }
 
-        private int NextId()
+        public int NextId()
         {
             if (_tours.Count < 1)
             {
@@ -95,6 +97,12 @@ namespace BookingApp.Repository
             (searchParams.MaxTouristNumber <= 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber)
         ).ToList();
             return matchingTours;
+        }
+
+
+        public int GetTourId(Tour tour)
+        {
+            return tour.Id;
         }
     }
 }

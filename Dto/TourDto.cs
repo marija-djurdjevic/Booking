@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,14 +18,56 @@ namespace BookingApp.DTO
         private int maxTouristsNumber;
         private DateTime startDate;
         private double duration;
-        private List<string> imagesPaths;
-        private LocationDto locationDto;
-        public TourDto() 
-        { 
-            LocationDto = new LocationDto();
+        private LocationDto locationDto=new LocationDto();
+        private List<string> imagesPaths=new List<string>();
+        private string startKeyPoint;
+        private List<string> middleKeyPoints=new List<string>();
+        private string endKeyPoint;
+
+
+        public string StartKeyPoint
+        {
+            get { return startKeyPoint; }
+            set
+            {
+                if (value != startKeyPoint)
+                {
+                    startKeyPoint = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
-        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime tourStartDates, double duration, List<string> imagesPaths, LocationDto locationDto)
+        public List<string> MiddleKeyPoints
+        {
+            get { return middleKeyPoints; }
+            set
+            {
+                if (value != middleKeyPoints)
+                {
+                    middleKeyPoints = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string EndKeyPoint
+        {
+            get { return endKeyPoint; }
+            set
+            {
+                if (value != endKeyPoint)
+                {
+                    endKeyPoint = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public TourDto() { }
+
+        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime tourStartDates, double duration, LocationDto locationDto /*int keyPointId*/, List<string> imagesPaths)
         {
             this.name = name;
             this.description = description;
@@ -33,8 +75,9 @@ namespace BookingApp.DTO
             this.maxTouristsNumber = maxTouristsNumber;
             this.startDate = tourStartDates;
             this.duration = duration;
-            this.imagesPaths = imagesPaths;
             this.locationDto = locationDto;
+            this.imagesPaths = imagesPaths;
+
         }
 
 
@@ -50,6 +93,7 @@ namespace BookingApp.DTO
             duration = tour.Duration;
             imagesPaths = tour.ImagesPaths;
             locationDto = new LocationDto(tour.Location);
+           
         }
 
         public TourDto(TourDto tour)
@@ -177,7 +221,19 @@ namespace BookingApp.DTO
         }
 
 
-
+       /* public int KeyPointId
+        {
+            get
+            {
+                return keyPointId;
+            }
+            set
+            {
+                if (value != keyPointId)
+                    keyPointId = value;
+                OnPropertyChanged();
+            }
+        }*/
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();

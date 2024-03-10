@@ -4,6 +4,7 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Model.Enums;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model
@@ -19,12 +20,14 @@ namespace BookingApp.Model
         public List<string> ImagesPaths { get; set; }
         public Location Location { get; set; }
 
+
         public Tour()
         {
             Location = new Location();
             ImagesPaths = new List<string>();
-        }
-        public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDate, double duration, List<string> imagesPaths, Location location)
+           
+    }
+        public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDate, double duration, List<string> imagesPaths, Location location )
         {
             //Id = id;
             Name = name;
@@ -35,6 +38,8 @@ namespace BookingApp.Model
             Duration = duration;
             ImagesPaths = imagesPaths;
             Location = location;
+          
+
         }
 
         public string[] ToCSV()
@@ -47,13 +52,12 @@ namespace BookingApp.Model
             else
             {
                 string imagesPathsStr = string.Join("|", ImagesPaths);
-
                 string[] csvValues = { Id.ToString(), Name, Description, Language, MaxTouristsNumber.ToString(), StartDate.ToString(), Duration.ToString(), Location.Country, Location.City, imagesPathsStr };
                 return csvValues;
             }
         }
 
-        public void FromCSV(string[] values)
+        public void FromCSV(string[] values) 
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
@@ -63,7 +67,7 @@ namespace BookingApp.Model
             StartDate = DateTime.Parse(values[5]);
             Location.City = values[6];
             Location.Country = values[7];
-            for(int i=8; i<values.Length; i++)
+            for (int i=8; i<values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }
