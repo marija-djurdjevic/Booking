@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,7 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Tourist.TourBooking;
 
 namespace BookingApp.Tourist
 {
@@ -39,6 +42,7 @@ namespace BookingApp.Tourist
             repository = new TourRepository();
             Tours = new ObservableCollection<TourDto>();
             IsCancelSearchButtonVisible = false;
+            SelectedTour = new TourDto();
             GetAllTours();
         }
 
@@ -73,7 +77,34 @@ namespace BookingApp.Tourist
 
         private void SelectedTourCard(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Kliknuli");
+            Border border = (Border)sender;
+            SelectedTour = (TourDto)border.DataContext;
+            if (SelectedTour.MaxTouristNumber>0)
+            {
+                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour);
+                tourBookingWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city.");
+                
+                TourDto searchCriteria= new TourDto();
+                searchCriteria.LocationDto.City=SelectedTour.LocationDto.City;
+                searchCriteria.MaxTouristNumber = 1;
+
+                List<Tour> unBookedToursInCity=repository.getMatchingTours(searchCriteria);
+                if (unBookedToursInCity.Count > 0)
+                {
+                    IsCancelSearchButtonVisible = true;
+                    Tours.Clear();
+                    foreach (var tour in unBookedToursInCity)
+                    {
+                        Tours.Add(new TourDto(tour));
+                    }
+                }
+
+
+            }
         }
 
         private void SearchButtonClick(object sender, RoutedEventArgs e)
