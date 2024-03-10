@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,19 @@ namespace BookingApp.Repository
                 return 1;
             }
             return _tours.Max(t => t.Id) + 1;
+        }
+
+        //Sta da radim za duration i max number
+        public List<Tour> getMatchingTours(TourDto searchParams)
+        {
+            List<Tour> matchingTours = _tours.Where(t =>
+            (string.IsNullOrEmpty(searchParams.LocationDto.City) || t.Location.City.Contains(searchParams.LocationDto.City)) &&
+            (string.IsNullOrEmpty(searchParams.LocationDto.Country) || t.Location.Country.Contains(searchParams.LocationDto.Country)) &&
+            (searchParams.Duration<=0 || t.Duration<=searchParams.Duration) &&
+            (string.IsNullOrEmpty(searchParams.Language) || t.Language.Contains(searchParams.Language)) &&
+            (searchParams.MaxTouristNumber <= 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber)
+        ).ToList();
+            return matchingTours;
         }
     }
 }

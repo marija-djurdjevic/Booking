@@ -1,0 +1,117 @@
+﻿<Window
+    x:Class="BookingApp.Tourist.TouristMainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.Tourist"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TouristMainWindow"
+    Width="1200"
+    Height="650"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <DockPanel>
+        <DockPanel Width="200" DockPanel.Dock="Left">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Content="Button" />
+
+            </Grid>
+        </DockPanel>
+        <DockPanel Height="100" DockPanel.Dock="Top">
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Click="CancelSearchButtonClick"
+                Content="Cancel Search">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCancelSearchButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="SearchButtonClick"
+                Content="Search Tours" />
+        </DockPanel>
+
+        <Grid Margin="5">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                <ItemsControl x:Name="SearchResultList" ItemsSource="{Binding Tours}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!--  Promijenite panel na UniformGrid  -->
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="5"
+                                Background="DeepSkyBlue"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                CornerRadius="20"
+                                MouseLeftButtonDown="SelectedTourCard">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Bottom">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            FontFamily="Roboto"
+                                            FontSize="16"
+                                            Text="{Binding LocationDto.Country}"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
+                                    </DockPanel>
+                                    <DockPanel DockPanel.Dock="Right">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock
+                                                Padding="15"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                FontFamily="Roboto"
+                                                FontSize="14"
+                                                Text="{Binding Name}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Padding="15"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                FontFamily="Roboto"
+                                                FontSize="14"
+                                                Text="{Binding Duration}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                    </DockPanel>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </Grid>
+
+
+    </DockPanel>
+
+
+</Window>
