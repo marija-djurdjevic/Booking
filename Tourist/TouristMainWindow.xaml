@@ -64,7 +64,7 @@
                                 Margin="5"
                                 Background="DeepSkyBlue"
                                 BorderBrush="Black"
-                                BorderThickness="1"
+                                BorderThickness="2"
                                 CornerRadius="20"
                                 MouseLeftButtonDown="SelectedTourCard">
                                 <DockPanel>
@@ -102,6 +102,18 @@
 
                                     </DockPanel>
                                 </DockPanel>
+                                <Border.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel
+                                            Width="150"
+                                            Height="150"
+                                            Orientation="Vertical">
+                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding Language}" />
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Border.ToolTip>
+                                <!--  Sadržaj kartice  -->
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
