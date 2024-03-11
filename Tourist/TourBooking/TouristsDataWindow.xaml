@@ -1,0 +1,64 @@
+﻿<Window
+    x:Class="BookingApp.Tourist.TourBooking.TouristsDataWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.Tourist.TourBooking"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TouristsDataWindow"
+    Width="400"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <DockPanel>
+            <DockPanel VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+                <DockPanel Height="100">
+                    <Button
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        Click="CancelClick"
+                        Content="Cancel" />
+                    <Button
+                        Height="20"
+                        HorizontalAlignment="Right"
+                        Click="ConfirmClick"
+                        Content="Confirm" />
+                </DockPanel>
+            </DockPanel>
+
+            <DockPanel DockPanel.Dock="Top">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="SearchResultList" ItemsSource="{Binding Tourists}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                                <!--  Promenjen panel na UniformGrid  -->
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="5" Text="FirstName" />
+                                        <TextBox Margin="5" Text="{Binding TouristFirstName}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="5" Text="LastName" />
+                                        <TextBox Margin="5" Text="{Binding TouristLastName}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="5" Text="Years" />
+                                        <TextBox Margin="5" Text="{Binding TouristAge}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+
+        </DockPanel>
+    </Grid>
+</Window>

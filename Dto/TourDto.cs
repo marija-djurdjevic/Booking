@@ -12,6 +12,7 @@ namespace BookingApp.DTO
 {
     public class TourDto: INotifyPropertyChanged
     {
+        public int Id { get; set; }
         private string name;
         private string description;
         private string language;
@@ -84,7 +85,7 @@ namespace BookingApp.DTO
     
         public TourDto(Tour tour)
         {
-            
+            Id = tour.Id;
             language = tour.Language;
             maxTouristsNumber = tour.MaxTouristsNumber;
             startDate = tour.StartDate;
@@ -98,7 +99,7 @@ namespace BookingApp.DTO
 
         public TourDto(TourDto tour)
         {
-
+            Id= tour.Id;
             language = tour.language;
             maxTouristsNumber = tour.maxTouristsNumber;
             startDate = tour.startDate;
@@ -237,7 +238,7 @@ namespace BookingApp.DTO
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour(Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
+            return new Tour(Id,Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

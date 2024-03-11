@@ -88,7 +88,7 @@ namespace BookingApp.View
                             }
                         case UserRole.Tourist:
                             {
-                                MessageBox.Show("You signed in as Tourist User!");
+                                
                                 break;
                             }
                     }
@@ -101,10 +101,10 @@ namespace BookingApp.View
             }
             else
             {
-                //MessageBox.Show("Wrong username!");
-                TouristMainWindow touristMainWindow = new TouristMainWindow();
+                TouristMainWindow touristMainWindow = new TouristMainWindow(new User(5,"Dusko","pili123","Dusko","Pilipovic",20,UserRole.Tourist));
                 touristMainWindow.Show();
                 Close();
+                //MessageBox.Show("Wrong username!");
             }
 
         }

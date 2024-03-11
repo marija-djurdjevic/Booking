@@ -26,7 +26,22 @@ namespace BookingApp.Model
             Location = new Location();
             ImagesPaths = new List<string>();
            
-    }
+        }
+
+        public Tour(int id,string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Language = language;
+            MaxTouristsNumber = maxTouristsNumber;
+            StartDate = startDate;
+            Duration = duration;
+            ImagesPaths = imagesPaths;
+            Location = location;
+
+
+        }
         public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDate, double duration, List<string> imagesPaths, Location location )
         {
             //Id = id;
@@ -65,9 +80,10 @@ namespace BookingApp.Model
             Language = values[3];
             MaxTouristsNumber = Convert.ToInt32(values[4]);
             StartDate = DateTime.Parse(values[5]);
-            Location.City = values[6];
+            Duration = Convert.ToInt32(values[6]);
             Location.Country = values[7];
-            for (int i=8; i<values.Length; i++)
+            Location.City = values[8];
+            for (int i=9; i<values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }
