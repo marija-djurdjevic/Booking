@@ -66,6 +66,9 @@ namespace BookingApp.View
                         case UserRole.Owner:
                             {
                                 MessageBox.Show("You signed in as Owner User!");
+                                Owner owner = new Owner();
+                                owner.Show();
+                                Close();
                                 break;
                             }
                         case UserRole.Guest:
