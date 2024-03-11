@@ -65,9 +65,10 @@ namespace BookingApp.Model
             Language = values[3];
             MaxTouristsNumber = Convert.ToInt32(values[4]);
             StartDate = DateTime.Parse(values[5]);
-            Location.City = values[6];
+            Duration = Convert.ToInt32(values[6]);
             Location.Country = values[7];
-            for (int i=8; i<values.Length; i++)
+            Location.City = values[8];
+            for (int i=9; i<values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }

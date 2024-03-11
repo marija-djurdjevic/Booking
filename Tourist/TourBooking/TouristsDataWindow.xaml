@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookingApp.Tourist.TourBooking.TouristsDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.Tourist.TourBooking"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="TouristsDataWindow" Height="450" Width="400">
+    <Grid>
+        <ItemsControl x:Name="SearchResultList" ItemsSource="{Binding touristList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" />
+                    <!-- Promenjen panel na UniformGrid -->
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" Margin="5"/>
+                        <TextBlock Text="{Binding LastName}" Margin="5"/>
+                        <TextBlock Text="{Binding Years}" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

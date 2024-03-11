@@ -35,7 +35,8 @@ namespace BookingApp.Tourist.TourBooking
         {
             if(NumberOfReservations >= 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
             {
-                Close();
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(3);
+                touristsDataWindow.ShowDialog();
             }
             if (NumberOfReservations > SelectedTour.MaxTouristNumber)
             {
