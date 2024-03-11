@@ -1,5 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,22 +22,35 @@ namespace BookingApp.Tourist.TourBooking
     /// </summary>
     public partial class TourBookingWindow : Window
     {
+        public static TourRepository TourRepository = new TourRepository();
         public TourDto SelectedTour { get; set; }
         public int NumberOfReservations { get; set; }
-        public TourBookingWindow(TourDto selectedTour)
+        public User LoggedInUser { get; set; }
+
+        public TourBookingWindow(TourDto selectedTour,User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
             SelectedTour = selectedTour;
             NumberOfReservations = 1;
+            LoggedInUser = loggedInUser;
         }
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
-            if(NumberOfReservations >= 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
+            if(NumberOfReservations == 1)
             {
-                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(3);
+                ReservationDataRepository reservationDataRepository=new ReservationDataRepository();
+                reservationDataRepository.AddReservationData(new ReservationData(SelectedTour.Id,LoggedInUser.FirstName,LoggedInUser.LastName,LoggedInUser.Age));
+                SelectedTour.MaxTouristNumber--;
+                TourRepository.UpdateTour(SelectedTour.ToTour());
+                Close();
+            }
+            if(NumberOfReservations > 1 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
+            {
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations,SelectedTour,LoggedInUser);
                 touristsDataWindow.ShowDialog();
+                Close();
             }
             if (NumberOfReservations > SelectedTour.MaxTouristNumber)
             {

@@ -26,7 +26,22 @@ namespace BookingApp.Model
             Location = new Location();
             ImagesPaths = new List<string>();
            
-    }
+        }
+
+        public Tour(int id,string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Language = language;
+            MaxTouristsNumber = maxTouristsNumber;
+            StartDate = startDate;
+            Duration = duration;
+            ImagesPaths = imagesPaths;
+            Location = location;
+
+
+        }
         public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDate, double duration, List<string> imagesPaths, Location location )
         {
             //Id = id;

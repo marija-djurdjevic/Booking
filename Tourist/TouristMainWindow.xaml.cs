@@ -28,14 +28,14 @@ namespace BookingApp.Tourist
     public partial class TouristMainWindow : Window, INotifyPropertyChanged
     {
         public static ObservableCollection<TourDto> Tours {  get; set; }
-
+        public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
         private readonly TourRepository repository;
 
         private bool _isCancelSearchButtonVisible;
 
-        public TouristMainWindow()
+        public TouristMainWindow(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
@@ -44,6 +44,7 @@ namespace BookingApp.Tourist
             IsCancelSearchButtonVisible = false;
             SelectedTour = new TourDto();
             GetAllTours();
+            LoggedInUser = loggedInUser;
         }
 
         public bool IsCancelSearchButtonVisible
@@ -81,7 +82,7 @@ namespace BookingApp.Tourist
             SelectedTour = (TourDto)border.DataContext;
             if (SelectedTour.MaxTouristNumber>0)
             {
-                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour);
+                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour,LoggedInUser);
                 tourBookingWindow.ShowDialog();
             }
             else
@@ -101,6 +102,10 @@ namespace BookingApp.Tourist
                     {
                         Tours.Add(new TourDto(tour));
                     }
+                }
+                else
+                {
+                    MessageBox.Show("There are no tours from that city");
                 }
 
 
