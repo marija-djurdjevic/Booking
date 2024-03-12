@@ -86,13 +86,13 @@ namespace BookingApp.Repository
             return _tours.Max(t => t.Id) + 1;
         }
 
-        
+
         public List<Tour> getMatchingTours(TourDto searchParams)
         {
             List<Tour> matchingTours = _tours.Where(t =>
             (string.IsNullOrEmpty(searchParams.LocationDto.City) || t.Location.City.Contains(searchParams.LocationDto.City)) &&
             (string.IsNullOrEmpty(searchParams.LocationDto.Country) || t.Location.Country.Contains(searchParams.LocationDto.Country)) &&
-            (searchParams.Duration<=0 || t.Duration==searchParams.Duration) &&
+            (searchParams.Duration <= 0 || t.Duration == searchParams.Duration) &&
             (string.IsNullOrEmpty(searchParams.Language) || t.Language.Contains(searchParams.Language)) &&
             (searchParams.MaxTouristNumber <= 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber)
         ).ToList();

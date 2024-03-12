@@ -54,7 +54,7 @@
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <!--  Promijenite panel na UniformGrid  -->
-                            <UniformGrid Columns="3" />
+                            <UniformGrid Columns="1" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 

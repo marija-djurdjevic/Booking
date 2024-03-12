@@ -23,12 +23,12 @@ namespace BookingApp.Tourist.TourBooking
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        public static ObservableCollection<ReservationData> Tourists {  get; set; }
+        public static ObservableCollection<ReservationData> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
         public User LoggedInUser { get; set; }
         public TourRepository TourRepository { get; set; }
 
-        public TouristsDataWindow(int touristNumber,TourDto selectedTour, User user)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, User user)
         {
             InitializeComponent();
             DataContext = this;
@@ -36,8 +36,8 @@ namespace BookingApp.Tourist.TourBooking
             SelectedTour = selectedTour;
             LoggedInUser = user;
             TourRepository = new TourRepository();
-            
-            for (int i = 0; i < touristNumber-1; i++)
+
+            for (int i = 0; i < touristNumber - 1; i++)
             {
                 Tourists.Add(new ReservationData(SelectedTour.Id));
             }
@@ -46,12 +46,14 @@ namespace BookingApp.Tourist.TourBooking
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             ReservationDataRepository reservationDataRepository = new ReservationDataRepository();
-            foreach(ReservationData data in Tourists)
+
+            foreach (ReservationData data in Tourists)
             {
-                reservationDataRepository.AddReservationData(data);
+                reservationDataRepository.Save(data);
             }
-            reservationDataRepository.AddReservationData(new ReservationData(SelectedTour.Id, LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age));
-            SelectedTour.MaxTouristNumber -=Tourists.Count()+1;
+            reservationDataRepository.Save(new ReservationData(SelectedTour.Id, LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age));
+
+            SelectedTour.MaxTouristNumber -= Tourists.Count() + 1;
             TourRepository.UpdateTour(SelectedTour.ToTour());
             Close();
         }

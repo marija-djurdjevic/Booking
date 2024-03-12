@@ -9,7 +9,8 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public class Tour : ISerializable    {
+    public class Tour : ISerializable
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -25,10 +26,10 @@ namespace BookingApp.Model
         {
             Location = new Location();
             ImagesPaths = new List<string>();
-           
+
         }
 
-        public Tour(int id,string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
+        public Tour(int id, string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
         {
             Id = id;
             Name = name;
@@ -42,7 +43,7 @@ namespace BookingApp.Model
 
 
         }
-        public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDate, double duration, List<string> imagesPaths, Location location )
+        public Tour(string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
         {
             //Id = id;
             Name = name;
@@ -53,7 +54,7 @@ namespace BookingApp.Model
             Duration = duration;
             ImagesPaths = imagesPaths;
             Location = location;
-          
+
 
         }
 
@@ -72,7 +73,7 @@ namespace BookingApp.Model
             }
         }
 
-        public void FromCSV(string[] values) 
+        public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
@@ -83,7 +84,7 @@ namespace BookingApp.Model
             Duration = Convert.ToInt32(values[6]);
             Location.Country = values[7];
             Location.City = values[8];
-            for (int i=9; i<values.Length; i++)
+            for (int i = 9; i < values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }
