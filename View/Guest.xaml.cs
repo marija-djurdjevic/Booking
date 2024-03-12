@@ -26,7 +26,9 @@ namespace BookingApp.View
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            PropertyView propertyview = new PropertyView();
+            propertyview.Show();
+            Close();
         }
     }
 }

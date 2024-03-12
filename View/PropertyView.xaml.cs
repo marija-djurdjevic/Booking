@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.View
 {
     /// <summary>
-    /// Interaction logic for PropertyView.xaml
+    /// Interaction logic for PropertyViewWindow.xaml
     /// </summary>
-    public partial class PropertyView : Page
+    public partial class PropertyView : Window
     {
         public PropertyView()
         {
             InitializeComponent();
         }
     }
+
 }
