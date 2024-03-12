@@ -19,51 +19,10 @@ namespace BookingApp.DTO
         private int maxTouristsNumber;
         private DateTime startDate;
         private double duration;
-        private LocationDto locationDto = new LocationDto();
-        private List<string> imagesPaths = new List<string>();
-        private string startKeyPoint;
-        private List<string> middleKeyPoints = new List<string>();
-        private string endKeyPoint;
+        private LocationDto locationDto=new LocationDto();
+        private List<string> imagesPaths=new List<string>();
+        private List<KeyPoints> keyPoints = new List<KeyPoints>();
 
-
-        public string StartKeyPoint
-        {
-            get { return startKeyPoint; }
-            set
-            {
-                if (value != startKeyPoint)
-                {
-                    startKeyPoint = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public List<string> MiddleKeyPoints
-        {
-            get { return middleKeyPoints; }
-            set
-            {
-                if (value != middleKeyPoints)
-                {
-                    middleKeyPoints = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string EndKeyPoint
-        {
-            get { return endKeyPoint; }
-            set
-            {
-                if (value != endKeyPoint)
-                {
-                    endKeyPoint = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
 
         public TourDto() { }
@@ -110,6 +69,24 @@ namespace BookingApp.DTO
             locationDto = new LocationDto(tour.locationDto);
 
         }
+
+
+
+        public List<KeyPoints> KeyPoints
+        {
+            get { return keyPoints; }
+            set
+            {
+                if (value != keyPoints)
+                {
+                    keyPoints = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
 
         public List<string> ImagesPaths
         {
@@ -222,25 +199,13 @@ namespace BookingApp.DTO
         }
 
 
-        /* public int KeyPointId
-         {
-             get
-             {
-                 return keyPointId;
-             }
-             set
-             {
-                 if (value != keyPointId)
-                     keyPointId = value;
-                 OnPropertyChanged();
-             }
-         }*/
+      
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
             return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
         }
-
+        
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

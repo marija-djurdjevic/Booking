@@ -2,42 +2,45 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace BookingApp.Model
 {
     public class KeyPoints : ISerializable
     {
         public int TourId { get; set; }
-        public string StartKeyPoint { get; set; }
-        public List<string> MiddleKeyPoints { get; set; }
-        public string EndKeyPoint { get; set; }
+        public string KeyName { get; set; }
+        public KeyPoint KeyType { get; set; }
+        public int OrdinalNumber { get; set; }
+        public bool IsChecked { get; set; }
 
         public KeyPoints() { }
 
-        public KeyPoints(int id, string startKeyPoint, List<string> middleKeyPoints, string endKeyPoint)
+        public KeyPoints(int tourId, string keyName, KeyPoint keyType, int ordinalNumber, bool isChecked)
         {
-            TourId = id;
-            StartKeyPoint = startKeyPoint;
-            MiddleKeyPoints = middleKeyPoints;
-            EndKeyPoint = endKeyPoint;
-        }
-
-        public string[] ToCSV()
-        {
-            string middleKeyPointsStr = MiddleKeyPoints != null ? string.Join(",", MiddleKeyPoints) : "";
-            string[] csvValues = { TourId.ToString(), StartKeyPoint, middleKeyPointsStr, EndKeyPoint };
-            return csvValues;
+            TourId = tourId;
+            KeyName = keyName;
+            KeyType = keyType;
+            OrdinalNumber = ordinalNumber;
+            IsChecked = isChecked;
         }
 
         public void FromCSV(string[] values)
         {
             TourId = Convert.ToInt32(values[0]);
-            StartKeyPoint = values[1];
-            MiddleKeyPoints = !string.IsNullOrEmpty(values[2]) ? values[2].Split(',').ToList() : new List<string>();
-            EndKeyPoint = values[3];
+            KeyName = values[1];
+            KeyType = (KeyPoint)Enum.Parse(typeof(KeyPoint), values[2]);
+            OrdinalNumber = Convert.ToInt32(values[3]);
+            IsChecked = Convert.ToBoolean(values[4]);
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = { TourId.ToString(), KeyName, KeyType.ToString(), OrdinalNumber.ToString(), IsChecked.ToString() };
+            return csvValues;
         }
     }
 }
