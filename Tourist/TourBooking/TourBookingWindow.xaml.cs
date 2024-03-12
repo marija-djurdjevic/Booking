@@ -27,7 +27,7 @@ namespace BookingApp.Tourist.TourBooking
         public int NumberOfReservations { get; set; }
         public User LoggedInUser { get; set; }
 
-        public TourBookingWindow(TourDto selectedTour,User loggedInUser)
+        public TourBookingWindow(TourDto selectedTour, User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
@@ -38,23 +38,23 @@ namespace BookingApp.Tourist.TourBooking
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
-            if(NumberOfReservations == 1)
+            if (NumberOfReservations == 1)
             {
-                ReservationDataRepository reservationDataRepository=new ReservationDataRepository();
-                reservationDataRepository.AddReservationData(new ReservationData(SelectedTour.Id,LoggedInUser.FirstName,LoggedInUser.LastName,LoggedInUser.Age));
+                ReservationDataRepository reservationDataRepository = new ReservationDataRepository();
+                reservationDataRepository.Save(new ReservationData(SelectedTour.Id, LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age));
                 SelectedTour.MaxTouristNumber--;
                 TourRepository.UpdateTour(SelectedTour.ToTour());
                 Close();
             }
-            if(NumberOfReservations > 1 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
+            if (NumberOfReservations > 1 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
             {
-                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations,SelectedTour,LoggedInUser);
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInUser);
                 touristsDataWindow.ShowDialog();
                 Close();
             }
             if (NumberOfReservations > SelectedTour.MaxTouristNumber)
             {
-                MessageBox.Show("On the tour, there are only spots left for"+ SelectedTour.MaxTouristNumber.ToString() +" tourists.");
+                MessageBox.Show("On the tour, there are only spots left for" + SelectedTour.MaxTouristNumber.ToString() + " tourists.");
             }
         }
 

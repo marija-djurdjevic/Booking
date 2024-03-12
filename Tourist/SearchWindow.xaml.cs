@@ -53,7 +53,8 @@ namespace BookingApp.Tourist
         {
             List<Tour> matchingTours = repository.getMatchingTours(SearchParams);
 
-            if (matchingTours.Count > 0) {
+            if (matchingTours.Count > 0)
+            {
                 Tours.Clear();
                 foreach (var tour in matchingTours)
                 {

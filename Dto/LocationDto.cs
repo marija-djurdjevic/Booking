@@ -14,7 +14,7 @@ namespace BookingApp.DTO
 {
     public class LocationDto : INotifyPropertyChanged
     {
-        private  string city;
+        private string city;
         private string country;
         public LocationDto() { }
 
@@ -37,7 +37,7 @@ namespace BookingApp.DTO
         }
 
 
-       
+
         public string City
         {
             get { return city; }
@@ -51,7 +51,7 @@ namespace BookingApp.DTO
             }
         }
 
-        
+
         public string Country
         {
             get { return country; }

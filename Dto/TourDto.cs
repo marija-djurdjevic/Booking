@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO
 {
-    public class TourDto: INotifyPropertyChanged
+    public class TourDto : INotifyPropertyChanged
     {
         public int Id { get; set; }
         private string name;
@@ -19,10 +19,10 @@ namespace BookingApp.DTO
         private int maxTouristsNumber;
         private DateTime startDate;
         private double duration;
-        private LocationDto locationDto=new LocationDto();
-        private List<string> imagesPaths=new List<string>();
+        private LocationDto locationDto = new LocationDto();
+        private List<string> imagesPaths = new List<string>();
         private string startKeyPoint;
-        private List<string> middleKeyPoints=new List<string>();
+        private List<string> middleKeyPoints = new List<string>();
         private string endKeyPoint;
 
 
@@ -82,7 +82,7 @@ namespace BookingApp.DTO
         }
 
 
-    
+
         public TourDto(Tour tour)
         {
             Id = tour.Id;
@@ -94,12 +94,12 @@ namespace BookingApp.DTO
             duration = tour.Duration;
             imagesPaths = tour.ImagesPaths;
             locationDto = new LocationDto(tour.Location);
-           
+
         }
 
         public TourDto(TourDto tour)
         {
-            Id= tour.Id;
+            Id = tour.Id;
             language = tour.language;
             maxTouristsNumber = tour.maxTouristsNumber;
             startDate = tour.startDate;
@@ -116,7 +116,7 @@ namespace BookingApp.DTO
             get { return imagesPaths; }
             set
             {
-                if(value!=imagesPaths)
+                if (value != imagesPaths)
                 {
                     imagesPaths = value;
                     OnPropertyChanged();
@@ -138,13 +138,13 @@ namespace BookingApp.DTO
             }
         }
 
-       public string Name
+        public string Name
         {
 
             get { return name; }
             set
             {
-                if(value != name)
+                if (value != name)
                 {
                     name = value;
                     OnPropertyChanged();
@@ -178,7 +178,7 @@ namespace BookingApp.DTO
             }
         }
 
-        
+
         public int MaxTouristNumber
         {
             get { return maxTouristsNumber; }
@@ -193,7 +193,7 @@ namespace BookingApp.DTO
         }
 
 
-        
+
         public DateTime StartDate
         {
             get { return startDate; }
@@ -207,7 +207,7 @@ namespace BookingApp.DTO
             }
         }
 
-       
+
         public double Duration
         {
             get { return duration; }
@@ -222,23 +222,23 @@ namespace BookingApp.DTO
         }
 
 
-       /* public int KeyPointId
-        {
-            get
-            {
-                return keyPointId;
-            }
-            set
-            {
-                if (value != keyPointId)
-                    keyPointId = value;
-                OnPropertyChanged();
-            }
-        }*/
+        /* public int KeyPointId
+         {
+             get
+             {
+                 return keyPointId;
+             }
+             set
+             {
+                 if (value != keyPointId)
+                     keyPointId = value;
+                 OnPropertyChanged();
+             }
+         }*/
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour(Id,Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
+            return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

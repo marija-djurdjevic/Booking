@@ -7,22 +7,22 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public class Location: ISerializable
+    public class Location : ISerializable
     {
-       
-        public string Country {  get; set; }
+
+        public string Country { get; set; }
         public string City { get; set; }
 
         public Location() { }
-        public Location( string country, string city)
+        public Location(string country, string city)
         {
-            
+
             Country = country;
             City = city;
         }
 
 
-       
+
 
         public string[] ToCSV()
         {
@@ -32,7 +32,7 @@ namespace BookingApp.Model
 
         public void FromCSV(string[] values)
         {
-           
+
             Country = values[1];
             City = values[2];
         }

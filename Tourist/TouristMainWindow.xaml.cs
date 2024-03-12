@@ -27,7 +27,7 @@ namespace BookingApp.Tourist
     /// </summary>
     public partial class TouristMainWindow : Window, INotifyPropertyChanged
     {
-        public static ObservableCollection<TourDto> Tours {  get; set; }
+        public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
@@ -80,35 +80,15 @@ namespace BookingApp.Tourist
         {
             Border border = (Border)sender;
             SelectedTour = (TourDto)border.DataContext;
-            if (SelectedTour.MaxTouristNumber>0)
+            if (SelectedTour.MaxTouristNumber > 0)
             {
-                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour,LoggedInUser);
+                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour, LoggedInUser);
                 tourBookingWindow.ShowDialog();
             }
             else
             {
                 MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city.");
-                
-                TourDto searchCriteria= new TourDto();
-                searchCriteria.LocationDto.City=SelectedTour.LocationDto.City;
-                searchCriteria.MaxTouristNumber = 1;
-
-                List<Tour> unBookedToursInCity=repository.getMatchingTours(searchCriteria);
-                if (unBookedToursInCity.Count > 0)
-                {
-                    IsCancelSearchButtonVisible = true;
-                    Tours.Clear();
-                    foreach (var tour in unBookedToursInCity)
-                    {
-                        Tours.Add(new TourDto(tour));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("There are no tours from that city");
-                }
-
-
+                ShowUnbookedToursInCity();
             }
         }
 
@@ -124,6 +104,29 @@ namespace BookingApp.Tourist
         {
             IsCancelSearchButtonVisible = false;
             GetAllTours();
+        }
+
+        private void ShowUnbookedToursInCity()
+        {
+
+            TourDto searchCriteria = new TourDto();
+            searchCriteria.LocationDto.City = SelectedTour.LocationDto.City;
+            searchCriteria.MaxTouristNumber = 1;
+
+            List<Tour> unBookedToursInCity = repository.getMatchingTours(searchCriteria);
+            if (unBookedToursInCity.Count > 0)
+            {
+                IsCancelSearchButtonVisible = true;
+                Tours.Clear();
+                foreach (var tour in unBookedToursInCity)
+                {
+                    Tours.Add(new TourDto(tour));
+                }
+            }
+            else
+            {
+                MessageBox.Show("There are no tours from that city");
+            }
         }
     }
 }

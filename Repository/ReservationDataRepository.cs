@@ -28,26 +28,22 @@ namespace BookingApp.Repository
             reservationData = _serializer.FromCSV(FilePath);
         }
 
-        public void AddReservationData(ReservationData _reservationData)
+        public void Save(ReservationData _reservationData)
         {
+            reservationData = GetAll();
             reservationData.Add(_reservationData);
             _serializer.ToCSV(FilePath, reservationData);
         }
 
-        public List<ReservationData> GetAllReservationData()
+        public List<ReservationData> GetAll()
         {
-            return reservationData;
+            return _serializer.FromCSV(FilePath);
         }
 
-        public List<ReservationData> GetReservationDataByTourId(int tourId)
+        public List<ReservationData> GetByTourId(int tourId)
         {
+            reservationData = _serializer.FromCSV(FilePath);
             return reservationData.FindAll(t => t.TourId == tourId);
-        }
-
-
-        private void SaveChanges()
-        {
-            _serializer.ToCSV(FilePath, reservationData);
         }
 
     }
