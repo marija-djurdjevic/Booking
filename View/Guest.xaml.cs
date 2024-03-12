@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BookingApp.Dto;
+using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +23,9 @@ namespace BookingApp.View
     /// </summary>
     public partial class Guest : Window
     {
+        public static PropertyRepository PropertyRepository = new PropertyRepository();
+        public PropertyDto SelectedProperty { get; set; }
+        public User LoggedInUser { get; set; }
         public Guest()
         {
             InitializeComponent();
@@ -26,7 +33,7 @@ namespace BookingApp.View
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            PropertyView propertyview = new PropertyView();
+            PropertyView propertyview = new PropertyView(SelectedProperty, LoggedInUser);
             propertyview.Show();
             Close();
         }
