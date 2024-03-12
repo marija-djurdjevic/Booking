@@ -15,13 +15,13 @@
             Margin="55,40,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="Country"
+            Text="City"
             TextWrapping="Wrap" />
         <TextBlock
             Margin="55,70,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="City"
+            Text="Country"
             TextWrapping="Wrap" />
         <TextBlock
             Margin="55,100,0,0"
