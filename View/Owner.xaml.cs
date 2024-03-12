@@ -23,5 +23,10 @@ namespace BookingApp.View
         {
             InitializeComponent();
         }
+        private void AddProperty_Click(object sender, RoutedEventArgs e)
+        {
+            AddProperty addProperty = new AddProperty();
+            MainFrame.Navigate(addProperty);
+        }
     }
 }
