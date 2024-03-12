@@ -7,7 +7,7 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public class Location: ISerializable
+    public class Location: ISerializable 
     {
        
         public string Country {  get; set; }
