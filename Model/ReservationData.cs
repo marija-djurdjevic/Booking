@@ -16,11 +16,13 @@ namespace BookingApp.Model
         public string TouristLastName { get; set; }
         public int TouristAge { get; set; }
 
+        public KeyPoints JoinedKeyPoint { get; set; }
         public ReservationData() { }
 
         public ReservationData(int tourId)
         {
             TourId = tourId;
+            JoinedKeyPoint = new KeyPoints();
         }
 
         public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge)
@@ -29,11 +31,17 @@ namespace BookingApp.Model
             TouristFirstName = touristFirstName;
             TouristLastName = touristLastName;
             TouristAge = touristAge;
+            
+        }
+
+        public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge, KeyPoints joinedKeyPoint) : this(tourId, touristFirstName, touristLastName, touristAge)
+        {
+            JoinedKeyPoint = joinedKeyPoint;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString() };
+            string[] csvValues = { TourId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(),JoinedKeyPoint.KeyName };
             return csvValues;
         }
 
@@ -43,6 +51,8 @@ namespace BookingApp.Model
             TouristFirstName = values[1];
             TouristLastName = values[2];
             TouristAge = Convert.ToInt32(values[3]);
+            JoinedKeyPoint = new KeyPoints { KeyName = values[4] };
+
         }
     }
 }

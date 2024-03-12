@@ -203,7 +203,7 @@ namespace BookingApp.DTO
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
+            return new Tour( Name, Description, Language, MaxTouristNumber, StartDate, Duration, ImagesPaths, location);
         }
         
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -33,6 +33,13 @@ namespace BookingApp.Repository
             reservationData = GetAll();
             reservationData.Add(_reservationData);
             _serializer.ToCSV(FilePath, reservationData);
+
+        }
+
+
+        public void SaveChanges()
+        {
+            _serializer.ToCSV(FilePath, reservationData);
         }
 
         public List<ReservationData> GetAll()

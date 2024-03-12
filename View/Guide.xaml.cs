@@ -15,11 +15,13 @@ namespace BookingApp.View
         private Tour _selectedTour;
         private readonly KeyPointsRepository _keyPointsRepository;
         private readonly LiveTourRepository _liveTourRepository;
+        private readonly ReservationDataRepository _reservationDataRepository;
         public Guide()
         {
             InitializeComponent();
             _tourRepository = new TourRepository();
             _keyPointsRepository = new KeyPointsRepository();
+            _reservationDataRepository = new ReservationDataRepository();
             _liveTourRepository = new LiveTourRepository();
             _selectedTour=new Tour();
             LoadTours();
@@ -83,6 +85,7 @@ namespace BookingApp.View
 
                 MessageBox.Show("Tour started successfully!");
                 DisplayKeyPoints(keyPoints);
+                LoadTouristsForSelectedTour();
             }
             else
             {
@@ -126,6 +129,7 @@ namespace BookingApp.View
 
                         if (!allPreviousChecked)
                         {
+                           
                             MessageBox.Show("Morate cekirati prethodne kljucne tacke pre nego sto cekirate ovu.");
                             checkBox.IsChecked = false;
                         }
@@ -211,6 +215,54 @@ namespace BookingApp.View
             return _liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
         }
 
+
+
+        private void AddTouristButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedTour != null && touristsListBox.SelectedItem != null)
+            {
+                var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
+                var keyPoint = GetActiveKeyPoint(); // Metoda za dobijanje trenutne ključne tačke
+                selectedTourist.JoinedKeyPoint = keyPoint;
+
+                _reservationDataRepository.SaveChanges();
+
+                MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
+
+                // Remove selected tourist from the list
+                var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
+                tourists.Remove(selectedTourist);
+            }
+            else
+            {
+                MessageBox.Show("Please select a tour and a tourist first.");
+            }
+        }
+
+
+
+
+        private void LoadTouristsForSelectedTour()
+        {
+            if (_selectedTour != null)
+            {
+                var tourists = _reservationDataRepository.GetByTourId(_selectedTour.Id);
+                touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+            }
+        }
+        private KeyPoints GetActiveKeyPoint()
+        {
+            var liveTour = _liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
+            if (liveTour != null)
+            {
+                var checkedKeyPoints = liveTour.KeyPoints.Where(k => k.IsChecked).ToList();
+                if (checkedKeyPoints.Any())
+                {
+                    return checkedKeyPoints.Last();
+                }
+            }
+            return null;
+        }
 
 
     }

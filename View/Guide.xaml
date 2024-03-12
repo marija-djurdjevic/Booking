@@ -31,7 +31,12 @@
 
         <Button Content="Završi Turu" Click="FinishTourButton_Click" Margin="65,0,613,10" Grid.Column="1"/>
 
-        
+        <ListBox x:Name="touristsListBox" Grid.Row="1" Grid.Column="1" Margin="10"
+         DisplayMemberPath="TouristFirstName" SelectionMode="Single"/>
+
+        <Button Content="Add Tourist" Click="AddTouristButton_Click" Margin="581,10,0,10"
+        Grid.Row="2" Grid.Column="1"/>
+
 
     </Grid>
 </Window>
