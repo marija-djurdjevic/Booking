@@ -8,13 +8,13 @@ using System.Windows;
 
 namespace BookingApp.Model
 {
-    enum PropertyType { Apartment, House, Cabin };
-     class Property : ISerializable
+     public enum PropertyType { Apartment, House, Cabin };
+     public class Property : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
-        PropertyType Type { get; set; }
+        public PropertyType Type { get; set; }
         public int MaxGuests { get; set; }
         public int MinReservationDays { get; set; }
         public int CancellationDeadline { get; set; }
