@@ -1,11 +1,10 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Model.Enums;
+using BookingApp.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
@@ -20,33 +19,48 @@ namespace BookingApp.Repository
         {
             _serializer = new Serializer<KeyPoints>();
 
-            if (!System.IO.File.Exists(FilePath))
+            if (!File.Exists(FilePath))
             {
-                using (System.IO.File.Create(FilePath)) { }
+                File.Create(FilePath).Close(); 
             }
 
             _keyPoints = _serializer.FromCSV(FilePath);
         }
 
-
-        public void AddKeyPoint(int tourId, string startKeyPoint, List<string> middleKeyPoints, string endKeyPoint)
+        public void AddKeyPoint(int tourId, string keyName, KeyPoint keyType, int ordinalNumber, bool isChecked)
         {
             KeyPoints keyPoint = new KeyPoints()
             {
                 TourId = tourId,
-                StartKeyPoint = startKeyPoint,
-                MiddleKeyPoints = middleKeyPoints,
-                EndKeyPoint = endKeyPoint
+                KeyName = keyName,
+                KeyType = keyType,
+                OrdinalNumber = ordinalNumber,
+                IsChecked = isChecked
             };
             _keyPoints.Add(keyPoint);
             SaveChanges();
         }
+
+
+
 
         private void SaveChanges()
         {
             _serializer.ToCSV(FilePath, _keyPoints);
         }
 
+        public List<KeyPoints> GetKeyPointsForTour(int tourId)
+        {
+            List<KeyPoints> keyPointsForTour = new List<KeyPoints>();
+            foreach (var keyPoint in _keyPoints)
+            {
+                if (keyPoint.TourId == tourId)
+                {
+                    keyPointsForTour.Add(keyPoint);
+                }
+            }
+            return keyPointsForTour;
+        }
 
     }
 }
