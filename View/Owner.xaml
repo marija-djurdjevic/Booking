@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Owner" Height="450" Width="800">
     <Grid>
-        <Button>Add Property</Button>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Button Width="100" Height="100" Click="AddProperty_Click">Add Property</Button>
     </Grid>
 </Window>
