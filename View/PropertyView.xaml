@@ -8,35 +8,39 @@
         Title="PropertyView" Height="450" Width="800">
     <Grid Margin="0,0,28,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="665*"/>
-            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="179*"/>
+            <ColumnDefinition Width="593*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="30" Width="746">
-            <TextBox Width="141" Height="30"></TextBox>
-            <TextBox Width="141" Height="30"></TextBox>
-            <TextBox Width="141" Height="30"></TextBox>
-            <TextBox Width="141" Height="30"></TextBox>
-            <TextBox Width="141" Height="30"></TextBox>
-            <Button Content="Search" Width="41" Height="30"/>
+        <StackPanel Orientation="Vertical" Margin="38,94,566,0" Grid.ColumnSpan="2">
+            <TextBox x:Name="SearchByName" Margin="0,0,0,0" Width="100" Height="30" Text="{Binding SearchText}"></TextBox>
+            <TextBox x:Name="SearchByLocation" Margin="0,15,0,0" Width="100" Height="30" Text="{Binding SearchText}" VerticalAlignment="Top"></TextBox>
+            <TextBox x:Name="SearchByType" Margin="0,15,0,0" Width="100" Height="30" Text="{Binding SearchText}"></TextBox>
+            <TextBox x:Name="SearchByGuests" Margin="0,15,0,0" Width="100" Height="30" Text="{Binding SearchText}"></TextBox>
+            <TextBox x:Name="SearchByDays" Margin="0,15,0,0"  Width="100" Height="30" Text="{Binding SearchText}"></TextBox>
+
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Name" Margin="5,20"></Label>
-            <Label Content="Location" Margin="90,20"></Label>
-            <Label Content="Type" Margin="0,20"></Label>
-            <Label Content="Guests" Margin="100,20"></Label>
-            <Label Content="Days" Margin="00,20"></Label>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,332">
+            <Label Content="Search by parameters" Margin="15,55" Height="32" Width="163"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="0,94,73,0">
+            <Label Content="Name:" Margin="0,0,0,0"></Label>
+            <Label Content="Location:" Margin="0,20,0,0"></Label>
+            <Label Content="Type:" Margin="0,20,0,0"></Label>
+            <Label Content="Guests:" Margin="0,20,0,0"></Label>
+            <Label Content="Days:" Margin="0,20,0,0"></Label>
+            <Button Content="Search" Click="Search_Click" Margin="0,40,0,0" Width="50" Height="40"/>
         </StackPanel>
         <DataGrid BorderBrush="Black"
-    AutoGenerateColumns="False"
-    ItemsSource="{Binding Property, UpdateSourceTrigger=PropertyChanged}"
-    SelectedItem="{Binding SelectedProperty, UpdateSourceTrigger=PropertyChanged}"
-    SelectionMode="Single" IsReadOnly="True"  Margin="14,48,0,10" Grid.ColumnSpan="2">
+        AutoGenerateColumns="False"
+        SelectedItem="{Binding SelectedProperty, UpdateSourceTrigger=PropertyChanged}"
+        x:Name="PropertyDataGrid"
+            SelectionMode="Single" IsReadOnly="True"  Margin="10,10,-23,10" Grid.Column="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}" SortMemberPath="Indeks1"/>
-                <DataGridTextColumn Header="Location" Width="120" Binding="{Binding Location}" SortMemberPath="Ime"/>
-                <DataGridTextColumn Header="Type" Width="120" Binding="{Binding Type}" SortMemberPath="Godina studija"/>
-                <DataGridTextColumn Header="MaxGuests" Width="120" Binding="{Binding MaxGuests}" SortMemberPath="Status"/>
-                <DataGridTextColumn Header="MinReservationDays" Width="120" Binding="{Binding MinReservationDays}" SortMemberPath="Prosjek"/>
+                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Location" Width="120" Binding="{Binding Location}"/>
+                <DataGridTextColumn Header="Type" Width="120" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="MaxGuests" Width="120" Binding="{Binding MaxGuests}"/>
+                <DataGridTextColumn Header="MinReservationDays" Width="120" Binding="{Binding MinReservationDays}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
