@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace BookingApp.View
 {
     /// <summary>
-    /// Interaction logic for Guest.xaml
+    /// Interaction logic for Owner.xaml
     /// </summary>
-    public partial class Guest : Window
+    public partial class Owner : Window
     {
-        public Guest()
+        public Owner()
         {
             InitializeComponent();
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
