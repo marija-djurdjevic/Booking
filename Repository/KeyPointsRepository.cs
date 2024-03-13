@@ -10,7 +10,7 @@ namespace BookingApp.Repository
 {
     public class KeyPointsRepository
     {
-        private const string FilePath = "../../../Resources/Data/key.csv";
+        private const string FilePath = "../../../Resources/Data/keyPoints.csv";
         private readonly Serializer<KeyPoints> _serializer;
 
         private List<KeyPoints> _keyPoints;

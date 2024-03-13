@@ -22,8 +22,6 @@ namespace BookingApp.Model
         }
 
 
-
-
         public string[] ToCSV()
         {
             string[] csvValues = { Country, City };

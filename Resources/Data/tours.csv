@@ -1,9 +1,21 @@
-1|Tura 1|Opis 1|Jezik 1|0|1/1/0001 12:00:00 AM|20|Drzava 1|Grad 1|slika 1
-2|Tura 2|Opis 2|Jezik 2|10|1/1/0001 12:00:00 AM|20|Drzava 2|Grad 2|a
-3|Tura 3|Opis 3|Jezik 3|11|1/1/0001 12:00:00 AM|20|Drzava 4|Grad 2|a
-4|Tura 4|Opis 4|Jezik 4|9|1/1/0001 12:00:00 AM|20|Drzava 4|Grad 4|a
-5|Tura 5|Opis 5|Jezik 5|12|1/1/0001 12:00:00 AM|20|Drzava 5|Grad 5|a
-6|Tura 6|Opis 6|Jezik 6|14|1/1/0001 12:00:00 AM|20|Drzava 6|Grad 6|a
-7|Tura 7|Opis 7|Jezik 7|15|1/1/0001 12:00:00 AM|20|Drzava 7|Grad 7|a
-8|Tura 8|Opis 8|Jezik 8|15|1/1/0001 12:00:00 AM|20|Drzava 8|Grad 8|a
-9|Tura 9|Opis 9|Jezik 9|0|1/1/0001 12:00:00 AM|20|Drzava 1|Grad 1|a
+1|naziv|opis|jezik|100|1.1.0001. 00:00:00|4|grad|drzava|slika1
+2|drugatura|opis2|jezik|44|1.1.0001. 00:00:00|6|city|coutry|image2|image3
+3|a|s|d|0|1.1.0001. 00:00:00|0||e|
+4|vukovic|studenska |madjarski|20|1.1.2024. 00:00:00|12|budimpesta|madjarska|slika1
+5|naziv|opis|jezik|33|1.1.0001. 00:00:00|2|grad||slika
+6|name|desc|lang|23|1.1.0001. 00:00:00|4|fd|ss|slika
+7|a|s|d|3|1.1.0001. 00:00:00|1|aq|2|sa
+8|as|d|f|2|1.1.0001. 00:00:00|3|a|d|sss
+9|as|d|w|2|1.1.0001. 00:00:00|3|d|a|aa
+10|a|s|q|1|1.1.0001. 00:00:00|2|s|w|aa
+11|a|s|d|1|1.1.0001. 00:00:00|2|qw|eer|aa
+12|a|s|d|1|1.1.0001. 00:00:00|2|qw|eer|aa
+13|q|er|r|4|1.1.0001. 00:00:00|6|qqqqqq,|r|sss
+14|q|w|r|5|1.1.0001. 00:00:00|6|uuj|fff|yyyy
+15|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
+16|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
+17|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
+18|naziv|opis|jezik|12|1.1.2024. 00:00:00|3|d|e|sssss
+19|aaaA|SSS|DDD|1|2024-12-21 16:01|3|grad|eee|slika
+20|a|s|d|3|2002-06-24 10:00|3|d|e|s
+21|A|S|D|6|2024-03-13 16:01|3|GRAD|ZEMLJA|SLIKA

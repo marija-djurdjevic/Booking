@@ -39,9 +39,9 @@ namespace BookingApp.Model
         {
             TourId = int.Parse(values[0]);
             IsLive = bool.Parse(values[1]);
-
             KeyPoints = new List<KeyPoints>();
-            for (int i = 2; i < values.Length; i += 5) // Povećajemo i za 5 jer svaki red ima 5 polja
+
+            for (int i = 2; i < values.Length; i += 5) 
             {
                 KeyPoints.Add(new KeyPoints
                 {
@@ -57,5 +57,3 @@ namespace BookingApp.Model
     }
 }
 
-///treba cuvati ovu klasu u nekom posebno csv,nju kreira guid.cs kada pokrene turu i ima m guide ima metodu koju ce kad se =cekira da promjeni vrijednost svake tacke
-///isChecked i stavlja da je tura live i svaki put kad nesto promjeni cuva u livetour.csv

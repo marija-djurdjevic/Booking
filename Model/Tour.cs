@@ -20,7 +20,7 @@ namespace BookingApp.Model
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxTouristsNumber { get; set; }
-        public DateTime StartDate { get; set; }
+        public string StartDateTime { get; set; }
         public double Duration { get; set; }
         public List<string> ImagesPaths { get; set; }
         public Location Location { get; set; }
@@ -37,16 +37,14 @@ namespace BookingApp.Model
         }
 
 
-
-
-        public Tour(string name, string description, string language, int maxTouristsNumber, DateTime startDate, double duration, List<string> imagesPaths, Location location)
+       
+        public Tour( string name, string description, string language, int maxTouristsNumber,string startDateTime, double duration, List<string> imagesPaths, Location location )
         {
-            //Id = id;
             Name = name;
             Description = description;
             Language = language;
             MaxTouristsNumber = maxTouristsNumber;
-            StartDate = startDate;
+            StartDateTime = startDateTime;
             Duration = duration;
             ImagesPaths = imagesPaths;
             Location = location;
@@ -69,17 +67,11 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            if (ImagesPaths == null)
-            {
-                string[] csvValues = { Id.ToString(), Name, Description, Language, MaxTouristsNumber.ToString(), StartDate.ToString(), Duration.ToString(), Location.Country, Location.City };
-                return csvValues;
-            }
-            else
-            {
-                string imagesPathsStr = string.Join("|", ImagesPaths);
-                string[] csvValues = { Id.ToString(), Name, Description, Language, MaxTouristsNumber.ToString(), StartDate.ToString(), Duration.ToString(), Location.Country, Location.City, imagesPathsStr };
-                return csvValues;
-            }
+           
+            string imagesPathsStr = string.Join("|", ImagesPaths);
+            string[] csvValues = { Id.ToString(), Name, Description, Language, MaxTouristsNumber.ToString(), StartDateTime.ToString(), Duration.ToString(), Location.Country, Location.City, imagesPathsStr };
+            return csvValues;
+            
         }
 
         public void FromCSV(string[] values)
@@ -89,8 +81,8 @@ namespace BookingApp.Model
             Description = values[2];
             Language = values[3];
             MaxTouristsNumber = Convert.ToInt32(values[4]);
-            StartDate = DateTime.Parse(values[5]);
-            Duration = Convert.ToInt32(values[6]);
+            StartDateTime =values[5];
+            Duration= Convert.ToInt32(values[6]);
             Location.Country = values[7];
             Location.City = values[8];
             for (int i = 9; i < values.Length; i++)
