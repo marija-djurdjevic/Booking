@@ -18,9 +18,9 @@ using System.Windows.Shapes;
 using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.Tourist.TourBooking;
+using BookingApp.TouristView.TourBooking;
 
-namespace BookingApp.Tourist
+namespace BookingApp.TouristView
 {
     /// <summary>
     /// Interaction logic for TouristMainWindow.xaml
@@ -39,12 +39,14 @@ namespace BookingApp.Tourist
         {
             InitializeComponent();
             DataContext = this;
+
             repository = new TourRepository();
             Tours = new ObservableCollection<TourDto>();
-            IsCancelSearchButtonVisible = false;
             SelectedTour = new TourDto();
-            GetAllTours();
+
+            IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;
+            GetAllTours();
         }
 
         public bool IsCancelSearchButtonVisible
@@ -82,7 +84,7 @@ namespace BookingApp.Tourist
             SelectedTour = (TourDto)border.DataContext;
             if (SelectedTour.MaxTouristNumber > 0)
             {
-                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour, LoggedInUser);
+                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour, LoggedInUser.Id);
                 tourBookingWindow.ShowDialog();
             }
             else
@@ -114,6 +116,8 @@ namespace BookingApp.Tourist
             searchCriteria.MaxTouristNumber = 1;
 
             List<Tour> unBookedToursInCity = repository.getMatchingTours(searchCriteria);
+            unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
+
             if (unBookedToursInCity.Count > 0)
             {
                 IsCancelSearchButtonVisible = true;

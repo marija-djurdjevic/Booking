@@ -15,44 +15,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.Tourist.TourBooking
+namespace BookingApp.TouristView.TourBooking
 {
     /// <summary>
     /// Interaction logic for TourBookingWindow.xaml
     /// </summary>
     public partial class TourBookingWindow : Window
     {
-        public static TourRepository TourRepository = new TourRepository();
+        public static TourRepository TourRepository;
+
+        public static TouristRepository TouristRepository;
         public TourDto SelectedTour { get; set; }
         public int NumberOfReservations { get; set; }
-        public User LoggedInUser { get; set; }
+        public Tourist LoggedInTourist { get; set; }
 
-        public TourBookingWindow(TourDto selectedTour, User loggedInUser)
+        public TourBookingWindow(TourDto selectedTour, int userId)
         {
             InitializeComponent();
             DataContext = this;
+            TourRepository = new TourRepository();
+            TouristRepository = new TouristRepository();
+
             SelectedTour = selectedTour;
             NumberOfReservations = 1;
-            LoggedInUser = loggedInUser;
+            LoggedInTourist = TouristRepository.GetByUserId(userId);
         }
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             if (NumberOfReservations == 1)
             {
-                ReservationDataRepository reservationDataRepository = new ReservationDataRepository();
-                reservationDataRepository.Save(new ReservationData(SelectedTour.Id, LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age));
+                TourReservationRepository reservationDataRepository = new TourReservationRepository();
+                reservationDataRepository.Save(new TourReservation(SelectedTour.Id, LoggedInTourist));
                 SelectedTour.MaxTouristNumber--;
                 TourRepository.UpdateTour(SelectedTour.ToTour());
                 Close();
             }
-            if (NumberOfReservations > 1 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
+            else if (NumberOfReservations > 1 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
             {
-                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInUser);
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id);
                 touristsDataWindow.ShowDialog();
                 Close();
             }
-            if (NumberOfReservations > SelectedTour.MaxTouristNumber)
+            else if (NumberOfReservations > SelectedTour.MaxTouristNumber)
             {
                 MessageBox.Show("On the tour, there are only spots left for" + SelectedTour.MaxTouristNumber.ToString() + " tourists.");
             }

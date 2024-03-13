@@ -33,6 +33,7 @@ namespace BookingApp.Repository
 
         public Tour AddTour(Tour tour)
         {
+            _tours = _serializer.FromCSV(FilePath);
             int nextId = NextId();
             tour.Id = nextId;
             _tours.Add(tour);
@@ -42,6 +43,7 @@ namespace BookingApp.Repository
 
         public void UpdateTour(Tour updatedTour)
         {
+            _tours = _serializer.FromCSV(FilePath);
             Tour existingTour = _tours.FirstOrDefault(t => t.Id == updatedTour.Id);
             if (existingTour != null)
             {
@@ -53,6 +55,7 @@ namespace BookingApp.Repository
 
         public void DeleteTour(int tourId)
         {
+            _tours = _serializer.FromCSV(FilePath);
             Tour existingTour = _tours.FirstOrDefault(t => t.Id == tourId);
             if (existingTour != null)
             {
@@ -63,11 +66,13 @@ namespace BookingApp.Repository
 
         public List<Tour> GetAllTours()
         {
+            _tours = _serializer.FromCSV(FilePath);
             return _tours;
         }
 
         public Tour GetTourById(int tourId)
         {
+            _tours = _serializer.FromCSV(FilePath);
             return _tours.FirstOrDefault(t => t.Id == tourId);
         }
 
@@ -79,6 +84,7 @@ namespace BookingApp.Repository
 
         public int NextId()
         {
+            _tours = _serializer.FromCSV(FilePath);
             if (_tours.Count < 1)
             {
                 return 1;
@@ -89,20 +95,15 @@ namespace BookingApp.Repository
 
         public List<Tour> getMatchingTours(TourDto searchParams)
         {
+            _tours = _serializer.FromCSV(FilePath);
             List<Tour> matchingTours = _tours.Where(t =>
             (string.IsNullOrEmpty(searchParams.LocationDto.City) || t.Location.City.Contains(searchParams.LocationDto.City)) &&
             (string.IsNullOrEmpty(searchParams.LocationDto.Country) || t.Location.Country.Contains(searchParams.LocationDto.Country)) &&
-            (searchParams.Duration <= 0 || t.Duration == searchParams.Duration) &&
+            (searchParams.Duration == 0 || t.Duration == searchParams.Duration) &&
             (string.IsNullOrEmpty(searchParams.Language) || t.Language.Contains(searchParams.Language)) &&
-            (searchParams.MaxTouristNumber <= 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber)
+            (searchParams.MaxTouristNumber == 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber && searchParams.MaxTouristNumber > 0)
         ).ToList();
             return matchingTours;
-        }
-
-
-        public int GetTourId(Tour tour)
-        {
-            return tour.Id;
         }
     }
 }

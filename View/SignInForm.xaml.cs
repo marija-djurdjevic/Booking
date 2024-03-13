@@ -1,13 +1,12 @@
 ﻿using BookingApp.Model;
 using BookingApp.Model.Enums;
 using BookingApp.Repository;
-using BookingApp.Tourist;
+using BookingApp.TouristView;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using BookingApp.Tourist;
 
 namespace BookingApp.View
 {
@@ -104,7 +103,7 @@ namespace BookingApp.View
             }
             else
             {
-                TouristMainWindow touristMainWindow = new TouristMainWindow(new User(5,"Dusko","pili123","Dusko","Pilipovic",20,UserRole.Tourist));
+                TouristMainWindow touristMainWindow = new TouristMainWindow(new User(4,"Dusko","pili123",UserRole.Tourist));
                 touristMainWindow.Show();
                 Close();
                 //MessageBox.Show("Wrong username!");

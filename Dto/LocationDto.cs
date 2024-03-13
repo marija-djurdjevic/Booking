@@ -36,8 +36,6 @@ namespace BookingApp.DTO
             country = location.Country;
         }
 
-
-
         public string City
         {
             get { return city; }
@@ -67,7 +65,7 @@ namespace BookingApp.DTO
 
         public Location ToLocation()
         {
-            return new Location(city, country);
+            return new Location(country, city);
         }
 
         public override string ToString()
