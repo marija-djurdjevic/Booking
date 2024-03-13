@@ -16,24 +16,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View
+namespace BookingApp.Guest
 {
     /// <summary>
     /// Interaction logic for Guest.xaml
     /// </summary>
-    public partial class Guest : Window
+    public partial class GuestMainWindow : Window
     {
         public static PropertyRepository PropertyRepository = new PropertyRepository();
-        public PropertyDto SelectedProperty { get; set; }
         public User LoggedInUser { get; set; }
-        public Guest()
+        public GuestMainWindow()
         {
             InitializeComponent();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            PropertyView propertyview = new PropertyView(SelectedProperty, LoggedInUser);
+            PropertyView propertyview = new PropertyView(LoggedInUser);
             propertyview.Show();
             Close();
         }

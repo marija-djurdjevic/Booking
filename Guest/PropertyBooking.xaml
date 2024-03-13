@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookingApp.Guest.PropertyBooking"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.Guest"
+        mc:Ignorable="d"
+        Title="PropertyBooking" Height="450" Width="450">
+    <Grid>
+        <Label Content="Start date:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 20" Height="25"></Label>
+        <Label Content="End date:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 70" Height="25"></Label>
+        <Label Content="Number of days:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 130" Height="25"></Label>
+        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 20" Height="25"
+        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 70" Height="25"
+        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="113,130,0,0" Height="25" Width="89"></TextBox>
+        <Button Content="Confirm reservation" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,400,0,0"></Button>
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,179,0,0" Height="200" Width="270" BorderBrush="Black"
+       AutoGenerateColumns="False"
+       x:Name="DateDataGrid"
+        SelectedItem="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"
+        SelectionMode="Single" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Check-in date" Width="120"/>
+                <DataGridTextColumn Header="Check-out date" Width="150"/>
+            </DataGrid.Columns> >
+        </DataGrid>
+    </Grid>
+</Window>
