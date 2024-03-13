@@ -66,6 +66,16 @@ namespace BookingApp.Repository
             return _tours;
         }
 
+        public List<Tour> GetTodayTours()
+        {
+           
+            string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+            List<Tour> toursWithTodayDate = _tours.Where(t => t.StartDateTime.StartsWith(todayDate)).ToList();
+            return toursWithTodayDate;
+        }
+
+
+
         public Tour GetTourById(int tourId)
         {
             return _tours.FirstOrDefault(t => t.Id == tourId);

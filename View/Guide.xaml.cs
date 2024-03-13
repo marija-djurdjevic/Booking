@@ -29,14 +29,14 @@ namespace BookingApp.View
 
         private void LoadTours()
         {
-            var tours = _tourRepository.GetAllTours();
+            var tours = _tourRepository.GetTodayTours();
             tourListBox.ItemsSource = new ObservableCollection<Tour>(tours);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            CreatingTour creatingTourWindow = new CreatingTour();
-            creatingTourWindow.Show();
+            CreateTour createTourWindow = new CreateTour();
+            createTourWindow.Show();
         }
 
 
@@ -71,18 +71,12 @@ namespace BookingApp.View
 
             if (_selectedTour != null)
             {
-
-                
                 var keyPoints = LoadKeyPointsForTour(_selectedTour.Id);
                 LiveTour liveTour = new LiveTour(_selectedTour.Id, keyPoints, true);
                 keyPoints[0].IsChecked = true;
                 _liveTourRepository.SaveChanges();
-
                 AddKeyPointsToLiveTour(keyPoints);
-
-                // Postavi tura kao live u livetour.csv
                 SetTourAsLive(_selectedTour.Id);
-
                 MessageBox.Show("Tour started successfully!");
                 DisplayKeyPoints(keyPoints);
                 LoadTouristsForSelectedTour();
@@ -130,10 +124,12 @@ namespace BookingApp.View
                         if (!allPreviousChecked)
                         {
                            
-                            MessageBox.Show("Morate cekirati prethodne kljucne tacke pre nego sto cekirate ovu.");
+                            MessageBox.Show("You need to check the previous key points before checking this one.");
                             checkBox.IsChecked = false;
+                            keyPoint.IsChecked = false;
                         }
                     }
+                   
                         foreach (var keyPoint in keyPoints)
                         {
                             if (keyPoint.IsChecked)
@@ -159,7 +155,7 @@ namespace BookingApp.View
         {
             
             FinishActiveTour();
-            MessageBox.Show("Tura je uspešno završena automatski!");
+            MessageBox.Show("The tour has been successfully completed automatically!");
         }
 
 
@@ -222,14 +218,14 @@ namespace BookingApp.View
             if (_selectedTour != null && touristsListBox.SelectedItem != null)
             {
                 var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
-                var keyPoint = GetActiveKeyPoint(); // Metoda za dobijanje trenutne ključne tačke
+                var keyPoint = GetActiveKeyPoint();
                 selectedTourist.JoinedKeyPoint = keyPoint;
 
                 _reservationDataRepository.SaveChanges();
 
                 MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
 
-                // Remove selected tourist from the list
+               
                 var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
                 tourists.Remove(selectedTourist);
             }

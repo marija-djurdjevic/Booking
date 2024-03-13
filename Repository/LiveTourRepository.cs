@@ -8,7 +8,7 @@ namespace BookingApp.Repository
 {
     public class LiveTourRepository
     {
-        private const string FilePath = "../../../Resources/Data/livetour.csv";
+        private const string FilePath = "../../../Resources/Data/liveTour.csv";
         private readonly Serializer<LiveTour> _serializer;
         private List<LiveTour> _liveTours;
 

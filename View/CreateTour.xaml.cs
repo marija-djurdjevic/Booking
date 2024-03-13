@@ -4,22 +4,22 @@ using BookingApp.Model.Enums;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.View
 {
-    public partial class CreatingTour : Window
+    public partial class CreateTour : Window
     {
         private TourDto _tourDto;
         
         TourRepository tourRepository;
         KeyPointsRepository keyPointsRepository;
-        public CreatingTour()
+        public CreateTour()
         {
             InitializeComponent();
-            datePickerStart.Text = DateTime.Now.Date.ToString();
             _tourDto = new TourDto();
             DataContext = _tourDto;
             tourRepository = new TourRepository();
@@ -79,7 +79,7 @@ namespace BookingApp.View
                 return;
             }
 
-            TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDate, _tourDto.Duration, _tourDto.LocationDto, _tourDto.ImagesPaths);
+            TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDateTime, _tourDto.Duration, _tourDto.LocationDto, _tourDto.ImagesPaths);
             tourRepository.AddTour(newTourDto.ToTour());
             int id = tourRepository.NextId() - 1;
 
@@ -106,6 +106,13 @@ namespace BookingApp.View
                 MessageBox.Show("Please fill in all required fields.");
                 return false;
             }
+
+            if (!DateTime.TryParseExact(_tourDto.StartDateTime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+            {
+                MessageBox.Show("Please enter Start Date in the format yyyy-MM-dd HH:mm.");
+                return false;
+            }
+
             return true;
         }
 
