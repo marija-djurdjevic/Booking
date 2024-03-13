@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.Tourist;
+using BookingApp.Guest;
 
 namespace BookingApp.View
 {
@@ -73,7 +75,7 @@ namespace BookingApp.View
                         case UserRole.Guest:
                             {
                                 MessageBox.Show("You signed in as Guest User!");
-                                Guest guest = new Guest();
+                                GuestMainWindow guest = new GuestMainWindow();
                                 guest.Show();
                                 Close();
                                 break;
