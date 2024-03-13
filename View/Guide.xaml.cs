@@ -15,13 +15,13 @@ namespace BookingApp.View
         private Tour _selectedTour;
         private readonly KeyPointsRepository _keyPointsRepository;
         private readonly LiveTourRepository _liveTourRepository;
-        private readonly ReservationDataRepository _reservationDataRepository;
+        private readonly TourReservationRepository _reservationDataRepository;
         public Guide()
         {
             InitializeComponent();
             _tourRepository = new TourRepository();
             _keyPointsRepository = new KeyPointsRepository();
-            _reservationDataRepository = new ReservationDataRepository();
+            _reservationDataRepository = new TourReservationRepository();
             _liveTourRepository = new LiveTourRepository();
             _selectedTour=new Tour();
             LoadTours();
@@ -221,7 +221,7 @@ namespace BookingApp.View
         {
             if (_selectedTour != null && touristsListBox.SelectedItem != null)
             {
-                var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
+                var selectedTourist = (TourReservation)touristsListBox.SelectedItem;
                 var keyPoint = GetActiveKeyPoint(); // Metoda za dobijanje trenutne ključne tačke
                 selectedTourist.JoinedKeyPoint = keyPoint;
 
@@ -230,7 +230,7 @@ namespace BookingApp.View
                 MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
 
                 // Remove selected tourist from the list
-                var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
+                var tourists = ((ObservableCollection<TourReservation>)touristsListBox.ItemsSource);
                 tourists.Remove(selectedTourist);
             }
             else
@@ -247,7 +247,7 @@ namespace BookingApp.View
             if (_selectedTour != null)
             {
                 var tourists = _reservationDataRepository.GetByTourId(_selectedTour.Id);
-                touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+                touristsListBox.ItemsSource = new ObservableCollection<TourReservation>(tourists);
             }
         }
         private KeyPoints GetActiveKeyPoint()

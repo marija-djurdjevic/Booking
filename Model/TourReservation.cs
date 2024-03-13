@@ -16,6 +16,7 @@ namespace BookingApp.Model
         public string TouristFirstName { get; set; }
         public string TouristLastName { get; set; }
         public int TouristAge { get; set; }
+        public KeyPoints JoinedKeyPoint { get; set; }
 
         public TourReservation() { }
 
@@ -23,6 +24,7 @@ namespace BookingApp.Model
         {
             TourId = tourId;
             UserId = userId;
+            JoinedKeyPoint = new KeyPoints();
         }
 
         public TourReservation(int tourId, int userId, string touristFirstName, string touristLastName, int touristAge)
@@ -32,6 +34,11 @@ namespace BookingApp.Model
             TouristFirstName = touristFirstName;
             TouristLastName = touristLastName;
             TouristAge = touristAge;
+        }
+
+        public TourReservation(int tourId, int userId, string touristFirstName, string touristLastName, int touristAge, KeyPoints joinedKeyPoint) : this(tourId, userId, touristFirstName, touristLastName, touristAge)
+        {
+            JoinedKeyPoint = joinedKeyPoint;
         }
 
         public TourReservation(int tourId, Tourist loggedInTourist)
@@ -45,7 +52,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), UserId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString() };
+            string[] csvValues = { TourId.ToString(), UserId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(), JoinedKeyPoint.KeyName };
             return csvValues;
         }
 
@@ -56,6 +63,7 @@ namespace BookingApp.Model
             TouristFirstName = values[2];
             TouristLastName = values[3];
             TouristAge = Convert.ToInt32(values[4]);
+            JoinedKeyPoint = new KeyPoints { KeyName = values[5] };
         }
     }
 }
