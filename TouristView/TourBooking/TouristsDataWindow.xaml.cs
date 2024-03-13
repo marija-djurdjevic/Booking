@@ -16,44 +16,47 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.Tourist.TourBooking
+namespace BookingApp.TouristView.TourBooking
 {
     /// <summary>
     /// Interaction logic for TouristsDataWindow.xaml
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        public static ObservableCollection<ReservationData> Tourists { get; set; }
+        public static ObservableCollection<TourReservation> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
-        public User LoggedInUser { get; set; }
+        public Tourist LoggedInTourist { get; set; }
         public TourRepository TourRepository { get; set; }
 
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, User user)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId)
         {
             InitializeComponent();
             DataContext = this;
-            Tourists = new ObservableCollection<ReservationData>();
-            SelectedTour = selectedTour;
-            LoggedInUser = user;
+            Tourists = new ObservableCollection<TourReservation>();
+            TouristRepository touristRepository = new TouristRepository();
             TourRepository = new TourRepository();
+
+            SelectedTour = selectedTour;
+            LoggedInTourist = touristRepository.GetByUserId(userId);
 
             for (int i = 0; i < touristNumber - 1; i++)
             {
-                Tourists.Add(new ReservationData(SelectedTour.Id));
+                Tourists.Add(new TourReservation(SelectedTour.Id, userId));
             }
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            ReservationDataRepository reservationDataRepository = new ReservationDataRepository();
+            TourReservationRepository reservationDataRepository = new TourReservationRepository();
 
-            foreach (ReservationData data in Tourists)
+            Tourists.Add(new TourReservation(SelectedTour.Id, LoggedInTourist));
+
+            foreach (TourReservation data in Tourists)
             {
                 reservationDataRepository.Save(data);
             }
-            reservationDataRepository.Save(new ReservationData(SelectedTour.Id, LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age));
 
-            SelectedTour.MaxTouristNumber -= Tourists.Count() + 1;
+            SelectedTour.MaxTouristNumber -= Tourists.Count();
             TourRepository.UpdateTour(SelectedTour.ToTour());
             Close();
         }

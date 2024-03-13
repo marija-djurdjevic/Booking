@@ -18,19 +18,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.Tourist
+namespace BookingApp.TouristView
 {
     /// <summary>
     /// Interaction logic for SearchWindow.xaml
     /// </summary>
-    public partial class SearchWindow : Window, INotifyPropertyChanged
+    public partial class SearchWindow : Window
     {
         public TourDto SearchParams { get; set; }
         public static ObservableCollection<TourDto> Tours { get; set; }
 
-        private readonly TourRepository repository;
-
+        private readonly TourRepository TourRepository;
         public bool IsCancelSearchButtonVisible { get; set; }
+
 
         public SearchWindow(ObservableCollection<TourDto> tours)
         {
@@ -38,34 +38,23 @@ namespace BookingApp.Tourist
             DataContext = this;
             Tours = tours;
             SearchParams = new TourDto();
-            repository = new TourRepository();
+            TourRepository = new TourRepository();
             IsCancelSearchButtonVisible = false;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            List<Tour> matchingTours = repository.getMatchingTours(SearchParams);
+            List<Tour> matchingTours = TourRepository.getMatchingTours(SearchParams);
 
             if (matchingTours.Count > 0)
             {
-                Tours.Clear();
-                foreach (var tour in matchingTours)
-                {
-                    Tours.Add(new TourDto(tour));
-                }
-
+                UpdateCollection(matchingTours);
                 IsCancelSearchButtonVisible = true;
             }
             else
             {
                 MessageBox.Show("There are no tours with that parameters");
+                UpdateCollection(TourRepository.GetAllTours());
             }
 
             Close();
@@ -74,6 +63,16 @@ namespace BookingApp.Tourist
         private void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+
+        private void UpdateCollection(List<Tour> tours)
+        {
+            Tours.Clear();
+            foreach (var tour in tours)
+            {
+                Tours.Add(new TourDto(tour));
+            }
         }
     }
 }

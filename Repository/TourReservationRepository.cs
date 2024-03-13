@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class ReservationDataRepository
+    public class TourReservationRepository
     {
-        private const string FilePath = "../../../Resources/Data/reservationData.csv";
+        private const string FilePath = "../../../Resources/Data/tourReservation.csv";
 
-        private readonly Serializer<ReservationData> _serializer;
+        private readonly Serializer<TourReservation> _serializer;
 
-        private List<ReservationData> reservationData;
+        private List<TourReservation> reservationData;
 
-        public ReservationDataRepository()
+        public TourReservationRepository()
         {
-            _serializer = new Serializer<ReservationData>();
+            _serializer = new Serializer<TourReservation>();
 
             if (!System.IO.File.Exists(FilePath))
             {
@@ -28,7 +28,7 @@ namespace BookingApp.Repository
             reservationData = _serializer.FromCSV(FilePath);
         }
 
-        public void Save(ReservationData _reservationData)
+        public void Save(TourReservation _reservationData)
         {
             reservationData = GetAll();
             reservationData.Add(_reservationData);
@@ -42,15 +42,21 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, reservationData);
         }
 
-        public List<ReservationData> GetAll()
+        public List<TourReservation> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
-        public List<ReservationData> GetByTourId(int tourId)
+        public List<TourReservation> GetByTourId(int tourId)
         {
             reservationData = _serializer.FromCSV(FilePath);
             return reservationData.FindAll(t => t.TourId == tourId);
+        }
+
+        public List<TourReservation> GetByUserId(int userId)
+        {
+            reservationData = _serializer.FromCSV(FilePath);
+            return reservationData.FindAll(t => t.UserId == userId);
         }
 
     }
