@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Controls;
 using BookingApp.Model.Enums;
 using System.Collections.Generic;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace BookingApp.View
 {
@@ -62,11 +64,16 @@ namespace BookingApp.View
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-
             if (IsActiveTour())
             {
-                MessageBox.Show("There is already an active tour. Please finish the current tour before starting a new one.");
-                return;
+
+                 var activeTour = GetActiveTour();
+                 var activeTourKeyPoints = activeTour.KeyPoints;
+                 var touristsOnTour = _reservationDataRepository.GetUncheckedByTourId(activeTour.TourId);
+                 DisplayKeyPoints(activeTourKeyPoints);
+                 var tourists=_reservationDataRepository.GetUncheckedByTourId(activeTour.TourId);
+                 touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+                 return;
             }
 
             if (_selectedTour != null)
@@ -86,6 +93,7 @@ namespace BookingApp.View
                 MessageBox.Show("Please select a tour first.");
             }
         }
+
         private void DisplayKeyPoints(List<KeyPoints> keyPoints)
         {
             int keyCounter = 0;
@@ -153,8 +161,14 @@ namespace BookingApp.View
 
         private void FinishTourAutomatically()
         {
-            
+            var touristsOnTour = _reservationDataRepository.GetByTourId(GetActiveTour().TourId);
+            foreach (var tourist in touristsOnTour)
+            {
+                tourist.IsOnTour = false;
+            }
+            _reservationDataRepository.SaveChanges();
             FinishActiveTour();
+            
             MessageBox.Show("The tour has been successfully completed automatically!");
         }
 
@@ -179,6 +193,12 @@ namespace BookingApp.View
         {
             if (IsActiveTour())
             {
+                var touristsOnTour = _reservationDataRepository.GetByTourId(GetActiveTour().TourId);
+                foreach (var tourist in touristsOnTour)
+                {
+                    tourist.IsOnTour = false;
+                }
+                _reservationDataRepository.SaveChanges();
                 FinishActiveTour();
                 MessageBox.Show("Tura je uspešno završena!");
             }
@@ -218,16 +238,17 @@ namespace BookingApp.View
             if (_selectedTour != null && touristsListBox.SelectedItem != null)
             {
                 var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
-                var keyPoint = GetActiveKeyPoint();
-                selectedTourist.JoinedKeyPoint = keyPoint;
+                if (!selectedTourist.IsOnTour)
+                {
+                    var keyPoint = GetActiveKeyPoint();
+                    selectedTourist.JoinedKeyPoint = keyPoint;
+                    selectedTourist.IsOnTour = true;
+                    _reservationDataRepository.Saveee(selectedTourist);
+                    MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
 
-                _reservationDataRepository.SaveChanges();
-
-                MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
-
-               
-                var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
-                tourists.Remove(selectedTourist);
+                    var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
+                    tourists.Remove(selectedTourist);
+                }
             }
             else
             {

@@ -14,6 +14,8 @@ namespace BookingApp.View
     public partial class CreateTour : Window
     {
         private TourDto _tourDto;
+
+        public String datumvrijeme;
         
         TourRepository tourRepository;
         KeyPointsRepository keyPointsRepository;
@@ -24,7 +26,11 @@ namespace BookingApp.View
             DataContext = _tourDto;
             tourRepository = new TourRepository();
             keyPointsRepository = new KeyPointsRepository();
-           
+            startDateTextBox.TextChanged += (sender, e) =>
+            {
+                datumvrijeme = startDateTextBox.Text;
+            };
+
         }
 
         private void AddImagePathButton_Click(object sender, RoutedEventArgs e)
@@ -78,8 +84,11 @@ namespace BookingApp.View
             {
                 return;
             }
-
+            
             TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDateTime, _tourDto.Duration, _tourDto.LocationDto, _tourDto.ImagesPaths);
+            DateTime i;
+            DateTime.TryParseExact(datumvrijeme, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
+            newTourDto.StartDateTime = i;
             tourRepository.AddTour(newTourDto.ToTour());
             int id = tourRepository.NextId() - 1;
 
@@ -106,13 +115,12 @@ namespace BookingApp.View
                 MessageBox.Show("Please fill in all required fields.");
                 return false;
             }
-
-            if (!DateTime.TryParseExact(_tourDto.StartDateTime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+/*
+            if (!DateTime.TryParseExact(_tourDto.StartDateTime.ToString("yyyy-MM-dd"), "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
                 MessageBox.Show("Please enter Start Date in the format yyyy-MM-dd HH:mm.");
                 return false;
-            }
-
+            }*/
             return true;
         }
 

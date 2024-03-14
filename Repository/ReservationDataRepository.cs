@@ -53,5 +53,31 @@ namespace BookingApp.Repository
             return reservationData.FindAll(t => t.TourId == tourId);
         }
 
+
+        public List<ReservationData> GetUncheckedByTourId(int tourId)
+        {
+            var reservationData = _serializer.FromCSV(FilePath);
+            return reservationData.FindAll(t => t.TourId == tourId && t.IsOnTour==false);
+        }
+
+
+        public void Saveee(ReservationData _reservationData)
+        {
+            reservationData = GetAll();
+            var existingReservation = reservationData.FirstOrDefault(r => r.TourId == _reservationData.TourId && r.TouristFirstName == _reservationData.TouristFirstName && r.TouristLastName == _reservationData.TouristLastName);
+            if (existingReservation != null)
+            {
+                existingReservation.IsOnTour = _reservationData.IsOnTour;
+                existingReservation.JoinedKeyPoint = _reservationData.JoinedKeyPoint;
+            }
+            else
+            {
+                reservationData.Add(_reservationData);
+            }
+            _serializer.ToCSV(FilePath, reservationData);
+        }
+
+
+
     }
 }

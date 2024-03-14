@@ -18,7 +18,7 @@ namespace BookingApp.Model
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxTouristsNumber { get; set; }
-        public string StartDateTime { get; set; }
+        public DateTime StartDateTime { get; set; }
         public double Duration { get; set; }
         public List<string> ImagesPaths { get; set; }
         public Location Location { get; set; }
@@ -37,7 +37,7 @@ namespace BookingApp.Model
        
 
        
-        public Tour( string name, string description, string language, int maxTouristsNumber,string startDateTime, double duration, List<string> imagesPaths, Location location )
+        public Tour( string name, string description, string language, int maxTouristsNumber,DateTime startDateTime, double duration, List<string> imagesPaths, Location location )
         {
             Name = name;
             Description = description;
@@ -67,7 +67,7 @@ namespace BookingApp.Model
             Description = values[2];
             Language = values[3];
             MaxTouristsNumber = Convert.ToInt32(values[4]);
-            StartDateTime =values[5];
+            StartDateTime =Convert.ToDateTime(values[5]);
             Duration= Convert.ToInt32(values[6]);
             Location.Country = values[7];
             Location.City = values[8];
