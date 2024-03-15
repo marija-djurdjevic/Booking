@@ -41,9 +41,6 @@ namespace BookingApp.Repository
             SaveChanges();
         }
 
-
-
-
         private void SaveChanges()
         {
             _serializer.ToCSV(FilePath, _keyPoints);

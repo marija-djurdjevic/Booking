@@ -19,15 +19,20 @@ namespace BookingApp.DTO
         private int maxTouristsNumber;
         private DateTime startDateTime;
         private double duration;
-        private LocationDto locationDto=new LocationDto();
-        private List<string> imagesPaths=new List<string>();
+        private LocationDto locationDto = new LocationDto();
+        private List<string> imagesPaths = new List<string>();
         private List<KeyPoint> keyPoints = new List<KeyPoint>();
 
 
 
-        public TourDto() { }
+        public TourDto()
+        {
+            locationDto = new LocationDto();
+            imagesPaths = new List<string>();
+            keyPoints = new List<KeyPoint>();
+        }
 
-        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime startTime, double duration, LocationDto locationDto /*int keyPointId*/, List<string> imagesPaths)
+        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime startTime, double duration, LocationDto locationDto, List<string> imagesPaths)
         {
             this.name = name;
             this.description = description;
@@ -37,7 +42,7 @@ namespace BookingApp.DTO
             this.duration = duration;
             this.locationDto = locationDto;
             this.imagesPaths = imagesPaths;
-
+            keyPoints = new List<KeyPoint>();
         }
 
 
@@ -53,7 +58,7 @@ namespace BookingApp.DTO
             duration = tour.Duration;
             imagesPaths = tour.ImagesPaths;
             locationDto = new LocationDto(tour.Location);
-
+            keyPoints = tour.KeyPoints;
         }
 
         public TourDto(TourDto tour)
@@ -67,7 +72,7 @@ namespace BookingApp.DTO
             duration = tour.duration;
             imagesPaths = tour.imagesPaths;
             locationDto = new LocationDto(tour.locationDto);
-
+            keyPoints = tour.keyPoints;
         }
 
 
@@ -98,7 +103,6 @@ namespace BookingApp.DTO
                     imagesPaths = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -171,7 +175,7 @@ namespace BookingApp.DTO
 
 
 
-       
+
         public DateTime StartDateTime
         {
             get { return startDateTime; }
@@ -200,19 +204,17 @@ namespace BookingApp.DTO
         }
 
 
-      
+
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour( Name, Description, Language, MaxTouristNumber, StartDateTime, Duration, ImagesPaths, location);
+            return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDateTime, Duration, ImagesPaths, location);
         }
-        
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }

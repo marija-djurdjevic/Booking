@@ -54,7 +54,7 @@ namespace BookingApp.TouristView
             else
             {
                 MessageBox.Show("There are no tours with that parameters");
-                UpdateCollection(TourRepository.GetAllTours());
+                UpdateCollection(TourRepository.GetAll());
             }
 
             Close();

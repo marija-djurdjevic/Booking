@@ -9,14 +9,12 @@ namespace BookingApp.Model
 {
     public class Location : ISerializable
     {
-
         public string Country { get; set; }
         public string City { get; set; }
 
         public Location() { }
         public Location(string country, string city)
         {
-
             Country = country;
             City = city;
         }
@@ -34,7 +32,5 @@ namespace BookingApp.Model
             Country = values[1];
             City = values[2];
         }
-
-
     }
 }

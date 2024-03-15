@@ -72,7 +72,7 @@ namespace BookingApp.TouristView
         public void GetAllTours()
         {
             Tours.Clear();
-            foreach (var tour in repository.GetAllTours())
+            foreach (var tour in repository.GetAll())
             {
                 Tours.Add(new TourDto(tour));
             }

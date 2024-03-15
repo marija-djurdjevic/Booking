@@ -1,31 +1,4 @@
-1|naziv|opis|jezik|100|1.1.0001. 00:00:00|4|grad|drzava|slika1
-2|drugatura|opis2|jezik|44|1.1.0001. 00:00:00|6|city|coutry|image2|image3
-3|a|s|d|0|1.1.0001. 00:00:00|0||e|
-4|vukovic|studenska |madjarski|20|1.1.2024. 00:00:00|12|budimpesta|madjarska|slika1
-5|naziv|opis|jezik|33|1.1.0001. 00:00:00|2|grad||slika
-6|name|desc|lang|23|1.1.0001. 00:00:00|4|fd|ss|slika
-7|a|s|d|3|1.1.0001. 00:00:00|1|aq|2|sa
-8|as|d|f|2|1.1.0001. 00:00:00|3|a|d|sss
-9|as|d|w|2|1.1.0001. 00:00:00|3|d|a|aa
-10|a|s|q|1|1.1.0001. 00:00:00|2|s|w|aa
-11|a|s|d|1|1.1.0001. 00:00:00|2|qw|eer|aa
-12|a|s|d|1|1.1.0001. 00:00:00|2|qw|eer|aa
-13|q|er|r|4|1.1.0001. 00:00:00|6|qqqqqq,|r|sss
-14|q|w|r|5|1.1.0001. 00:00:00|6|uuj|fff|yyyy
-15|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
-16|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
-17|a|s|d|4|1.1.0001. 00:00:00|5|d|s|aaa
-18|naziv|opis|jezik|12|1.1.2024. 00:00:00|3|d|e|sssss
-19|aaaA|SSS|DDD|1|21.12.2024. 16:01:00|3|grad|eee|slika
-20|a|s|d|3|24.6.2002. 10:00:00|3|d|e|s
-21|A|S|D|6|13.3.2024. 16:01:00|3|GRAD|ZEMLJA|SLIKA
-22|qq|ww|ee|4|14.3.2024. 22:10:00|3|gr|cr|slika
-23|qq|aa|ss|33|1.1.0001. 00:00:00|5|grad|rfd|slika
-24|qa|ss|ddd|3|1.1.0001. 00:00:00|6|dfa|SQ|sasas
-25|qqqq|www|eeee|5|1.1.0001. 00:00:00|6|dd|dw|aaa
-26|aaaa|ss|dddd|5|1.1.0001. 00:00:00|77|ds|ad|aaaaaaa
-27|asas|asd|adf|6|14.3.2024. 13:59:00|5|adf|d|adfad
-28|aaa|sss|dd|5|14.3.2023. 17:00:00|6|adf|swd|adf
-29|aaa|sd|s|0|1.1.0001. 00:00:00|5|s|D|aaaa
-30|aaa|sd|s|0|1.1.0001. 00:00:00|5|s|D|aaaa
-31|naziv|opis|jezik|5|15.3.2024. 22:45:00|5|drzava|grad|slika1
+1|Tura 1|Opis 1|Jezik 1|7|15.03.2024 00:15:30|20|Drzava 1|Grad 1|555
+2|Tura 2|Opis 2|Jezik 2|11|15.03.2024 02:53:40|50|Drzava 2|Grad 2|slika 2
+3|Tura 3|Opis 3|Jezik 3|1|15.03.2024 02:53:40|20|Drzava 3|Grad 3|slika 3
+4|Tura 4|Opis 4|Jezik 2|0|15.03.2024 02:53:40|50|Drzava 2|Grad 2|slika 4

@@ -57,7 +57,7 @@ namespace BookingApp.TouristView.TourBooking
             }
 
             SelectedTour.MaxTouristNumber -= Tourists.Count();
-            TourRepository.UpdateTour(SelectedTour.ToTour());
+            TourRepository.Update(SelectedTour.ToTour());
             Close();
         }
 

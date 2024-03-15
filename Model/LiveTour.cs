@@ -16,7 +16,10 @@ namespace BookingApp.Model
         public List<KeyPoint> KeyPoints { get; set; }
         public bool IsLive {  get; set; }
 
-        public LiveTour() { }
+        public LiveTour() 
+        { 
+            KeyPoints = new List<KeyPoint>();
+        }
 
         public LiveTour(int tourId, List<KeyPoint> keyPoints,bool isLive)
         {

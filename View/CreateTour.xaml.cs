@@ -85,7 +85,7 @@ namespace BookingApp.View
             DateTime i;
             DateTime.TryParseExact(startDateTimeInput, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
             newTourDto.StartDateTime = i;
-            tourRepository.AddTour(newTourDto.ToTour());
+            tourRepository.Save(newTourDto.ToTour());
             int id = tourRepository.NextId() - 1;
 
             if (SetKeyPoints(id))

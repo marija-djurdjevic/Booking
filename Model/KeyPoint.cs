@@ -11,9 +11,6 @@ namespace BookingApp.Model
 {
     public class KeyPoint : ISerializable
     {
-
-    
-
         public int TourId { get; set; }
         public string Name { get; set; }
         public KeyPointType Type { get; set; }
