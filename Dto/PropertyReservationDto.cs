@@ -41,9 +41,33 @@ namespace BookingApp.Dto
                 }
             }
         }
+        public string GuestFirstName
+        {
+            get { return guestFirstName; }
+            set
+            {
+                if (value != guestFirstName)
+                {
+                    guestFirstName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string GuestLastName
+        {
+            get { return guestLastName; }
+            set
+            {
+                if (value != guestLastName)
+                {
+                    guestLastName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
-       public int Days
+        public int Days
         {
             get { return days; }
             set

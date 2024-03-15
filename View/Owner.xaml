@@ -10,7 +10,7 @@
 
         <StackPanel Orientation="Vertical">
             <Button Click="AddProperty_Click" Content="Add Property" Width="159"/>
-            <Button  Margin="45,-10,658,379" Content="Rate the guest"/>
+            <Button  Click="RateGuestButton_Click" Margin="45,-10,658,379" Content="Rate the guest"/>
         </StackPanel>
 
         <DataGrid BorderBrush="Black"
