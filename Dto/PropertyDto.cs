@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Dto
 {
-    public class PropertyDto:INotifyPropertyChanged
+    public class PropertyDto: INotifyPropertyChanged
     {
         private string name;
-       
         private int maxGuests;
         private int minReservationDays;
         private LocationDto locationDto = new LocationDto();
@@ -48,6 +47,7 @@ namespace BookingApp.Dto
 
         }
 
+        public int Id { get; set; }
 
         public List<string> ImagesPaths
         {

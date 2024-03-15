@@ -19,12 +19,13 @@ namespace BookingApp.Model
         public int MinReservationDays { get; set; }
         public int CancellationDeadline { get; set; }
         public List<string> ImagesPaths { get; set; }
+        public List<DateTime> ReservedDates { get; set; }
 
         public Property()
         {
             Location = new Location();
             ImagesPaths = new List<string>();
-
+            ReservedDates = new List<DateTime>();
         }
         public Property(int id, string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {
