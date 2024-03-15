@@ -19,7 +19,9 @@ namespace BookingApp.Dto
         private List<string> imagesPaths = new List<string>();
         private int cancellationDeadline;
         private PropertyType type;
-        
+        public List<ReservedDate> reservedDates;
+
+
         public PropertyDto() { }
 
         public PropertyDto(string name, LocationDto locationDto, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
@@ -31,8 +33,6 @@ namespace BookingApp.Dto
             this.cancellationDeadline = cancellationDeadline;
             this.imagesPaths = imagesPaths;
             this.locationDto = locationDto;
-
-
         }
        
         public PropertyDto(Property property)
@@ -128,7 +128,18 @@ namespace BookingApp.Dto
             }
         }
 
-       
+        public List<ReservedDate> ReservedDates
+        {
+            get { return reservedDates; }
+            set
+            {
+                if (value != reservedDates)
+                {
+                    reservedDates = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
         public int CancellationDeadline

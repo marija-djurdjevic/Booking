@@ -11,6 +11,7 @@ namespace BookingApp.Dto
 {
     public class PropertyReservationDto : INotifyPropertyChanged
     {
+        private int propertyId {  get; set; }
         private int guests { get; set; }
         private int days { get; set; }
 
@@ -19,16 +20,7 @@ namespace BookingApp.Dto
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
 
-        public PropertyReservationDto() { }
-
-        public PropertyReservationDto(int guests, int days, string guestFirstName, string guestLastName)
-        {
-            this.guests = guests;
-            this.days = days;
-            this.guestFirstName = guestFirstName;
-            this.guestLastName = guestLastName;
-        }
-
+        public int PropertyReservationId { get; set; }
         public int Guests
         {
             get { return guests; }
@@ -43,7 +35,7 @@ namespace BookingApp.Dto
         }
 
 
-       public int Days
+        public int Days
         {
             get { return days; }
             set
@@ -82,9 +74,21 @@ namespace BookingApp.Dto
             }
         }
 
+        public int PropertyId
+        {
+            get { return propertyId; }
+            set
+            {
+                if (value != propertyId)
+                {
+                    propertyId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public PropertyReservation ToPropertyReservation()
         {
-            return new PropertyReservation(guests, days, guestFirstName, guestLastName, startDate, endDate);
+            return new PropertyReservation(propertyId, guests, days, guestFirstName, guestLastName, startDate, endDate);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -93,5 +97,17 @@ namespace BookingApp.Dto
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public PropertyReservationDto() { }
+
+        public PropertyReservationDto(int guests, int days, string guestFirstName, string guestLastName)
+        {
+            this.guests = guests;
+            this.days = days;
+            this.guestFirstName = guestFirstName;
+            this.guestLastName = guestLastName;
+        }
+
     }
+    
+    
 }

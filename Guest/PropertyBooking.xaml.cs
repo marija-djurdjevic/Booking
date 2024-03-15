@@ -25,9 +25,11 @@ namespace BookingApp.Guest
     public partial class PropertyBooking : Window
     {
         public static PropertyRepository PropertyRepository = new PropertyRepository();
-        //public static ReservedDateRepository ReservedDateRepository = new ReservedDateRepository();
         public static PropertyReservationRepository PropertyReservationRepository = new PropertyReservationRepository();
+        public static ReservedDateRepository ReservedDateRepository = new ReservedDateRepository();
+
         public PropertyReservationDto PropertyReservation { get; set; }
+        public ReservedDate ReservedDate { get; set; }
         public Property SelectedProperty { get; set; }
         public User LoggedInUser { get; set; }
         public DateTime StartDate { get; set; }
@@ -35,13 +37,17 @@ namespace BookingApp.Guest
         public DateRange SelectedDateRange {  get; set; }
         public List<DateRange> AvailableDateRanges { get; set; }
 
-        public PropertyBooking(Property selectedProperty, User loggedInUser)
+        public PropertyBooking(Property selectedProperty, User loggedInUser, PropertyRepository propertyRepository, PropertyReservationRepository propertyReservationRepository)
         {
             InitializeComponent();
             DataContext = this;
             PropertyReservation = new PropertyReservationDto();
+            PropertyRepository = propertyRepository;
+            PropertyReservationRepository = propertyReservationRepository;
+            ReservedDateRepository = new ReservedDateRepository();
             AvailableDateRanges = new List<DateRange>();
             SelectedProperty = selectedProperty;
+            SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
             LoggedInUser = loggedInUser;
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
         }
@@ -64,7 +70,9 @@ namespace BookingApp.Guest
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            if(PropertyReservation.Days < SelectedProperty.MinReservationDays)
+            AvailableDateRanges = new List<DateRange>();
+            DateDataGrid.ItemsSource = this.AvailableDateRanges;
+            if (PropertyReservation.Days < SelectedProperty.MinReservationDays)
             {
                 MessageBox.Show("Minimum number of reservation days is " + SelectedProperty.MinReservationDays);
                 return;
@@ -77,16 +85,19 @@ namespace BookingApp.Guest
 
             }
 
-            SelectedProperty.ReservedDates.Add(StartDate);
-            while (StartDate.AddDays(PropertyReservation.Days) <= EndDate)
+            DateTime BellowStart = StartDate.AddDays(-10);
+            DateTime AboveEnd = EndDate;
+            while (StartDate.AddDays(PropertyReservation.Days -1) <= EndDate)
             {
                 bool found = true;
                 for (int i = 0; i < PropertyReservation.Days; i++)
                 {
                     DateTime currentDate = StartDate.AddDays(i);
-                    if (SelectedProperty.ReservedDates.Contains(currentDate))
+                    if (SelectedProperty.ReservedDates.Find(r =>  r.Value == currentDate) != null)
+                    {
                         found = false;
-                    break;
+                        break;
+                    }
                 }
 
                 if (!found)
@@ -100,6 +111,64 @@ namespace BookingApp.Guest
                 dateRange.End = StartDate.AddDays(PropertyReservation.Days -1);
                 AvailableDateRanges.Add(dateRange);
                 StartDate = StartDate.AddDays(1);
+            }
+
+            if(AvailableDateRanges.Count() == 0)
+            {
+                MessageBox.Show("There are no available dates in this range, so other available dates are shown");
+                //10 days bellow lower border
+                while (BellowStart <= StartDate)
+                {
+                    bool found = true;
+                    for (int i = 0; i < PropertyReservation.Days; i++)
+                    {
+                        DateTime currentDate = BellowStart.AddDays(i);
+                        if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        BellowStart = BellowStart.AddDays(1);
+                        continue;
+                    }
+
+                    DateRange dateRange = new DateRange();
+                    dateRange.Start = BellowStart;
+                    dateRange.End = BellowStart.AddDays(PropertyReservation.Days - 1);
+                    AvailableDateRanges.Add(dateRange);
+                    BellowStart = BellowStart.AddDays(1);
+                }
+
+                //10 days above higher border
+                while (AboveEnd <= EndDate.AddDays(10))
+                {
+                    bool found = true;
+                    for (int i = 0; i < PropertyReservation.Days; i++)
+                    {
+                        DateTime currentDate = AboveEnd.AddDays(i);
+                        if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        AboveEnd = AboveEnd.AddDays(1);
+                        continue;
+                    }
+
+                    DateRange dateRange = new DateRange();
+                    dateRange.Start = AboveEnd;
+                    dateRange.End = AboveEnd.AddDays(PropertyReservation.Days - 1);
+                    AvailableDateRanges.Add(dateRange);
+                    AboveEnd = AboveEnd.AddDays(1);
+                }
 
             }
 
@@ -130,18 +199,21 @@ namespace BookingApp.Guest
             DateTime EndDateRange = SelectedDateRange.End;
             while (StartDateRange <= EndDateRange)
             {
-                SelectedProperty.ReservedDates.Add(StartDateRange);
+                ReservedDate = new ReservedDate();
+                ReservedDate.PropertyId = SelectedProperty.Id;
+                ReservedDate.Value = StartDateRange;
+                ReservedDateRepository.AddReservedDate(ReservedDate);
+                SelectedProperty.ReservedDates.Add(ReservedDate);
                 StartDateRange = StartDateRange.AddDays(1);
-
             }
 
             PropertyRepository.UpdateProperty(SelectedProperty);
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
+            PropertyReservation.PropertyId = SelectedProperty.Id;
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
-
+            MessageBox.Show("Successfully reserved!");
+            Close();
         }
     }
-
-    
 }

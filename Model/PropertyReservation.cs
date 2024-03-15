@@ -38,8 +38,9 @@ namespace BookingApp.Model
             EndDate = endDate;
         }
 
-        public PropertyReservation(int guests, int days, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
+        public PropertyReservation(int propertyId, int guests, int days, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
         {
+            PropertyId = propertyId;
             Guests = guests;
             Days = days;
             GuestFirstName = guestFirstName;

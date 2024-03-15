@@ -30,6 +30,8 @@ namespace BookingApp.Repository
 
         public void AddPropertyReservation(PropertyReservation _propertyReservation)
         {
+            int nextId = NextId();
+            _propertyReservation.PropertyReservationId = nextId;
             propertyReservations.Add(_propertyReservation);
             _serializer.ToCSV(FilePath, propertyReservations);
         }
@@ -49,5 +51,15 @@ namespace BookingApp.Repository
         {
             _serializer.ToCSV(FilePath, propertyReservations);
         }
+
+        public int NextId()
+        {
+            if (propertyReservations.Count < 1)
+            {
+                return 1;
+            }
+            return propertyReservations.Max(t => t.PropertyReservationId) + 1;
+        }
+
     }
 }
