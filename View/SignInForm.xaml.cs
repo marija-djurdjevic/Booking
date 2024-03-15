@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using BookingApp.TouristView;
-using BookingApp.Guest;
+using BookingApp.GuestView;
 
 namespace BookingApp.View
 {
