@@ -21,7 +21,7 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for AddProperty.xaml
     /// </summary>
-    public partial class AddProperty : Page
+    public partial class AddProperty : Window
     {
         private PropertyDto _propertyDto;
 
@@ -33,14 +33,14 @@ namespace BookingApp.View
             DataContext = _propertyDto;
             propertyRepository = new PropertyRepository();
         }
-        private void AddProperty_Click(object sender, RoutedEventArgs e)
+        private void SaveProperty_Click(object sender, RoutedEventArgs e)
         {
             PropertyDto newPropertyDto = new PropertyDto(_propertyDto.Name, _propertyDto.LocationDto, _propertyDto.Type, _propertyDto.MaxGuests, _propertyDto.MinReservationDays, _propertyDto.CancellationDeadline, _propertyDto.ImagesPaths);
             propertyRepository.AddProperty(newPropertyDto.ToProperty());
             int id = propertyRepository.NextId() - 1;
             
             MessageBox.Show("Property created successfully!");
-            //this.Close();
+            this.Close();
 
 
         }

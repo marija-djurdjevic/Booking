@@ -31,7 +31,7 @@ namespace BookingApp.Repository
             _reviews = _serializer.FromCSV(FilePath);
         }
 
-        public Review AddProperty(Review review)
+        public Review AddReview(Review review)
         {
             int nextId = NextId();
             review.Id = nextId;

@@ -39,6 +39,12 @@ namespace BookingApp.Dto
             comment = review.Comment;
         }
 
+        public ReviewDto(int cleanliness, int rules, string comment)
+        {
+            this.cleanliness = cleanliness;
+            this.rules = rules;
+            this.comment = comment;
+        }
 
         public int ReservationId
         {
