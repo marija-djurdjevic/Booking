@@ -25,7 +25,7 @@ namespace BookingApp.Guest
     {
         public static PropertyRepository PropertyRepository = new PropertyRepository();
         public User LoggedInUser { get; set; }
-        public GuestMainWindow()
+        public GuestMainWindow(User user)
         {
             InitializeComponent();
             double screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -41,6 +41,7 @@ namespace BookingApp.Guest
             Height = windowHeight;
             Left = left;
             Top = top;
+            LoggedInUser = user;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

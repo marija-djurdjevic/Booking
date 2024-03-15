@@ -14,7 +14,7 @@ namespace BookingApp.Dto
         private int propertyId {  get; set; }
         private int guests { get; set; }
         private int days { get; set; }
-
+        private int guestId { get; set; }
         private string guestFirstName { get; set; }
         private string guestLastName { get; set; }
         private DateTime startDate { get; set; }
@@ -86,9 +86,22 @@ namespace BookingApp.Dto
                 }
             }
         }
+
+        public int GuestId
+        {
+            get { return guestId; }
+            set
+            {
+                if (value != guestId)
+                {
+                    guestId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public PropertyReservation ToPropertyReservation()
         {
-            return new PropertyReservation(propertyId, guests, days, guestFirstName, guestLastName, startDate, endDate);
+            return new PropertyReservation(propertyId, guests, days, guestId, guestFirstName, guestLastName, startDate, endDate);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -99,8 +112,10 @@ namespace BookingApp.Dto
         }
         public PropertyReservationDto() { }
 
-        public PropertyReservationDto(int guests, int days, string guestFirstName, string guestLastName)
+        public PropertyReservationDto(int guests, int days, int propertyId, int guestId, string guestFirstName, string guestLastName)
         {
+            this.propertyId = propertyId;
+            this.guestId = guestId;
             this.guests = guests;
             this.days = days;
             this.guestFirstName = guestFirstName;

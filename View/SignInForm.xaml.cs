@@ -75,7 +75,7 @@ namespace BookingApp.View
                         case UserRole.Guest:
                             {
                                 MessageBox.Show("You signed in as Guest User!");
-                                GuestMainWindow guest = new GuestMainWindow();
+                                GuestMainWindow guest = new GuestMainWindow(user);
                                 guest.Show();
                                 Close();
                                 break;
