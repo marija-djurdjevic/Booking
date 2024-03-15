@@ -22,14 +22,14 @@
 
 
         <ListBox x:Name="tourListBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"
-         DisplayMemberPath="Name" SelectionChanged="tourListBox_SelectionChanged"/>
+         DisplayMemberPath="Name" SelectionChanged="UpdateSelectedTour"/>
 
-        <Button Content="Add" Grid.Row="0" Grid.Column="0" Margin="10,10,735,0" Click="AddButton_Click" Grid.ColumnSpan="2"/>
+        <Button Content="Add" Grid.Row="0" Grid.Column="0" Margin="10,10,735,0" Click="AddButtonClick" Grid.ColumnSpan="2"/>
 
-        <Button Content="Start Tour" Click="StartTourButton_Click" Margin="329,10,400,0" Grid.Column="1"/>
+        <Button Content="Start Tour" Click="StartTourButtonClick" Margin="329,10,400,0" Grid.Column="1"/>
 
 
-        <Button Content="Finish Tour" Click="FinishTourButton_Click" Margin="122,10,600,0" Grid.Column="1"/>
+        <Button Content="Finish Tour" Click="FinishTourButtonClick" Margin="122,10,600,0" Grid.Column="1"/>
 
         <ListBox x:Name="touristsListBox" Grid.Row="1" Grid.Column="1" Margin="226,10,10,10">
             <ListBox.ItemTemplate>
@@ -46,7 +46,7 @@
 
 
 
-        <Button Content="Add Tourist" Click="AddTouristButton_Click" Margin="581,10,0,10"
+        <Button Content="Add Tourist" Click="AddTouristButtonClick" Margin="581,10,0,10"
         Grid.Row="2" Grid.Column="1"/>
 
 

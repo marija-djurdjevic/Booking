@@ -66,11 +66,11 @@ namespace BookingApp.Repository
             return _liveTours.Any(t => t.IsLive);
         }
 
-        public void SetTourAsLive(int tourId)
+        public void ActivateTour(int tourId)
         {
-            var liveTour = _liveTours.FirstOrDefault(t => t.TourId == tourId);
+            var liveTour = _liveTours.FirstOrDefault(t => t.TourId == tourId && !t.IsLive);
             if (liveTour != null)
-            {   
+            {
                 liveTour.IsLive = true;
                 SaveChanges();
             }

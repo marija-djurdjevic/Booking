@@ -17,17 +17,17 @@ namespace BookingApp.DTO
         private string description;
         private string language;
         private int maxTouristsNumber;
-        private string startDateTime;
+        private DateTime startDateTime;
         private double duration;
         private LocationDto locationDto=new LocationDto();
         private List<string> imagesPaths=new List<string>();
-        private List<KeyPoints> keyPoints = new List<KeyPoints>();
+        private List<KeyPoint> keyPoints = new List<KeyPoint>();
 
 
 
         public TourDto() { }
 
-        public TourDto(string name, string description, string language, int maxTouristsNumber, string startTime, double duration, LocationDto locationDto /*int keyPointId*/, List<string> imagesPaths)
+        public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime startTime, double duration, LocationDto locationDto /*int keyPointId*/, List<string> imagesPaths)
         {
             this.name = name;
             this.description = description;
@@ -72,7 +72,7 @@ namespace BookingApp.DTO
 
 
 
-        public List<KeyPoints> KeyPoints
+        public List<KeyPoint> KeyPoints
         {
             get { return keyPoints; }
             set
@@ -172,7 +172,7 @@ namespace BookingApp.DTO
 
 
        
-        public string StartDateTime
+        public DateTime StartDateTime
         {
             get { return startDateTime; }
             set

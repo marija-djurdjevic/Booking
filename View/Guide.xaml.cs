@@ -6,13 +6,15 @@ using System.Linq;
 using System.Windows.Controls;
 using BookingApp.Model.Enums;
 using System.Collections.Generic;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace BookingApp.View
 {
     public partial class Guide : Window
     {
         private readonly TourRepository _tourRepository;
-        private Tour _selectedTour;
+        private Tour selectedTour;
         private readonly KeyPointsRepository _keyPointsRepository;
         private readonly LiveTourRepository _liveTourRepository;
         private readonly TourReservationRepository _reservationDataRepository;
@@ -23,7 +25,7 @@ namespace BookingApp.View
             _keyPointsRepository = new KeyPointsRepository();
             _reservationDataRepository = new TourReservationRepository();
             _liveTourRepository = new LiveTourRepository();
-            _selectedTour=new Tour();
+            selectedTour=new Tour();
             LoadTours();
         }
 
@@ -33,7 +35,7 @@ namespace BookingApp.View
             tourListBox.ItemsSource = new ObservableCollection<Tour>(tours);
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void AddButtonClick(object sender, RoutedEventArgs e)
         {
             CreateTour createTourWindow = new CreateTour();
             createTourWindow.Show();
@@ -41,15 +43,15 @@ namespace BookingApp.View
 
 
 
-        private void tourListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UpdateSelectedTour(object sender, SelectionChangedEventArgs e)
         {
             if (tourListBox.SelectedItem != null)
             {
-                _selectedTour = (Tour)tourListBox.SelectedItem;
+                selectedTour = (Tour)tourListBox.SelectedItem;
             }
             else
             {
-                _selectedTour = null;
+                selectedTour = null;
             }
         }
 
@@ -60,89 +62,102 @@ namespace BookingApp.View
 
 
 
-        private void StartTourButton_Click(object sender, RoutedEventArgs e)
+        private void StartTourButtonClick(object sender, RoutedEventArgs e)
         {
-
             if (IsActiveTour())
             {
-                MessageBox.Show("There is already an active tour. Please finish the current tour before starting a new one.");
+                MessageBox.Show("Please finish the active tour before starting a new one.");
+                DisplayActiveTourDetails();
                 return;
             }
 
-            if (_selectedTour != null)
+            StartSelectedTour();
+        }
+
+        private void DisplayActiveTourDetails()
+        {
+            var activeTour = GetActiveTour();
+            var activeTourKeyPoints = activeTour.KeyPoints;
+            var tourists = _reservationDataRepository.GetUncheckedByTourId(activeTour.TourId);
+            DisplayKeyPoints(activeTourKeyPoints);
+            touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+        }
+
+        private void StartSelectedTour()
+        {
+            if (selectedTour != null)
             {
-                var keyPoints = LoadKeyPointsForTour(_selectedTour.Id);
-                LiveTour liveTour = new LiveTour(_selectedTour.Id, keyPoints, true);
-                keyPoints[0].IsChecked = true;
-                _liveTourRepository.SaveChanges();
-                AddKeyPointsToLiveTour(keyPoints);
-                SetTourAsLive(_selectedTour.Id);
+                var keyPoints = LoadTourKeyPoints(selectedTour.Id);
+                InitializeLiveTour(keyPoints);
+                SetFirstKeyPointChecked(keyPoints);
+                SetTourAsLive(selectedTour.Id);
                 MessageBox.Show("Tour started successfully!");
                 DisplayKeyPoints(keyPoints);
-                LoadTouristsForSelectedTour();
+                LoadTourists();
             }
             else
             {
                 MessageBox.Show("Please select a tour first.");
             }
         }
-        private void DisplayKeyPoints(List<KeyPoints> keyPoints)
+
+        private void InitializeLiveTour(List<KeyPoint> keyPoints)
         {
-            int keyCounter = 0;
+            LiveTour liveTour = new LiveTour(selectedTour.Id, keyPoints, true);
+            _liveTourRepository.AddOrUpdateLiveTour(liveTour);
+        }
+
+        private void SetFirstKeyPointChecked(List<KeyPoint> keyPoints)
+        {
+            keyPoints[0].IsChecked = true;
+            _liveTourRepository.SaveChanges();
+        }
+
+        private void LoadTourists()
+        {
+            if (selectedTour != null)
+            {
+                var tourists = _reservationDataRepository.GetByTourId(selectedTour.Id);
+                touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+            }
+        }
+
+
+        private void DisplayKeyPoints(List<KeyPoint> keyPoints)
+        {
+            int keyPointsCounter = 0;
             keyPointsListBox.Items.Clear();
             foreach (var keyPoint in keyPoints)
             {
-                StackPanel stackPanel = new StackPanel();
-                stackPanel.Orientation = Orientation.Horizontal;
+                StackPanel stackPanel = CreateStackPanel(keyPoint);
+                TextBlock textBlock = CreateTextBlock(keyPoint.Name);
+                CheckBox checkBox = CreateCheckBox(keyPoint);
 
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = keyPoint.KeyName;
-
-                CheckBox checkBox = new CheckBox();
-                checkBox.IsChecked = keyPoint.IsChecked;
                 checkBox.Checked += (sender, e) =>
                 {
                     keyPoint.IsChecked = true;
                     _liveTourRepository.SaveChanges();
+
                     int ordinalKeyNumber = keyPoint.OrdinalNumber;
-
-
                     for (int i = 1; i < ordinalKeyNumber; i++)
                     {
-
-                        var keyPoint = keyPoints[i];
-                        bool allPreviousChecked = true;
-                        for (int j = 0; j < i; j++)
+                        var previousKeyPoint = keyPoints[i - 1];
+                        if (!previousKeyPoint.IsChecked)
                         {
-                            if (!keyPoints[j].IsChecked)
-                            {
-                                allPreviousChecked = false;
-                                break;
-                            }
-                        }
-
-                        if (!allPreviousChecked)
-                        {
-                           
                             MessageBox.Show("You need to check the previous key points before checking this one.");
                             checkBox.IsChecked = false;
                             keyPoint.IsChecked = false;
+                            return;
                         }
                     }
-                   
-                        foreach (var keyPoint in keyPoints)
-                        {
-                            if (keyPoint.IsChecked)
-                                 keyCounter++;
-                        }
-                    if(keyCounter == keyPoints.Count)
+
+                    keyPointsCounter = keyPoints.Count(kp => kp.IsChecked);
+                    if (keyPointsCounter == keyPoints.Count)
                     {
                         FinishTourAutomatically();
                     }
-                    keyCounter = 0;
-
-
                 };
+
                 stackPanel.Children.Add(textBlock);
                 stackPanel.Children.Add(checkBox);
 
@@ -150,35 +165,72 @@ namespace BookingApp.View
             }
         }
 
+        private StackPanel CreateStackPanel(KeyPoint keyPoint)
+        {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Horizontal;
+            return stackPanel;
+        }
+
+        private TextBlock CreateTextBlock(string keyName)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = keyName;
+            return textBlock;
+        }
+
+        private CheckBox CreateCheckBox(KeyPoint keyPoint)
+        {
+            CheckBox checkBox = new CheckBox();
+            checkBox.IsChecked = keyPoint.IsChecked;
+            return checkBox;
+        }
 
         private void FinishTourAutomatically()
         {
-            
-            FinishActiveTour();
-            MessageBox.Show("The tour has been successfully completed automatically!");
+            var activeTour = GetActiveTour();
+            if (activeTour != null)
+            {
+                var touristsOnTour = _reservationDataRepository.GetByTourId(activeTour.TourId);
+                foreach (var tourist in touristsOnTour)
+                {
+                    tourist.IsOnTour = false;
+                }
+                _reservationDataRepository.SaveChanges();
+                FinishActiveTour();
+
+                MessageBox.Show("The tour has been successfully completed automatically!");
+            }
         }
 
-
-        private List<KeyPoints> LoadKeyPointsForTour(int tourId)
+        private LiveTour GetActiveTour()
         {
-            return _keyPointsRepository.GetKeyPointsForTour(tourId);
+            return _liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
         }
 
-        private void AddKeyPointsToLiveTour(List<KeyPoints> keyPoints)
+
+
+        private List<KeyPoint> LoadTourKeyPoints(int tourId)
         {
-            LiveTour liveTour = new LiveTour(_selectedTour.Id, keyPoints, true);
-            _liveTourRepository.AddOrUpdateLiveTour(liveTour);
+            return _keyPointsRepository.GetTourKeyPoints(tourId);
         }
 
+      
         private void SetTourAsLive(int tourId)
         {
-            _liveTourRepository.SetTourAsLive(tourId);
+            _liveTourRepository.ActivateTour(tourId);
         }
 
-        private void FinishTourButton_Click(object sender, RoutedEventArgs e)
+        private void FinishTourButtonClick(object sender, RoutedEventArgs e)
         {
             if (IsActiveTour())
             {
+                var touristsOnTour = _reservationDataRepository.GetByTourId(GetActiveTour().TourId);
+                foreach (var tourist in touristsOnTour)
+                {
+                    tourist.IsOnTour = false;
+                }
+                _reservationDataRepository.SaveChanges();
                 FinishActiveTour();
                 MessageBox.Show("Tura je uspešno završena!");
             }
@@ -205,29 +257,24 @@ namespace BookingApp.View
         }
 
      
-         
-        private LiveTour GetActiveTour()
+ 
+
+        private void AddTouristButtonClick(object sender, RoutedEventArgs e)
         {
-            return _liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
-        }
-
-
-
-        private void AddTouristButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (_selectedTour != null && touristsListBox.SelectedItem != null)
+            if (selectedTour != null && touristsListBox.SelectedItem != null)
             {
                 var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
-                var keyPoint = GetActiveKeyPoint();
-                selectedTourist.JoinedKeyPoint = keyPoint;
+                if (!selectedTourist.IsOnTour)
+                {
+                    var keyPoint = GetLastActiveKeyPoint();
+                    selectedTourist.JoinedKeyPoint = keyPoint;
+                    selectedTourist.IsOnTour = true;
+                    _reservationDataRepository.Saveee(selectedTourist);
+                    MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
 
-                _reservationDataRepository.SaveChanges();
-
-                MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.KeyName}.");
-
-               
-                var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
-                tourists.Remove(selectedTourist);
+                    var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
+                    tourists.Remove(selectedTourist);
+                }
             }
             else
             {
@@ -238,15 +285,8 @@ namespace BookingApp.View
 
 
 
-        private void LoadTouristsForSelectedTour()
-        {
-            if (_selectedTour != null)
-            {
-                var tourists = _reservationDataRepository.GetByTourId(_selectedTour.Id);
-                touristsListBox.ItemsSource = new ObservableCollection<TourReservation>(tourists);
-            }
-        }
-        private KeyPoints GetActiveKeyPoint()
+        
+        private KeyPoint GetLastActiveKeyPoint()
         {
             var liveTour = _liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
             if (liveTour != null)

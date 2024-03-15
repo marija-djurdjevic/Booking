@@ -13,12 +13,12 @@ namespace BookingApp.Model
     public class LiveTour: ISerializable
     {
         public int TourId { get; set; }
-        public List<KeyPoints> KeyPoints { get; set; }
+        public List<KeyPoint> KeyPoints { get; set; }
         public bool IsLive {  get; set; }
 
         public LiveTour() { }
 
-        public LiveTour(int tourId, List<KeyPoints> keyPoints,bool isLive)
+        public LiveTour(int tourId, List<KeyPoint> keyPoints,bool isLive)
         {
             TourId = tourId;
             KeyPoints= keyPoints;
@@ -30,7 +30,7 @@ namespace BookingApp.Model
             List<string> csvValues = new List<string>();
             csvValues.Add(TourId.ToString());
             csvValues.Add(IsLive.ToString());
-            csvValues.AddRange(KeyPoints.Select(kp => $"{kp.TourId}|{kp.KeyName}|{kp.KeyType}|{kp.OrdinalNumber}|{kp.IsChecked}"));
+            csvValues.AddRange(KeyPoints.Select(kp => $"{kp.TourId}|{kp.Name}|{kp.Type}|{kp.OrdinalNumber}|{kp.IsChecked}"));
 
             return csvValues.ToArray();
         }
@@ -39,15 +39,15 @@ namespace BookingApp.Model
         {
             TourId = int.Parse(values[0]);
             IsLive = bool.Parse(values[1]);
-            KeyPoints = new List<KeyPoints>();
+            KeyPoints = new List<KeyPoint>();
 
             for (int i = 2; i < values.Length; i += 5) 
             {
-                KeyPoints.Add(new KeyPoints
+                KeyPoints.Add(new KeyPoint
                 {
                     TourId = int.Parse(values[i]),
-                    KeyName = values[i + 1],
-                    KeyType = (KeyPoint)Enum.Parse(typeof(KeyPoint), values[i + 2]),
+                    Name = values[i + 1],
+                    Type = (KeyPointType)Enum.Parse(typeof(KeyPointType), values[i + 2]),
                     OrdinalNumber = int.Parse(values[i + 3]),
                     IsChecked = bool.Parse(values[i + 4])
                 });
