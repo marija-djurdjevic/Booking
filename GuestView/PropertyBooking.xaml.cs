@@ -208,6 +208,7 @@ namespace BookingApp.Guest
             }
 
             PropertyRepository.UpdateProperty(SelectedProperty);
+            PropertyReservation.GuestId = LoggedInUser.Id;
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
             PropertyReservation.PropertyId = SelectedProperty.Id;
