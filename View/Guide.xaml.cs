@@ -269,7 +269,7 @@ namespace BookingApp.View
                     var keyPoint = GetLastActiveKeyPoint();
                     selectedTourist.JoinedKeyPoint = keyPoint;
                     selectedTourist.IsOnTour = true;
-                    _reservationDataRepository.Saveee(selectedTourist);
+                    _reservationDataRepository.UpdateReservation(selectedTourist);
                     MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
 
                     var tourists = ((ObservableCollection<TourReservation>)touristsListBox.ItemsSource);

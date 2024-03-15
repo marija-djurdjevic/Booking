@@ -67,7 +67,7 @@ namespace BookingApp.Repository
         }
 
 
-        public void Saveee(TourReservation _reservationData)
+        public void UpdateReservation(TourReservation _reservationData)
         {
             reservationData = GetAll();
             var existingReservation = reservationData.FirstOrDefault(r => r.TourId == _reservationData.TourId && r.TouristFirstName == _reservationData.TouristFirstName && r.TouristLastName == _reservationData.TouristLastName);
