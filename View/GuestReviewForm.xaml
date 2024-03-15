@@ -17,7 +17,7 @@
 
         <!-- Polje za ocjenu čistoće -->
         <TextBlock Text="Cleanliness (from 1 to 5):" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CleanlinessComboBox" HorizontalAlignment="Left" Margin="160,90,0,0" VerticalAlignment="Top" Width="50">
+        <ComboBox x:Name="CleanlinessComboBox" Text="{Binding Cleanliness, Mode=TwoWay}" HorizontalAlignment="Left" Margin="160,90,0,0" VerticalAlignment="Top" Width="50">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="3"/>
@@ -27,7 +27,7 @@
 
         <!-- Polje za ocjenu poštovanja pravila -->
         <TextBlock Text="Respecting the rules (from 1 to 5):" HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="RulesComboBox" HorizontalAlignment="Left" Margin="200,120,0,0" VerticalAlignment="Top" Width="50">
+        <ComboBox x:Name="RulesComboBox" Text="{Binding Rules, Mode=TwoWay}" HorizontalAlignment="Left" Margin="200,120,0,0" VerticalAlignment="Top" Width="50">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="3"/>
@@ -37,7 +37,7 @@
 
         <!-- Polje za dodatni komentar -->
         <TextBlock Text="Additional comment:" HorizontalAlignment="Left" Margin="20,150,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="CommentTextBox" HorizontalAlignment="Left" Margin="20,170,20,0" VerticalAlignment="Top" Width="340" Height="100" TextWrapping="Wrap"/>
+        <TextBox x:Name="CommentTextBox" Text="{Binding Comment, Mode=TwoWay}" HorizontalAlignment="Left" Margin="20,170,20,0" VerticalAlignment="Top" Width="340" Height="100" TextWrapping="Wrap"/>
 
         <!-- Dugme za potvrdu ocjene -->
         <Button Content="Save Review" HorizontalAlignment="Left" Margin="20,290,0,0" VerticalAlignment="Top" Width="120" Click="SaveReview_Click"/>
