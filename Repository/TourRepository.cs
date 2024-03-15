@@ -17,7 +17,6 @@ namespace BookingApp.Repository
 
         private List<Tour> _tours;
 
-        public int idd;
 
         public TourRepository()
         {

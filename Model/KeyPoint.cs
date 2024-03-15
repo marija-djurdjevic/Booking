@@ -9,21 +9,24 @@ using System.Xml.Linq;
 
 namespace BookingApp.Model
 {
-    public class KeyPoints : ISerializable
+    public class KeyPoint : ISerializable
     {
+
+    
+
         public int TourId { get; set; }
-        public string KeyName { get; set; }
-        public KeyPoint KeyType { get; set; }
+        public string Name { get; set; }
+        public KeyPointType Type { get; set; }
         public int OrdinalNumber { get; set; }
         public bool IsChecked { get; set; }
 
-        public KeyPoints() { }
+        public KeyPoint() { }
 
-        public KeyPoints(int tourId, string keyName, KeyPoint keyType, int ordinalNumber, bool isChecked)
+        public KeyPoint(int tourId, string keyName, KeyPointType keyType, int ordinalNumber, bool isChecked)
         {
             TourId = tourId;
-            KeyName = keyName;
-            KeyType = keyType;
+            Name = keyName;
+            Type = keyType;
             OrdinalNumber = ordinalNumber;
             IsChecked = isChecked;
         }
@@ -31,15 +34,15 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             TourId = Convert.ToInt32(values[0]);
-            KeyName = values[1];
-            KeyType = (KeyPoint)Enum.Parse(typeof(KeyPoint), values[2]);
+            Name = values[1];
+            Type = (KeyPointType)Enum.Parse(typeof(KeyPointType), values[2]);
             OrdinalNumber = Convert.ToInt32(values[3]);
             IsChecked = Convert.ToBoolean(values[4]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), KeyName, KeyType.ToString(), OrdinalNumber.ToString(), IsChecked.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, Type.ToString(), OrdinalNumber.ToString(), IsChecked.ToString() };
             return csvValues;
         }
     }

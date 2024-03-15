@@ -23,13 +23,13 @@ namespace BookingApp.Model
         public List<string> ImagesPaths { get; set; }
         public Location Location { get; set; }
         
-        public List<KeyPoints> KeyPoints { get; set; }    
+        public List<KeyPoint> KeyPoints { get; set; }    
 
         public Tour()
         {
             Location = new Location();
             ImagesPaths = new List<string>();
-            KeyPoints = new List<KeyPoints>();
+            KeyPoints = new List<KeyPoint>();
          
            
         }

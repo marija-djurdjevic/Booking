@@ -11,13 +11,13 @@ namespace BookingApp.Repository
     public class KeyPointsRepository
     {
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
-        private readonly Serializer<KeyPoints> _serializer;
+        private readonly Serializer<KeyPoint> _serializer;
 
-        private List<KeyPoints> _keyPoints;
+        private List<KeyPoint> _keyPoints;
 
         public KeyPointsRepository()
         {
-            _serializer = new Serializer<KeyPoints>();
+            _serializer = new Serializer<KeyPoint>();
 
             if (!File.Exists(FilePath))
             {
@@ -27,13 +27,13 @@ namespace BookingApp.Repository
             _keyPoints = _serializer.FromCSV(FilePath);
         }
 
-        public void AddKeyPoint(int tourId, string keyName, KeyPoint keyType, int ordinalNumber, bool isChecked)
+        public void AddKeyPoint(int tourId, string keyName, KeyPointType keyType, int ordinalNumber, bool isChecked)
         {
-            KeyPoints keyPoint = new KeyPoints()
+            KeyPoint keyPoint = new KeyPoint()
             {
                 TourId = tourId,
-                KeyName = keyName,
-                KeyType = keyType,
+                Name = keyName,
+                Type = keyType,
                 OrdinalNumber = ordinalNumber,
                 IsChecked = isChecked
             };
@@ -49,9 +49,9 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _keyPoints);
         }
 
-        public List<KeyPoints> GetKeyPointsForTour(int tourId)
+        public List<KeyPoint> GetTourKeyPoints(int tourId)
         {
-            List<KeyPoints> keyPointsForTour = new List<KeyPoints>();
+            List<KeyPoint> keyPointsForTour = new List<KeyPoint>();
             foreach (var keyPoint in _keyPoints)
             {
                 if (keyPoint.TourId == tourId)

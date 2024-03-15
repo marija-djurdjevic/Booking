@@ -47,7 +47,7 @@
 
         <TextBlock Text="Images Paths (comma separated):" Grid.Row="6" Grid.Column="0" Margin="5,5,5,1"/>
         <ListBox ItemsSource="{Binding ImagesPaths}" Grid.Row="6" Grid.Column="1" Margin="5,5,5,1"/>
-        <Button Content="Add Image Path" Grid.Row="6" Grid.Column="1" Margin="5,5,5,44" Click="AddImagePathButton_Click"/>
+        <Button Content="Add Image Path" Grid.Row="6" Grid.Column="1" Margin="5,5,5,44" Click="AddImagePathButtonClick"/>
 
         <TextBlock Text="Location - City:" Grid.Row="8" Grid.Column="0" Margin="5,2,5,35"/>
         <TextBox Text="{Binding Path= LocationDto.City, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5,2,5,10"/>
@@ -60,7 +60,7 @@
 
 
 
-        <Button Content="Create Tour" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" Margin="180,170,0,-159" Click="CreateTourButton_Click" Width="64"/>
+        <Button Content="Create Tour" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" Margin="180,170,0,-159" Click="CreateTourButtonClick" Width="64"/>
 
     </Grid>
 </Window>

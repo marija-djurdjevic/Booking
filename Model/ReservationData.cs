@@ -16,7 +16,7 @@ namespace BookingApp.Model
         public string TouristLastName { get; set; }
         public int TouristAge { get; set; }
 
-        public KeyPoints JoinedKeyPoint { get; set; }
+        public KeyPoint JoinedKeyPoint { get; set; }
 
         public bool IsOnTour { get; set; }
 
@@ -25,7 +25,7 @@ namespace BookingApp.Model
         public ReservationData(int tourId)
         {
             TourId = tourId;
-            JoinedKeyPoint = new KeyPoints();
+            JoinedKeyPoint = new KeyPoint();
         }
 
         public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge)
@@ -37,18 +37,18 @@ namespace BookingApp.Model
             
         }
 
-        public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge, KeyPoints joinedKeyPoint) : this(tourId, touristFirstName, touristLastName, touristAge)
+        public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge, KeyPoint joinedKeyPoint) : this(tourId, touristFirstName, touristLastName, touristAge)
         {
             JoinedKeyPoint = joinedKeyPoint;
         }
-        public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge, KeyPoints joinedKeyPoint, bool isOnTour) : this(tourId, touristFirstName, touristLastName, touristAge, joinedKeyPoint)
+        public ReservationData(int tourId, string touristFirstName, string touristLastName, int touristAge, KeyPoint joinedKeyPoint, bool isOnTour) : this(tourId, touristFirstName, touristLastName, touristAge, joinedKeyPoint)
         {
             IsOnTour = false;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(),JoinedKeyPoint.KeyName,JoinedKeyPoint.OrdinalNumber.ToString(),IsOnTour.ToString() };
+            string[] csvValues = { TourId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(),JoinedKeyPoint.Name,JoinedKeyPoint.OrdinalNumber.ToString(),IsOnTour.ToString() };
             return csvValues;
         }
 
@@ -58,7 +58,7 @@ namespace BookingApp.Model
             TouristFirstName = values[1];
             TouristLastName = values[2];
             TouristAge = Convert.ToInt32(values[3]);
-            JoinedKeyPoint = new KeyPoints { KeyName = values[4], OrdinalNumber = Convert.ToInt32(values[5]) };
+            JoinedKeyPoint = new KeyPoint { Name = values[4], OrdinalNumber = Convert.ToInt32(values[5]) };
             IsOnTour = Convert.ToBoolean(values[6]);
         }
 

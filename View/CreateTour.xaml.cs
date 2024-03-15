@@ -15,7 +15,7 @@ namespace BookingApp.View
     {
         private TourDto _tourDto;
 
-        public String datumvrijeme;
+        public String startDateTimeInput;
         
         TourRepository tourRepository;
         KeyPointsRepository keyPointsRepository;
@@ -28,12 +28,12 @@ namespace BookingApp.View
             keyPointsRepository = new KeyPointsRepository();
             startDateTextBox.TextChanged += (sender, e) =>
             {
-                datumvrijeme = startDateTextBox.Text;
+                startDateTimeInput = startDateTextBox.Text;
             };
 
         }
 
-        private void AddImagePathButton_Click(object sender, RoutedEventArgs e)
+        private void AddImagePathButtonClick(object sender, RoutedEventArgs e)
         {
             
             string newImagePath = Microsoft.VisualBasic.Interaction.InputBox("Enter a new image path:", "Add Image Path", "");
@@ -48,37 +48,33 @@ namespace BookingApp.View
         private bool SetKeyPoints(int tourId)
         {
             string keyPointsText = KeyPointsTextBox.Text.Trim();
-            if (!string.IsNullOrEmpty(keyPointsText))
-            {
-                string[] keyPointsArray = keyPointsText.Split(',');
-                int totalKeyPoints = keyPointsArray.Length;
-
-                if (totalKeyPoints < 2 || keyPointsArray[1]=="")
-                {
-                    MessageBox.Show("Please enter at least two key points separated by commas.");
-                    return false;
-                }
-
-                for (int i = 0; i < totalKeyPoints; i++)
-                {
-                    string keyPointName = keyPointsArray[i].Trim();
-                    KeyPoint keyType = i == 0 ? KeyPoint.Begining : (i == totalKeyPoints - 1 ? KeyPoint.End : KeyPoint.Middle);
-                    int ordinalNumber = i + 1;
-                    bool isChecked = false;
-
-                    keyPointsRepository.AddKeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
-                }
-
-                return true;
-            }
-            else
+            if (string.IsNullOrEmpty(keyPointsText))
             {
                 MessageBox.Show("Please enter at least two key points separated by commas.");
                 return false;
             }
+
+            string[] keyPointsArray = keyPointsText.Split(',');
+            if (keyPointsArray.Length < 2 || string.IsNullOrEmpty(keyPointsArray[1]))
+            {
+                MessageBox.Show("Please enter at least two key points separated by commas.");
+                return false;
+            }
+
+            for (int i = 0; i < keyPointsArray.Length; i++)
+            {
+                string keyPointName = keyPointsArray[i].Trim();
+                KeyPointType keyType = i == 0 ? KeyPointType.Begining : (i == keyPointsArray.Length - 1 ? KeyPointType.End : KeyPointType.Middle);
+                int ordinalNumber = i + 1;
+                bool isChecked = false;
+
+                keyPointsRepository.AddKeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
+            }
+
+            return true;
         }
 
-        private void CreateTourButton_Click(object sender, RoutedEventArgs e)
+        private void CreateTourButtonClick(object sender, RoutedEventArgs e)
         {
             if (!ValidateFields())
             {
@@ -87,7 +83,7 @@ namespace BookingApp.View
             
             TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDateTime, _tourDto.Duration, _tourDto.LocationDto, _tourDto.ImagesPaths);
             DateTime i;
-            DateTime.TryParseExact(datumvrijeme, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
+            DateTime.TryParseExact(startDateTimeInput, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
             newTourDto.StartDateTime = i;
             tourRepository.AddTour(newTourDto.ToTour());
             int id = tourRepository.NextId() - 1;
@@ -103,26 +99,57 @@ namespace BookingApp.View
 
         private bool ValidateFields()
         {
-            if (string.IsNullOrEmpty(_tourDto.Name) ||
-                string.IsNullOrEmpty(_tourDto.Description) ||
-                string.IsNullOrEmpty(_tourDto.Language) ||
-                _tourDto.MaxTouristNumber <= 0 ||
-                _tourDto.Duration <= 0 ||
-                string.IsNullOrEmpty(_tourDto.LocationDto.Country) ||
-                string.IsNullOrEmpty(_tourDto.LocationDto.City) ||
-                _tourDto.ImagesPaths.Count == 0)
+            if (string.IsNullOrEmpty(_tourDto.Name))
             {
-                MessageBox.Show("Please fill in all required fields.");
+                MessageBox.Show("Please enter a name.");
                 return false;
             }
-/*
-            if (!DateTime.TryParseExact(_tourDto.StartDateTime.ToString("yyyy-MM-dd"), "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+
+            if (string.IsNullOrEmpty(_tourDto.Description))
             {
-                MessageBox.Show("Please enter Start Date in the format yyyy-MM-dd HH:mm.");
+                MessageBox.Show("Please enter a description.");
                 return false;
-            }*/
+            }
+
+            if (string.IsNullOrEmpty(_tourDto.Language))
+            {
+                MessageBox.Show("Please enter a language.");
+                return false;
+            }
+
+            if (_tourDto.MaxTouristNumber < 0)
+            {
+                MessageBox.Show("Please enter a valid maximum number of tourists.");
+                return false;
+            }
+
+            if (_tourDto.Duration <= 0)
+            {
+                MessageBox.Show("Please enter a valid duration.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(_tourDto.LocationDto.Country))
+            {
+                MessageBox.Show("Please enter a country.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(_tourDto.LocationDto.City))
+            {
+                MessageBox.Show("Please enter a city.");
+                return false;
+            }
+
+            if (_tourDto.ImagesPaths.Count == 0)
+            {
+                MessageBox.Show("Please add at least one image path.");
+                return false;
+            }
+
             return true;
         }
+
 
 
     }

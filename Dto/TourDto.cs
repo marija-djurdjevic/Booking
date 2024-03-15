@@ -21,7 +21,7 @@ namespace BookingApp.DTO
         private double duration;
         private LocationDto locationDto=new LocationDto();
         private List<string> imagesPaths=new List<string>();
-        private List<KeyPoints> keyPoints = new List<KeyPoints>();
+        private List<KeyPoint> keyPoints = new List<KeyPoint>();
 
 
 
@@ -72,7 +72,7 @@ namespace BookingApp.DTO
 
 
 
-        public List<KeyPoints> KeyPoints
+        public List<KeyPoint> KeyPoints
         {
             get { return keyPoints; }
             set
