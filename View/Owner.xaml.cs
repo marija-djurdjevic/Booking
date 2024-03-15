@@ -27,6 +27,7 @@ namespace BookingApp.View
         public PropertyReservation SelectedReservation { get; set; }
         public User LoggedInUser { get; set; }
         public PropertyReservationRepository PropertyReservationRepository { get; set; }
+        ReviewRepository _reviewRepository;
         public Owner()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace BookingApp.View
             PropertyReservationRepository = new PropertyReservationRepository();
             ReservationDataGrid.ItemsSource = PropertyReservationRepository.GetAllPropertyReservation();
             PropertyReservations = new List<PropertyReservationDto>();
+            _reviewRepository = new ReviewRepository();
         }
 
         private void AddProperty_Click(object sender, RoutedEventArgs e)
@@ -48,14 +50,14 @@ namespace BookingApp.View
             PropertyReservation selectedReservation = ReservationDataGrid.SelectedItem as PropertyReservation;
             if (selectedReservation != null)
             {
-                if (ValidateGuestReviewFormAvailability(selectedReservation))
+                if (ValidateGuestReviewFormAvailability(selectedReservation)&&!HasReviewed(selectedReservation))
                 {
                     PropertyReservationDto propertyReservationDto = new PropertyReservationDto();
                    
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
-                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId);
+                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId, selectedReservation.GuestId);
                     guestReviewForm.Show();
                 }
             }
@@ -84,6 +86,10 @@ namespace BookingApp.View
             return true;
         }
 
+        private bool HasReviewed(PropertyReservation reservation)
+        {
+            return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.PropertyReservationId);
+        }
 
 
 
