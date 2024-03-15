@@ -17,7 +17,7 @@ namespace BookingApp.Repository
 
         private List<Property> _properties;
 
-        public int idd;
+        public int id;
 
         public PropertyRepository()
         {

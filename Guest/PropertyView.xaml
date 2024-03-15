@@ -31,10 +31,10 @@
             <Button Content="Search" Click="Search_Click" Margin="0,30,0,0" Width="50" Height="40"/>
         </StackPanel>
         <DataGrid BorderBrush="Black"
-AutoGenerateColumns="False"
-SelectedItem="{Binding SelectedProperty, UpdateSourceTrigger=PropertyChanged}"
-x:Name="PropertyDataGrid"
-    SelectionMode="Single" IsReadOnly="True"  Margin="10,10,-23,54" Grid.Column="1">
+        AutoGenerateColumns="False"
+        SelectedItem="{Binding SelectedProperty, UpdateSourceTrigger=PropertyChanged}"
+        x:Name="PropertyDataGrid"
+        SelectionMode="Single" IsReadOnly="True"  Margin="10,10,-23,54" Grid.Column="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Location" Width="120" Binding="{Binding Location}"/>

@@ -26,8 +26,8 @@ namespace BookingApp.Guest
     /// </summary>
     public partial class PropertyView : Window
     {
-        public List<Property> Properties { get; set; }
-        public PropertyDto SelectedProperty { get; set; }
+        public List<PropertyDto> Properties { get; set; }
+        public Property SelectedProperty { get; set; }
         public User LoggedInUser { get; set; }
         public PropertyRepository PropertyRepository { get; set; }
         public PropertyView(User user)
@@ -35,9 +35,10 @@ namespace BookingApp.Guest
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
+            SelectedProperty = new Property();
+            Properties = new List<PropertyDto>();
             PropertyRepository = new PropertyRepository();
-            Properties = PropertyRepository.GetAllProperties();
-            PropertyDataGrid.ItemsSource = this.Properties;
+            PropertyDataGrid.ItemsSource = PropertyRepository.GetAllProperties();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -101,10 +102,19 @@ namespace BookingApp.Guest
         }
 
         private void MakeReservation_Click(object sender, RoutedEventArgs e)
-        { 
-            PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInUser);
-            propertybooking.Show();
-            Close();
+        {
+            if (SelectedProperty == null)
+            {
+                MessageBox.Show("Please choose a property to make reservation!");
+            }
+            else
+            {
+                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInUser);
+                //propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                propertybooking.Show();
+                Close();
+            }
+            
         }
     }
 

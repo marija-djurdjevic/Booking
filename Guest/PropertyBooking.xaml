@@ -6,25 +6,28 @@
         xmlns:local="clr-namespace:BookingApp.Guest"
         mc:Ignorable="d"
         Title="PropertyBooking" Height="450" Width="450">
-    <Grid>
+    <Grid Margin="0,0,0,-6">
         <Label Content="Start date:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 20" Height="25"></Label>
-        <Label Content="End date:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 70" Height="25"></Label>
+        <Label Content="End date:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 70" Height="25" ></Label>
         <Label Content="Number of days:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 130" Height="25"></Label>
+        <Label Content="Number of guests:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="216,130,0,0" Height="25" Width="110"></Label>
+        <Button Content="Search" Click ="Search_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="166,160,0,0" Height="25" Width="110"></Button>
         <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 20" Height="25"
-        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        SelectedDateChanged="DatePicker_SelectedDate1Changed"/>
         <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 70" Height="25"
-        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="113,130,0,0" Height="25" Width="89"></TextBox>
-        <Button Content="Confirm reservation" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,400,0,0"></Button>
-        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,179,0,0" Height="200" Width="270" BorderBrush="Black"
-       AutoGenerateColumns="False"
-       x:Name="DateDataGrid"
-        SelectedItem="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"
-        SelectionMode="Single" IsReadOnly="True">
+        SelectedDateChanged="DatePicker_SelectedDate2Changed"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="113,130,0,0" Height="25" Width="89" Text="{Binding Path=PropertyReservation.Days, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,130,0,0" Height="25" Width="86" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Button Content="Confirm reservation" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,390,0,0"></Button>
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top"  Height="173" Width="400" BorderBrush="Black"
+        AutoGenerateColumns="False"
+        x:Name="DateDataGrid"
+        SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
+        SelectionMode="Single" IsReadOnly="True" Margin="16,203,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Check-in date" Width="120"/>
-                <DataGridTextColumn Header="Check-out date" Width="150"/>
-            </DataGrid.Columns> >
+                <DataGridTextColumn Header="Check-in date" Width="200" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Check-out date" Width="200" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>
