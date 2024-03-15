@@ -9,28 +9,31 @@ namespace BookingApp.Model
 {
     public class ReservedDate : ISerializable
     {
-        public int PropertyId { get; set; }
 
-        public DateTime DateValue {  get; set; }
-        public User User { get; set; }
+        //public int Id;
+        public int PropertyId;
+        public DateTime Value;
 
-        public ReservedDate() { }
-
-        public ReservedDate(DateTime dateValue)
+        public ReservedDate()
         {
-            DateValue = dateValue;
+        }
+
+        public ReservedDate(int propertyId, DateTime value)
+        {
+            PropertyId = propertyId;
+            Value = value;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { PropertyId.ToString(), DateValue.ToString() };
+            string[] csvValues = { PropertyId.ToString(), Value.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             PropertyId = Convert.ToInt32(values[0]);
-            DateValue = Convert.ToDateTime(values[1]);
+            Value = Convert.ToDateTime(values[1]);
         }
     }
 }

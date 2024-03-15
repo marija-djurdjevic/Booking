@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.Guest"      
         mc:Ignorable="d"
         Title="PropertyView" Height="450" Width="800">
-    <Grid Margin="0,0,28,0">
+    <Grid Margin="0,0,30,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="179*"/>
             <ColumnDefinition Width="593*"/>
@@ -17,12 +17,12 @@
             <TextBox x:Name="SearchByType" Margin="0,15,0,0" Width="100" Height="30"></TextBox>
             <TextBox x:Name="SearchByGuests" Margin="0,15,0,0" Width="100" Height="30"></TextBox>
             <TextBox x:Name="SearchByDays" Margin="0,15,0,0"  Width="100" Height="30"></TextBox>
-
+            <Button Content="Refresh" Click="Refresh_Click" Margin="30,30,0,0" Width="50" Height="40"/>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="0,0,0,332">
-            <Label Content="Search by parameters" Margin="15,55" Height="32" Width="163"/>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,345">
+            <Label Content="Search by parameters" Margin="15,45, 20, 120" Height="34" Width="163"/>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="0,94,73,0">
+        <StackPanel Orientation="Vertical" Margin="0,94,113,0">
             <Label Content="Name:" Margin="0,0,0,0"></Label>
             <Label Content="Location:" Margin="0,20,0,0"></Label>
             <Label Content="Type:" Margin="0,20,0,0"></Label>
@@ -34,12 +34,13 @@
         AutoGenerateColumns="False"
         SelectedItem="{Binding SelectedProperty, UpdateSourceTrigger=PropertyChanged}"
         x:Name="PropertyDataGrid"
-        SelectionMode="Single" IsReadOnly="True"  Margin="10,10,-23,54" Grid.Column="1">
+        SelectionMode="Single" IsReadOnly="True"  Margin="10,10,0,54" Grid.Column="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Location" Width="120" Binding="{Binding Location}"/>
-                <DataGridTextColumn Header="Type" Width="120" Binding="{Binding Type}"/>
-                <DataGridTextColumn Header="MaxGuests" Width="120" Binding="{Binding MaxGuests}"/>
+                <DataGridTextColumn Header="Name" Width="80" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Country" Width="120" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="Type" Width="80" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="MaxGuests" Width="80" Binding="{Binding MaxGuests}"/>
                 <DataGridTextColumn Header="MinReservationDays" Width="120" Binding="{Binding MinReservationDays}"/>
             </DataGrid.Columns>
         </DataGrid>

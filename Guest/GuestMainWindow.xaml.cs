@@ -28,12 +28,27 @@ namespace BookingApp.Guest
         public GuestMainWindow()
         {
             InitializeComponent();
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            double windowWidth = screenWidth * 3 / 4;
+            double windowHeight = screenHeight * 3 / 4;
+
+            double left = (screenWidth - windowWidth) / 2;
+            double top = (screenHeight - windowHeight) / 2;
+
+            Width = windowWidth;
+            Height = windowHeight;
+            Left = left;
+            Top = top;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             PropertyView propertyview = new PropertyView(LoggedInUser);
-            propertyview.Show();
+            propertyview.Owner = this;
+            propertyview.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            propertyview.ShowDialog();
             Close();
         }
     }
