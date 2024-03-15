@@ -59,7 +59,7 @@ namespace BookingApp.Model
             Description = description;
             Language = language;
             MaxTouristsNumber = maxTouristNumber;
-            StartDate = startDate;
+            StartDateTime = startDate;
             Duration = duration;
             ImagesPaths = imagesPaths;
             Location = location;

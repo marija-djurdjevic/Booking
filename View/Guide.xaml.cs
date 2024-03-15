@@ -80,7 +80,7 @@ namespace BookingApp.View
             var activeTourKeyPoints = activeTour.KeyPoints;
             var tourists = _reservationDataRepository.GetUncheckedByTourId(activeTour.TourId);
             DisplayKeyPoints(activeTourKeyPoints);
-            touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+            touristsListBox.ItemsSource = new ObservableCollection<TourReservation>(tourists);
         }
 
         private void StartSelectedTour()
@@ -118,7 +118,7 @@ namespace BookingApp.View
             if (selectedTour != null)
             {
                 var tourists = _reservationDataRepository.GetByTourId(selectedTour.Id);
-                touristsListBox.ItemsSource = new ObservableCollection<ReservationData>(tourists);
+                touristsListBox.ItemsSource = new ObservableCollection<TourReservation>(tourists);
             }
         }
 
@@ -263,7 +263,7 @@ namespace BookingApp.View
         {
             if (selectedTour != null && touristsListBox.SelectedItem != null)
             {
-                var selectedTourist = (ReservationData)touristsListBox.SelectedItem;
+                var selectedTourist = (TourReservation)touristsListBox.SelectedItem;
                 if (!selectedTourist.IsOnTour)
                 {
                     var keyPoint = GetLastActiveKeyPoint();
@@ -272,7 +272,7 @@ namespace BookingApp.View
                     _reservationDataRepository.Saveee(selectedTourist);
                     MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
 
-                    var tourists = ((ObservableCollection<ReservationData>)touristsListBox.ItemsSource);
+                    var tourists = ((ObservableCollection<TourReservation>)touristsListBox.ItemsSource);
                     tourists.Remove(selectedTourist);
                 }
             }

@@ -105,7 +105,7 @@ namespace BookingApp.Dto
                 }
             }
         }
--
+
         public Review ToReview()
         {
             return new Review(ReservationId, GuestId, Cleanliness, Rules, Comment);
