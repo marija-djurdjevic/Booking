@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.Dto;
+using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +22,27 @@ namespace BookingApp.View
     /// </summary>
     public partial class Owner : Window
     {
+        public List<PropertyReservationDto> PropertyReservations { get; set; }
+        public PropertyReservation SelectedReservation { get; set; }
+        public User LoggedInUser { get; set; }
+        public PropertyReservationRepository PropertyReservationRepository { get; set; }
         public Owner()
         {
             InitializeComponent();
+            DataContext = this;
+            SelectedReservation = new PropertyReservation();
+            PropertyReservationRepository = new PropertyReservationRepository();
+            ReservationDataGrid.ItemsSource = PropertyReservationRepository.GetAllPropertyReservation();
+            PropertyReservations = new List<PropertyReservationDto>();
         }
+       
+            
+ 
         private void AddProperty_Click(object sender, RoutedEventArgs e)
         {
             AddProperty addProperty = new AddProperty();
-            MainFrame.Navigate(addProperty);
+            //MainFrame.Navigate(addProperty);
+            addProperty.Show();
         }
     }
 }

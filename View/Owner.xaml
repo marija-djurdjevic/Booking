@@ -6,8 +6,26 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="Owner" Height="450" Width="800">
-    <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        <Button Width="100" Height="100" Click="AddProperty_Click">Add Property</Button>
+    <Grid Margin="0,46,0,0">
+
+        <StackPanel Orientation="Vertical">
+            <Button Click="AddProperty_Click" Content="Add Property" Width="159"/>
+            <Button  Margin="45,-10,658,379" Content="Rate the guest"/>
+        </StackPanel>
+
+        <DataGrid BorderBrush="Black"
+                  
+        AutoGenerateColumns="False"
+        SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
+        x:Name="ReservationDataGrid"
+        SelectionMode="Single" IsReadOnly="True"  Margin="46,37,50,48">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
+                <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
+                <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
+                <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
