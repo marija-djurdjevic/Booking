@@ -30,6 +30,7 @@ namespace BookingApp.Guest
         public Property SelectedProperty { get; set; }
         public User LoggedInUser { get; set; }
         public PropertyRepository PropertyRepository { get; set; }
+        public PropertyReservationRepository PropertyReservationRepository { get; set; }
         public PropertyView(User user)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace BookingApp.Guest
             SelectedProperty = new Property();
             Properties = new List<PropertyDto>();
             PropertyRepository = new PropertyRepository();
+            PropertyReservationRepository = new PropertyReservationRepository();
             PropertyDataGrid.ItemsSource = PropertyRepository.GetAllProperties();
         }
 
@@ -109,12 +111,19 @@ namespace BookingApp.Guest
             }
             else
             {
-                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInUser);
-                //propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                propertybooking.Show();
+                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInUser, PropertyRepository, PropertyReservationRepository);
+                propertybooking.Owner = this;
+                propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                propertybooking.ShowDialog();
                 Close();
             }
             
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            PropertyDataGrid.ItemsSource = PropertyRepository.GetAllProperties();
+            PropertyDataGrid.Items.Refresh();
         }
     }
 

@@ -19,13 +19,13 @@ namespace BookingApp.Model
         public int MinReservationDays { get; set; }
         public int CancellationDeadline { get; set; }
         public List<string> ImagesPaths { get; set; }
-        public List<DateTime> ReservedDates { get; set; }
+        public List<ReservedDate> ReservedDates { get; set; }
 
         public Property()
         {
             Location = new Location();
             ImagesPaths = new List<string>();
-            ReservedDates = new List<DateTime>();
+            ReservedDates = new List<ReservedDate>();
         }
         public Property(int id, string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {
@@ -57,13 +57,13 @@ namespace BookingApp.Model
         {
             if (ImagesPaths == null)
             {
-                string[] csvValues = { Id.ToString(), Name, Location.Country, Location.City, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString() };
+                string[] csvValues = { Id.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString() };
                 return csvValues;
             }
             else
             {
                 string imagesPathsStr = string.Join("|", ImagesPaths);
-                string[] csvValues = { Id.ToString(), Name, Location.Country, Location.City, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString(), imagesPathsStr };
+                string[] csvValues = { Id.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString(), imagesPathsStr };
                 return csvValues;
             }
         }
@@ -78,7 +78,6 @@ namespace BookingApp.Model
             MaxGuests = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             CancellationDeadline = Convert.ToInt32(values[7]);
-            Location.Country = values[7];
             for (int i = 8; i < values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
