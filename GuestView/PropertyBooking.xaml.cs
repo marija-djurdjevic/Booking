@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.Guest
+namespace BookingApp.GuestView
 {
     /// <summary>
     /// Interaction logic for PropertyBooking.xaml
@@ -31,13 +31,13 @@ namespace BookingApp.Guest
         public PropertyReservationDto PropertyReservation { get; set; }
         public ReservedDate ReservedDate { get; set; }
         public Property SelectedProperty { get; set; }
-        public User LoggedInUser { get; set; }
+        public Guest LoggedInGuest { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateRange SelectedDateRange {  get; set; }
         public List<DateRange> AvailableDateRanges { get; set; }
 
-        public PropertyBooking(Property selectedProperty, User loggedInUser, PropertyRepository propertyRepository, PropertyReservationRepository propertyReservationRepository)
+        public PropertyBooking(Property selectedProperty, Guest guest, PropertyRepository propertyRepository, PropertyReservationRepository propertyReservationRepository)
         {
             InitializeComponent();
             DataContext = this;
@@ -48,7 +48,7 @@ namespace BookingApp.Guest
             AvailableDateRanges = new List<DateRange>();
             SelectedProperty = selectedProperty;
             SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
-            LoggedInUser = loggedInUser;
+            LoggedInGuest = guest;
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
         }
 
@@ -208,7 +208,9 @@ namespace BookingApp.Guest
             }
 
             PropertyRepository.UpdateProperty(SelectedProperty);
-            PropertyReservation.GuestId = LoggedInUser.Id;
+            PropertyReservation.GuestId = LoggedInGuest.Id;
+            PropertyReservation.GuestFirstName = LoggedInGuest.FirstName;
+            PropertyReservation.GuestLastName = LoggedInGuest.LastName;
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
             PropertyReservation.PropertyId = SelectedProperty.Id;

@@ -19,7 +19,8 @@ using BookingApp.Repository;
 using static System.Net.Mime.MediaTypeNames;
 using System.DirectoryServices.ActiveDirectory;
 using BookingApp.View;
-namespace BookingApp.Guest
+
+namespace BookingApp.GuestView
 {
     /// <summary>
     /// Interaction logic for PropertyViewWindow.xaml
@@ -28,14 +29,16 @@ namespace BookingApp.Guest
     {
         public List<PropertyDto> Properties { get; set; }
         public Property SelectedProperty { get; set; }
-        public User LoggedInUser { get; set; }
+        public Guest LoggedInGuest { get; set; }
+        public GuestRepository GuestRepository { get; set; }
         public PropertyRepository PropertyRepository { get; set; }
         public PropertyReservationRepository PropertyReservationRepository { get; set; }
         public PropertyView(User user)
         {
             InitializeComponent();
             DataContext = this;
-            LoggedInUser = user;
+            GuestRepository = new GuestRepository();
+            LoggedInGuest = GuestRepository.GetByUserId(user.Id);
             SelectedProperty = new Property();
             Properties = new List<PropertyDto>();
             PropertyRepository = new PropertyRepository();
@@ -111,7 +114,7 @@ namespace BookingApp.Guest
             }
             else
             {
-                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInUser, PropertyRepository, PropertyReservationRepository);
+                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
                 propertybooking.Owner = this;
                 propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 propertybooking.ShowDialog();
