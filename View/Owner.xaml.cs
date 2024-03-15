@@ -51,11 +51,11 @@ namespace BookingApp.View
                 if (ValidateGuestReviewFormAvailability(selectedReservation))
                 {
                     PropertyReservationDto propertyReservationDto = new PropertyReservationDto();
-
+                   
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
-                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto);
+                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId);
                     guestReviewForm.Show();
                 }
             }
