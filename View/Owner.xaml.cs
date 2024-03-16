@@ -61,7 +61,11 @@ namespace BookingApp.View
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
+<<<<<<< HEAD
+                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id);
+=======
                     GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId, selectedReservation.GuestId);
+>>>>>>> eb6bb39b1cad74574692005b21f15a6f689c87c5
                     guestReviewForm.Show();
                 }
             }

@@ -44,7 +44,7 @@ namespace BookingApp.GuestView
             LoggedInUser = user;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void ViewProperties_Click(object sender, RoutedEventArgs e)
         {
             PropertyView propertyview = new PropertyView(LoggedInUser);
             propertyview.Owner = this;

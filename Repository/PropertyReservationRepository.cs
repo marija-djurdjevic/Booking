@@ -31,7 +31,7 @@ namespace BookingApp.Repository
         public void AddPropertyReservation(PropertyReservation _propertyReservation)
         {
             int nextId = NextId();
-            _propertyReservation.PropertyReservationId = nextId;
+            _propertyReservation.Id = nextId;
             propertyReservations.Add(_propertyReservation);
             _serializer.ToCSV(FilePath, propertyReservations);
         }
@@ -41,9 +41,9 @@ namespace BookingApp.Repository
             return propertyReservations;
         }
 
-        public List<PropertyReservation> GetReservationDataByTourId(int propertyReservationId)
+        public List<PropertyReservation> GetReservationDataByTourId(int id)
         {
-            return propertyReservations.FindAll(t => t.PropertyReservationId == propertyReservationId);
+            return propertyReservations.FindAll(t => t.Id == id);
         }
 
 
@@ -58,7 +58,7 @@ namespace BookingApp.Repository
             {
                 return 1;
             }
-            return propertyReservations.Max(t => t.PropertyReservationId) + 1;
+            return propertyReservations.Max(t => t.Id) + 1;
         }
 
     }

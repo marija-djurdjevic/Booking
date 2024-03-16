@@ -20,7 +20,7 @@ namespace BookingApp.Dto
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
 
-        public int PropertyReservationId { get; set; }
+        public int Id { get; set; }
         public int Guests
         {
             get { return guests; }
