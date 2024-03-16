@@ -46,7 +46,7 @@ namespace BookingApp.TouristView.TourBooking
             if (NumberOfReservations == 1)
             {
                 TourReservationRepository reservationDataRepository = new TourReservationRepository();
-                reservationDataRepository.Save(new TourReservation(SelectedTour.id, LoggedInTourist));
+                reservationDataRepository.Save(new TourReservation(SelectedTour.Id, LoggedInTourist));
                 SelectedTour.MaxTouristNumber--;
                 TourRepository.Update(SelectedTour.ToTour());
                 Close();

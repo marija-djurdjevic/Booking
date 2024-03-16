@@ -41,7 +41,7 @@ namespace BookingApp.TouristView.TourBooking
 
             for (int i = 0; i < touristNumber - 1; i++)
             {
-                Tourists.Add(new TourReservation(SelectedTour.id, userId));
+                Tourists.Add(new TourReservation(SelectedTour.Id, userId));
             }
         }
 
@@ -49,7 +49,7 @@ namespace BookingApp.TouristView.TourBooking
         {
             TourReservationRepository reservationDataRepository = new TourReservationRepository();
 
-            Tourists.Add(new TourReservation(SelectedTour.id, LoggedInTourist));
+            Tourists.Add(new TourReservation(SelectedTour.Id, LoggedInTourist));
 
             foreach (TourReservation data in Tourists)
             {
