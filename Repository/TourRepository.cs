@@ -17,7 +17,7 @@ namespace BookingApp.Repository
 
         private List<Tour> tours;
 
-        private KeyPointsRepository _keypoints;
+        private KeyPointRepository keyPoints;
 
 
         public TourRepository()
@@ -28,7 +28,7 @@ namespace BookingApp.Repository
             {
                 using (System.IO.File.Create(FilePath)) { }
             }
-            _keypoints = new KeyPointsRepository();
+            keyPoints = new KeyPointRepository();
             tours = GetAll();
         }
 
@@ -70,7 +70,7 @@ namespace BookingApp.Repository
             tours = _serializer.FromCSV(FilePath);
             foreach (Tour tour in tours)
             {
-                tour.KeyPoints = _keypoints.GetTourKeyPoints(tour.Id);
+                tour.KeyPoints = keyPoints.GetTourKeyPoints(tour.Id);
             }
             return tours;
         }
