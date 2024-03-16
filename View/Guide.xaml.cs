@@ -15,14 +15,14 @@ namespace BookingApp.View
     {
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
-        private readonly KeyPointsRepository keyPointsRepository;
+        private readonly KeyPointRepository keyPointRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
         public Guide()
         {
             InitializeComponent();
             tourRepository = new TourRepository();
-            keyPointsRepository = new KeyPointsRepository();
+            keyPointRepository = new KeyPointRepository();
             tourReservationRepository = new TourReservationRepository();
             liveTourRepository = new LiveTourRepository();
             selectedTour=new Tour();
@@ -212,7 +212,7 @@ namespace BookingApp.View
 
         private List<KeyPoint> LoadTourKeyPoints(int tourId)
         {
-            return keyPointsRepository.GetTourKeyPoints(tourId);
+            return keyPointRepository.GetTourKeyPoints(tourId);
         }
 
       
