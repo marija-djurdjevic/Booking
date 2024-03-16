@@ -14,7 +14,7 @@ namespace BookingApp.Repository
 
         private readonly Serializer<TourReservation> _serializer;
 
-        private List<TourReservation> reservationData;
+        private List<TourReservation> tourReservations;
 
         public TourReservationRepository()
         {
@@ -25,21 +25,21 @@ namespace BookingApp.Repository
                 using (System.IO.File.Create(FilePath)) { }
             }
 
-            reservationData = _serializer.FromCSV(FilePath);
+            tourReservations = _serializer.FromCSV(FilePath);
         }
 
         public void Save(TourReservation _reservationData)
         {
-            reservationData = GetAll();
-            reservationData.Add(_reservationData);
-            _serializer.ToCSV(FilePath, reservationData);
+            tourReservations = GetAll();
+            tourReservations.Add(_reservationData);
+            _serializer.ToCSV(FilePath, tourReservations);
 
         }
 
 
         public void SaveChanges()
         {
-            _serializer.ToCSV(FilePath, reservationData);
+            _serializer.ToCSV(FilePath, tourReservations);
         }
 
         public List<TourReservation> GetAll()
@@ -49,14 +49,14 @@ namespace BookingApp.Repository
 
         public List<TourReservation> GetByTourId(int tourId)
         {
-            reservationData = _serializer.FromCSV(FilePath);
-            return reservationData.FindAll(t => t.TourId == tourId);
+            tourReservations = _serializer.FromCSV(FilePath);
+            return tourReservations.FindAll(t => t.TourId == tourId);
         }
 
         public List<TourReservation> GetByUserId(int userId)
         {
-            reservationData = _serializer.FromCSV(FilePath);
-            return reservationData.FindAll(t => t.UserId == userId);
+            tourReservations = _serializer.FromCSV(FilePath);
+            return tourReservations.FindAll(t => t.UserId == userId);
         }
 
 
@@ -67,10 +67,10 @@ namespace BookingApp.Repository
         }
 
 
-        public void Saveee(TourReservation _reservationData)
+        public void UpdateReservation(TourReservation _reservationData)
         {
-            reservationData = GetAll();
-            var existingReservation = reservationData.FirstOrDefault(r => r.TourId == _reservationData.TourId && r.TouristFirstName == _reservationData.TouristFirstName && r.TouristLastName == _reservationData.TouristLastName);
+            tourReservations = GetAll();
+            var existingReservation = tourReservations.FirstOrDefault(r => r.TourId == _reservationData.TourId && r.TouristFirstName == _reservationData.TouristFirstName && r.TouristLastName == _reservationData.TouristLastName);
             if (existingReservation != null)
             {
                 existingReservation.IsOnTour = _reservationData.IsOnTour;
@@ -78,9 +78,9 @@ namespace BookingApp.Repository
             }
             else
             {
-                reservationData.Add(_reservationData);
+                tourReservations.Add(_reservationData);
             }
-            _serializer.ToCSV(FilePath, reservationData);
+            _serializer.ToCSV(FilePath, tourReservations);
         }
 
 

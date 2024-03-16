@@ -26,17 +26,23 @@ namespace BookingApp.View
         public List<PropertyReservationDto> PropertyReservations { get; set; }
         public PropertyReservation SelectedReservation { get; set; }
         public User LoggedInUser { get; set; }
-        public PropertyReservationRepository PropertyReservationRepository { get; set; }
+        public PropertyReservationRepository _propertyReservationRepository { get; set; }
+        public ReviewRepository _reviewRepository;
+        private List<Notification> _notifications;
         public Owner()
         {
             InitializeComponent();
             DataContext = this;
             SelectedReservation = new PropertyReservation();
-            PropertyReservationRepository = new PropertyReservationRepository();
-            ReservationDataGrid.ItemsSource = PropertyReservationRepository.GetAllPropertyReservation();
+            _notifications = new List<Notification>();
+            _propertyReservationRepository = new PropertyReservationRepository();
+            ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAllPropertyReservation();
             PropertyReservations = new List<PropertyReservationDto>();
+            _reviewRepository = new ReviewRepository();
+            
         }
-
+       
+       
         private void AddProperty_Click(object sender, RoutedEventArgs e)
         {
             AddProperty addProperty = new AddProperty();
@@ -48,14 +54,18 @@ namespace BookingApp.View
             PropertyReservation selectedReservation = ReservationDataGrid.SelectedItem as PropertyReservation;
             if (selectedReservation != null)
             {
-                if (ValidateGuestReviewFormAvailability(selectedReservation))
+                if (ValidateGuestReviewFormAvailability(selectedReservation)&&!HasReviewed(selectedReservation))
                 {
                     PropertyReservationDto propertyReservationDto = new PropertyReservationDto();
                    
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
+<<<<<<< HEAD
                     GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id);
+=======
+                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId, selectedReservation.GuestId);
+>>>>>>> eb6bb39b1cad74574692005b21f15a6f689c87c5
                     guestReviewForm.Show();
                 }
             }
@@ -84,9 +94,49 @@ namespace BookingApp.View
             return true;
         }
 
+        private bool IsReviewable(PropertyReservation reservation)
+        {
+            DateTime currentDate = DateTime.Now;
+            TimeSpan difference = currentDate - reservation.EndDate;
+            if (currentDate < reservation.EndDate || difference.TotalDays > 5)
+            {
+                return false;
 
+            }
+               return true;
 
+        }
 
+        private bool HasReviewed(PropertyReservation reservation)
+        {
+            return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.PropertyReservationId);
+        }
+        private void NotificationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            int unratedGuests = CalculateUnratedGuests();
+
+            Notification notificationWindow = new Notification(unratedGuests);
+            notificationWindow.Show();
+        }
+        private int CalculateUnratedGuests()
+        {
+
+            var allReservations = _propertyReservationRepository.GetAllPropertyReservation();
+            var allReviews = _reviewRepository.GetAllReviews();
+            var unratedGuests = 0;
+
+            foreach (var reservation in allReservations)
+            {
+                var hasReview = allReviews.Any(review => review.ReservationId == reservation.PropertyReservationId && review.GuestId == reservation.GuestId);
+                if (!hasReview && IsReviewable(reservation))
+                {
+                    unratedGuests++;
+                }
+            }
+
+            return unratedGuests;
+           
+        }
     }
 }
             

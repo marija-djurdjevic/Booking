@@ -10,7 +10,7 @@ namespace BookingApp.Repository
     {
         private const string FilePath = "../../../Resources/Data/liveTour.csv";
         private readonly Serializer<LiveTour> _serializer;
-        private List<LiveTour> _liveTours;
+        private List<LiveTour> liveTours;
 
         public LiveTourRepository()
         {
@@ -21,12 +21,12 @@ namespace BookingApp.Repository
                 File.Create(FilePath).Close();
             }
 
-            _liveTours = _serializer.FromCSV(FilePath);
+            liveTours = _serializer.FromCSV(FilePath);
         }
 
         public void AddOrUpdateLiveTour(LiveTour liveTour)
         {
-            var existingTour = _liveTours.FirstOrDefault(t => t.TourId == liveTour.TourId);
+            var existingTour = liveTours.FirstOrDefault(t => t.TourId == liveTour.TourId);
             if (existingTour != null)
             {
                 existingTour.KeyPoints = liveTour.KeyPoints;
@@ -34,7 +34,7 @@ namespace BookingApp.Repository
             }
             else
             {
-                _liveTours.Add(liveTour);
+                liveTours.Add(liveTour);
             }
 
             SaveChanges();
@@ -42,33 +42,33 @@ namespace BookingApp.Repository
 
         public void RemoveLiveTour(int tourId)
         {
-            _liveTours.RemoveAll(t => t.TourId == tourId);
+            liveTours.RemoveAll(t => t.TourId == tourId);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _serializer.ToCSV(FilePath, _liveTours);
+            _serializer.ToCSV(FilePath, liveTours);
         }
 
         public List<LiveTour> GetAllLiveTours()
         {
-            return _liveTours;
+            return liveTours;
         }
 
         public LiveTour GetLiveTourById(int tourId)
         {
-            return _liveTours.FirstOrDefault(t => t.TourId == tourId);
+            return liveTours.FirstOrDefault(t => t.TourId == tourId);
         }
 
         public bool IsActiveTour()
         {
-            return _liveTours.Any(t => t.IsLive);
+            return liveTours.Any(t => t.IsLive);
         }
 
         public void ActivateTour(int tourId)
         {
-            var liveTour = _liveTours.FirstOrDefault(t => t.TourId == tourId && !t.IsLive);
+            var liveTour = liveTours.FirstOrDefault(t => t.TourId == tourId && !t.IsLive);
             if (liveTour != null)
             {
                 liveTour.IsLive = true;

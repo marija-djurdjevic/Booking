@@ -13,7 +13,7 @@ namespace BookingApp.View
 {
     public partial class CreateTour : Window
     {
-        private TourDto _tourDto;
+        private TourDto tourDto;
 
         public String startDateTimeInput;
         
@@ -22,8 +22,8 @@ namespace BookingApp.View
         public CreateTour()
         {
             InitializeComponent();
-            _tourDto = new TourDto();
-            DataContext = _tourDto;
+            tourDto = new TourDto();
+            DataContext = tourDto;
             tourRepository = new TourRepository();
             keyPointsRepository = new KeyPointsRepository();
             startDateTextBox.TextChanged += (sender, e) =>
@@ -41,7 +41,7 @@ namespace BookingApp.View
             if (!string.IsNullOrEmpty(newImagePath))
             {
                 
-                _tourDto.ImagesPaths.Add(newImagePath);
+                tourDto.ImagesPaths.Add(newImagePath);
             }
         }
 
@@ -68,7 +68,10 @@ namespace BookingApp.View
                 int ordinalNumber = i + 1;
                 bool isChecked = false;
 
-                keyPointsRepository.AddKeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
+                KeyPoint keyPoint = new KeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
+                keyPointsRepository.AddKeyPoint(keyPoint);
+
+               // keyPointsRepository.AddKeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
             }
 
             return true;
@@ -81,7 +84,7 @@ namespace BookingApp.View
                 return;
             }
             
-            TourDto newTourDto = new TourDto(_tourDto.Name, _tourDto.Description, _tourDto.Language, _tourDto.MaxTouristNumber, _tourDto.StartDateTime, _tourDto.Duration, _tourDto.LocationDto, _tourDto.ImagesPaths);
+            TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, tourDto.Language, tourDto.MaxTouristNumber, tourDto.StartDateTime, tourDto.Duration, tourDto.LocationDto, tourDto.ImagesPaths);
             DateTime i;
             DateTime.TryParseExact(startDateTimeInput, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
             newTourDto.StartDateTime = i;
@@ -99,49 +102,49 @@ namespace BookingApp.View
 
         private bool ValidateFields()
         {
-            if (string.IsNullOrEmpty(_tourDto.Name))
+            if (string.IsNullOrEmpty(tourDto.Name))
             {
                 MessageBox.Show("Please enter a name.");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(_tourDto.Description))
+            if (string.IsNullOrEmpty(tourDto.Description))
             {
                 MessageBox.Show("Please enter a description.");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(_tourDto.Language))
+            if (string.IsNullOrEmpty(tourDto.Language))
             {
                 MessageBox.Show("Please enter a language.");
                 return false;
             }
 
-            if (_tourDto.MaxTouristNumber < 0)
+            if (tourDto.MaxTouristNumber < 0)
             {
                 MessageBox.Show("Please enter a valid maximum number of tourists.");
                 return false;
             }
 
-            if (_tourDto.Duration <= 0)
+            if (tourDto.Duration <= 0)
             {
                 MessageBox.Show("Please enter a valid duration.");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(_tourDto.LocationDto.Country))
+            if (string.IsNullOrEmpty(tourDto.LocationDto.Country))
             {
                 MessageBox.Show("Please enter a country.");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(_tourDto.LocationDto.City))
+            if (string.IsNullOrEmpty(tourDto.LocationDto.City))
             {
                 MessageBox.Show("Please enter a city.");
                 return false;
             }
 
-            if (_tourDto.ImagesPaths.Count == 0)
+            if (tourDto.ImagesPaths.Count == 0)
             {
                 MessageBox.Show("Please add at least one image path.");
                 return false;

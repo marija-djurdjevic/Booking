@@ -25,6 +25,7 @@ namespace BookingApp.View
         private PropertyReservationDto _propertyReservationDto;
         private ReviewDto _reviewDto;
         private int _reservationId;
+        private int _guestId;
 
         ReviewRepository reviewRepository;
         public GuestReviewForm()
@@ -34,10 +35,11 @@ namespace BookingApp.View
             DataContext = _reviewDto;
             reviewRepository = new ReviewRepository();
         }
-        public GuestReviewForm(PropertyReservationDto propertyReservationDto, int reservationId)
+        public GuestReviewForm(PropertyReservationDto propertyReservationDto, int reservationId, int guestId)
         {
             InitializeComponent();
             _reservationId = reservationId;
+            _guestId = guestId;
             _reviewDto = new ReviewDto();
             DataContext = _reviewDto;
             reviewRepository = new ReviewRepository();
@@ -50,7 +52,7 @@ namespace BookingApp.View
 
         public void SaveReview_Click(Object sender, EventArgs e)
         {
-            ReviewDto newReviewDto = new ReviewDto(_reservationId, _reviewDto.GuestId,_reviewDto.Cleanliness, _reviewDto.Rules, _reviewDto.Comment);
+            ReviewDto newReviewDto = new ReviewDto(_reservationId, _guestId,_reviewDto.Cleanliness, _reviewDto.Rules, _reviewDto.Comment);
             reviewRepository.AddReview(newReviewDto.ToReview());
             MessageBox.Show("Review created successfully!");
             this.Close();

@@ -6,19 +6,20 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="Owner" Height="450" Width="800">
-    <Grid Margin="0,46,0,0">
-
-        <StackPanel Orientation="Vertical">
-            <Button Click="AddProperty_Click" Content="Add Property" Width="159"/>
-            <Button  Click="RateGuestButton_Click" Margin="45,-10,658,379" Content="Rate the guest"/>
+    <Grid>
+        <!-- Gornji panel za dodavanje i ocjenjivanje -->
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Click="AddProperty_Click" Content="Add Property" Width="150" Height="50" VerticalAlignment="Top"/>
+            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Margin="10 0 0 0" VerticalAlignment="Top" Height="50"/>
         </StackPanel>
 
+        <!-- Donji panel za prikaz rezervacija -->
         <DataGrid BorderBrush="Black"
                   
         AutoGenerateColumns="False"
         SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
         x:Name="ReservationDataGrid"
-        SelectionMode="Single" IsReadOnly="True"  Margin="46,37,50,48">
+        SelectionMode="Single" IsReadOnly="True" Margin="10,50,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
                 <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
@@ -27,5 +28,8 @@
                 <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <!-- Dugme za obavještenja -->
+        <Button x:Name="NotificationsButton" Content="Notifications" Click="NotificationsButton_Click" Margin="10,10,10,10" VerticalAlignment="Top" Width="150" Height="40" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
