@@ -1,24 +1,10 @@
 ﻿using BookingApp.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BookingApp.Dto;
-using BookingApp.DTO;
 using BookingApp.Repository;
-using static System.Net.Mime.MediaTypeNames;
-using System.DirectoryServices.ActiveDirectory;
-using BookingApp.View;
 
 namespace BookingApp.GuestView
 {
@@ -49,58 +35,57 @@ namespace BookingApp.GuestView
         private void Search_Click(object sender, RoutedEventArgs e)
         {
 
+            string name = SearchByName.Text.Trim();
+            string location = SearchByLocation.Text.Trim();
+            string type = SearchByType.Text.Trim();
+            string guests = SearchByGuests.Text.Trim();
+            string days = SearchByDays.Text.Trim();
 
-            string input1 = SearchByName.Text.Trim();
-            string input2 = SearchByLocation.Text.Trim();
-            string input3 = SearchByType.Text.Trim();
-            string input4 = SearchByGuests.Text.Trim();
-            string input5 = SearchByDays.Text.Trim();
 
-
-            if (string.IsNullOrEmpty(input1) && string.IsNullOrEmpty(input2) && string.IsNullOrEmpty(input3) && string.IsNullOrEmpty(input4) && string.IsNullOrEmpty(input5))
+            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(location) && string.IsNullOrEmpty(type) && string.IsNullOrEmpty(guests) && string.IsNullOrEmpty(days))
             {
-                MessageBox.Show("Molimo unesite barem jedan parametar za pretragu.");
+                MessageBox.Show("Please enter at least one search parameter.");
                 return;
             }
 
-            List<Property> rezultatiPretrage = SearchProperty(input1, input2, input3, input4, input5);
+            List<Property> rezultatiPretrage = SearchProperty(name, location, type, guests, days);
 
 
             PropertyDataGrid.ItemsSource = rezultatiPretrage;
             PropertyDataGrid.Items.Refresh();
 
         }
-       private List<Property> SearchProperty(string input1, string input2, string input3, string input4, string input5)
+       private List<Property> SearchProperty(string name, string location, string type, string guests, string days)
         {
             var results = new List<Property>();
             PropertyRepository = new PropertyRepository();
             results = PropertyRepository.GetAllProperties();
-            if (!string.IsNullOrEmpty(input1))
+            if (!string.IsNullOrEmpty(name))
               {
-                results = results.Where(property => property.Name.Contains(input1, StringComparison.OrdinalIgnoreCase)).ToList();
+                results = results.Where(property => property.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
               }
               
-              if (!string.IsNullOrEmpty(input2))
+              if (!string.IsNullOrEmpty(location))
               {
-                results = results.Where(property => (property.Location.City.Contains(input2, StringComparison.OrdinalIgnoreCase) || property.Location.Country.Contains(input2, StringComparison.OrdinalIgnoreCase))).ToList();
+                results = results.Where(property => (property.Location.City.Contains(location, StringComparison.OrdinalIgnoreCase) || property.Location.Country.Contains(location, StringComparison.OrdinalIgnoreCase))).ToList();
               }
 
-            if (!string.IsNullOrEmpty(input3))
+            if (!string.IsNullOrEmpty(type))
             {
-                PropertyType result = (PropertyType)Enum.Parse(typeof(PropertyType), input3);
+                PropertyType result = (PropertyType)Enum.Parse(typeof(PropertyType), type);
                 results = results.Where(property => property.Type.Equals(result)).ToList();
             }
 
-            if (!string.IsNullOrEmpty(input4))
+            if (!string.IsNullOrEmpty(guests))
             {
-                int guests = Convert.ToInt32(input4);
-                results = results.Where(property => property.MaxGuests >= guests).ToList();
+                int guestsNumber = Convert.ToInt32(guests);
+                results = results.Where(property => property.MaxGuests >= guestsNumber).ToList();
             }
 
-            if (!string.IsNullOrEmpty(input5))
+            if (!string.IsNullOrEmpty(days))
             {
-                int days = Convert.ToInt32(input5);
-                results = results.Where(property => property.MinReservationDays <= days).ToList();
+                int daysNumber = Convert.ToInt32(days);
+                results = results.Where(property => property.MinReservationDays <= daysNumber).ToList();
             }
 
             return results;
@@ -110,7 +95,7 @@ namespace BookingApp.GuestView
         {
             if (SelectedProperty == null)
             {
-                MessageBox.Show("Please choose a property to make reservation!");
+                MessageBox.Show("Please choose a property to make a reservation!");
             }
             else
             {

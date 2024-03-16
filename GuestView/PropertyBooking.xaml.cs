@@ -1,21 +1,11 @@
 ﻿using BookingApp.Dto;
-using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.GuestView
 {
@@ -78,7 +68,7 @@ namespace BookingApp.GuestView
                 return;
             }
 
-            if(StartDate.Equals(DateTime.MinValue) || EndDate.Equals(DateTime.MinValue))
+            if (StartDate.Equals(DateTime.MinValue) || EndDate.Equals(DateTime.MinValue))
             {
                 MessageBox.Show("Enter the date range!");
                 return;
@@ -87,124 +77,74 @@ namespace BookingApp.GuestView
 
             DateTime BellowStart = StartDate.AddDays(-10);
             DateTime AboveEnd = EndDate;
-            while (StartDate.AddDays(PropertyReservation.Days -1) <= EndDate)
-            {
-                bool found = true;
-                for (int i = 0; i < PropertyReservation.Days; i++)
-                {
-                    DateTime currentDate = StartDate.AddDays(i);
-                    if (SelectedProperty.ReservedDates.Find(r =>  r.Value == currentDate) != null)
-                    {
-                        found = false;
-                        break;
-                    }
-                }
+            FindAvailableDateRanges(StartDate, PropertyReservation.Days - 1, EndDate);
 
-                if (!found)
-                {
-                    StartDate = StartDate.AddDays(1);
-                    continue;
-                }
-            
-                DateRange dateRange = new DateRange(); 
-                dateRange.Start = StartDate;
-                dateRange.End = StartDate.AddDays(PropertyReservation.Days -1);
-                AvailableDateRanges.Add(dateRange);
-                StartDate = StartDate.AddDays(1);
-            }
-
-            if(AvailableDateRanges.Count() == 0)
+            if (AvailableDateRanges.Count() == 0)
             {
                 MessageBox.Show("There are no available dates in this range, so other available dates are shown");
+
                 //10 days bellow lower border
-                while (BellowStart <= StartDate)
-                {
-                    bool found = true;
-                    for (int i = 0; i < PropertyReservation.Days; i++)
-                    {
-                        DateTime currentDate = BellowStart.AddDays(i);
-                        if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
-                        {
-                            found = false;
-                            break;
-                        }
-                    }
-
-                    if (!found)
-                    {
-                        BellowStart = BellowStart.AddDays(1);
-                        continue;
-                    }
-
-                    DateRange dateRange = new DateRange();
-                    dateRange.Start = BellowStart;
-                    dateRange.End = BellowStart.AddDays(PropertyReservation.Days - 1);
-                    AvailableDateRanges.Add(dateRange);
-                    BellowStart = BellowStart.AddDays(1);
-                }
+                FindAvailableDateRanges(BellowStart, 0, StartDate);
 
                 //10 days above higher border
-                while (AboveEnd <= EndDate.AddDays(10))
-                {
-                    bool found = true;
-                    for (int i = 0; i < PropertyReservation.Days; i++)
-                    {
-                        DateTime currentDate = AboveEnd.AddDays(i);
-                        if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
-                        {
-                            found = false;
-                            break;
-                        }
-                    }
-
-                    if (!found)
-                    {
-                        AboveEnd = AboveEnd.AddDays(1);
-                        continue;
-                    }
-
-                    DateRange dateRange = new DateRange();
-                    dateRange.Start = AboveEnd;
-                    dateRange.End = AboveEnd.AddDays(PropertyReservation.Days - 1);
-                    AvailableDateRanges.Add(dateRange);
-                    AboveEnd = AboveEnd.AddDays(1);
-                }
-
+                FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(10));
             }
 
             DateDataGrid.Items.Refresh();
         }
 
+        private void FindAvailableDateRanges(DateTime start, int days, DateTime end)
+        {
+            while (start.AddDays(days) <= end)
+            {
+ 
+                if (!FindAvailableRange(start))
+                {
+                    start = start.AddDays(1);
+                    continue;
+                }
+
+                DateRange dateRange = new DateRange();
+                dateRange.Start = start;
+                dateRange.End = start.AddDays(PropertyReservation.Days - 1);
+                AvailableDateRanges.Add(dateRange);
+                start = start.AddDays(1);
+            }
+        }
+
+        private bool FindAvailableRange(DateTime start)
+        {
+            bool found = true;
+            for (int i = 0; i < PropertyReservation.Days; i++)
+            {
+                DateTime currentDate = start.AddDays(i);
+                if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
+                {
+                    found = false;
+                    break;
+                }
+            }
+
+            return found;
+        }
+
         private void ConfirmReservation_Click(object sender, RoutedEventArgs e)
         {
-            if(PropertyReservation.Guests == 0)
-            {
-                MessageBox.Show("Enter the number of guests!");
+            if (!ValidateInput())
                 return;
-            }
 
-            if(PropertyReservation.Guests > SelectedProperty.MaxGuests)
+            DateTime DateRangeStart = SelectedDateRange.Start;
+            DateTime DateRangeEnd = SelectedDateRange.End;
+            while (DateRangeStart <= DateRangeEnd)
             {
-                MessageBox.Show("Maximum number of guests is " + SelectedProperty.MaxGuests);
-                return;
-            }
-
-            if(SelectedDateRange == null)
-            {
-                MessageBox.Show("Select one date range");
-                return;
-            }
-
-            DateTime StartDateRange = SelectedDateRange.Start;
-            DateTime EndDateRange = SelectedDateRange.End;
-            while (StartDateRange <= EndDateRange)
-            {
-                ReservedDate = new ReservedDate();
-                ReservedDate.PropertyId = SelectedProperty.Id;
-                ReservedDate.Value = StartDateRange;
+                ReservedDate = new ReservedDate
+                {
+                    PropertyId = SelectedProperty.Id,
+                    Value = DateRangeStart
+                };
                 ReservedDateRepository.AddReservedDate(ReservedDate);
                 SelectedProperty.ReservedDates.Add(ReservedDate);
-                StartDateRange = StartDateRange.AddDays(1);
+                DateRangeStart = DateRangeStart.AddDays(1);
             }
 
             PropertyRepository.UpdateProperty(SelectedProperty);
@@ -217,6 +157,28 @@ namespace BookingApp.GuestView
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
             Close();
+        }
+
+        private bool ValidateInput()
+        {
+            if (PropertyReservation.Guests == 0)
+            {
+                MessageBox.Show("Enter the number of guests!");
+                return false;
+            }
+
+            if (PropertyReservation.Guests > SelectedProperty.MaxGuests)
+            {
+                MessageBox.Show("Maximum number of guests is " + SelectedProperty.MaxGuests);
+                return false;
+            }
+
+            if (SelectedDateRange == null)
+            {
+                MessageBox.Show("Select one date range");
+                return false;
+            }
+            return true;
         }
     }
 }
