@@ -15,6 +15,6 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Add" Grid.Row="0" Grid.Column="0" Margin="10" Click="AddButton_Click"/>
+        <Button Content="View all properties" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="400, 200" Click="ViewProperties_Click"/>
     </Grid>
 </Window>

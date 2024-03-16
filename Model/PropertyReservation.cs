@@ -9,7 +9,7 @@ namespace BookingApp.Model
 {
     public class PropertyReservation : ISerializable
     {
-        public int PropertyReservationId { get; set; }
+        public int Id { get; set; }
         public int PropertyId { get; set; }
         public int Guests { get; set; }
         public int Days {  get; set; }
@@ -23,12 +23,12 @@ namespace BookingApp.Model
 
         public PropertyReservation(int propertyReservationId)
         {
-            PropertyReservationId = propertyReservationId;
+            Id = propertyReservationId;
         }
 
-        public PropertyReservation(int propertyReservationId, int propertyId, int guests, int  days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
+        public PropertyReservation(int id, int propertyId, int guests, int  days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
         {
-            PropertyReservationId = propertyReservationId;
+            Id = id;
             PropertyId = propertyId;
             Guests = guests;
             Days = days;
@@ -53,13 +53,13 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { PropertyReservationId.ToString(), PropertyId.ToString(), Guests.ToString(), Days.ToString(), GuestId.ToString(), GuestFirstName, GuestLastName, StartDate.ToString(), EndDate.ToString()};
+            string[] csvValues = { Id.ToString(), PropertyId.ToString(), Guests.ToString(), Days.ToString(), GuestId.ToString(), GuestFirstName, GuestLastName, StartDate.ToString(), EndDate.ToString()};
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            PropertyReservationId = Convert.ToInt32(values[0]);
+            Id = Convert.ToInt32(values[0]);
             PropertyId = Convert.ToInt32(values[1]);
             Guests = Convert.ToInt32(values[2]);
             Days = Convert.ToInt32(values[3]);
