@@ -61,11 +61,8 @@ namespace BookingApp.View
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
-<<<<<<< HEAD
-                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id);
-=======
-                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.PropertyReservationId, selectedReservation.GuestId);
->>>>>>> eb6bb39b1cad74574692005b21f15a6f689c87c5
+                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id, selectedReservation.GuestId);
+
                     guestReviewForm.Show();
                 }
             }
@@ -109,7 +106,7 @@ namespace BookingApp.View
 
         private bool HasReviewed(PropertyReservation reservation)
         {
-            return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.PropertyReservationId);
+            return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.Id);
         }
         private void NotificationsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -127,7 +124,7 @@ namespace BookingApp.View
 
             foreach (var reservation in allReservations)
             {
-                var hasReview = allReviews.Any(review => review.ReservationId == reservation.PropertyReservationId && review.GuestId == reservation.GuestId);
+                var hasReview = allReviews.Any(review => review.ReservationId == reservation.Id && review.GuestId == reservation.GuestId);
                 if (!hasReview && IsReviewable(reservation))
                 {
                     unratedGuests++;
