@@ -22,7 +22,9 @@ namespace BookingApp.Dto
         public List<ReservedDate> reservedDates;
 
 
-        public PropertyDto() { }
+        public PropertyDto() {
+            CancellationDeadline = 1;
+        }
 
         public PropertyDto(string name, LocationDto locationDto, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {

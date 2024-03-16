@@ -34,7 +34,13 @@
 
         <!-- Type -->
         <TextBlock Text="Type:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0,5"/>
-        <TextBox Text="{Binding Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Margin="5" Width="200"/>
+        <ComboBox x:Name="PropertyTypeComboBox" SelectedIndex="0" Text="{Binding Path=Type}" Grid.Column="1" Grid.Row="1" Margin="5" Width="200">
+            <ComboBoxItem Content="Apartment"/>
+            <ComboBoxItem Content="Cabin"/>
+            <ComboBoxItem Content="House"/>
+        </ComboBox>
+
+
 
         <!-- Max Guests -->
         <TextBlock Text="Max Guests:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="0,5"/>
@@ -46,7 +52,7 @@
 
         <!-- Cancellation Deadline -->
         <TextBlock Text="Cancellation Deadline:" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Margin="0,5"/>
-        <TextBox Text="{Binding CancellationDeadline, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Margin="5" Width="200"/>
+        <TextBox Text="{Binding CancellationDeadline, Mode=TwoWay, FallbackValue=1}" Grid.Column="1" Grid.Row="4" Margin="5" Width="200"/>
 
         <!-- Images Paths -->
         <TextBlock Text="Images Paths (comma separated):" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Margin="0,5"/>
