@@ -31,7 +31,6 @@ namespace BookingApp.GuestView
         {
             InitializeComponent();
             DataContext = this;
-            PropertyReservation = new PropertyReservationDto();
             PropertyRepository = propertyRepository;
             PropertyReservationRepository = propertyReservationRepository;
             ReservedDateRepository = new ReservedDateRepository();
@@ -39,11 +38,18 @@ namespace BookingApp.GuestView
             SelectedProperty = selectedProperty;
             SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
             LoggedInGuest = guest;
+            PropertyReservation = new PropertyReservationDto
+            {
+               GuestId = LoggedInGuest.Id,
+               GuestFirstName = LoggedInGuest.FirstName,
+               GuestLastName = LoggedInGuest.LastName,
+               PropertyId = SelectedProperty.Id
+            };
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
         }
 
         private void DatePicker_SelectedDate1Changed(object sender, SelectionChangedEventArgs e)
-        {
+        { 
             if (sender is DatePicker datePicker)
             {
                 StartDate = datePicker.SelectedDate ?? DateTime.Now;
@@ -147,22 +153,18 @@ namespace BookingApp.GuestView
                 ReservedDate = new ReservedDate
                 {
                     PropertyId = SelectedProperty.Id,
-                    Value = DateRangeStart
+                    Value = DateRangeStart 
                 };
                 ReservedDateRepository.AddReservedDate(ReservedDate);
                 SelectedProperty.ReservedDates.Add(ReservedDate);
                 DateRangeStart = DateRangeStart.AddDays(1);
             }
-
             PropertyRepository.UpdateProperty(SelectedProperty);
-            PropertyReservation.GuestId = LoggedInGuest.Id;
-            PropertyReservation.GuestFirstName = LoggedInGuest.FirstName;
-            PropertyReservation.GuestLastName = LoggedInGuest.LastName;
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
-            PropertyReservation.PropertyId = SelectedProperty.Id;
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
+            Close();
         }
 
         private bool ValidateConfirmationInput()
