@@ -62,18 +62,9 @@ namespace BookingApp.GuestView
         {
             AvailableDateRanges = new List<DateRange>();
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
-            if (PropertyReservation.Days < SelectedProperty.MinReservationDays)
-            {
-                MessageBox.Show("Minimum number of reservation days is " + SelectedProperty.MinReservationDays);
-                return;
-            }
 
-            if (StartDate.Equals(DateTime.MinValue) || EndDate.Equals(DateTime.MinValue))
-            {
-                MessageBox.Show("Enter the date range!");
+            if (!ValidateSearchInput())
                 return;
-
-            }
 
             DateTime BellowStart = StartDate.AddDays(-10);
             DateTime AboveEnd = EndDate;
@@ -91,6 +82,22 @@ namespace BookingApp.GuestView
             }
 
             DateDataGrid.Items.Refresh();
+        }
+
+        private bool ValidateSearchInput()
+        {
+            if (StartDate.Equals(DateTime.MinValue) || EndDate.Equals(DateTime.MinValue))
+            {
+                MessageBox.Show("Enter the date range!");
+                return false;
+
+            }
+            if (PropertyReservation.Days < SelectedProperty.MinReservationDays)
+            {
+                MessageBox.Show("Minimum number of reservation days is " + SelectedProperty.MinReservationDays);
+                return false;
+            }
+            return true;
         }
 
         private void FindAvailableDateRanges(DateTime start, int days, DateTime end)
@@ -130,7 +137,7 @@ namespace BookingApp.GuestView
 
         private void ConfirmReservation_Click(object sender, RoutedEventArgs e)
         {
-            if (!ValidateInput())
+            if (!ValidateConfirmationInput())
                 return;
 
             DateTime DateRangeStart = SelectedDateRange.Start;
@@ -156,10 +163,9 @@ namespace BookingApp.GuestView
             PropertyReservation.PropertyId = SelectedProperty.Id;
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
-            Close();
         }
 
-        private bool ValidateInput()
+        private bool ValidateConfirmationInput()
         {
             if (PropertyReservation.Guests == 0)
             {
