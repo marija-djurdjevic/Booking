@@ -119,13 +119,12 @@ namespace BookingApp.View
         {
 
             var allReservations = _propertyReservationRepository.GetAllPropertyReservation();
-            var allReviews = _reviewRepository.GetAllReviews();
             var unratedGuests = 0;
 
             foreach (var reservation in allReservations)
             {
-                var hasReview = allReviews.Any(review => review.ReservationId == reservation.Id && review.GuestId == reservation.GuestId);
-                if (!hasReview && IsReviewable(reservation))
+               
+                if (!HasReviewed(reservation) && IsReviewable(reservation))
                 {
                     unratedGuests++;
                 }
