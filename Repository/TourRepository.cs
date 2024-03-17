@@ -108,17 +108,41 @@ namespace BookingApp.Repository
         }
 
 
-        public List<Tour> getMatchingTours(TourDto searchParams)
+        public List<Tour> GetMatchingTours(TourDto searchParams)
         {
             tours = GetAll();
-            List<Tour> matchingTours = tours.Where(t =>
-            (string.IsNullOrEmpty(searchParams.LocationDto.City) || t.Location.City.Contains(searchParams.LocationDto.City)) &&
-            (string.IsNullOrEmpty(searchParams.LocationDto.Country) || t.Location.Country.Contains(searchParams.LocationDto.Country)) &&
-            (searchParams.Duration == 0 || t.Duration == searchParams.Duration) &&
-            (string.IsNullOrEmpty(searchParams.Language) || t.Language.Contains(searchParams.Language)) &&
-            (searchParams.MaxTouristNumber == 0 || t.MaxTouristsNumber >= searchParams.MaxTouristNumber && searchParams.MaxTouristNumber > 0)
-        ).ToList();
+            List<Tour> matchingTours = tours.Where(t => 
+            IsCityMatch(t, searchParams) && 
+            IsCountryMatch(t, searchParams) && 
+            IsDurationMatch(t, searchParams) && 
+            IsLanguageMatch(t, searchParams) && 
+            IsMaxTouristNumberMatch(t, searchParams)).ToList();
             return matchingTours;
+        }
+
+        public bool IsCityMatch(Tour t, TourDto searchParams)
+        {
+            return string.IsNullOrEmpty(searchParams.LocationDto.City) || t.Location.City.ToLower().Contains(searchParams.LocationDto.City.ToLower());
+        }
+
+        public bool IsCountryMatch(Tour t, TourDto searchParams)
+        {
+            return string.IsNullOrEmpty(searchParams.LocationDto.Country) || t.Location.Country.ToLower().Contains(searchParams.LocationDto.Country.ToLower());
+        }
+
+        public bool IsDurationMatch(Tour t, TourDto searchParams)
+        {
+            return searchParams.Duration == 0 || t.Duration == searchParams.Duration;
+        }
+
+        public bool IsLanguageMatch(Tour t, TourDto searchParams)
+        {
+            return string.IsNullOrEmpty(searchParams.Language) || t.Language.ToLower().Contains(searchParams.Language.ToLower());
+        }
+
+        public bool IsMaxTouristNumberMatch(Tour t, TourDto searchParams)
+        {
+            return searchParams.MaxTouristNumber == 0 || (t.MaxTouristsNumber >= searchParams.MaxTouristNumber && searchParams.MaxTouristNumber > 0);
         }
     }
 }

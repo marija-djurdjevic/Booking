@@ -115,7 +115,7 @@ namespace BookingApp.TouristView
             searchCriteria.LocationDto.City = SelectedTour.LocationDto.City;
             searchCriteria.MaxTouristNumber = 1;
 
-            List<Tour> unBookedToursInCity = repository.getMatchingTours(searchCriteria);
+            List<Tour> unBookedToursInCity = repository.GetMatchingTours(searchCriteria);
             unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
 
             if (unBookedToursInCity.Count > 0)
