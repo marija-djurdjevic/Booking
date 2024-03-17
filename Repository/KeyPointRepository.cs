@@ -8,14 +8,14 @@ using System.Linq;
 
 namespace BookingApp.Repository
 {
-    public class KeyPointsRepository
+    public class KeyPointRepository
     {
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
         private readonly Serializer<KeyPoint> _serializer;
 
         private List<KeyPoint> keyPoints;
 
-        public KeyPointsRepository()
+        public KeyPointRepository()
         {
             _serializer = new Serializer<KeyPoint>();
 

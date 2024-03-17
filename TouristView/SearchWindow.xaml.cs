@@ -44,7 +44,7 @@ namespace BookingApp.TouristView
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            List<Tour> matchingTours = TourRepository.getMatchingTours(SearchParams);
+            List<Tour> matchingTours = TourRepository.GetMatchingTours(SearchParams);
 
             if (matchingTours.Count > 0)
             {

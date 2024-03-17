@@ -1,7 +1,7 @@
-1|4|Dusko|Pilipovic|20||0|False
-1|4|Marko|Markovic|20||0|False
-1|4|Petar |Petrovic|50|Grad 3|3|False
-1|4|Arsenije|Arsic|10||0|False
+6|4|Dusko|Pilipovic|20|key2|2|True
+6|4|Marko|Markovic|20|key2|2|False
+6|4|Petar |Petrovic|50|key2|2|False
+6|4|Arsenije|Arsic|10|ke3|3|False
 1|4|Dusko|Pilipovic|20||0|False
 2|4|Dusko|Pilipovic|20|srednja 1|2|False
 2|4|Stanko|Stankovic|10|srednja 2|3|False

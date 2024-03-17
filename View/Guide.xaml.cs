@@ -15,14 +15,14 @@ namespace BookingApp.View
     {
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
-        private readonly KeyPointsRepository keyPointsRepository;
+        private readonly KeyPointRepository keyPointRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
         public Guide()
         {
             InitializeComponent();
             tourRepository = new TourRepository();
-            keyPointsRepository = new KeyPointsRepository();
+            keyPointRepository = new KeyPointRepository();
             tourReservationRepository = new TourReservationRepository();
             liveTourRepository = new LiveTourRepository();
             selectedTour=new Tour();
@@ -125,52 +125,81 @@ namespace BookingApp.View
 
         private void DisplayKeyPoints(List<KeyPoint> keyPoints)
         {
-            int keyPointsCounter = 0;
-            keyPointsListBox.Items.Clear();
+            ClearKeyPointsListBox();
+
             foreach (var keyPoint in keyPoints)
             {
-                StackPanel stackPanel = CreateStackPanel(keyPoint);
-                TextBlock textBlock = CreateTextBlock(keyPoint.Name);
-                CheckBox checkBox = CreateCheckBox(keyPoint);
-
-                checkBox.Checked += (sender, e) =>
-                {
-                    keyPoint.IsChecked = true;
-                    liveTourRepository.SaveChanges();
-
-                    int ordinalKeyNumber = keyPoint.OrdinalNumber;
-                    for (int i = 1; i < ordinalKeyNumber; i++)
-                    {
-                        var previousKeyPoint = keyPoints[i - 1];
-                        if (!previousKeyPoint.IsChecked)
-                        {
-                            MessageBox.Show("You need to check the previous key points before checking this one.");
-                            checkBox.IsChecked = false;
-                            keyPoint.IsChecked = false;
-                            return;
-                        }
-                    }
-
-                    keyPointsCounter = keyPoints.Count(kp => kp.IsChecked);
-                    if (keyPointsCounter == keyPoints.Count)
-                    {
-                        FinishTourAutomatically();
-                    }
-                };
-
-                stackPanel.Children.Add(textBlock);
-                stackPanel.Children.Add(checkBox);
-
-                keyPointsListBox.Items.Add(stackPanel);
+                AddKeyPointToDisplay(keyPoint, keyPoints);
             }
         }
 
-        private StackPanel CreateStackPanel(KeyPoint keyPoint)
+        private void ClearKeyPointsListBox()
+        {
+            keyPointsListBox.Items.Clear();
+        }
+
+        private void AddKeyPointToDisplay(KeyPoint keyPoint, List<KeyPoint> keyPoints)
+        {
+            StackPanel stackPanel = CreateKeyPointStackPanel(keyPoint, keyPoints);
+            keyPointsListBox.Items.Add(stackPanel);
+        }
+
+        private StackPanel CreateKeyPointStackPanel(KeyPoint keyPoint, List<KeyPoint> keyPoints)
         {
             StackPanel stackPanel = new StackPanel();
             stackPanel.Orientation = Orientation.Horizontal;
+            TextBlock textBlock = CreateTextBlock(keyPoint.Name);
+            CheckBox checkBox = CreateCheckBox(keyPoint);
+
+            checkBox.Checked += (sender, e) => HandleCheckBoxChecked(sender, keyPoint, keyPoints);
+
+            stackPanel.Children.Add(textBlock);
+            stackPanel.Children.Add(checkBox);
+
             return stackPanel;
         }
+
+        private void HandleCheckBoxChecked(object sender, KeyPoint keyPoint, List<KeyPoint> keyPoints)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            keyPoint.IsChecked = true;
+            liveTourRepository.SaveChanges();
+
+            if (!ArePreviousKeyPointsChecked(keyPoint, keyPoints))
+            {
+                MessageBox.Show("You need to check the previous key points before checking this one.");
+                checkBox.IsChecked = false;
+                keyPoint.IsChecked = false;
+                return;
+            }
+
+            if (AreAllKeyPointsChecked(keyPoints))
+            {
+                FinishTourAutomatically();
+            }
+        }
+
+        private bool ArePreviousKeyPointsChecked(KeyPoint keyPoint, List<KeyPoint> keyPoints)
+        {
+            int ordinalKeyNumber = keyPoint.OrdinalNumber;
+            for (int i = 1; i < ordinalKeyNumber; i++)
+            {
+                var previousKeyPoint = keyPoints[i - 1];
+                if (!previousKeyPoint.IsChecked)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints)
+        {
+            int checkedKeyPointsCount = keyPoints.Count(kp => kp.IsChecked);
+            return checkedKeyPointsCount == keyPoints.Count;
+        }
+
+
 
         private TextBlock CreateTextBlock(string keyName)
         {
@@ -212,7 +241,7 @@ namespace BookingApp.View
 
         private List<KeyPoint> LoadTourKeyPoints(int tourId)
         {
-            return keyPointsRepository.GetTourKeyPoints(tourId);
+            return keyPointRepository.GetTourKeyPoints(tourId);
         }
 
       
