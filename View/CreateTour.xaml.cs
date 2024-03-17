@@ -18,14 +18,14 @@ namespace BookingApp.View
         public String startDateTimeInput;
         
         TourRepository tourRepository;
-        KeyPointsRepository keyPointsRepository;
+        KeyPointRepository keyPointRepository;
         public CreateTour()
         {
             InitializeComponent();
             tourDto = new TourDto();
             DataContext = tourDto;
             tourRepository = new TourRepository();
-            keyPointsRepository = new KeyPointsRepository();
+            keyPointRepository = new KeyPointRepository();
             startDateTextBox.TextChanged += (sender, e) =>
             {
                 startDateTimeInput = startDateTextBox.Text;
@@ -69,9 +69,9 @@ namespace BookingApp.View
                 bool isChecked = false;
 
                 KeyPoint keyPoint = new KeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
-                keyPointsRepository.AddKeyPoint(keyPoint);
+                keyPointRepository.AddKeyPoint(keyPoint);
 
-               // keyPointsRepository.AddKeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
+              
             }
 
             return true;

@@ -37,7 +37,14 @@ namespace BookingApp.View
 
         public NotificationViewModel(int unratedGuests)
         {
-            Message = $"Imate {unratedGuests} neocijenjenih gostiju.";
+            if(unratedGuests != 0) {
+                Message = $"You have {unratedGuests} unrated guest(s).";
+            }
+            else
+            {
+                Message = $"No notifications.";
+            }
+
         }
     }
 
