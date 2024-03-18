@@ -144,5 +144,14 @@ namespace BookingApp.Repository
         {
             return searchParams.MaxTouristNumber == 0 || (t.MaxTouristsNumber >= searchParams.MaxTouristNumber && searchParams.MaxTouristNumber > 0);
         }
+
+        public List<Tour> GetUnBookedToursInCity(String City)
+        {
+            List<Tour> unBookedToursInCity=GetAll()
+                .Where(t => t.Location.City.Equals(City, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
+            return unBookedToursInCity;
+        }
     }
 }
