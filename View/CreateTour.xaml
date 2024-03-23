@@ -39,12 +39,13 @@
         <TextBox Text="{Binding MaxTouristNumber, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
 
         <TextBlock Text="Start Date (format:M/d/yyyy h:mm:ss tt):" Grid.Row="4" Grid.Column="0" Margin="5,5,5,5"/>
-        <TextBox x:Name="startDateTextBox" Text="{Binding StartDateTime, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
+        <ListBox x:Name="DatesAndTimes" Grid.Row="6" Grid.Column="1" Margin="5,5,5,1"/>
+        <Button Content="Add Date and Time" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" Click="AddDateAndTimeButtonClick"/>
 
 
         <TextBlock Text="Duration (hours):" Grid.Row="5" Grid.Column="0" Margin="5,5,5,5"/>
         <TextBox Text="{Binding Duration, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5"/>
-
+       
         <TextBlock Text="Images Paths (comma separated):" Grid.Row="6" Grid.Column="0" Margin="5,5,5,1"/>
         <ListBox ItemsSource="{Binding ImagesPaths}" Grid.Row="6" Grid.Column="1" Margin="5,5,5,1"/>
         <Button Content="Add Image Path" Grid.Row="6" Grid.Column="1" Margin="5,5,5,44" Click="AddImagePathButtonClick"/>
