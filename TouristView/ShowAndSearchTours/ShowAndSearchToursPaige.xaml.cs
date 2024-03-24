@@ -48,6 +48,7 @@ namespace BookingApp.TouristView.ShowAndSearchTours
             IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;
             GetAllTours();
+
         }
 
         public bool IsCancelSearchButtonVisible

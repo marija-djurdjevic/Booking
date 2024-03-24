@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:BookingApp.TouristView.MyTours"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MyToursPaige"
-    d:DesignHeight="500"
-    d:DesignWidth="573"
+    d:DesignHeight="750"
+    d:DesignWidth="860"
     Background="White"
     mc:Ignorable="d">
     <DockPanel>

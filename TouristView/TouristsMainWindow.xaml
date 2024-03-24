@@ -5,24 +5,77 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="TouristsMainWindow"
-    Width="800"
-    Height="500"
+    Title="Booking app"
+    Width="1200"
+    Height="750"
+    Background="#8c92ac"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <DockPanel>
-        <DockPanel
-            Width="227"
-            Background="LightBlue"
-            DockPanel.Dock="Left">
-            <GroupBox>
+    <DockPanel Margin="5" Background="#8c92ac">
+        <DockPanel Width="340" DockPanel.Dock="Left">
+            <DockPanel.Background>
+                <SolidColorBrush Color="#8c92ac" />
+            </DockPanel.Background>
+            <GroupBox Margin="3">
+                <GroupBox.Style>
+                    <Style TargetType="GroupBox">
+                        <Setter Property="BorderBrush" Value="DarkGray" />
+                        <!--  Postavljanje boje okvira  -->
+                        <Setter Property="BorderThickness" Value="0.5" />
+                        <!--  Postavljanje debljine okvira  -->
+                        <!--  Zaobljavanje ivica okvira  -->
+                    </Style>
+                </GroupBox.Style>
                 <GroupBox.Header>
-                    <TextBlock FontFamily="Roboto" FontSize="24">Menu</TextBlock>
+                    <TextBlock
+                        FontFamily="Roboto"
+                        FontSize="24"
+                        Foreground="White" FontWeight="Bold">
+                        Menu
+                    </TextBlock>
                 </GroupBox.Header>
 
-                <StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Margin="0,0,0,40" Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="White"
+                                Text="{Binding Tourist.FirstName}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="White"
+                                Text="{Binding Tourist.LastName}" />
+                            <Button
+                                Padding="2"
+                                Click="LogoutButtonClick"
+                                Content="Logout"
+                                FontSize="20">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border
+                                                        BorderBrush="Black"
+                                                        BorderThickness="1"
+                                                        CornerRadius="10">
 
+                                                        <Border.Background>
+                                                            <SolidColorBrush Color="White" />
+                                                        </Border.Background>
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                        </StackPanel>
+                    </StackPanel>
                     <Button
                         Background="White"
                         BorderBrush="Black"
@@ -52,6 +105,30 @@
                         BorderBrush="Black"
                         Click="MyToursButtonClick"
                         Content="My tours"
+                        FontSize="20"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Button.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="0" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.LayoutTransform>
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                    <Button
+                        Background="White"
+                        BorderBrush="Black"
+                        Click="VouchersButtonClick"
+                        Content="Vouchers"
                         FontSize="20"
                         RenderTransformOrigin="0.5,0.5">
                         <Button.LayoutTransform>

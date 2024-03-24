@@ -6,34 +6,76 @@
     xmlns:local="clr-namespace:BookingApp.TouristView.ShowAndSearchTours"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ShowAndSearchToursPaige"
-    d:DesignHeight="500"
-    d:DesignWidth="573"
+    d:DesignHeight="750"
+    d:DesignWidth="860"
     Background="White"
     mc:Ignorable="d">
 
     <DockPanel>
 
-        <DockPanel Height="100" DockPanel.Dock="Top">
-            <Button
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Click="CancelSearchButtonClick"
-                Content="Cancel Search">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsCancelSearchButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Click="SearchButtonClick"
-                Content="Search Tours" />
+        <DockPanel Height="50" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="0,0,12,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <TextBlock FontSize="20" Text="Help" />
+
+                </StackPanel>
+                <Button
+                    Grid.Column="0"
+                    Margin="12,0,0,0"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="CancelSearchButtonClick"
+                    Content="Show all"
+                    FontSize="20"
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            BorderBrush="White"
+                                            BorderThickness="2"
+                                            CornerRadius="5">
+
+                                            <Border.Background>
+                                                <SolidColorBrush Opacity="0.8" Color="#FF00ED00" />
+                                            </Border.Background>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsCancelSearchButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#20b2aa"
+                    Click="SearchButtonClick"
+                    Content="Search Tours"
+                    FontSize="20" />
+            </Grid>
+
         </DockPanel>
 
         <Grid Margin="5">
@@ -49,8 +91,9 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Margin="5"
-                                Background="DeepSkyBlue"
+                                Height="165"
+                                Margin="50,15"
+                                Background="LightGray"
                                 BorderBrush="Black"
                                 BorderThickness="2"
                                 CornerRadius="20"
@@ -62,7 +105,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Bottom"
                                             FontFamily="Roboto"
-                                            FontSize="16"
+                                            FontSize="20"
                                             Text="{Binding LocationDto.Country}"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap" />
@@ -74,7 +117,7 @@
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
                                                 FontFamily="Roboto"
-                                                FontSize="14"
+                                                FontSize="20"
                                                 Text="{Binding Name}"
                                                 TextAlignment="Center"
                                                 TextWrapping="Wrap" />
@@ -83,7 +126,7 @@
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
                                                 FontFamily="Roboto"
-                                                FontSize="14"
+                                                FontSize="20"
                                                 Text="{Binding Duration}"
                                                 TextAlignment="Center"
                                                 TextWrapping="Wrap" />

@@ -5,100 +5,206 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.TouristView.TourBooking"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="TourBookingWindow"
-    Width="450"
-    Height="450"
+    Title="Booking app"
+    Width="700"
+    Height="500"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <GroupBox>
-            <GroupBox.Header>
-                <TextBlock Text="{Binding SelectedTour.Name}" />
-            </GroupBox.Header>
-            <!--  Ovdje stavite elemente koje zelite grupirati  -->
-            <DockPanel>
-                <DockPanel Height="100" DockPanel.Dock="Bottom">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0,0,200,0" Text="Enter tourist number" />
-                            <TextBox
-                                Width="50"
-                                Text="{Binding NumberOfReservations}"
-                                TextAlignment="Center" />
-                        </StackPanel>
-                        <DockPanel>
-                            <Button
+        <StackPanel Margin="26,10,26,0" Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Text="Reservation details" />
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock FontSize="20" Text="Help" />
+                </StackPanel>
+            </Grid>
+
+            <GroupBox BorderThickness="2">
+                <GroupBox.Header>
+                    <TextBlock FontSize="20" Text="{Binding SelectedTour.Name}" />
+                </GroupBox.Header>
+                <!--  Ovdje stavite elemente koje zelite grupirati  -->
+                <DockPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="26,0,0,0"
+                            HorizontalAlignment="Left"
+                            Orientation="Vertical">
+                            <StackPanel
+                                Margin="0,0,0,5"
                                 HorizontalAlignment="Left"
-                                Click="CancelButtonCLick"
-                                Content="Cancel" />
-                            <Button
-                                HorizontalAlignment="Right"
-                                Click="ConfirmButtonClick"
-                                Content="Confirm" />
-                        </DockPanel>
-                    </StackPanel>
-                </DockPanel>
-                <DockPanel DockPanel.Dock="Right">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="City: " />
-                            <TextBlock Text="{Binding SelectedTour.LocationDto.City}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="Country: " />
-                            <TextBlock Text="{Binding SelectedTour.LocationDto.Country}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="Language: " />
-                            <TextBlock Text="{Binding SelectedTour.Language}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="Start time: " />
-                            <TextBlock Text="{Binding SelectedTour.StartDateTime}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="Duration: " />
-                            <TextBlock Text="{Binding SelectedTour.Duration}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock
-                                Width="100"
-                                Margin="0,0,30,0"
-                                Text="Points: " />
-                            <ListBox ItemsSource="{Binding SelectedTour.KeyPoints}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" />
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Width="100"
+                                    Margin="0,0,30,0"
+                                    HorizontalAlignment="Left"
+                                    FontSize="20"
+                                    Text="Location: " />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedTour.LocationDto.City}" />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="," />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedTour.LocationDto.Country}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Width="100"
+                                    Margin="0,0,30,0"
+                                    HorizontalAlignment="Left"
+                                    FontSize="20"
+                                    Text="Key points: " />
+                                <ListBox ItemsSource="{Binding SelectedTour.KeyPoints}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Width="200"
+                                    Margin="0,0,20,0"
+                                    HorizontalAlignment="Left"
+                                    FontSize="20"
+                                    Text="Start date and time: " />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedTour.StartDateTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Width="100"
+                                    Margin="0,0,30,0"
+                                    HorizontalAlignment="Left"
+                                    FontSize="20"
+                                    Text="Duration: " />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedTour.Duration}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Width="100"
+                                    Margin="0,0,30,0"
+                                    HorizontalAlignment="Left"
+                                    FontSize="20"
+                                    Text="Language: " />
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedTour.Language}" />
+                            </StackPanel>
+
+
+
 
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="26,0,0,5"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal">
                             <TextBlock
-                                Width="100"
+                                Width="auto"
                                 Margin="0,0,30,0"
+                                HorizontalAlignment="Left"
+                                FontSize="20"
                                 Text="Description: " />
-                            <TextBlock Text="{Binding SelectedTour.Description}" />
+                            <TextBlock FontSize="20" Text="{Binding SelectedTour.Description}" />
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </DockPanel>
-            </DockPanel>
-        </GroupBox>
+            </GroupBox>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+                    <TextBlock FontSize="20" Text="Enter tourist number" />
+                    <TextBox
+                        Width="100"
+                        Margin="40,0,0,0"
+                        HorizontalAlignment="Right"
+                        FontSize="20"
+                        Text="{Binding NumberOfReservations}"
+                        TextAlignment="Center" />
+                </StackPanel>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Click="CancelButtonCLick"
+                    Content="Cancel"
+                    FontSize="20" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Click="ConfirmButtonClick"
+                    Content="Confirm"
+                    FontSize="20" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>
