@@ -1,10 +1,13 @@
-﻿using System;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
+using BookingApp.TouristView.TourBooking;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,18 +17,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.TouristView.TourBooking;
 
-namespace BookingApp.TouristView
+namespace BookingApp.TouristView.MyTours
 {
     /// <summary>
-    /// Interaction logic for TouristMainWindow.xaml
+    /// Interaction logic for MyToursPaige.xaml
     /// </summary>
-    public partial class TouristMainWindow : Window, INotifyPropertyChanged
+    public partial class MyToursPaige : Page,INotifyPropertyChanged
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
@@ -35,7 +35,7 @@ namespace BookingApp.TouristView
 
         private bool _isCancelSearchButtonVisible;
 
-        public TouristMainWindow(User loggedInUser)
+        public MyToursPaige(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;

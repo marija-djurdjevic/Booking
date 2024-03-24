@@ -1,0 +1,81 @@
+﻿<Window
+    x:Class="BookingApp.TouristView.TouristsMainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TouristsMainWindow"
+    Width="800"
+    Height="500"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <DockPanel>
+        <DockPanel
+            Width="227"
+            Background="LightBlue"
+            DockPanel.Dock="Left">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock FontFamily="Roboto" FontSize="24">Menu</TextBlock>
+                </GroupBox.Header>
+
+                <StackPanel>
+
+                    <Button
+                        Background="White"
+                        BorderBrush="Black"
+                        Click="ShowAndSearchToursButtonClick"
+                        Content="Show and search tours"
+                        FontSize="20"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Button.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="0" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.LayoutTransform>
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                    <Button
+                        Background="White"
+                        BorderBrush="Black"
+                        Click="MyToursButtonClick"
+                        Content="My tours"
+                        FontSize="20"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Button.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="0" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.LayoutTransform>
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Right">
+            <Frame x:Name="Paige" NavigationUIVisibility="Hidden" />
+        </DockPanel>
+    </DockPanel>
+</Window>

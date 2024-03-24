@@ -105,7 +105,7 @@ namespace BookingApp.View
             }
             else
             {
-                TouristMainWindow touristMainWindow = new TouristMainWindow(new User(4,"Dusko","pili123",UserRole.Tourist));
+                TouristsMainWindow touristMainWindow = new TouristsMainWindow(new User(4, "Dusko", "pili123", UserRole.Tourist));
                 touristMainWindow.Show();
                 Close();
                 //MessageBox.Show("Wrong username!");
