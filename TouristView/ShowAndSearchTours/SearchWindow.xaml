@@ -5,89 +5,110 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="SearchWindow"
-    Width="400"
-    Height="450"
+    Title="Booking app"
+    Width="394"
+    Height="427"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Margin="26,10,26,0">
+
         <TextBlock
-            Margin="55,40,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Enter Search Parameters"
+            TextWrapping="Wrap" />
+        <TextBlock
+            Margin="0,60,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontSize="20"
             Text="City"
             TextWrapping="Wrap" />
         <TextBlock
-            Margin="55,70,0,0"
+            Margin="0,111,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="Country"
             TextWrapping="Wrap" />
         <TextBlock
-            Margin="55,100,0,0"
+            Margin="0,162,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="Duration"
             TextWrapping="Wrap" />
         <TextBlock
-            Margin="55,130,0,0"
+            Margin="0,213,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="Language"
             TextWrapping="Wrap" />
         <TextBlock
-            Margin="55,160,0,0"
+            Margin="0,264,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="Tourist number"
             TextWrapping="Wrap" />
         <TextBox
             Width="120"
-            Margin="235,40,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,60,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap" />
         <TextBox
             Width="120"
-            Margin="235,70,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,111,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap" />
         <TextBox
             Width="120"
-            Margin="235,100,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,162,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap" />
         <TextBox
             Width="120"
-            Margin="235,130,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,213,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap" />
         <TextBox
             Width="120"
-            Margin="235,160,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,264,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            FontSize="20"
             Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap" />
         <Button
-            Margin="309,295,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,325,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Click="ConfirmClick"
-            Content="Confirm" />
+            Content="Confirm"
+            TextBlock.FontSize="20" />
         <Button
-            Margin="55,295,0,0"
+            Margin="0,325,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="CancelClick"
-            Content="Cancel" />
+            Content="Cancel"
+            TextBlock.FontSize="20" />
     </Grid>
 
 
