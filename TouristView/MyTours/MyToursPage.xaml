@@ -6,9 +6,7 @@
     xmlns:local="clr-namespace:BookingApp.TouristView.MyTours"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MyToursPage"
-    d:DesignHeight="750"
-    d:DesignWidth="860"
-    Background="White"
+    Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
     <DockPanel>
 

@@ -8,15 +8,13 @@
     Title="Booking app"
     Width="1200"
     Height="750"
-    Background="#8c92ac"
+    Background="{StaticResource BackgroundColor}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <DockPanel Margin="5" Background="#8c92ac">
+    <DockPanel Margin="5" Background="{StaticResource BackgroundColor}">
         <DockPanel Width="340" DockPanel.Dock="Left">
-            <DockPanel.Background>
-                <SolidColorBrush Color="#8c92ac" />
-            </DockPanel.Background>
+            <DockPanel Background="{StaticResource BackgroundColor}" />
             <GroupBox Margin="3">
                 <GroupBox.Style>
                     <Style TargetType="GroupBox">
@@ -31,7 +29,8 @@
                     <TextBlock
                         FontFamily="Roboto"
                         FontSize="24"
-                        Foreground="White" FontWeight="Bold">
+                        FontWeight="Bold"
+                        Foreground="White">
                         Menu
                     </TextBlock>
                 </GroupBox.Header>
@@ -77,81 +76,21 @@
                         </StackPanel>
                     </StackPanel>
                     <Button
-                        Background="White"
-                        BorderBrush="Black"
                         Click="ShowAndSearchToursButtonClick"
                         Content="Show and search tours"
-                        FontSize="20"
-                        RenderTransformOrigin="0.5,0.5">
-                        <Button.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform Angle="0" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.LayoutTransform>
-                        <Button.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.RenderTransform>
-                    </Button>
+                        Style="{StaticResource MainCardTabs}" />
                     <Button
-                        Background="White"
-                        BorderBrush="Black"
                         Click="MyToursButtonClick"
                         Content="My tours"
-                        FontSize="20"
-                        RenderTransformOrigin="0.5,0.5">
-                        <Button.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform Angle="0" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.LayoutTransform>
-                        <Button.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.RenderTransform>
-                    </Button>
+                        Style="{StaticResource MainCardTabs}" />
                     <Button
-                        Background="White"
-                        BorderBrush="Black"
                         Click="VouchersButtonClick"
                         Content="Vouchers"
-                        FontSize="20"
-                        RenderTransformOrigin="0.5,0.5">
-                        <Button.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform Angle="0" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.LayoutTransform>
-                        <Button.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.RenderTransform>
-                    </Button>
+                        Style="{StaticResource MainCardTabs}" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Right">
+        <DockPanel Margin="5" DockPanel.Dock="Right">
             <Frame x:Name="Paige" NavigationUIVisibility="Hidden" />
         </DockPanel>
     </DockPanel>

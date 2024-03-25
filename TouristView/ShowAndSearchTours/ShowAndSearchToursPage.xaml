@@ -6,9 +6,7 @@
     xmlns:local="clr-namespace:BookingApp.TouristView.ShowAndSearchTours"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ShowAndSearchToursPage"
-    d:DesignHeight="750"
-    d:DesignWidth="860"
-    Background="White"
+    Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
 
     <DockPanel>

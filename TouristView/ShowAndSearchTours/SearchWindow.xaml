@@ -11,104 +11,88 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid Margin="26,10,26,0">
+
+    <Grid Margin="26,0,26,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
         <TextBlock
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="24"
-            FontWeight="Bold"
-            Text="Enter Search Parameters"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="0,60,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="City"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="0,111,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="Country"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="0,162,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="Duration"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="0,213,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="Language"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="0,264,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="Tourist number"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="0,60,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="0,111,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="0,162,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="0,213,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="0,264,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
-            TextWrapping="Wrap" />
+            Grid.ColumnSpan="2"
+            Style="{StaticResource NasloviProzoraTextBlock}"
+            Text="Enter Search Parameters" />
+
+        <StackPanel Grid.Column="0" Margin="0,30,0,0">
+
+            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
+            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Country" />
+            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Duration" />
+            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Language" />
+            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Tourist number" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="0,30,0,0">
+            <TextBox
+                Width="120"
+                Height="30"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Height="30"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Height="30"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Height="30"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Height="30"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+
+
+
+        </StackPanel>
         <Button
-            Margin="0,325,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            Grid.Column="0"
             Click="ConfirmClick"
             Content="Confirm"
-            TextBlock.FontSize="20" />
+            Style="{StaticResource ConfirmButton}" />
+
         <Button
-            Margin="0,325,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            Grid.Column="1"
             Click="CancelClick"
             Content="Cancel"
-            TextBlock.FontSize="20" />
+            Style="{StaticResource CancelButton}" />
     </Grid>
 
 
