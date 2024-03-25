@@ -15,6 +15,7 @@ namespace BookingApp.Model
         public int TouristId { get; set; }
         public string Reason { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public string VoucherNumber { get; set; }
 
         public Voucher() { }
 
@@ -37,7 +38,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             TouristId = Convert.ToInt32(values[1]);
             Reason = values[2];
-            ExpirationDate = DateTime.ParseExact(values[5], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            ExpirationDate = DateTime.ParseExact(values[3], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }

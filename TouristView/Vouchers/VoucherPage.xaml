@@ -9,5 +9,55 @@
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
 
-    <Grid />
+    <DockPanel Margin="10">
+
+        <DockPanel
+            Height="50"
+            Margin="50,0,0,0"
+            DockPanel.Dock="Top">
+
+            <TextBlock Style="{StaticResource NasloviProzoraTextBlock}" Text="All my active vouchers" />
+            <StackPanel Style="{StaticResource HelpStyle}">
+                <TextBlock Text="Help" />
+            </StackPanel>
+        </DockPanel>
+
+        <Grid Margin="50,5,5,5">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding Vouchers}" Style="{StaticResource CardView}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <GroupBox Header="{Binding VoucherNumber}" Style="{StaticResource GroupVauceri}">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="20,10,10,10"
+                                            VerticalAlignment="Center"
+                                            Text="Reason for receiving the voucher:" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="Bold"
+                                            Text="{Binding Reason}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="20,10,10,10"
+                                            VerticalAlignment="Center"
+                                            Text="Expiration date:" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="Bold"
+                                            Text="{Binding ExpirationDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </Grid>
+
+
+    </DockPanel>
 </Page>

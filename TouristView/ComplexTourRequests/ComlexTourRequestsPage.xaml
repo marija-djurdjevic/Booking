@@ -9,5 +9,9 @@
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <StackPanel Style="{StaticResource HelpStyle}">
+            <TextBlock Text="Help" />
+        </StackPanel>
+    </Grid>
 </Page>

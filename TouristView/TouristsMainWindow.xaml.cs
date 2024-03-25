@@ -50,7 +50,7 @@ namespace BookingApp.TouristView
 
         private void VouchersButtonClick(object sender, RoutedEventArgs e)
         {
-            Paige.Content = new Vouchers.VoucherPage();
+            Paige.Content = new Vouchers.VoucherPage(LoggedInUser);
         }
 
         private void LogoutButtonClick(object sender, RoutedEventArgs e)

@@ -40,10 +40,10 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public Voucher GetByToueristId(int Id)
+        public List<Voucher> GetByToueristId(int Id)
         {
             vouchers = GetAll();
-            return vouchers.Find(t => t.TouristId == Id);
+            return vouchers.FindAll(t => t.TouristId == Id && t.ExpirationDate>=System.DateTime.Now);
         }
     }
 }

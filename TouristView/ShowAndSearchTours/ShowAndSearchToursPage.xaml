@@ -9,7 +9,7 @@
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
 
-    <DockPanel>
+    <DockPanel Margin="10">
 
         <DockPanel Height="50" DockPanel.Dock="Top">
             <Grid>
@@ -18,15 +18,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel
-                    Grid.Column="2"
-                    Margin="0,0,12,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-
-                    <TextBlock FontSize="20" Text="Help" />
-
+                <StackPanel Grid.Column="2" Style="{StaticResource HelpStyle}">
+                    <TextBlock Text="Help" />
                 </StackPanel>
                 <Button
                     Grid.Column="0"
@@ -78,24 +71,16 @@
 
         <Grid Margin="5">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-                <ItemsControl x:Name="SearchResultList" ItemsSource="{Binding Tours}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <!--  Promijenite panel na UniformGrid  -->
-                            <UniformGrid Columns="1" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                <ItemsControl
+                    x:Name="SearchResultList"
+                    ItemsSource="{Binding Tours}"
+                    Style="{StaticResource CardView}">
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Height="165"
-                                Margin="50,15"
-                                Background="LightGray"
-                                BorderBrush="Black"
-                                BorderThickness="2"
-                                CornerRadius="20"
                                 MouseLeftButtonDown="SelectedTourCard"
+                                Style="{StaticResource OkvirKarticeTura}"
                                 Tag="{Binding SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
                                 <DockPanel>
                                     <DockPanel DockPanel.Dock="Bottom">

@@ -24,8 +24,8 @@
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
         <Style x:Key="PageSetup" TargetType="Page">
-            <Setter Property="Width" Value="auto" />
-            <Setter Property="Height" Value="auto" />
+            <Setter Property="Width" Value="820" />
+            <Setter Property="Height" Value="700" />
             <Setter Property="Background" Value="White" />
         </Style>
 
@@ -59,6 +59,7 @@
             BasedOn="{StaticResource TekstualnaPoljaTextBlock}"
             TargetType="TextBlock">
             <Setter Property="FontSize" Value="24" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
@@ -67,6 +68,48 @@
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
             <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <Style x:Key="HelpStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="TextBlock.Text" Value="Help" />
+            <Setter Property="TextBlock.Margin" Value="0,0,10,0" />
+            <Setter Property="TextBlock.FontSize" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+
+        <!--  Raspored kartica i Field setova  -->
+        <Style x:Key="CardView" TargetType="ItemsControl">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Okvir Kartica za prikaz svih tura  -->
+        <Style x:Key="OkvirKarticeTura" TargetType="Border">
+            <Setter Property="Height" Value="165" />
+            <Setter Property="Margin" Value="50,15" />
+            <Setter Property="Background" Value="{StaticResource CardColor}" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="20" />
+        </Style>
+
+        <!--  Group box za prikaz svih vaucera  -->
+        <Style x:Key="GroupVauceri" TargetType="GroupBox">
+            <Setter Property="Height" Value="135" />
+            <Setter Property="Margin" Value="50,15" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="{StaticResource CardColor}" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
         </Style>
 
         <!--  .  -->
