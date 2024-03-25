@@ -35,17 +35,17 @@ namespace BookingApp.TouristView
             DataContext = this;
             LoggedInUser = loggedInUser;
             Tourist = _touristRepository.GetByUserId(LoggedInUser.Id);
-            Paige.Content = new ShowAndSearchToursPaige(LoggedInUser);
+            Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
         }
 
         private void ShowAndSearchToursButtonClick(object sender, RoutedEventArgs e)
         {
-            Paige.Content = new ShowAndSearchToursPaige(LoggedInUser);
+            Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
         }
 
         private void MyToursButtonClick(object sender, RoutedEventArgs e)
         {
-            Paige.Content = new MyToursPaige(new Model.User());
+            Paige.Content = new MyToursPage(new Model.User());
         }
 
         private void VouchersButtonClick(object sender, RoutedEventArgs e)

@@ -23,9 +23,9 @@ using System.Windows.Shapes;
 namespace BookingApp.TouristView.ShowAndSearchTours
 {
     /// <summary>
-    /// Interaction logic for ShowAndSearchToursPaige.xaml
+    /// Interaction logic for ShowAndSearchToursPage.xaml
     /// </summary>
-    public partial class ShowAndSearchToursPaige : Page,INotifyPropertyChanged
+    public partial class ShowAndSearchToursPage : Page,INotifyPropertyChanged
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
@@ -35,7 +35,7 @@ namespace BookingApp.TouristView.ShowAndSearchTours
 
         private bool _isCancelSearchButtonVisible;
 
-        public ShowAndSearchToursPaige(User loggedInUser)
+        public ShowAndSearchToursPage(User loggedInUser)
         {
             InitializeComponent();
             InitializeComponent();

@@ -25,7 +25,7 @@ namespace BookingApp.TouristView.MyTours
     /// <summary>
     /// Interaction logic for MyToursPaige.xaml
     /// </summary>
-    public partial class MyToursPaige : Page,INotifyPropertyChanged
+    public partial class MyToursPage : Page,INotifyPropertyChanged
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
@@ -35,7 +35,7 @@ namespace BookingApp.TouristView.MyTours
 
         private bool _isCancelSearchButtonVisible;
 
-        public MyToursPaige(User loggedInUser)
+        public MyToursPage(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
