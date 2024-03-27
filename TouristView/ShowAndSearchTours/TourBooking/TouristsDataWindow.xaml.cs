@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.TouristView.Vouchers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,6 +40,7 @@ namespace BookingApp.TouristView.TourBooking
             SelectedTour = selectedTour;
             LoggedInTourist = touristRepository.GetByUserId(userId);
 
+            Tourists.Add(new TourReservation(SelectedTour.Id, LoggedInTourist));
             for (int i = 0; i < touristNumber - 1; i++)
             {
                 Tourists.Add(new TourReservation(SelectedTour.Id, userId));
@@ -49,7 +51,16 @@ namespace BookingApp.TouristView.TourBooking
         {
             TourReservationRepository reservationDataRepository = new TourReservationRepository();
 
-            Tourists.Add(new TourReservation(SelectedTour.Id, LoggedInTourist));
+            MessageBoxResult useVouchers = MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo);
+            if (useVouchers == MessageBoxResult.Yes)
+            {
+                VouchersForReservationWindow vouchersForReservationWindow = new VouchersForReservationWindow(LoggedInTourist);
+                vouchersForReservationWindow.ShowDialog();
+                if (!vouchersForReservationWindow.WindowReturnValue)
+                {
+                    return;
+                }
+            }
 
             foreach (TourReservation data in Tourists)
             {
@@ -58,6 +69,9 @@ namespace BookingApp.TouristView.TourBooking
 
             SelectedTour.MaxTouristNumber -= Tourists.Count();
             TourRepository.Update(SelectedTour.ToTour());
+
+            MessageBoxResult successfullyBooked = MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK);
+
             Close();
         }
 

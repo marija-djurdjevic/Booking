@@ -32,7 +32,6 @@
   <ItemGroup>
     <Folder Include="TouristView\ComplexTourRequests\" />
     <Folder Include="TouristView\TourRequests\" />
-    <Folder Include="TouristView\Vouchers\" />
   </ItemGroup>
 
 </Project>

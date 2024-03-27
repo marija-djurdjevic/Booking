@@ -6,94 +6,105 @@
     xmlns:local="clr-namespace:BookingApp.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
-    Width="394"
-    Height="427"
+    Width="454"
+    Height="487"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Grid Margin="26,0,26,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <TextBlock
+    <DockPanel Margin="20,0,20,20">
+        <DockPanel
             Grid.ColumnSpan="2"
-            Style="{StaticResource NasloviProzoraTextBlock}"
-            Text="Enter Search Parameters" />
+            Height="50"
+            Margin="0,0,0,0"
+            DockPanel.Dock="Top">
 
-        <StackPanel Grid.Column="0" Margin="0,30,0,0">
+            <TextBlock
+                VerticalAlignment="Bottom"
+                Style="{StaticResource NasloviProzoraTextBlock}"
+                Text="Enter Search Parameters" />
+            <StackPanel Style="{StaticResource HelpStyle}">
+                <TextBlock Text="Help" />
+            </StackPanel>
+        </DockPanel>
 
-            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
-            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Country" />
-            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Duration" />
-            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Language" />
-            <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Tourist number" />
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Margin="0,30,0,0">
-            <TextBox
-                Width="120"
-                Height="30"
-                Margin="0,30,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="20"
-                Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
-            <TextBox
-                Width="120"
-                Height="30"
-                Margin="0,30,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="20"
-                Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
-            <TextBox
-                Width="120"
-                Height="30"
-                Margin="0,30,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="20"
-                Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
-            <TextBox
-                Width="120"
-                Height="30"
-                Margin="0,30,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="20"
-                Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
-            <TextBox
-                Width="120"
-                Height="30"
-                Margin="0,30,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="20"
-                Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
+            <StackPanel Grid.Column="0" Margin="0,0,0,0">
+
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Country" />
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Duration" />
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Language" />
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Tourist number" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="0,30,0,0">
+                <TextBox
+                    Width="120"
+                    Height="30"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="120"
+                    Height="30"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="120"
+                    Height="30"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="120"
+                    Height="30"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="120"
+                    Height="30"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
 
 
 
-        </StackPanel>
-        <Button
-            Grid.Column="0"
-            Click="ConfirmClick"
-            Content="Confirm"
-            Style="{StaticResource ConfirmButton}" />
+            </StackPanel>
+            <Button
+                Grid.Column="1"
+                Click="ConfirmClick"
+                Content="Confirm"
+                Style="{StaticResource ConfirmButton}" />
 
-        <Button
-            Grid.Column="1"
-            Click="CancelClick"
-            Content="Cancel"
-            Style="{StaticResource CancelButton}" />
-    </Grid>
-
+            <Button
+                Grid.Column="0"
+                Click="CancelClick"
+                Content="Cancel"
+                Style="{StaticResource CancelButton}" />
+        </Grid>
+    </DockPanel>
 
 </Window>

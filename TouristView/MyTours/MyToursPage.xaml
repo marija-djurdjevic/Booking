@@ -14,7 +14,7 @@
             <Button
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Click="CancelSearchButtonClick"
+                Click="Booking app"
                 Content="Cancel Search">
                 <Button.Style>
                     <Style TargetType="Button">
