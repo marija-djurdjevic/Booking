@@ -12,6 +12,7 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="TouristView\Icons\help1.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TouristView\ComplexTourRequests\" />
     <Folder Include="TouristView\TourRequests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="TouristView\Icons\help1.png" />
   </ItemGroup>
 
 </Project>

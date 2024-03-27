@@ -62,5 +62,10 @@ namespace BookingApp.TouristView
             signInForm.Show();
             Close();
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

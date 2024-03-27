@@ -10,8 +10,24 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel Style="{StaticResource HelpStyle}">
-            <TextBlock Text="Help" />
+        <StackPanel Height="30" HorizontalAlignment="Right">
+            <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
+                <Button.Content>
+                    <StackPanel Style="{StaticResource HelpStyle}">
+                        <TextBlock
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Help" />
+                        <Image
+                            Width="30"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Source="/TouristView/Icons/help1.png" />
+                    </StackPanel>
+                </Button.Content>
+
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

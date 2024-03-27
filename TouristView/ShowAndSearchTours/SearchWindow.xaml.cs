@@ -74,5 +74,10 @@ namespace BookingApp.TouristView
                 Tours.Add(new TourDto(tour));
             }
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

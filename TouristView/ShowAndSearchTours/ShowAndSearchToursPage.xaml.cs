@@ -104,7 +104,7 @@ namespace BookingApp.TouristView.ShowAndSearchTours
             IsCancelSearchButtonVisible = searchWindow.IsCancelSearchButtonVisible;
         }
 
-        private void CancelSearchButtonClick(object sender, RoutedEventArgs e)
+        private void ShowAllToursButtonClick(object sender, RoutedEventArgs e)
         {
             IsCancelSearchButtonVisible = false;
             GetAllTours();
@@ -127,6 +127,11 @@ namespace BookingApp.TouristView.ShowAndSearchTours
             {
                 MessageBox.Show("There are no tours from that city");
             }
+        }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

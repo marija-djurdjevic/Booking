@@ -71,10 +71,10 @@
         </Style>
 
         <Style x:Key="HelpStyle" TargetType="StackPanel">
-            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="TextBlock.Text" Value="Help" />
-            <Setter Property="TextBlock.Margin" Value="0,0,10,0" />
+            <Setter Property="TextBlock.Margin" Value="0,0,0,0" />
             <Setter Property="TextBlock.FontSize" Value="20" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Orientation" Value="Horizontal" />
@@ -178,11 +178,47 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard>
-
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
                                     To="LightGray"
                                     Duration="0:0:0.200" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <!--  Dugme help  -->
+        <Style x:Key="HoverStilHelp" TargetType="Button">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="FontSize"
+                                    To="24"
+                                    Duration="0:0:0.300" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="FontSize"
+                                    To="20"
+                                    Duration="0:0:0.300" />
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>

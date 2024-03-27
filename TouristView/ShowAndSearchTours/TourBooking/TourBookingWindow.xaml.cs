@@ -60,5 +60,10 @@ namespace BookingApp.TouristView.TourBooking
         {
             Close();
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

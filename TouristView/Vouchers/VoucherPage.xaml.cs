@@ -54,5 +54,10 @@ namespace BookingApp.TouristView.Vouchers
                 Vouchers.Add(voucher);
             }
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

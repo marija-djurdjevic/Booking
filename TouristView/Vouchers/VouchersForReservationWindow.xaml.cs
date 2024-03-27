@@ -74,5 +74,9 @@ namespace BookingApp.TouristView.Vouchers
             Close();
         }
 
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
