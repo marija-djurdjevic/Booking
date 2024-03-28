@@ -24,5 +24,10 @@ namespace BookingApp.TouristView.ComplexTourRequests
         {
             InitializeComponent();
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

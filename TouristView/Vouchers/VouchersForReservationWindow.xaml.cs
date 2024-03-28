@@ -1,13 +1,9 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.TouristView.TourBooking;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,22 +13,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.TouristView.Vouchers
 {
     /// <summary>
-    /// Interaction logic for VoucherPage.xaml
+    /// Interaction logic for VouchersForReservationWindow.xaml
     /// </summary>
-    public partial class VoucherPage : Page
+    public partial class VouchersForReservationWindow : Window
     {
         public static ObservableCollection<Tuple<Voucher,string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
         private readonly VoucherRepository repository;
 
-        public VoucherPage(User loggedInUser)
+        public bool WindowReturnValue;
+        public Tuple<Voucher,string> SelectedVoucher { get; set; }
+
+        public VouchersForReservationWindow(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
@@ -41,6 +39,7 @@ namespace BookingApp.TouristView.Vouchers
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
+            WindowReturnValue = false;
             GetMyVouchers();
         }
 
@@ -50,9 +49,29 @@ namespace BookingApp.TouristView.Vouchers
             int number = 0;
             foreach (var voucher in repository.GetByToueristId(LoggedInUser.Id))
             {
-                var voucherName = "Voucher "+(++number).ToString();
-                Vouchers.Add(new Tuple<Voucher,string>(voucher,voucherName));
+                var voucherName = "Voucher " + (++number).ToString();
+                Vouchers.Add(new Tuple<Voucher, string>(voucher, voucherName));
             }
+        }
+
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ConfirmClick(object sender, RoutedEventArgs e)
+        {
+            VoucherRepository voucherRepository = new VoucherRepository();
+
+            if (!voucherRepository.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
+            {
+                MessageBox.Show("Unable to use voucher","Something went wrong");
+                Close();
+                return;
+            }
+
+            WindowReturnValue = true;
+            Close();
         }
 
         private void HelpButtonClick(object sender, RoutedEventArgs e)

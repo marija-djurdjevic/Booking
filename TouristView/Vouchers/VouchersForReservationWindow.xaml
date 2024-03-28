@@ -1,0 +1,128 @@
+﻿<Window
+    x:Class="BookingApp.TouristView.Vouchers.VouchersForReservationWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.TouristView.Vouchers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Booking app"
+    Width="820"
+    Height="700"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <DockPanel Margin="20,0,20,20">
+        <DockPanel
+            Height="50"
+            Margin="0,0,0,0"
+            DockPanel.Dock="Top">
+
+            <TextBlock
+                VerticalAlignment="Bottom"
+                Style="{StaticResource NasloviProzoraTextBlock}"
+                Text="All my active vouchers" />
+            <StackPanel
+                Grid.Column="2"
+                Height="30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top">
+                <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
+                    <Button.Content>
+                        <StackPanel Style="{StaticResource HelpStyle}">
+                            <TextBlock
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="Help" />
+                            <Image
+                                Width="30"
+                                Height="30"
+                                VerticalAlignment="Center"
+                                Source="/TouristView/Icons/help1.png" />
+                        </StackPanel>
+                    </Button.Content>
+
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="1"
+                    Click="ConfirmClick"
+                    Content="Confirm"
+                    Style="{StaticResource ConfirmButton}" />
+
+                <Button
+                    Grid.Column="0"
+                    Click="CancelClick"
+                    Content="Cancel"
+                    Style="{StaticResource CancelButton}" />
+            </Grid>
+        </DockPanel>
+
+        <DockPanel Margin="0,20,0,20" DockPanel.Dock="Left">
+
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+
+                <ListBox
+                    BorderBrush="Black"
+                    ItemsSource="{Binding Vouchers}"
+                    SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource CardView}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                GroupName="ReservationGroup"
+                                IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
+                                <RadioButton.Content>
+                                    <GroupBox
+                                        Width="680"
+                                        Margin="10,10,10,10"
+                                        Header="{Binding Item2}"
+                                        Style="{StaticResource HoverStil}">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="20,10,10,10"
+                                                    VerticalAlignment="Center"
+                                                    Text="Reason for receiving the voucher:" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.Reason}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="20,10,10,10"
+                                                    VerticalAlignment="Center"
+                                                    Text="Expiration date:" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.ExpirationDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </RadioButton.Content>
+                            </RadioButton>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+        </DockPanel>
+
+
+    </DockPanel>
+
+</Window>

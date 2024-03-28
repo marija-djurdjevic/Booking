@@ -74,6 +74,29 @@
                             </Button>
 
                         </StackPanel>
+                        <StackPanel Height="30" HorizontalAlignment="Right">
+                            <Button
+                                Background="{StaticResource BackgroundColor}"
+                                BorderBrush="{StaticResource BackgroundColor}"
+                                Click="HelpButtonClick"
+                                Style="{StaticResource HoverStilHelp}">
+                                <Button.Content>
+                                    <StackPanel Style="{StaticResource HelpStyle}">
+                                        <TextBlock
+                                            Height="30"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="Help" />
+                                        <Image
+                                            Width="30"
+                                            Height="30"
+                                            VerticalAlignment="Center"
+                                            Source="/TouristView/Icons/help1.png" />
+                                    </StackPanel>
+                                </Button.Content>
+
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                     <Button
                         Click="ShowAndSearchToursButtonClick"
