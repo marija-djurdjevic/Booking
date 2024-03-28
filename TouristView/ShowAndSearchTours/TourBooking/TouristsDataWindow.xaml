@@ -6,8 +6,12 @@
     xmlns:local="clr-namespace:BookingApp.TouristView.TourBooking"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
-    Width="600"
+    Width="700"
     Height="450"
+    MinWidth="700"
+    MinHeight="450"
+    MaxWidth="800"
+    MaxHeight="700"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -92,7 +96,7 @@
                                             Style="{StaticResource TekstualnaPoljaTextBlock}"
                                             Text="First name:" />
                                         <TextBox
-                                            Width="100"
+                                            MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             Text="{Binding Item1.TouristFirstName}" />
@@ -103,7 +107,7 @@
                                             Style="{StaticResource TekstualnaPoljaTextBlock}"
                                             Text="Last name:" />
                                         <TextBox
-                                            Width="100"
+                                            MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             Text="{Binding Item1.TouristLastName}" />
@@ -114,7 +118,7 @@
                                             Style="{StaticResource TekstualnaPoljaTextBlock}"
                                             Text="Age:" />
                                         <TextBox
-                                            Width="50"
+                                            MinWidth="50"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             Text="{Binding Item1.TouristAge}" />

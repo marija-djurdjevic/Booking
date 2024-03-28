@@ -8,6 +8,8 @@
     Title="Booking app"
     Width="454"
     Height="487"
+    MinWidth="454"
+    MinHeight="487"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

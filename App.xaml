@@ -24,8 +24,10 @@
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
         <Style x:Key="PageSetup" TargetType="Page">
-            <Setter Property="Width" Value="820" />
-            <Setter Property="Height" Value="700" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="auto" />
+            <Setter Property="MinHeight" Value="700" />
+            <Setter Property="MinWidth" Value="820" />
             <Setter Property="Background" Value="White" />
         </Style>
 

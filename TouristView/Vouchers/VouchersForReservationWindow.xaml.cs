@@ -63,6 +63,12 @@ namespace BookingApp.TouristView.Vouchers
         {
             VoucherRepository voucherRepository = new VoucherRepository();
 
+            if (SelectedVoucher == null)
+            {
+                MessageBox.Show("Please choose the voucher you want to use.", "Something went wrong");
+                return;
+            }
+
             if (!voucherRepository.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
             {
                 MessageBox.Show("Unable to use voucher","Something went wrong");
