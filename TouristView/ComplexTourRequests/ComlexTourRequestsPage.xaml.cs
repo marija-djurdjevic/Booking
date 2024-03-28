@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,31 @@ namespace BookingApp.TouristView.ComplexTourRequests
     /// </summary>
     public partial class ComlexTourRequestsPage : Page
     {
+        public ObservableCollection<string> Images { get; set; }
         public ComlexTourRequestsPage()
         {
             InitializeComponent();
+            DataContext = this;
+            Images = new ObservableCollection<string>();
+
+            Images.Add(new string("/TouristView/Icons/broken-image.png"));
+            Images.Add(new string("/TouristView/Icons/help1.png"));
+            Images.Add(new string("/TouristView/Icons/Slika.png"));
         }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ImageListBox.SelectedIndex < ImageListBox.Items.Count - 1)
+            {
+                ImageListBox.SelectedIndex++;
+            }
+            else
+            {
+                // Reset na prvu sliku ako smo došli do kraja liste.
+                ImageListBox.SelectedIndex = 0;
+            }
+        }
+
 
         private void HelpButtonClick(object sender, RoutedEventArgs e)
         {

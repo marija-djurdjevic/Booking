@@ -100,10 +100,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border
-                                MouseLeftButtonDown="SelectedTourCard"
-                                Style="{StaticResource HoverStilKartice}"
-                                Tag="{Binding SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                            <Border MouseLeftButtonDown="SelectedTourCard" Style="{StaticResource HoverStilKartice}">
                                 <DockPanel>
                                     <DockPanel DockPanel.Dock="Bottom">
                                         <TextBlock

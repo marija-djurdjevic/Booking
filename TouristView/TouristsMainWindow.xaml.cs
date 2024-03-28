@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using BookingApp.TouristView.MyTours;
 using BookingApp.TouristView.ShowAndSearchTours;
 using BookingApp.TouristView.Vouchers;
+using BookingApp.TouristView.ComplexTourRequests;
 using BookingApp.View;
 using System;
 using System.Collections.Generic;
@@ -46,9 +47,7 @@ namespace BookingApp.TouristView
 
         private void MyToursButtonClick(object sender, RoutedEventArgs e)
         {
-            Paige.Content = new MyToursPage(new Model.User());
-            VouchersForReservationWindow vouchersForReservationWindow = new VouchersForReservationWindow(LoggedInUser);
-            vouchersForReservationWindow.Show();
+            Paige.Content = new ComplexTourRequests.ComlexTourRequestsPage();
         }
 
         private void VouchersButtonClick(object sender, RoutedEventArgs e)
@@ -64,6 +63,11 @@ namespace BookingApp.TouristView
         }
 
         private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
 
         }

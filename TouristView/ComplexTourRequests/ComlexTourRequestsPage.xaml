@@ -29,5 +29,35 @@
 
             </Button>
         </StackPanel>
+
+        <Grid>
+            <ListBox
+                x:Name="ImageListBox"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding Images}"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image
+                            Width="100"
+                            Height="100"
+                            Margin="5"
+                            Source="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="NextButton_Click"
+                Content="Next" />
+        </Grid>
+
     </Grid>
 </Page>

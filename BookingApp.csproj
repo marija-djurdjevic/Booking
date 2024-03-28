@@ -12,7 +12,16 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="TouristView\Icons\broken-image.png" />
     <None Remove="TouristView\Icons\help1.png" />
+    <None Remove="TouristView\Icons\home.png" />
+    <None Remove="TouristView\Icons\location-pin.png" />
+    <None Remove="TouristView\Icons\logout.png" />
+    <None Remove="TouristView\Icons\next.png" />
+    <None Remove="TouristView\Icons\previous.png" />
+    <None Remove="TouristView\Icons\settings.png" />
+    <None Remove="TouristView\Icons\target.png" />
+    <None Remove="TouristView\Icons\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +44,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="TouristView\Icons\broken-image.png" />
     <Resource Include="TouristView\Icons\help1.png" />
+    <Resource Include="TouristView\Icons\home.png" />
+    <Resource Include="TouristView\Icons\location-pin.png" />
+    <Resource Include="TouristView\Icons\logout.png" />
+    <Resource Include="TouristView\Icons\next.png" />
+    <Resource Include="TouristView\Icons\previous.png" />
+    <Resource Include="TouristView\Icons\settings.png" />
+    <Resource Include="TouristView\Icons\target.png" />
+    <Resource Include="TouristView\Icons\user.png" />
   </ItemGroup>
 
 </Project>
