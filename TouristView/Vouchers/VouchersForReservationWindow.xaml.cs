@@ -22,13 +22,13 @@ namespace BookingApp.TouristView.Vouchers
     /// </summary>
     public partial class VouchersForReservationWindow : Window
     {
-        public static ObservableCollection<Voucher> Vouchers { get; set; }
+        public static ObservableCollection<Tuple<Voucher,string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
         private readonly VoucherRepository repository;
 
         public bool WindowReturnValue;
-        public Voucher SelectedVoucher { get; set; }
+        public Tuple<Voucher,string> SelectedVoucher { get; set; }
 
         public VouchersForReservationWindow(User loggedInUser)
         {
@@ -36,7 +36,7 @@ namespace BookingApp.TouristView.Vouchers
             DataContext = this;
 
             repository = new VoucherRepository();
-            Vouchers = new ObservableCollection<Voucher>();
+            Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
             WindowReturnValue = false;
@@ -49,8 +49,8 @@ namespace BookingApp.TouristView.Vouchers
             int number = 0;
             foreach (var voucher in repository.GetByToueristId(LoggedInUser.Id))
             {
-                voucher.VoucherNumber = "Voucher " + (++number).ToString();
-                Vouchers.Add(voucher);
+                var voucherName = "Voucher " + (++number).ToString();
+                Vouchers.Add(new Tuple<Voucher, string>(voucher, voucherName));
             }
         }
 
@@ -63,7 +63,7 @@ namespace BookingApp.TouristView.Vouchers
         {
             VoucherRepository voucherRepository = new VoucherRepository();
 
-            if (!voucherRepository.UseVoucher(SelectedVoucher.Id, LoggedInUser.Id))
+            if (!voucherRepository.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
             {
                 MessageBox.Show("Unable to use voucher","Something went wrong");
                 Close();

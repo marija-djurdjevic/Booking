@@ -27,7 +27,7 @@ namespace BookingApp.TouristView.Vouchers
     /// </summary>
     public partial class VoucherPage : Page
     {
-        public static ObservableCollection<Voucher> Vouchers { get; set; }
+        public static ObservableCollection<Tuple<Voucher,string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
         private readonly VoucherRepository repository;
@@ -38,7 +38,7 @@ namespace BookingApp.TouristView.Vouchers
             DataContext = this;
 
             repository = new VoucherRepository();
-            Vouchers = new ObservableCollection<Voucher>();
+            Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
             GetMyVouchers();
@@ -50,8 +50,8 @@ namespace BookingApp.TouristView.Vouchers
             int number = 0;
             foreach (var voucher in repository.GetByToueristId(LoggedInUser.Id))
             {
-                voucher.VoucherNumber = "Voucher "+(++number).ToString();
-                Vouchers.Add(voucher);
+                var voucherName = "Voucher "+(++number).ToString();
+                Vouchers.Add(new Tuple<Voucher,string>(voucher,voucherName));
             }
         }
 

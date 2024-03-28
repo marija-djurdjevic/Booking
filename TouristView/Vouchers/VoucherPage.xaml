@@ -49,7 +49,7 @@
                 <ItemsControl ItemsSource="{Binding Vouchers}" Style="{StaticResource CardView}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox Header="{Binding VoucherNumber}" Style="{StaticResource HoverStil}">
+                            <GroupBox Header="{Binding Item2}" Style="{StaticResource HoverStil}">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
@@ -59,7 +59,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontWeight="Bold"
-                                            Text="{Binding Reason}" />
+                                            Text="{Binding Item1.Reason}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
@@ -69,7 +69,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontWeight="Bold"
-                                            Text="{Binding ExpirationDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                            Text="{Binding Item1.ExpirationDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
