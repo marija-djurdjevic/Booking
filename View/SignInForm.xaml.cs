@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using BookingApp.TouristView;
 using BookingApp.GuestView;
+using System.Windows.Controls;
 
 namespace BookingApp.View
 {
@@ -80,16 +81,15 @@ namespace BookingApp.View
                                 Close();
                                 break;
                             }
+
                         case UserRole.Guide:
                             {
-                                MessageBox.Show("You signed in as Guide User!");
-
-
-                                Guide guide = new Guide();
-                                guide.Show();
-                                Close();
+                                GuideMainWindow guide = new GuideMainWindow();
+                                guide.Show(); Close();
                                 break;
                             }
+
+
                         case UserRole.Tourist:
                             {
                                 
