@@ -46,6 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="TouristView\Icons\broken-image.png" />
     <Resource Include="TouristView\Icons\help1.png" />
     <Resource Include="TouristView\Icons\home.png" />

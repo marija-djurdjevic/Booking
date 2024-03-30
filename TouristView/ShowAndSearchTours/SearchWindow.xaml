@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:BookingApp.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
@@ -25,6 +26,7 @@
                 VerticalAlignment="Bottom"
                 Style="{StaticResource NasloviProzoraTextBlock}"
                 Text="Enter Search Parameters" />
+
             <StackPanel
                 Height="30"
                 HorizontalAlignment="Right"
@@ -83,15 +85,18 @@
                     FontSize="20"
                     Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
-                <TextBox
+                <extendedToolkit:IntegerUpDown
                     Width="120"
                     Height="30"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     FontSize="20"
-                    Text="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
+                    Minimum="1"
+                    TextAlignment="Left"
+                    Value="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}" />
+
+
                 <TextBox
                     Width="120"
                     Height="30"
@@ -101,15 +106,17 @@
                     FontSize="20"
                     Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
-                <TextBox
+                <extendedToolkit:IntegerUpDown
                     Width="120"
                     Height="30"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     FontSize="20"
-                    Text="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
+                    Minimum="1"
+                    TextAlignment="Left"
+                    Value="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}" />
+
 
 
 
