@@ -83,6 +83,14 @@ namespace BookingApp.Repository
             return toursWithTodayDate;
         }
 
+        public List<Tour> GetUpcomingTours()
+        {
+            tours = GetAll();
+            DateTime today = DateTime.Today;
+            List<Tour> upcomingTours = tours.Where(t => t.StartDateTime.Date > today).ToList();
+            return upcomingTours;
+        }
+
 
 
         public Tour GetTourById(int tourId)
