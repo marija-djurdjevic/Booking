@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Width="800"
-    Height="750"
+    Height="820"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -125,7 +125,10 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="0,30,0,0">
-                <UniformGrid Height="60" Columns="5">
+                <UniformGrid
+                    x:Name="Knowledge"
+                    Height="60"
+                    Columns="5">
 
                     <RadioButton
                         Content="1"
@@ -144,6 +147,7 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
@@ -160,6 +164,7 @@
 
                 </UniformGrid>
                 <UniformGrid
+                    x:Name="Language"
                     Height="60"
                     Margin="0,30,0,0"
                     Columns="5">
@@ -181,6 +186,7 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
@@ -197,6 +203,7 @@
 
                 </UniformGrid>
                 <UniformGrid
+                    x:Name="Interesting"
                     Height="60"
                     Margin="0,30,0,0"
                     Columns="5">
@@ -218,6 +225,7 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
+                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
@@ -239,13 +247,14 @@
                     Margin="0,30,0,0"
                     FontSize="18"
                     MaxLength="200"
+                    Text="{Binding TouristExperience.Comment}"
                     TextWrapping="Wrap" />
 
                 <Grid Margin="0,30">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -253,13 +262,84 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Button>
-                        <Button.Content>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Width="60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="White"
+                            BorderBrush="White"
+                            Click="PreviousImageButtonClick">
                             <Image
                                 Width="30"
                                 Height="30"
+                                Source="/TouristView/Icons/previous.png" />
+                        </Button>
+                        <Button
+                            Grid.Column="1"
+                            Width="60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="White"
+                            BorderBrush="White"
+                            Click="NextImageButtonClick">
+                            <Image
+                                Width="30"
+                                Height="30"
+                                Source="/TouristView/Icons/next.png" />
+                        </Button>
+                    </Grid>
+
+                    <Button
+                        x:Name="ImagesEL"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Height="150"
+                        Background="White">
+                        <Button.Content>
+                            <Image Source="{Binding ShowingImage, UpdateSourceTrigger=PropertyChanged}" />
+
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        BorderBrush="Red"
+                        Click="RemoveImageButtonClick">
+                        <Button.Content>
+                            <Image
+                                Width="35"
+                                Height="35"
                                 VerticalAlignment="Center"
-                                Source="{Binding}" />
+                                Source="/TouristView/Icons/removeimage.png" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Width="80"
+                        Height="80"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        BorderBrush="White"
+                        Click="AddImageButtonClick">
+                        <Button.Content>
+                            <Image
+                                Width="75"
+                                Height="75"
+                                VerticalAlignment="Center"
+                                Source="/TouristView/Icons/addimage.png" />
                         </Button.Content>
                     </Button>
                 </Grid>

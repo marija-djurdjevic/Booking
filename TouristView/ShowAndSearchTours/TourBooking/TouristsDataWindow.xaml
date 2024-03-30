@@ -100,6 +100,7 @@
                                             MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
                                             Text="{Binding Item1.TouristFirstName}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
@@ -111,6 +112,7 @@
                                             MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
                                             Text="{Binding Item1.TouristLastName}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
@@ -122,6 +124,7 @@
                                             MinWidth="50"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
                                             Maximum="150"
                                             Minimum="1"
                                             TextAlignment="Left"

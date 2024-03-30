@@ -116,7 +116,8 @@ namespace BookingApp.TouristView.TourBooking
 
         private void ImageButtonClick(object sender, RoutedEventArgs e)
         {
-
+            FullScreenImageWindow fullScreenImageWindow = new FullScreenImageWindow(SelectedTour.ImagesPaths,ImageIndex);
+            fullScreenImageWindow.Show();
         }
 
         private void NextImageButtonClick(object sender, RoutedEventArgs e)

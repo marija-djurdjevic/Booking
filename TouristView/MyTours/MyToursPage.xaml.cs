@@ -33,6 +33,8 @@ namespace BookingApp.TouristView.MyTours
 
         private readonly TourRepository tourRepository;
 
+        private readonly TouristExperienceRepository touristExperienceRepository;
+
         private readonly TourReservationRepository reservationRepository;
 
         public MyToursPage(User loggedInUser)
@@ -42,6 +44,7 @@ namespace BookingApp.TouristView.MyTours
 
             tourRepository = new TourRepository();
             reservationRepository = new TourReservationRepository();
+            touristExperienceRepository= new TouristExperienceRepository();
             Tours = new ObservableCollection<Tuple<TourDto, Visibility>>();
             SelectedTour = new TourDto();
 
@@ -63,7 +66,7 @@ namespace BookingApp.TouristView.MyTours
             Visibility visibility = Visibility.Hidden;
             List<TourReservation> finishedReservationsAttendedByUser = reservationRepository.GetFinishedReservationsAttendedByUser(userId);
             
-            if (finishedReservationsAttendedByUser.Find(t=>t.TourId==tourId)!=null) 
+            if (finishedReservationsAttendedByUser.Find(t=>t.TourId==tourId)!=null && !touristExperienceRepository.IsTourRatedByUser(tourId,userId)) 
             { 
                 visibility = Visibility.Visible; 
             }
@@ -85,8 +88,9 @@ namespace BookingApp.TouristView.MyTours
             Button rateButton = (Button)sender;
             Tuple<TourDto,Visibility> tupl = (Tuple<TourDto, Visibility>)rateButton.DataContext;
             SelectedTour= tupl.Item1;
-            RateTourWindow rateTourWindow = new RateTourWindow();
+            RateTourWindow rateTourWindow = new RateTourWindow(SelectedTour,LoggedInUser);
             rateTourWindow.ShowDialog();
+            GetMyTours();
         }
     }
 }

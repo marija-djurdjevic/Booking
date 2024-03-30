@@ -9,16 +9,18 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
-    <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="TouristView\Icons\addimage.png" />
     <None Remove="TouristView\Icons\broken-image.png" />
     <None Remove="TouristView\Icons\help1.png" />
     <None Remove="TouristView\Icons\home.png" />
     <None Remove="TouristView\Icons\location-pin.png" />
     <None Remove="TouristView\Icons\logout.png" />
     <None Remove="TouristView\Icons\next.png" />
+    <None Remove="TouristView\Icons\photo.png" />
     <None Remove="TouristView\Icons\previous.png" />
+    <None Remove="TouristView\Icons\removeimage.png" />
     <None Remove="TouristView\Icons\settings.png" />
     <None Remove="TouristView\Icons\target.png" />
     <None Remove="TouristView\Icons\travel.png" />
@@ -30,9 +32,6 @@
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\delete.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -42,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="TouristView\Images\" />
     <Folder Include="TouristView\TourRequests\" />
   </ItemGroup>
 
@@ -50,13 +50,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="TouristView\Icons\addimage.png" />
     <Resource Include="TouristView\Icons\broken-image.png" />
     <Resource Include="TouristView\Icons\help1.png" />
     <Resource Include="TouristView\Icons\home.png" />
     <Resource Include="TouristView\Icons\location-pin.png" />
     <Resource Include="TouristView\Icons\logout.png" />
     <Resource Include="TouristView\Icons\next.png" />
+    <Resource Include="TouristView\Icons\photo.png" />
     <Resource Include="TouristView\Icons\previous.png" />
+    <Resource Include="TouristView\Icons\removeimage.png" />
     <Resource Include="TouristView\Icons\settings.png" />
     <Resource Include="TouristView\Icons\target.png" />
     <Resource Include="TouristView\Icons\travel.png" />
