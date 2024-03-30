@@ -21,7 +21,9 @@
     <None Remove="TouristView\Icons\previous.png" />
     <None Remove="TouristView\Icons\settings.png" />
     <None Remove="TouristView\Icons\target.png" />
+    <None Remove="TouristView\Icons\travel.png" />
     <None Remove="TouristView\Icons\user.png" />
+    <None Remove="TouristView\Icons\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +55,9 @@
     <Resource Include="TouristView\Icons\previous.png" />
     <Resource Include="TouristView\Icons\settings.png" />
     <Resource Include="TouristView\Icons\target.png" />
+    <Resource Include="TouristView\Icons\travel.png" />
     <Resource Include="TouristView\Icons\user.png" />
+    <Resource Include="TouristView\Icons\view.png" />
   </ItemGroup>
 
 </Project>

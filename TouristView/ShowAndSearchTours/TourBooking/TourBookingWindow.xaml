@@ -9,7 +9,7 @@
     Width="1000"
     Height="auto"
     MinWidth="1000"
-    MinHeight="500"
+    MinHeight="650"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -79,12 +79,13 @@
                         FontSize="20"
                         FontWeight="Bold"
                         Foreground="Red"
-                        Text="Enter tourist number" />
+                        Text="Enter tourist number:" />
                     <TextBox
                         Width="100"
                         Margin="40,0,0,0"
                         HorizontalAlignment="Right"
                         FontSize="20"
+                        FontWeight="Bold"
                         Foreground="Red"
                         Text="{Binding NumberOfReservations}"
                         TextAlignment="Center" />
@@ -295,7 +296,10 @@
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                         <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Description: " />
-                        <TextBlock FontSize="20" Text="{Binding SelectedTour.Description}" />
+                        <TextBlock
+                            FontSize="20"
+                            FontStyle="Italic"
+                            Text="{Binding SelectedTour.Description}" />
                     </StackPanel>
                 </Grid>
             </DockPanel>

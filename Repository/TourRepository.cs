@@ -153,5 +153,16 @@ namespace BookingApp.Repository
             unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
             return unBookedToursInCity;
         }
+
+        public List<Tour> GetMyReserved(int userId)
+        {
+            TourReservationRepository tourReservationRepository = new TourReservationRepository();
+            List<Tour> myReservedTours=new List<Tour>();
+            foreach(TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
+            {
+                myReservedTours.Add(GetAll().Find(t=>t.Id==tourReservation.TourId));
+            }
+            return myReservedTours.DistinctBy(x=>x.Id).ToList();
+        }
     }
 }
