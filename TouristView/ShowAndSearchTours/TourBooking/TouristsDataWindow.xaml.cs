@@ -24,7 +24,7 @@ namespace BookingApp.TouristView.TourBooking
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        public ObservableCollection<Tuple<TourReservation, string>> Tourists { get; set; }
+        public ObservableCollection<Tuple<TourReservation, string,bool>> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
         public Tourist LoggedInTourist { get; set; }
         public TourRepository TourRepository { get; set; }
@@ -34,7 +34,7 @@ namespace BookingApp.TouristView.TourBooking
         {
             InitializeComponent();
             DataContext = this;
-            Tourists = new ObservableCollection<Tuple<TourReservation, string>>();
+            Tourists = new ObservableCollection<Tuple<TourReservation, string, bool>>();
             TouristRepository touristRepository = new TouristRepository();
             TourRepository = new TourRepository();
 
@@ -43,12 +43,13 @@ namespace BookingApp.TouristView.TourBooking
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
-            Tourists.Add(new Tuple<TourReservation, string>(new TourReservation(SelectedTour.Id, LoggedInTourist),"Tourist 1"));
+            Tourists.Add(new Tuple<TourReservation, string,bool>(new TourReservation(SelectedTour.Id, LoggedInTourist),"Tourist 1",true));
             for (int i = 0; i < touristNumber - 1; i++)
             {
                 int a = i + 2;
-                Tourists.Add(new Tuple<TourReservation, string>(new TourReservation(SelectedTour.Id, userId),"Tourist "+a));
+                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId),"Tourist "+a,false));
             }
+            
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)

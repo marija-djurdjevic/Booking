@@ -25,106 +25,72 @@ namespace BookingApp.TouristView.MyTours
     /// <summary>
     /// Interaction logic for MyToursPaige.xaml
     /// </summary>
-    public partial class MyToursPage : Page,INotifyPropertyChanged
+    public partial class MyToursPage : Page
     {
-        public static ObservableCollection<TourDto> Tours { get; set; }
+        public static ObservableCollection<Tuple<TourDto, Visibility>> Tours { get; set; }
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
-        private readonly TourRepository repository;
+        private readonly TourRepository tourRepository;
 
-        private bool _isCancelSearchButtonVisible;
+        private readonly TouristExperienceRepository touristExperienceRepository;
+
+        private readonly TourReservationRepository reservationRepository;
 
         public MyToursPage(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
 
-            repository = new TourRepository();
-            Tours = new ObservableCollection<TourDto>();
+            tourRepository = new TourRepository();
+            reservationRepository = new TourReservationRepository();
+            touristExperienceRepository= new TouristExperienceRepository();
+            Tours = new ObservableCollection<Tuple<TourDto, Visibility>>();
             SelectedTour = new TourDto();
 
-            IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;
-            GetAllTours();
+            GetMyTours();
         }
 
-        public bool IsCancelSearchButtonVisible
-        {
-            get => _isCancelSearchButtonVisible;
-            set
-            {
-                if (value != _isCancelSearchButtonVisible)
-                {
-                    _isCancelSearchButtonVisible = value;
-                    OnPropertyChanged("IsCancelSearchButtonVisible");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void GetAllTours()
+        public void GetMyTours()
         {
             Tours.Clear();
-            foreach (var tour in repository.GetAll())
+            foreach (var tour in tourRepository.GetMyReserved(LoggedInUser.Id))
             {
-                Tours.Add(new TourDto(tour));
+                Tours.Add(new Tuple<TourDto, Visibility>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id)));
             }
         }
 
-        private void SelectedTourCard(object sender, MouseButtonEventArgs e)
+        private Visibility IsRateButtonVisible(int tourId, int userId)
         {
-            Border border = (Border)sender;
-            SelectedTour = (TourDto)border.DataContext;
-            if (SelectedTour.MaxTouristNumber > 0)
-            {
-                TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour, LoggedInUser.Id);
-                tourBookingWindow.ShowDialog();
+            Visibility visibility = Visibility.Hidden;
+            List<TourReservation> finishedReservationsAttendedByUser = reservationRepository.GetFinishedReservationsAttendedByUser(userId);
+            
+            if (finishedReservationsAttendedByUser.Find(t=>t.TourId==tourId)!=null && !touristExperienceRepository.IsTourRatedByUser(tourId,userId)) 
+            { 
+                visibility = Visibility.Visible; 
             }
-            else
-            {
-                MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city.");
-                ShowUnbookedToursInCity();
-            }
+            return visibility;
         }
 
-        private void SearchButtonClick(object sender, RoutedEventArgs e)
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
         {
-            SearchWindow searchWindow = new SearchWindow(Tours);
-            searchWindow.ShowDialog();
 
-            IsCancelSearchButtonVisible = searchWindow.IsCancelSearchButtonVisible;
         }
 
-        private void CancelSearchButtonClick(object sender, RoutedEventArgs e)
+        private void ShowActiveToursButtonClick(object sender, RoutedEventArgs e)
         {
-            IsCancelSearchButtonVisible = false;
-            GetAllTours();
+            this.NavigationService.Navigate(new Uri("TouristView/MyTours/ActiveToursPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void ShowUnbookedToursInCity()
+        private void RateButtonClick(object sender, RoutedEventArgs e)
         {
-            List<Tour> unBookedToursInCity = repository.GetUnBookedToursInCity(SelectedTour.LocationDto.City);
-
-            if (unBookedToursInCity.Count > 0)
-            {
-                IsCancelSearchButtonVisible = true;
-                Tours.Clear();
-                foreach (var tour in unBookedToursInCity)
-                {
-                    Tours.Add(new TourDto(tour));
-                }
-            }
-            else
-            {
-                MessageBox.Show("There are no tours from that city");
-            }
+            Button rateButton = (Button)sender;
+            Tuple<TourDto,Visibility> tupl = (Tuple<TourDto, Visibility>)rateButton.DataContext;
+            SelectedTour= tupl.Item1;
+            RateTourWindow rateTourWindow = new RateTourWindow(SelectedTour,LoggedInUser);
+            rateTourWindow.ShowDialog();
+            GetMyTours();
         }
     }
 }

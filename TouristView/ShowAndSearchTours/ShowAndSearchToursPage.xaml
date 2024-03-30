@@ -11,13 +11,23 @@
 
     <DockPanel Margin="10">
 
-        <DockPanel Height="50" DockPanel.Dock="Top">
+        <DockPanel DockPanel.Dock="Top">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.ColumnSpan="2"
+                    Margin="100,0,0,0"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource NasloviProzoraTextBlock}"
+                    Text="All tours" />
                 <StackPanel
                     Grid.Column="2"
                     Height="30"
@@ -42,15 +52,27 @@
                     </Button>
                 </StackPanel>
                 <Button
+                    Grid.Row="1"
                     Grid.Column="0"
                     Margin="12,0,0,0"
                     Padding="5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Click="ShowAllToursButtonClick"
-                    Content="Show all"
-                    FontSize="20"
-                    Foreground="White">
+                    Click="ShowAllToursButtonClick">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="30"
+                                Margin="2"
+                                Source="/TouristView/Icons/view.png" />
+
+                            <TextBlock
+                                Margin="2"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Show all" />
+                        </StackPanel>
+                    </Button.Content>
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">
@@ -78,22 +100,27 @@
                     </Button.Style>
                 </Button>
                 <Button
+                    Grid.Row="1"
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Background="#20b2aa"
-                    Click="SearchButtonClick"
-                    Content="Search Tours"
-                    FontSize="20" />
+                    Click="SearchButtonClick">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="30" Source="/TouristView/Icons/travel.png" />
+                            <TextBlock FontSize="20" Text="Search Tours" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
         </DockPanel>
 
-        <Grid Margin="5">
+        <Grid Margin="15">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                 <ItemsControl
                     x:Name="SearchResultList"
-                    FocusVisualStyle="{Binding}"
                     Focusable="True"
                     ItemsSource="{Binding Tours}"
                     Style="{StaticResource CardView}">
@@ -101,41 +128,98 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border MouseLeftButtonDown="SelectedTourCard" Style="{StaticResource HoverStilKartice}">
-                                <DockPanel>
-                                    <DockPanel DockPanel.Dock="Bottom">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            FontFamily="Roboto"
-                                            FontSize="20"
-                                            Text="{Binding LocationDto.Country}"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap" />
-                                    </DockPanel>
-                                    <DockPanel DockPanel.Dock="Right">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock
-                                                Padding="15"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Text="{Binding Name}"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Padding="15"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Text="{Binding Duration}"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
 
-                                    </DockPanel>
-                                </DockPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Height="100"
+                                        Margin="10"
+                                        VerticalAlignment="Center">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{Binding ImagesPaths[0]}" />
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+
+                                    <StackPanel
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Orientation="Vertical">
+
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Location:" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding LocationDto.City}" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text=", " />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding LocationDto.Country}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Start date and time:" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm'}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Orientation="Vertical">
+
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Duration:" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Duration}" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="h" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Language:" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Language}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

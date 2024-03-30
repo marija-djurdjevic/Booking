@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:BookingApp.TouristView.TourBooking"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
@@ -99,6 +100,7 @@
                                             MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
                                             Text="{Binding Item1.TouristFirstName}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
@@ -110,6 +112,7 @@
                                             MinWidth="100"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
                                             Text="{Binding Item1.TouristLastName}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
@@ -117,11 +120,16 @@
                                             HorizontalAlignment="Left"
                                             Style="{StaticResource TekstualnaPoljaTextBlock}"
                                             Text="Age:" />
-                                        <TextBox
+                                        <extendedToolkit:IntegerUpDown
                                             MinWidth="50"
                                             HorizontalAlignment="Left"
                                             FontSize="20"
-                                            Text="{Binding Item1.TouristAge}" />
+                                            IsReadOnly="{Binding Item3}"
+                                            Maximum="150"
+                                            Minimum="1"
+                                            TextAlignment="Left"
+                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged}" />
+
                                     </StackPanel>
                                 </Grid>
                             </Border>

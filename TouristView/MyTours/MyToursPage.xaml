@@ -8,98 +8,185 @@
     Title="Booking app"
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel Margin="10">
 
-        <DockPanel Height="100" DockPanel.Dock="Top">
-            <Button
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Click="CancelSearchButtonClick"
-                Content="Cancel Search">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsCancelSearchButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Click="SearchButtonClick"
-                Content="Search Tours" />
+        <DockPanel Margin="100,0,0,0" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="ShowActiveToursButtonClick">
+                    <Button.Content>
+                        <TextBlock
+                            Margin="4"
+                            FontSize="20"
+                            Text="Show active tours" />
+                    </Button.Content>
+                </Button>
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource NasloviProzoraTextBlock}"
+                    Text="All my reservated tours" />
+                <StackPanel
+                    Grid.Column="2"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+                    <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
+                        <Button.Content>
+                            <StackPanel Style="{StaticResource HelpStyle}">
+                                <TextBlock
+                                    Height="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Help" />
+                                <Image
+                                    Width="30"
+                                    Height="30"
+                                    VerticalAlignment="Center"
+                                    Source="/TouristView/Icons/help1.png" />
+                            </StackPanel>
+                        </Button.Content>
+
+                    </Button>
+                </StackPanel>
+            </Grid>
+
         </DockPanel>
 
-        <Grid Margin="5">
+        <Grid Margin="15">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-                <ItemsControl x:Name="SearchResultList" ItemsSource="{Binding Tours}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <!--  Promijenite panel na UniformGrid  -->
-                            <UniformGrid Columns="1" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                <ItemsControl
+                    x:Name="SearchResultList"
+                    Focusable="True"
+                    ItemsSource="{Binding Tours}"
+                    Style="{StaticResource CardView}">
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border
-                                Margin="5"
-                                Background="DeepSkyBlue"
-                                BorderBrush="Black"
-                                BorderThickness="2"
-                                CornerRadius="20"
-                                MouseLeftButtonDown="SelectedTourCard"
-                                Tag="{Binding SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
-                                <DockPanel>
-                                    <DockPanel DockPanel.Dock="Bottom">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            FontFamily="Roboto"
-                                            FontSize="16"
-                                            Text="{Binding LocationDto.Country}"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap" />
-                                    </DockPanel>
-                                    <DockPanel DockPanel.Dock="Right">
-                                        <StackPanel Orientation="Vertical">
+                            <Border Style="{StaticResource HoverStilKartice}">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Height="100"
+                                        Margin="10"
+                                        VerticalAlignment="Center">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{Binding Item1.ImagesPaths[0]}" />
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+
+                                    <StackPanel
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Orientation="Vertical">
+
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
                                             <TextBlock
-                                                Padding="15"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top"
-                                                FontFamily="Roboto"
-                                                FontSize="14"
-                                                Text="{Binding Name}"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap" />
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Location:" />
                                             <TextBlock
-                                                Padding="15"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top"
-                                                FontFamily="Roboto"
-                                                FontSize="14"
-                                                Text="{Binding Duration}"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap" />
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.LocationDto.City}" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text=", " />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.LocationDto.Country}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="5,0,5,0"
+                                                FontSize="20"
+                                                Text="Start date and time:" />
+                                            <TextBlock
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.StartDateTime, StringFormat='dd.MM.yyyy HH:mm'}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Grid Grid.Row="1" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontSize="20"
+                                                    Text="Duration:" />
+                                                <TextBlock
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.Duration}" />
+                                                <TextBlock
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="h" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontSize="20"
+                                                    Text="Language:" />
+                                                <TextBlock
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.Language}" />
+                                            </StackPanel>
                                         </StackPanel>
 
-                                    </DockPanel>
-                                </DockPanel>
-                                <Border.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel
-                                            Width="150"
-                                            Height="150"
-                                            Orientation="Vertical">
-                                            <TextBlock Text="{Binding Name}" />
-                                            <TextBlock Text="{Binding Language}" />
-                                        </StackPanel>
-                                    </ToolTip>
-                                </Border.ToolTip>
-                                <!--  Sadržaj kartice  -->
+                                        <Button
+                                            x:Name="Rate"
+                                            Grid.Column="1"
+                                            Width="60"
+                                            Margin="50,10,10,10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Click="RateButtonClick"
+                                            Tag="{Binding}"
+                                            Visibility="{Binding Item2}">
+                                            <Button.Content>
+                                                <TextBlock FontSize="20" Text="Rate" />
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

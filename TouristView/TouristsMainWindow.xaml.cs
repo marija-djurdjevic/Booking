@@ -47,7 +47,7 @@ namespace BookingApp.TouristView
 
         private void MyToursButtonClick(object sender, RoutedEventArgs e)
         {
-            Paige.Content = new ComplexTourRequests.ComlexTourRequestsPage();
+            Paige.Content = new MyTours.MyToursPage(LoggedInUser);
         }
 
         private void VouchersButtonClick(object sender, RoutedEventArgs e)

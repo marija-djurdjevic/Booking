@@ -12,6 +12,55 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
+    <Window.Resources>
+        <Style x:Key="LargeRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Grid Width="30" Height="30">
+
+                                <Ellipse
+                                    x:Name="RadioButtonOuterBorder"
+                                    Width="24"
+                                    Height="24"
+                                    Margin="0,0,0,0"
+                                    Fill="Transparent"
+                                    Stroke="Black"
+                                    StrokeThickness="2" />
+                                <Ellipse
+                                    x:Name="RadioButtonInnerFill"
+                                    Width="16"
+                                    Height="16"
+                                    Margin="4"
+                                    Fill="Black"
+                                    Opacity="0" />
+                            </Grid>
+                            <ContentPresenter
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="RadioButtonInnerFill" Property="Opacity" Value="1" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RadioButtonOuterBorder" Property="Stroke" Value="Red" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="RadioButtonOuterBorder" Property="Stroke" Value="Blue" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <DockPanel Margin="20,0,20,20">
         <DockPanel
             Height="50"
@@ -83,7 +132,8 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 GroupName="ReservationGroup"
-                                IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
+                                IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                Style="{StaticResource LargeRadioButtonStyle}">
                                 <RadioButton.Content>
                                     <GroupBox
                                         Width="680"

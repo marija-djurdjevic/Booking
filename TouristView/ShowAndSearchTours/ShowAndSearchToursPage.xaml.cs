@@ -38,7 +38,6 @@ namespace BookingApp.TouristView.ShowAndSearchTours
         public ShowAndSearchToursPage(User loggedInUser)
         {
             InitializeComponent();
-            InitializeComponent();
             DataContext = this;
 
             repository = new TourRepository();
