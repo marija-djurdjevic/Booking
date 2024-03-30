@@ -1,61 +1,56 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.Model;
-using System.Linq;
-using System.Windows.Controls;
-using BookingApp.Model.Enums;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
-using System.Security.Cryptography;
-using BookingApp.DTO;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace BookingApp.View
 {
-    public partial class Guide : Window
+   
+    public partial class LiveTourPage : Page
     {
-        
+
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
         private readonly KeyPointRepository keyPointRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
-        public Guide()
+        public LiveTourPage(Tour selectedTour)
         {
+
             InitializeComponent();
-            tourRepository = new TourRepository();
+            this.selectedTour = selectedTour;
+            DataContext = selectedTour;
+            tourRepository = new TourRepository(); 
             keyPointRepository = new KeyPointRepository();
             tourReservationRepository = new TourReservationRepository();
             liveTourRepository = new LiveTourRepository();
-            selectedTour=new Tour();
-            LoadTours();
-        }
 
-        private void LoadTours()
-        {
-            var tours = tourRepository.GetTodayTours();
-            tourListBox.ItemsSource = new ObservableCollection<Tour>(tours);
-        }
-
-        private void AddButtonClick(object sender, RoutedEventArgs e)
-        {
-            CreateTour createTourWindow = new CreateTour();
-            createTourWindow.Show();
-        }
-
-
-
-        private void UpdateSelectedTour(object sender, SelectionChangedEventArgs e)
-        {
-            if (tourListBox.SelectedItem != null)
+            if (IsActiveTour())
             {
-                selectedTour = (Tour)tourListBox.SelectedItem;
+                MessageBox.Show("Please finish the active tour before starting a new one.");
+                DisplayActiveTourDetails();
+                return;
             }
-            else
-            {
-                selectedTour = null;
-            }
+
+            StartSelectedTour();
+           
         }
+
+
+
 
         private bool IsActiveTour()
         {
@@ -76,6 +71,7 @@ namespace BookingApp.View
             StartSelectedTour();
         }
 
+       
         private void DisplayActiveTourDetails()
         {
             var activeTour = GetActiveTour();
@@ -84,6 +80,7 @@ namespace BookingApp.View
             DisplayKeyPoints(activeTourKeyPoints);
             touristsListBox.ItemsSource = new ObservableCollection<TourReservation>(tourists);
         }
+
 
         private void StartSelectedTour()
         {
@@ -125,6 +122,19 @@ namespace BookingApp.View
         }
 
 
+       
+
+        private void AddKeyPointToDisplay(KeyPoint keyPoint)
+        {
+            TextBlock textBlock = CreateTextBlock(keyPoint.Name);
+            keyPointsListBox.Items.Add(textBlock);
+        }
+
+        private void ClearKeyPointsListBox()
+        {
+            keyPointsListBox.Items.Clear();
+        }
+
         private void DisplayKeyPoints(List<KeyPoint> keyPoints)
         {
             ClearKeyPointsListBox();
@@ -133,11 +143,20 @@ namespace BookingApp.View
             {
                 AddKeyPointToDisplay(keyPoint, keyPoints);
             }
-        }
 
-        private void ClearKeyPointsListBox()
-        {
-            keyPointsListBox.Items.Clear();
+            foreach (var item in keyPointsListBox.Items)
+            {
+                if (item is StackPanel stackPanel)
+                {
+                    foreach (var child in stackPanel.Children)
+                    {
+                        if (child is TextBlock textBlock)
+                        {
+                            textBlock.FontSize = 32;
+                        }
+                    }
+                }
+            }
         }
 
         private void AddKeyPointToDisplay(KeyPoint keyPoint, List<KeyPoint> keyPoints)
@@ -146,20 +165,10 @@ namespace BookingApp.View
             keyPointsListBox.Items.Add(stackPanel);
         }
 
-        private StackPanel CreateKeyPointStackPanel(KeyPoint keyPoint, List<KeyPoint> keyPoints)
-        {
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.Orientation = Orientation.Horizontal;
-            TextBlock textBlock = CreateTextBlock(keyPoint.Name);
-            CheckBox checkBox = CreateCheckBox(keyPoint);
 
-            checkBox.Checked += (sender, e) => HandleCheckBoxChecked(sender, keyPoint, keyPoints);
 
-            stackPanel.Children.Add(textBlock);
-            stackPanel.Children.Add(checkBox);
+        
 
-            return stackPanel;
-        }
 
         private void HandleCheckBoxChecked(object sender, KeyPoint keyPoint, List<KeyPoint> keyPoints)
         {
@@ -203,9 +212,32 @@ namespace BookingApp.View
 
 
 
+
+        private StackPanel CreateKeyPointStackPanel(KeyPoint keyPoint, List<KeyPoint> keyPoints)
+        {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Horizontal;
+            TextBlock textBlock = CreateTextBlock(keyPoint.Name);
+            CheckBox checkBox = CreateCheckBox(keyPoint);
+
+            checkBox.Checked += (sender, e) => HandleCheckBoxChecked(sender, keyPoint, keyPoints);
+
+
+            textBlock.HorizontalAlignment = HorizontalAlignment.Left;
+            checkBox.Margin = new Thickness(0, 0, 10, 0);
+            stackPanel.Children.Add(checkBox);
+            stackPanel.Children.Add(textBlock);
+
+
+            return stackPanel;
+        }
+
+
+
         private TextBlock CreateTextBlock(string keyName)
         {
             TextBlock textBlock = new TextBlock();
+            textBlock.HorizontalAlignment = HorizontalAlignment.Left;
             textBlock.Text = keyName;
             return textBlock;
         }
@@ -214,8 +246,12 @@ namespace BookingApp.View
         {
             CheckBox checkBox = new CheckBox();
             checkBox.IsChecked = keyPoint.IsChecked;
+            checkBox.HorizontalAlignment=HorizontalAlignment.Left;
+            checkBox.Width = 20; 
+            checkBox.Height = 20; 
             return checkBox;
         }
+
 
         private void FinishTourAutomatically()
         {
@@ -246,7 +282,7 @@ namespace BookingApp.View
             return keyPointRepository.GetTourKeyPoints(tourId);
         }
 
-      
+
         private void SetTourAsLive(int tourId)
         {
             liveTourRepository.ActivateTour(tourId);
@@ -262,6 +298,9 @@ namespace BookingApp.View
                     tourist.IsOnTour = false;
                 }
                 tourReservationRepository.SaveChanges();
+
+                
+
                 FinishActiveTour();
                 MessageBox.Show("Tura je uspešno završena!");
             }
@@ -278,17 +317,17 @@ namespace BookingApp.View
             {
                 activeTour.IsLive = false;
                 var keyPoint = activeTour.KeyPoints;
-                for (int i=0; i<activeTour.KeyPoints.Count;i++)
+                for (int i = 0; i < activeTour.KeyPoints.Count; i++)
                 {
-                    keyPoint[i].IsChecked=false;
+                    keyPoint[i].IsChecked = false;
                     liveTourRepository.SaveChanges();
                 }
                 liveTourRepository.SaveChanges();
             }
         }
 
-     
- 
+
+
 
         private void AddTouristButtonClick(object sender, RoutedEventArgs e)
         {
@@ -316,7 +355,7 @@ namespace BookingApp.View
 
 
 
-        
+
         private KeyPoint GetLastActiveKeyPoint()
         {
             var liveTour = liveTourRepository.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
@@ -330,6 +369,16 @@ namespace BookingApp.View
             }
             return null;
         }
+
+        private void HomeImageClick(object sender, MouseButtonEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+
 
 
     }

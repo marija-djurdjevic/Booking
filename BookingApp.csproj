@@ -11,6 +11,7 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="TouristView\Icons\broken-image.png" />
     <None Remove="TouristView\Icons\help1.png" />
@@ -34,6 +35,7 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\menu.png" />
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
