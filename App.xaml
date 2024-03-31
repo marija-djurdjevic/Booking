@@ -20,7 +20,8 @@
         </Style>-->
 
         <SolidColorBrush x:Key="BackgroundColor" Color="#8c92ac" />
-        <SolidColorBrush x:Key="CardColor" Color="LightGray" />
+        <SolidColorBrush x:Key="CardColor" Color="LightBlue" />
+        <SolidColorBrush x:Key="SelectedCardColor" Color="LightGreen" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
         <Style x:Key="PageSetup" TargetType="Page">
@@ -35,7 +36,7 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Height" Value="30" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="Margin" Value="0,30,0,0" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
@@ -66,10 +67,25 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
 
-        <Style x:Key="MainCardTabs" TargetType="Button">
-            <Setter Property="Foreground" Value="Black" />
+        <!--  Okvir Kartica za meni  -->
+        <Style x:Key="OkvirKarticeMeni" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="Width" Value="320" />
+            <Setter Property="Height" Value="70" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="CornerRadius" Value="20" />
+        </Style>
+
+        <Style x:Key="MainCardTabs" TargetType="Button">
+            <Setter Property="Height" Value="75" />
+            <Setter Property="Width" Value="325" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="FontSize" Value="24" />
+
+
         </Style>
 
         <Style x:Key="HelpStyle" TargetType="StackPanel">
@@ -182,7 +198,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
-                                    To="LightGray"
+                                    To="LightBlue"
                                     Duration="0:0:0.200" />
                             </Storyboard>
                         </BeginStoryboard>
