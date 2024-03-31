@@ -25,16 +25,23 @@ namespace BookingApp.View
             InitializeComponent();
         }
 
-
-        private void NavigateToMainWindow(object sender, RoutedEventArgs e)
+        private void NavigateBack(object sender, MouseButtonEventArgs e)
         {
-            NavigationService?.Navigate(new Uri("GuideMainWindow.xaml", UriKind.Relative));
+            NavigationService?.GoBack();
         }
 
         private void NavigateToStranica1(object sender, RoutedEventArgs e)
         {
-            CreateTourPage createTourPage = new CreateTourPage();
-            this.Content = createTourPage;
+
+            
+        }
+
+        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
+        {
+            GuideMainPage guideMainPage = new GuideMainPage();
+            this.NavigationService.Navigate(guideMainPage);
+
+
         }
     }
 }

@@ -87,6 +87,11 @@ namespace BookingApp.Repository
         {
             tourReservations=GetByUserId(userId);
             return tourReservations.FindAll(t=>!t.IsOnTour && !t.JoinedKeyPoint.Name.Equals(""));
+
+        public void DeleteByTourId(int tourId)
+        {
+            tourReservations.RemoveAll(tr => tr.TourId == tourId);
+            SaveChanges();
         }
 
     }

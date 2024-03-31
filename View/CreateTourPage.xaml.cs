@@ -141,9 +141,21 @@ namespace BookingApp.View
         }
 
 
+        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
+        {
+            GuideMainPage guideMainPage = new GuideMainPage();
+            this.NavigationService.Navigate(guideMainPage);
 
 
-        
+        }
+
+
+        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
+        {
+            SideMenuPage sideMenuPage = new SideMenuPage();
+            this.NavigationService.Navigate(sideMenuPage);
+        }
+
 
     }
 }
