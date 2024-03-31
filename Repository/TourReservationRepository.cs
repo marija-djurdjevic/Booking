@@ -84,6 +84,11 @@ namespace BookingApp.Repository
         }
 
 
+        public void DeleteByTourId(int tourId)
+        {
+            tourReservations.RemoveAll(tr => tr.TourId == tourId);
+            SaveChanges();
+        }
 
     }
 }

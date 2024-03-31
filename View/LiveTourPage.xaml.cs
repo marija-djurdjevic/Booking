@@ -370,14 +370,21 @@ namespace BookingApp.View
             return null;
         }
 
-        private void HomeImageClick(object sender, MouseButtonEventArgs e)
+
+        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            if (NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+            GuideMainPage guideMainPage = new GuideMainPage();
+            this.NavigationService.Navigate(guideMainPage);
+
+
         }
 
+
+        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
+        {
+            SideMenuPage sideMenuPage = new SideMenuPage();
+            this.NavigationService.Navigate(sideMenuPage);
+        }
 
 
 

@@ -32,9 +32,22 @@ namespace BookingApp.Repository
         public void Save(Voucher voucher)
         {
             vouchers = GetAll();
+            int nextId = NextId();
+            voucher.Id = nextId;
             vouchers.Add(voucher);
             _serializer.ToCSV(FilePath, vouchers);
         }
+
+        private int NextId()
+        {
+            vouchers = GetAll();
+            if (vouchers.Count < 1)
+            {
+                return 1;
+            }
+            return vouchers.Max(v => v.Id) + 1;
+        }
+
 
         public bool Update(Voucher updatedVoucher)
         {
