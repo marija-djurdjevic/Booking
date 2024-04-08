@@ -51,5 +51,12 @@ namespace BookingApp.Repository
             return keyPointsForTour;
         }
 
+        public void DeleteKeyPoints(int tourId)
+        {
+            keyPoints.RemoveAll(kp => kp.TourId == tourId);
+            SaveChanges();
+        }
+
+
     }
 }
