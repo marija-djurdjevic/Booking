@@ -25,98 +25,68 @@ namespace BookingApp.TouristView
     /// <summary>
     /// Interaction logic for SearchWindow.xaml
     /// </summary>
-    public partial class SearchWindow : Window
+    public partial class SearchWindow : Window, INotifyPropertyChanged
     {
         public TourDto SearchParams { get; set; }
         public static ObservableCollection<TourDto> Tours { get; set; }
-        public static ObservableCollection<string> Cities { get; set; }
-        public static ObservableCollection<string> Countires { get; set; }
-        public static ObservableCollection<string> Languages { get; set; }
+        public static List<string> Countires { get; set; }
+        public static List<string> AllCities { get; set; }
+        public static List<string> Languages { get; set; }
+        public LocationDto SelectedLocation { get; set; }
+
+        private List<string> cities;
 
         private readonly TourRepository TourRepository;
-
-        private Dictionary<string, List<string>> countriesAndCities = new Dictionary<string, List<string>>();
+        private readonly GlobalLanguagesRepository GlobalLanguagesRepository;
+        private readonly GlobalLocationsRepository GlobalLocationsRepository;
         public bool IsCancelSearchButtonVisible { get; set; }
+
+        public List<string> Cities
+        {
+            get => cities;
+            set
+            {
+                if (value != cities)
+                {
+                    cities = value;
+                    OnPropertyChanged(nameof(cities));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         public SearchWindow(ObservableCollection<TourDto> tours)
         {
             InitializeComponent();
+
             DataContext = this;
             Tours = tours;
             SearchParams = new TourDto();
+            SelectedLocation = new LocationDto();
+
             TourRepository = new TourRepository();
-            Countires = new ObservableCollection<string>();
-            Cities = new ObservableCollection<string>();
-            Languages = new ObservableCollection<string>();
+            GlobalLanguagesRepository = new GlobalLanguagesRepository();
+            GlobalLocationsRepository = new GlobalLocationsRepository();
+
+            Countires = GlobalLocationsRepository.GetAllCountries();
+            Languages = GlobalLanguagesRepository.GetAll();
+            AllCities = GlobalLocationsRepository.GetAllCities();
+
             IsCancelSearchButtonVisible = false;
 
-            UcitajPodatkeIzCSV("../../../Resources/Data/AllCitiesAndCountries.csv");
-            UcitajPodatkeIzCSVLanguage("../../../Resources/Data/AllLanguages.csv");
-
-            // Popunjavanje ComboBox-a sa državama
-            foreach (string country in countriesAndCities.Keys)
-            {
-                Countires.Add(country);
-            }
-
-            // Povezivanje događaja za promenu izabrane države
-            comboBoxDrzave.SelectionChanged += (sender, e) =>
-            {
-                PopuniGradove();
-                //ComboCity.IsDropDownOpen = true;
-            };
-
+            UpdateCitiesFromList(AllCities);
         }
 
-        private void UcitajPodatkeIzCSV(string putanjaDoDatoteke)
+        private void UpdateCitiesFromList(List<string> cities)
         {
-            using (StreamReader sr = new StreamReader(putanjaDoDatoteke))
-            {
-                while (!sr.EndOfStream)
-                {
-                    string[] tokens = sr.ReadLine().Split(',');
-                    string drzava = tokens[1];
-                    string grad = tokens[0];
-
-                    Cities.Add(grad);
-
-                    if (!countriesAndCities.ContainsKey(drzava))
-                    {
-                        countriesAndCities.Add(drzava, new List<string>());
-                    }
-
-                    countriesAndCities[drzava].Add(grad);
-                }
-            }
-        }
-
-        private void UcitajPodatkeIzCSVLanguage(string putanjaDoDatoteke)
-        {
-            using (StreamReader sr = new StreamReader(putanjaDoDatoteke))
-            {
-                while (!sr.EndOfStream)
-                {
-                    string language = sr.ReadLine();
-
-                    Languages.Add(language);
-
-                }
-            }
-        }
-
-        private void PopuniGradove()
-        {
-            Cities.Clear();
-            if (comboBoxDrzave.SelectedItem != null)
-            {
-                string izabranaDrzava = comboBoxDrzave.SelectedItem.ToString();
-                foreach (string grad in countriesAndCities[izabranaDrzava])
-                {
-                    Cities.Add(grad);
-                }
-            }
-
+            Cities = cities;
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
@@ -155,6 +125,36 @@ namespace BookingApp.TouristView
         private void HelpButtonClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CityComboBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (AllCities.Contains(SelectedLocation.City) && !string.Equals(SearchParams.LocationDto.City, SelectedLocation.City))
+            {
+                SelectedLocation.Country = GlobalLocationsRepository.GetCountryForCity(SelectedLocation.City.ToString());
+            }
+            SearchParams.LocationDto.City = SelectedLocation.City;
+        }
+
+        private void CountryComboBoxChanged(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SelectedLocation.Country) && !string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
+            {
+                List<string> citisInCountry = GlobalLocationsRepository.GetCitiesFromCountry(SelectedLocation.Country.ToString());
+                UpdateCitiesFromList(citisInCountry);
+            }
+            else if(string.IsNullOrEmpty(SelectedLocation.Country) && !string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
+                UpdateCitiesFromList(AllCities);
+            SearchParams.LocationDto.Country = SelectedLocation.Country;
+        }
+
+        private void OpenDropDownClick(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            if(Cities.Count()>1000)
+                comboBox.IsDropDownOpen = false;
+            else
+                comboBox.IsDropDownOpen = true;
         }
     }
 }

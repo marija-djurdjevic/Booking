@@ -55,12 +55,11 @@
         </Grid>
         <Button
             Grid.Row="2"
-            Width="350"
-            Height="70"
-            Background="Red"
+            HorizontalAlignment="Center"
             Click="CloseButtonClick"
             Content="Close"
-            FontSize="50">
+            FontSize="50"
+            Style="{StaticResource CancelButton}">
             <Button.BorderBrush>
                 <SolidColorBrush Opacity="0" Color="White" />
             </Button.BorderBrush>

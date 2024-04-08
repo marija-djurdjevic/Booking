@@ -25,7 +25,7 @@
             <TextBlock
                 VerticalAlignment="Bottom"
                 Style="{StaticResource NasloviProzoraTextBlock}"
-                Text="Enter Search Parameters" />
+                Text="Search" />
 
             <StackPanel
                 Height="30"
@@ -68,18 +68,19 @@
 
             <StackPanel Grid.Column="1" Margin="0,30,0,0">
                 <ComboBox
-                    x:Name="comboBoxDrzave"
                     Width="300"
                     Height="40"
-                    Margin="0,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
+                    AllowDrop="False"
                     FontSize="20"
+                    IsDropDownOpen="False"
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Countires}"
-                    SelectedItem="{Binding SearchParams.LocationDto.Country}"
-                    Text="{Binding SearchParams.LocationDto.Country}"
+                    LostFocus="CountryComboBoxChanged"
+                    SelectedItem="{Binding SelectedLocation.Country}"
+                    Text="{Binding SelectedLocation.Country}"
                     TextSearch.TextPath="." />
                 <ComboBox
                     Width="300"
@@ -87,14 +88,18 @@
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
+                    AllowDrop="False"
+                    DropDownOpened="OpenDropDownClick"
                     FontSize="20"
-                    IsDropDownOpen="False"
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Cities}"
-                    SelectedItem="{Binding SearchParams.LocationDto.City}"
-                    Text="{Binding SearchParams.LocationDto.City}"
+                    LostFocus="CityComboBoxLostFocus"
+                    SelectedItem="{Binding SelectedLocation.City}"
+                    Text="{Binding SelectedLocation.City}"
                     TextSearch.TextPath="." />
+
+
                 <extendedToolkit:IntegerUpDown
                     Width="300"
                     Height="40"
