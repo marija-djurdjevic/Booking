@@ -7,8 +7,8 @@
     xmlns:local="clr-namespace:BookingApp.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
-    Width="454"
-    Height="487"
+    Width="554"
+    Height="517"
     MinWidth="454"
     MinHeight="487"
     ResizeMode="NoResize"
@@ -25,7 +25,7 @@
             <TextBlock
                 VerticalAlignment="Bottom"
                 Style="{StaticResource NasloviProzoraTextBlock}"
-                Text="Enter Search Parameters" />
+                Text="Search" />
 
             <StackPanel
                 Height="30"
@@ -54,40 +54,55 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Margin="0,0,0,0">
 
-                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Country" />
+                <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Duration" />
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Language" />
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Tourist number" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="0,30,0,0">
-                <TextBox
-                    Width="120"
-                    Height="30"
-                    Margin="0,0,0,0"
+                <ComboBox
+                    Width="300"
+                    Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
+                    AllowDrop="False"
                     FontSize="20"
-                    Text="{Binding Path=SearchParams.LocationDto.City, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
-                <TextBox
-                    Width="120"
-                    Height="30"
+                    IsDropDownOpen="False"
+                    IsEditable="True"
+                    IsTextSearchEnabled="True"
+                    ItemsSource="{Binding Countires}"
+                    LostFocus="CountryComboBoxChanged"
+                    SelectedItem="{Binding SelectedLocation.Country}"
+                    Text="{Binding SelectedLocation.Country}"
+                    TextSearch.TextPath="." />
+                <ComboBox
+                    Width="300"
+                    Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
+                    AllowDrop="False"
+                    DropDownOpened="OpenDropDownClick"
                     FontSize="20"
-                    Text="{Binding Path=SearchParams.LocationDto.Country, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
+                    IsEditable="True"
+                    IsTextSearchEnabled="True"
+                    ItemsSource="{Binding Cities}"
+                    LostFocus="CityComboBoxLostFocus"
+                    SelectedItem="{Binding SelectedLocation.City}"
+                    Text="{Binding SelectedLocation.City}"
+                    TextSearch.TextPath="." />
+
+
                 <extendedToolkit:IntegerUpDown
-                    Width="120"
-                    Height="30"
+                    Width="300"
+                    Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -97,18 +112,22 @@
                     Value="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}" />
 
 
-                <TextBox
-                    Width="120"
-                    Height="30"
+                <ComboBox
+                    Width="300"
+                    Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     FontSize="20"
-                    Text="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
+                    IsEditable="True"
+                    IsTextSearchEnabled="True"
+                    ItemsSource="{Binding Languages}"
+                    SelectedItem="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding SearchParams.Language}"
+                    TextSearch.TextPath="." />
                 <extendedToolkit:IntegerUpDown
-                    Width="120"
-                    Height="30"
+                    Width="300"
+                    Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
