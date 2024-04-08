@@ -79,7 +79,7 @@
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -91,7 +91,8 @@
                                         Grid.Row="0"
                                         Grid.RowSpan="2"
                                         Grid.Column="0"
-                                        Height="100"
+                                        Width="190"
+                                        Height="150"
                                         Margin="10"
                                         VerticalAlignment="Center">
                                         <Image.Style>

@@ -80,7 +80,8 @@ namespace BookingApp.TouristView.MyTours
 
         private void ShowActiveToursButtonClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("TouristView/MyTours/ActiveToursPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new ActiveToursPage(LoggedInUser));
+            
         }
 
         private void RateButtonClick(object sender, RoutedEventArgs e)

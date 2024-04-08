@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Microsoft.Build.Evaluation;
 using BookingApp.Repository;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,19 +114,18 @@ namespace BookingApp.TouristView.MyTours
 
                 System.IO.File.Copy(selectedImagePath, destinationFilePath);
                 ShowingImage = "/TouristView/Images/"+uniqueFileName;
-                TouristExperience.ImagesPaths.Add(ShowingImage);  
-                
+                TouristExperience.ImagesPaths.Add(ShowingImage);                 
             }
 
         }
 
         private string GetRelativePath(string relativePath)
         {
-            string baznaPutanja = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            string projectPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             
-            string roditeljskiDirektorij = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(baznaPutanja)));
+            string solutionPath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(projectPath)));
 
-            string destinationFilePath = System.IO.Path.Combine(roditeljskiDirektorij, relativePath);
+            string destinationFilePath = System.IO.Path.Combine(solutionPath, relativePath);
 
             return destinationFilePath;
         }   

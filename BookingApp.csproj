@@ -43,12 +43,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TouristView\Images\" />
     <Folder Include="TouristView\TourRequests\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.9.5" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.9.5" />
   </ItemGroup>
 
   <ItemGroup>

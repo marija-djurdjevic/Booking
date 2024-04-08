@@ -118,7 +118,7 @@ namespace BookingApp.View
                 }
             }
 
-            MessageBox.Show("Tours created successfully!");
+            MessageBox.Show("ActiveTours created successfully!");
             this.Close();
         }
 
