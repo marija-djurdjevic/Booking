@@ -3,6 +3,7 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
@@ -55,6 +56,14 @@ namespace BookingApp.Repository
         {
             return liveTours;
         }
+
+
+        public List<int> GetFinishedTourIds()
+        {
+            return liveTours.Where(t => !t.IsLive).Select(t => t.TourId).ToList();
+        }
+
+
 
         public LiveTour GetLiveTourById(int tourId)
         {

@@ -139,5 +139,11 @@ namespace BookingApp.View
                 MessageBox.Show("The tour cannot be canceled as it starts in less than 48 hours.");
             }
         }
+
+        private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
+        {
+            TourStatistic tourStatistic = new TourStatistic();
+            this.NavigationService.Navigate(tourStatistic);
+        }
     }
 }

@@ -162,7 +162,8 @@
 
             <!-- Druga slika u sredini -->
             <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
-           Stretch="Uniform" Width="59" Height="59"/>
+           Stretch="Uniform" Width="59" Height="59"
+           MouseLeftButtonUp="NavigateToTourStatistic"/>
         </Grid>
 
     </Grid>

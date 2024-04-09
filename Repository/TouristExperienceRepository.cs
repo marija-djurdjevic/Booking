@@ -69,7 +69,25 @@ namespace BookingApp.Repository
         private int NextId()
         {
             return touristExperiences.Count > 0 ? touristExperiences.Max(t => t.Id) + 1 : 1;
-        }   
+        }
+
+
+        public List<int> GetTouristIdsByTourId(int tourId)
+        {
+            touristExperiences = GetAll();
+
+           
+            var touristIds = touristExperiences.Where(te => te.TourId == tourId).Select(te => te.TouristId).ToList();
+
+            return touristIds;
+        }
+
+        public int GetNumberOfTouristsForTour(int tourId)
+        {
+            touristExperiences = GetAll();
+            return touristExperiences.Count(t => t.TourId == tourId);
+        }
+
 
         public bool IsTourRatedByUser(int tourId, int userId)
         {
