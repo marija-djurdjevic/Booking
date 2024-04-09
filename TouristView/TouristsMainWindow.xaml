@@ -38,7 +38,7 @@
                 </GroupBox.Header>
 
                 <StackPanel Orientation="Vertical">
-                    <DockPanel>
+                    <DockPanel Margin="0,0,0,50">
                         <DockPanel
                             Width="40"
                             Height="40"
@@ -105,18 +105,234 @@
 
                         </StackPanel>
                     </DockPanel>
-                    <Button
-                        Click="ShowAndSearchToursButtonClick"
-                        Content="Show and search tours"
-                        Style="{StaticResource MainCardTabs}" />
-                    <Button
-                        Click="MyToursButtonClick"
-                        Content="My tours"
-                        Style="{StaticResource MainCardTabs}" />
-                    <Button
-                        Click="VouchersButtonClick"
-                        Content="Vouchers"
-                        Style="{StaticResource MainCardTabs}" />
+                    <Button Click="ShowAndSearchToursButtonClick">
+                        <Border>
+
+                            <TextBlock
+                                Margin="25,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="26"
+                                Text="Show And Search Tours">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="ShowAndSearch">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="28" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Border.Style>
+                                <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="ShowAndSearch">
+                                            <Setter Property="Height" Value="100" />
+                                            <Setter Property="CornerRadius" Value="30" />
+                                            <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="ShowAndSearch">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="105" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+                    <Button Click="MyToursButtonClick">
+                        <Border>
+
+                            <TextBlock
+                                Margin="25,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="26"
+                                Text="My tours">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="MyTours">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="28" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Border.Style>
+                                <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="MyTours">
+                                            <Setter Property="Height" Value="100" />
+                                            <Setter Property="CornerRadius" Value="30" />
+                                            <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="MyTours">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="105" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+                    <Button Click="ShowAndSearchToursButtonClick">
+                        <Border>
+
+                            <TextBlock
+                                Margin="25,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="26"
+                                Text="Tour requests">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="28" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Border.Style>
+                                <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                            <Setter Property="Height" Value="100" />
+                                            <Setter Property="CornerRadius" Value="30" />
+                                            <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="105" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+                    <Button Click="ShowAndSearchToursButtonClick">
+                        <Border>
+
+                            <TextBlock
+                                Margin="25,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="26"
+                                Text="Complex tour requests">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Complex">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="28" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Border.Style>
+                                <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Complex">
+                                            <Setter Property="Height" Value="100" />
+                                            <Setter Property="CornerRadius" Value="30" />
+                                            <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Complex">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="105" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+
+
+                    <Button Click="VouchersButtonClick">
+                        <Border>
+
+                            <TextBlock
+                                Margin="25,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="26"
+                                Text="Vouchers">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Vouchers">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="FontSize" Value="28" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Border.Style>
+                                <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Vouchers">
+                                            <Setter Property="Height" Value="100" />
+                                            <Setter Property="CornerRadius" Value="30" />
+                                            <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Vouchers">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="105" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+
                 </StackPanel>
             </GroupBox>
         </DockPanel>
