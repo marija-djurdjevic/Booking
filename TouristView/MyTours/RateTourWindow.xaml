@@ -147,7 +147,6 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
@@ -186,7 +185,6 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
@@ -225,7 +223,6 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="True"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"

@@ -168,9 +168,28 @@ namespace BookingApp.Repository
             List<Tour> myReservedTours=new List<Tour>();
             foreach(TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
             {
-                myReservedTours.Add(GetAll().Find(t=>t.Id==tourReservation.TourId));
+                myReservedTours.Add(GetTourById(tourReservation.TourId));
             }
             return myReservedTours.DistinctBy(x=>x.Id).ToList();
+        }
+
+        public List<Tour> GetMyActiveReserved(int userId)
+        {
+            TourReservationRepository tourReservationRepository = new TourReservationRepository();
+            LiveTourRepository liveTourRepository = new LiveTourRepository();
+            List<Tour> myActiveReservedTours = new List<Tour>();
+            foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
+            {
+                LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
+                if (tourReservation.IsOnTour)
+                {
+                    Tour activeTour = GetTourById(tourReservation.TourId);
+                    activeTour.KeyPoints = liveTour.KeyPoints;
+                    myActiveReservedTours.Add(activeTour);
+                }
+                    
+            }
+            return myActiveReservedTours.DistinctBy(x => x.Id).ToList();
         }
     }
 }

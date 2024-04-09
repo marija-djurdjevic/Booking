@@ -112,7 +112,7 @@
 
         <!--  Okvir Kartica za prikaz svih tura  -->
         <Style x:Key="OkvirKarticeTura" TargetType="Border">
-            <Setter Property="Height" Value="165" />
+            <Setter Property="Height" Value="175" />
             <Setter Property="Margin" Value="50,15" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
             <Setter Property="BorderBrush" Value="Black" />

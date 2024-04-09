@@ -8,11 +8,11 @@
     Title="Booking app"
     Width="800"
     Height="800"
+    Background="{StaticResource BackgroundColor}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="8*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Image
