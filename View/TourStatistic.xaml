@@ -54,7 +54,7 @@
                         </StackPanel>
 
                         <!-- ComboBox za prvu turu -->
-                        <ComboBox x:Name="firstTourComboBox" Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="30" Visibility="Collapsed" SelectionChanged="firstTourComboBox_SelectionChanged">
+                        <ComboBox x:Name="firstTourComboBox" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="30" Visibility="Collapsed" SelectionChanged="firstTourComboBox_SelectionChanged">
                             <ComboBoxItem IsSelected="True">General</ComboBoxItem>
                             <ComboBoxItem>2024</ComboBoxItem>
                             <ComboBoxItem>2023</ComboBoxItem>
