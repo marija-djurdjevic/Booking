@@ -137,7 +137,7 @@
                                                 <TextBlock><Run Text="Language: "/><Run Text=" "/><Run Text="{Binding Language}" FontSize="24"/></TextBlock>
 
                                                 <TextBlock><Run Text="Start Date and Time: "/><Run Text=" "/><Run Text="{Binding StartDateTime}" FontSize="24"/></TextBlock>
-                                                <Button Content="START"  Width="138" Height="36" FontSize="28" Margin="600,20,0,0"  Click="StartTourButtonClick"/>
+                                                <Button Content="REVIEWS"  Width="138" Height="36" FontSize="28" Margin="600,20,0,0"  Click="ReviewButtonClick"/>
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BookingApp.View
 {
@@ -24,6 +25,7 @@ namespace BookingApp.View
         private readonly Voucher voucher;
         private readonly TouristRepository touristRepository;
         private readonly VoucherRepository voucherRepository;
+        private readonly List<Tour> finishedTours;
 
         public GuideMainPage()
         {
@@ -37,6 +39,7 @@ namespace BookingApp.View
             selectedTour = new Tour();
             tourDto = new TourDto();
             DataContext = tourDto;
+            finishedTours = new List<Tour>();
             LoadTours();
         }
 
@@ -47,6 +50,19 @@ namespace BookingApp.View
 
             var upcomingTours = tourRepository.GetUpcomingTours();
             tourListBox1.ItemsSource = new ObservableCollection<Tour>(upcomingTours);
+
+            var finishedLiveTours = liveTourRepository.GetAllLiveTours().Where(t => t.IsLive == false).ToList();
+
+
+            foreach (var tour in finishedLiveTours)
+            {
+
+                var finishedTour = tourRepository.GetTourById(tour.TourId);
+
+
+                finishedTours.Add(finishedTour);
+            }
+            tourListBox2.ItemsSource=new ObservableCollection<Tour>(finishedTours);
         }
 
         private void CreateButtonClick(object sender, RoutedEventArgs e)
@@ -54,6 +70,35 @@ namespace BookingApp.View
             CreateTourPage createTourPage = new CreateTourPage();
             this.NavigationService.Navigate(createTourPage);
         }
+
+
+
+        private void ReviewButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Pronađi ListBoxItem roditelja dugmeta
+            DependencyObject parent = VisualTreeHelper.GetParent((Button)sender);
+            while (!(parent is ListBoxItem))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            // Ako je roditelj ListBoxItem, pronalazi ListBox i dobija DataContext
+            if (parent is ListBoxItem listBoxItem)
+            {
+                ListBox listBox = ItemsControl.ItemsControlFromItemContainer(listBoxItem) as ListBox;
+                if (listBox != null)
+                {
+                    var selectedTour = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Tour;
+                    TouristsReviewPage touristsReviewPage = new TouristsReviewPage(selectedTour.Id);
+                    NavigationService.Navigate(touristsReviewPage);
+                }
+            }
+        }
+
+
+
+
+
 
         private void StartTourButtonClick(object sender, RoutedEventArgs e)
         {
@@ -120,7 +165,7 @@ namespace BookingApp.View
                     }
 
                 }
-                tourReservationRepository.DeleteByTourId(tourId);
+               // tourReservationRepository.DeleteByTourId(tourId);
 
                 foreach (var userId in usersToReceiveVoucher)
                 {

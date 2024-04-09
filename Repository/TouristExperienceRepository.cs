@@ -88,6 +88,14 @@ namespace BookingApp.Repository
             return touristExperiences.Count(t => t.TourId == tourId);
         }
 
+        public List<TouristExperience> GetTouristExperiencesForTour(int tourId)
+        {
+            touristExperiences = GetAll();
+            return touristExperiences.Where(te => te.TourId == tourId).ToList();
+        }
+
+
+
 
         public bool IsTourRatedByUser(int tourId, int userId)
         {
