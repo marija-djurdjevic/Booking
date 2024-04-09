@@ -40,6 +40,13 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+
+        public int GetAgeById(int touristId)
+        {
+            var tourist = GetByUserId(touristId);
+            return tourist != null ? tourist.Age : -1; 
+        }
+
         public Tourist GetByUserId(int Id)
         {
             tourists = _serializer.FromCSV(FilePath);

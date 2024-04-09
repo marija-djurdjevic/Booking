@@ -18,6 +18,8 @@ namespace BookingApp.Model
         public int GuideKnowledgeRating { get; set; }
         public int GuideLanguageRating { get; set; }
         public string Comment { get; set; }
+
+        public string CommentStatus {  get; set; }
         public List<string> ImagesPaths { get; set; }
 
         public TouristExperience()
@@ -25,7 +27,7 @@ namespace BookingApp.Model
             ImagesPaths = new List<string>();
         }
 
-        public TouristExperience(int id, int touristId, int tourId, int tourInterestingesRating, int guideKnowledgeRating, int guideLanguageRating, string comment, List<string> imagesPaths)
+        public TouristExperience(int id, int touristId, int tourId, int tourInterestingesRating, int guideKnowledgeRating, int guideLanguageRating, string comment,string commentStatus ,List<string> imagesPaths)
         {
             Id = id;
             TouristId = touristId;
@@ -34,14 +36,21 @@ namespace BookingApp.Model
             GuideKnowledgeRating = guideKnowledgeRating;
             GuideLanguageRating = guideLanguageRating;
             Comment = comment;
+            CommentStatus= commentStatus;
             ImagesPaths = imagesPaths;
         }
+
+
+        public Tourist Tourist { get; set; }
+
+        public KeyPoint ArrivalKeyPoint { get; set; }
+
 
         public string[] ToCSV()
         {
 
             string imagesPathsStr = string.Join("|", ImagesPaths);
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), TourId.ToString(), TourInterestingesRating.ToString(), GuideLanguageRating.ToString(),GuideKnowledgeRating.ToString(),Comment, imagesPathsStr };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), TourId.ToString(), TourInterestingesRating.ToString(), GuideLanguageRating.ToString(),GuideKnowledgeRating.ToString(),Comment,CommentStatus, imagesPathsStr };
             return csvValues;
 
         }
@@ -55,8 +64,9 @@ namespace BookingApp.Model
             GuideLanguageRating = Convert.ToInt32(values[4]);
             GuideKnowledgeRating = Convert.ToInt32(values[5]);
             Comment = values[6];
+            CommentStatus = values[7];
 
-            for (int i = 7; i < values.Length; i++)
+            for (int i = 8; i < values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }
