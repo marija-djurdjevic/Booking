@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using BookingApp.UseCases;
 
 namespace BookingApp.TouristView.MyTours
 {
@@ -28,6 +29,7 @@ namespace BookingApp.TouristView.MyTours
     public partial class RateTourWindow : Window, INotifyPropertyChanged
     {
         private string showingImage { get; set; }
+        public ImageService ImageService { get; set; }
         public int ImageIndex { get; set; }
         public TourDto SelectedTour { get; set; }
         public User LoggedInTourist { get; set; }
@@ -40,8 +42,9 @@ namespace BookingApp.TouristView.MyTours
             DataContext = this;
 
             TouristExperience = new TouristExperience();
+            ImageService = new ImageService();
             touristExperienceRepository = new TouristExperienceRepository();
-            SelectedTour= selectedTour;
+            SelectedTour = selectedTour;
             LoggedInTourist = loggedInTourist;
 
             ImageIndex = -1;
@@ -73,16 +76,16 @@ namespace BookingApp.TouristView.MyTours
         {
             TouristExperience.TouristId = LoggedInTourist.Id;
             TouristExperience.TourId = SelectedTour.Id;
-            TouristExperience.TourInterestingesRating = int.Parse(GetSelectedRadioButtonValue(Interesting,"interesting"));
+            TouristExperience.TourInterestingesRating = int.Parse(GetSelectedRadioButtonValue(Interesting, "interesting"));
             TouristExperience.GuideKnowledgeRating = int.Parse(GetSelectedRadioButtonValue(Knowledge, "knowledge"));
             TouristExperience.GuideLanguageRating = int.Parse(GetSelectedRadioButtonValue(Language, "language"));
-            
+
             touristExperienceRepository.Save(TouristExperience);
 
             Close();
         }
 
-        private string GetSelectedRadioButtonValue(UniformGrid RadioName,string groupName)
+        private string GetSelectedRadioButtonValue(UniformGrid RadioName, string groupName)
         {
             var radioButtons = RadioName.Children.OfType<RadioButton>().Where(r => r.GroupName == groupName);
 
@@ -101,45 +104,38 @@ namespace BookingApp.TouristView.MyTours
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             openFileDialog.Title = "Select an Image File";
+            openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == true)
             {
-                string selectedImagePath = openFileDialog.FileName;
-                string relativnaPutanja = "TouristView\\Images";
+                string[] selectedImages = openFileDialog.FileNames;
+                string relativPath = "TouristView\\Images";
 
+                TouristExperience.ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativPath));
 
-                string uniqueFileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(selectedImagePath);
-
-                string destinationFilePath = System.IO.Path.Combine(GetRelativePath(relativnaPutanja), uniqueFileName);
-
-                System.IO.File.Copy(selectedImagePath, destinationFilePath);
-                ShowingImage = "/TouristView/Images/"+uniqueFileName;
-                TouristExperience.ImagesPaths.Add(ShowingImage);                 
+                ShowingImage = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths.Last());
+                ImageIndex = TouristExperience.ImagesPaths.Count - 1;
             }
 
         }
 
-        private string GetRelativePath(string relativePath)
-        {
-            string projectPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-            
-            string solutionPath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(projectPath)));
-
-            string destinationFilePath = System.IO.Path.Combine(solutionPath, relativePath);
-
-            return destinationFilePath;
-        }   
-
         private void RemoveImageButtonClick(object sender, RoutedEventArgs e)
         {
-            TouristExperience.ImagesPaths.Remove(ShowingImage);
+            if (TouristExperience.ImagesPaths.Count > 0)
+            {
+                TouristExperience.ImagesPaths.RemoveAt(ImageIndex);
+                ImageIndex = TouristExperience.ImagesPaths.Count - 1;
+                ShowingImage = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths.LastOrDefault());
+
+                //ImageService.DeleteImage(ShowingImage);
+            }
         }
 
         public void GetNextImage()
         {
             if (ImageIndex < TouristExperience.ImagesPaths.Count - 1)
             {
-                string imagePath = SelectedTour.ImagesPaths[++ImageIndex];
+                string imagePath = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths[++ImageIndex]);
                 ShowingImage = imagePath;
             }
         }
@@ -148,7 +144,7 @@ namespace BookingApp.TouristView.MyTours
         {
             if (ImageIndex > 0)
             {
-                string imagePath = TouristExperience.ImagesPaths[--ImageIndex];
+                string imagePath = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths[--ImageIndex]);
                 ShowingImage = imagePath;
 
             }

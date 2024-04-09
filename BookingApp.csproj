@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="TouristView\Images\" />
     <Folder Include="TouristView\TourRequests\" />
   </ItemGroup>
 
