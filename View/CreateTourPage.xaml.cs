@@ -1,5 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model.Enums;
+using System.IO;
 using BookingApp.Model;
 using BookingApp.Repository;
 using Microsoft.VisualBasic;
@@ -18,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.View
 {
@@ -31,63 +34,134 @@ namespace BookingApp.View
 
         public String startDateTimeInput;
 
-        private List<DateTime> tourDates = new List<DateTime>();
+        // private List<DateTime> tourDates = new List<DateTime>();
 
-        private List<String> keyPointNames = new List<String>();
+        private ObservableCollection<DateTime> tourDates = new ObservableCollection<DateTime>();
+
+
+        //private List<String> keyPointNames = new List<String>();
+        public ObservableCollection<string> keyPointNames { get; set; } = new ObservableCollection<string>();
 
         TourRepository tourRepository;
         KeyPointRepository keyPointRepository;
+
+       
         public CreateTourPage()
         {
             InitializeComponent();
+            LoadCitiesCountriesFromCSV();
+            LoadLanguagesFromCSV();
             tourDto = new TourDto();
             DataContext = tourDto;
             tourRepository = new TourRepository();
             keyPointRepository = new KeyPointRepository();
-            tourDates = new List<DateTime>();
-            keyPointNames = new List<String>();
+            tourDates = new ObservableCollection<DateTime>();
+            keyPointNames = new ObservableCollection<string>();
         }
-        private void AddImagePathButtonClick(object sender, RoutedEventArgs e)
-        {
 
-            string newImagePath = Microsoft.VisualBasic.Interaction.InputBox("Enter a new image path:", "Add Image Path", "");
-
-            if (!string.IsNullOrEmpty(newImagePath))
+        /*    private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
             {
+                string newDateAndTime = Microsoft.VisualBasic.Interaction.InputBox("Enter a new date and time (format: M/d/yyyy h:mm:ss tt):", "Add Date and Time", "");
 
-                tourDto.ImagesPaths.Add(newImagePath);
+                if (!string.IsNullOrEmpty(newDateAndTime))
+                {
+                    if (DateTime.TryParseExact(newDateAndTime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateAndTime))
+                    {
+                        tourDates.Add(dateAndTime);
+                        NewDateTextBox.Text = dateAndTime.ToString();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid date and time format. Please enter a valid date and time (format: M/d/yyyy h:mm:ss tt).");
+                    }
+                }
+            }
+        */
+
+
+        private void LoadLanguagesFromCSV()
+        {
+            string[] lines = File.ReadAllLines("../../../Resources/Data/globalLanguages.csv");
+            List<string> languages = lines.Take(50).ToList();
+            ComboBoxLanguage.ItemsSource = languages;
+        }
+
+
+
+        private void LoadCitiesCountriesFromCSV()
+        {
+            string[] lines = File.ReadAllLines("../../../Resources/Data/globalLocations.csv");
+            List<string> locations = new List<string>();
+            Random random = new Random();
+
+            // Shuffle the lines array
+            for (int i = lines.Length - 1; i > 0; i--)
+            {
+                int j = random.Next(0, i + 1);
+                string temp = lines[i];
+                lines[i] = lines[j];
+                lines[j] = temp;
+            }
+
+            // Take the first 50 lines
+            for (int i = 0; i < 50 && i < lines.Length; i++)
+            {
+                string[] parts = lines[i].Split(',');
+                if (parts.Length == 2)
+                {
+                    string location = $"{parts[0]}, {parts[1]}";
+                    locations.Add(location);
+                }
+            }
+
+            ComboBoxLocation.ItemsSource = locations;
+        }
+
+
+        private void UploadButtonClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedImagePath = openFileDialog.FileName;
+                tourDto.ImagesPaths.Add(selectedImagePath);
+                UpdateImage();
             }
         }
 
 
-        private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
+
+        private void RemoveKeyPointButtonClick(object sender, RoutedEventArgs e)
         {
-            string newDateAndTime = Microsoft.VisualBasic.Interaction.InputBox("Enter a new date and time (format: M/d/yyyy h:mm:ss tt):", "Add Date and Time", "");
-
-            if (!string.IsNullOrEmpty(newDateAndTime))
+            Button button = sender as Button;
+            if (button != null)
             {
-                if (DateTime.TryParseExact(newDateAndTime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateAndTime))
+                string keyPointName = button.DataContext as string;
+                if (!string.IsNullOrEmpty(keyPointName))
                 {
-                    tourDates.Add(dateAndTime);
-                    NewDateTextBox.Text = dateAndTime.ToString();
-
-                }
-                else
-                {
-                    MessageBox.Show("Invalid date and time format. Please enter a valid date and time (format: M/d/yyyy h:mm:ss tt).");
+                    keyPointNames.Remove(keyPointName);
                 }
             }
         }
-
-
-
 
 
         private void AddKeyPointButtonClick(object sender, RoutedEventArgs e)
         {
             string keyPointName = KeyPointsTextBox.Text;
             keyPointNames.Add(keyPointName);
+            KeyPointsTextBox.Text = string.Empty;
+            RefreshKeyPointsList();
         }
+
+        private void RefreshKeyPointsList()
+        {
+            ListBoxKeyPoints.ItemsSource = null; 
+            ListBoxKeyPoints.ItemsSource = keyPointNames;
+        }
+
 
         private bool SetKeyPoints(int tourId)
         {
@@ -121,24 +195,41 @@ namespace BookingApp.View
 
         private void CreateTourButtonClick(object sender, RoutedEventArgs e)
         {
-           
-
             foreach (var startDate in tourDates)
             {
-                TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, tourDto.Language, tourDto.MaxTouristNumber, startDate, tourDto.Duration, tourDto.LocationDto, tourDto.ImagesPaths);
-                tourRepository.Save(newTourDto.ToTour());
-                int id = tourRepository.NextId() - 1;
+                // Dobijanje selektovane lokacije iz ComboBox-a
+                string selectedLocation = ComboBoxLocation.SelectedItem as string;
 
-                if (!SetKeyPoints(id))
+                // Dobijanje selektovanog jezika iz ComboBox-a
+                string selectedLanguage = ComboBoxLanguage.SelectedItem as string;
+
+                if (selectedLocation != null && selectedLanguage != null)
                 {
-                    MessageBox.Show("Failed to create tour.");
-                    return;
+                    string[] locationParts = selectedLocation.Split(',');
+                    if (locationParts.Length == 2)
+                    {
+                        string city = locationParts[0].Trim();
+                        string country = locationParts[1].Trim();
+
+                        // Kreiranje LocationDto objekta sa izabranim gradom i državom
+                        LocationDto locationDto = new LocationDto { City = city, Country = country };
+
+                        // Kreiranje nove ture sa novom lokacijom i jezikom
+                        TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, selectedLanguage, tourDto.MaxTouristNumber, startDate, tourDto.Duration, locationDto, tourDto.ImagesPaths);
+                        tourRepository.Save(newTourDto.ToTour());
+                        int id = tourRepository.NextId() - 1;
+
+                        if (!SetKeyPoints(id))
+                        {
+                            MessageBox.Show("Failed to create tour.");
+                            return;
+                        }
+                    }
                 }
-
             }
-
-            
         }
+
+
 
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
@@ -149,12 +240,91 @@ namespace BookingApp.View
 
         }
 
-
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
         {
-            SideMenuPage sideMenuPage = new SideMenuPage();
-            this.NavigationService.Navigate(sideMenuPage);
+
         }
+
+        private int currentImageIndex = 0;
+
+        private void NextImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (currentImageIndex < tourDto.ImagesPaths.Count - 1)
+            {
+                currentImageIndex++;
+                UpdateImage();
+            }
+        }
+
+        private void PreviousImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (currentImageIndex > 0)
+            {
+                currentImageIndex--;
+                UpdateImage();
+            }
+        }
+
+        private void DeleteImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (currentImageIndex >= 0 && currentImageIndex < tourDto.ImagesPaths.Count)
+            {
+                tourDto.ImagesPaths.RemoveAt(currentImageIndex);
+                if (currentImageIndex >= tourDto.ImagesPaths.Count)
+                {
+                    currentImageIndex--;
+                }
+                UpdateImage();
+            }
+        }
+
+        private void UpdateImage()
+        {
+            if (tourDto.ImagesPaths.Count > 0)
+            {
+                string selectedImagePath = tourDto.ImagesPaths[currentImageIndex];
+                BitmapImage imageSource = new BitmapImage();
+                imageSource.BeginInit();
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.UriSource = new Uri(selectedImagePath);
+                imageSource.EndInit();
+                ImagePreview.Source = imageSource;
+            }
+            else
+            {
+                ImagePreview.Source = null;
+            }
+        }
+
+        private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            DateTime selectedDateTime = StartDateTimePicker.Value ?? DateTime.Now;
+            tourDates.Add(selectedDateTime);
+            NewDateTextBox.Text = string.Empty;
+            RefreshDatesList();
+        }
+
+        private void RefreshDatesList()
+        {
+            ListBoxDates.ItemsSource = null;
+            ListBoxDates.ItemsSource = tourDates.Select(date => date.ToString());
+        }
+
+        private void RemoveDateButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                string dateString = button.DataContext as string;
+                if (!string.IsNullOrEmpty(dateString))
+                {
+                    DateTime dateToRemove = DateTime.Parse(dateString);
+                    tourDates.Remove(dateToRemove);
+                    RefreshDatesList();
+                }
+            }
+        }
+
 
 
     }
