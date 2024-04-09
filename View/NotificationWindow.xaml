@@ -1,0 +1,19 @@
+﻿<Window x:Class="BookingApp.View.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Notifications" Height="300" Width="400">
+    <Grid>
+        <ListBox x:Name="NotificationsListBox">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="Guest unrated:"/>
+                        <TextBlock Text="{Binding GuestName}"/>
+                       
+                        <!-- Dodajte dodatne informacije o obavještenju ako je potrebno -->
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

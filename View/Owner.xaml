@@ -7,29 +7,79 @@
         mc:Ignorable="d"
         Title="Owner" Height="450" Width="800">
     <Grid>
-        <!-- Gornji panel za dodavanje i ocjenjivanje -->
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Button Click="AddProperty_Click" Content="Add Property" Width="150" Height="50" VerticalAlignment="Top"/>
-            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Margin="10 0 0 0" VerticalAlignment="Top" Height="50"/>
-        </StackPanel>
+        <DockPanel LastChildFill="True">
 
-        <!-- Donji panel za prikaz rezervacija -->
-        <DataGrid BorderBrush="Black"
-                  
-        AutoGenerateColumns="False"
-        SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
-        x:Name="ReservationDataGrid"
-        SelectionMode="Single" IsReadOnly="True" Margin="10,50,10,10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
-                <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
-                <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
-                <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            <!-- ToolBar -->
+            <ToolBar DockPanel.Dock="Top" Height="40">
+                <!-- BookingApp title -->
+                <Label Content="BookingApp" FontWeight="Bold" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="569"/>
+                <!-- Empty space to push buttons to the right -->
+                <Grid DockPanel.Dock="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" Content="Account" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="2" Content="LogOut" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="3" Content="Back" HorizontalAlignment="Right"
+                            Background="PeachPuff"
+                            Click="BackButton_Click"
+                            Cursor="Hand"
+                            IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}"
+                            ToolTip="Navigate Back"/>
+                    <Button Grid.Column="0" Click="NotificationsButton_Click" Content="Notifications" HorizontalAlignment="Right"/>
+                </Grid>
+            </ToolBar>
 
-        <!-- Dugme za obavještenja -->
-        <Button x:Name="NotificationsButton" Content="Notifications" Click="NotificationsButton_Click" Margin="10,10,10,10" VerticalAlignment="Top" Width="150" Height="40" HorizontalAlignment="Right"/>
+            <!-- TabControl -->
+            <TabControl Margin="10,5,10,10">
+                <TabItem Header="Reservations">
+                    <!-- Reservations Tab Content -->
+                    <StackPanel>
+                        <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                        <!-- Reservation DataGrid -->
+                        <DataGrid BorderBrush="Black"
+                                  AutoGenerateColumns="False"
+                                  SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
+                                  x:Name="ReservationDataGrid"
+                                  SelectionMode="Single" IsReadOnly="True" Margin="10,20,10,10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
+                                <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
+                                <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
+                                <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                                <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Property">
+                    <!-- Property Tab Content -->
+                    <StackPanel>
+                        <Button Click="AddProperty_Click" Content="Add Property" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                        <!-- Property Content Here -->
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="GuestReviews">
+                    <!-- GuestReviews Tab Content -->
+                </TabItem>
+                <TabItem Header="Analytics">
+                    <!-- Analytics Tab Content -->
+                </TabItem>
+                <TabItem Header="Renovations">
+                    <!-- Renovations Tab Content -->
+                </TabItem>
+                <TabItem Header="Forums">
+                    <!-- Forums Tab Content -->
+                </TabItem>
+                <TabItem Header="Recommendations">
+                    <!-- Recommendations Tab Content -->
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" JournalOwnership="OwnsJournal"/>
+
     </Grid>
 </Window>

@@ -21,13 +21,19 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for Notification.xaml
     /// </summary>
-    public partial class Notification: Window
+    public partial class NotificationWindow: Window
     {
-       
-        public Notification(int unratedGuests)
+        private List<Notification> _notifications;
+        /*public Notification(int unratedGuests)
         {
             InitializeComponent();
             DataContext = new NotificationViewModel(unratedGuests);
+        }*/
+        public NotificationWindow(List<Notification> notifications)
+        {
+            InitializeComponent();
+            _notifications = notifications;
+            NotificationsListBox.ItemsSource = _notifications;
         }
     }
 
