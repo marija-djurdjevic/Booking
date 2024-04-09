@@ -25,7 +25,7 @@
             <TextBlock
                 VerticalAlignment="Bottom"
                 Style="{StaticResource NasloviProzoraTextBlock}"
-                Text="Search" />
+                Text="Search tours" />
 
             <StackPanel
                 Height="30"

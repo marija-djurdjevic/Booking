@@ -83,6 +83,7 @@ namespace BookingApp.TouristView.MyTours
             touristExperienceRepository.Save(TouristExperience);
 
             Close();
+
         }
 
         private string GetSelectedRadioButtonValue(UniformGrid RadioName, string groupName)
@@ -126,8 +127,6 @@ namespace BookingApp.TouristView.MyTours
                 TouristExperience.ImagesPaths.RemoveAt(ImageIndex);
                 ImageIndex = TouristExperience.ImagesPaths.Count - 1;
                 ShowingImage = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths.LastOrDefault());
-
-                //ImageService.DeleteImage(ShowingImage);
             }
         }
 
@@ -158,6 +157,15 @@ namespace BookingApp.TouristView.MyTours
         private void PreviousImageButtonClick(object sender, RoutedEventArgs e)
         {
             GetPreviousImage();
+        }
+
+        private void ImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (TouristExperience.ImagesPaths.Count > 0)
+            {
+                FullScreenImageWindow fullScreenImageWindow = new FullScreenImageWindow(TouristExperience.ImagesPaths, ImageIndex);
+                fullScreenImageWindow.Show();
+            }
         }
     }
 }

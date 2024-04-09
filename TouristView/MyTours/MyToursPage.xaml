@@ -30,7 +30,7 @@
                         <TextBlock
                             Margin="4"
                             FontSize="20"
-                            Text="Show active tours" />
+                            Text="Active tours" />
                     </Button.Content>
                 </Button>
                 <TextBlock

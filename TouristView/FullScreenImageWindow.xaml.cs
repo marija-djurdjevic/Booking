@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.UseCases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace BookingApp.TouristView
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private string showingImage { get; set; }
+        public ImageService ImageService { get; set; }
         public int ImageIndex { get; set; }
 
         public List<string> ImagesPaths { get; set; }
@@ -39,12 +42,14 @@ namespace BookingApp.TouristView
         {
             InitializeComponent();
             DataContext= this;
-            ShowingImage = imagePaths[showingIndex];
+            ImageService = new ImageService();
+
+            ShowingImage = ImageService.GetAbsolutePath(imagePaths[showingIndex]);
             ImagesPaths = imagePaths;
             ImageIndex = showingIndex;
             WindowState = WindowState.Maximized; // Postavljanje prozora na maksimalnu veličinu
             //Topmost = true;
-            Slika.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-250;
+            Slika.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-100;
         }
 
 
@@ -52,7 +57,7 @@ namespace BookingApp.TouristView
         {
             if (ImageIndex < ImagesPaths.Count - 1)
             {
-                string imagePath = ImagesPaths[++ImageIndex];
+                string imagePath = ImageService.GetAbsolutePath(ImagesPaths[++ImageIndex]);
                 ShowingImage = imagePath;
             }
         }
@@ -61,7 +66,7 @@ namespace BookingApp.TouristView
         {
             if (ImageIndex > 0)
             {
-                string imagePath = ImagesPaths[--ImageIndex];
+                string imagePath = ImageService.GetAbsolutePath(ImagesPaths[--ImageIndex]);
                 ShowingImage = imagePath;
 
             }

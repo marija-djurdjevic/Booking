@@ -46,13 +46,14 @@ namespace BookingApp.UseCases
             return imageRelativePaths;
         }
 
-        public static void DeleteImage(string absoluteImagePath)
+        public static void DeleteImages(List<string> absoluteImagesPaths)
         {
-            //string destinationFilePath = GetAbsolutePath(relativeImagePath);
-
-            if (System.IO.File.Exists(absoluteImagePath))
+            foreach(string absoluteImagePath in absoluteImagesPaths)
             {
-                System.IO.File.Delete(absoluteImagePath);
+                if (System.IO.File.Exists(absoluteImagePath))
+                {
+                    System.IO.File.Delete(absoluteImagePath);
+                }
             }
         }
     }

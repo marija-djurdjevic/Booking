@@ -33,7 +33,7 @@
                     Grid.Column="0"
                     FontSize="24"
                     FontWeight="Bold"
-                    Text="Reservation details" />
+                    Text="Tour details" />
                 <StackPanel
                     Grid.Column="1"
                     Height="30"
