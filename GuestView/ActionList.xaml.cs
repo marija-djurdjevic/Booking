@@ -1,0 +1,41 @@
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace BookingApp.GuestView
+{
+    /// <summary>
+    /// Interaction logic for ActionList.xaml
+    /// </summary>
+    public partial class ActionList : Page
+    {
+        public GuestRepository GuestRepository { get; set; }
+        public Guest LoggedInGuest { get; set; }
+
+        public ActionList(User loggedInUser)
+        {
+            InitializeComponent();
+            GuestRepository = new GuestRepository();
+            LoggedInGuest = GuestRepository.GetByUserId(loggedInUser.Id);
+        }
+
+        private void Reservations_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationsView reservationsView = new ReservationsView(LoggedInGuest);
+            NavigationService.Navigate(reservationsView);
+        }
+    }
+}

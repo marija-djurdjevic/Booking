@@ -11,6 +11,7 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public int PropertyId { get; set; }
+        public string PropertyName {  get; set; }
         public int Guests { get; set; }
         public int Days {  get; set; }
         public DateTime StartDate { get; set; }
@@ -26,7 +27,7 @@ namespace BookingApp.Model
             Id = propertyReservationId;
         }
 
-        public PropertyReservation(int id, int propertyId, int guests, int  days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
+        public PropertyReservation(int id, int propertyId, int guests, int  days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate, string propertyName)
         {
             Id = id;
             PropertyId = propertyId;
@@ -37,9 +38,10 @@ namespace BookingApp.Model
             GuestLastName = guestLastName;
             StartDate = startDate;
             EndDate = endDate;
+            PropertyName = propertyName;
         }
 
-        public PropertyReservation(int propertyId, int guests, int days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate)
+        public PropertyReservation(int propertyId, int guests, int days, int guestId, string guestFirstName, string guestLastName, DateTime startDate, DateTime endDate, string propertyName)
         {
             PropertyId = propertyId;
             Guests = guests;
@@ -49,11 +51,12 @@ namespace BookingApp.Model
             GuestLastName = guestLastName;
             StartDate = startDate;
             EndDate = endDate;
+            PropertyName = propertyName;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), PropertyId.ToString(), Guests.ToString(), Days.ToString(), GuestId.ToString(), GuestFirstName, GuestLastName, StartDate.ToString(), EndDate.ToString()};
+            string[] csvValues = { Id.ToString(), PropertyId.ToString(), Guests.ToString(), Days.ToString(), GuestId.ToString(), GuestFirstName, GuestLastName, StartDate.ToString(), EndDate.ToString(), PropertyName};
             return csvValues;
         }
 
@@ -68,6 +71,7 @@ namespace BookingApp.Model
             GuestLastName = values[6];
             StartDate = DateTime.Parse(values[7]);
             EndDate = DateTime.Parse(values[8]);
+            PropertyName = values[9];
         }
     }
 }

@@ -5,16 +5,18 @@ using System.Linq;
 using System.Windows;
 using BookingApp.Dto;
 using BookingApp.Repository;
+using System.Windows.Controls;
+using BookingApp.DTO;
 
 namespace BookingApp.GuestView
 {
     /// <summary>
     /// Interaction logic for PropertyViewWindow.xaml
     /// </summary>
-    public partial class PropertyView : Window
+    public partial class PropertyView : Page
     {
-        public List<PropertyDto> Properties { get; set; }
         public Property SelectedProperty { get; set; }
+        public LocationDto Location { get; set; }
         public Guest LoggedInGuest { get; set; }
         public GuestRepository GuestRepository { get; set; }
         public PropertyRepository PropertyRepository { get; set; }
@@ -26,10 +28,9 @@ namespace BookingApp.GuestView
             GuestRepository = new GuestRepository();
             LoggedInGuest = GuestRepository.GetByUserId(user.Id);
             SelectedProperty = new Property();
-            Properties = new List<PropertyDto>();
             PropertyRepository = new PropertyRepository();
             PropertyReservationRepository = new PropertyReservationRepository();
-            PropertyDataGrid.ItemsSource = PropertyRepository.GetAllProperties();
+            propertiesData.ItemsSource = PropertyRepository.GetAllProperties();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -50,10 +51,8 @@ namespace BookingApp.GuestView
 
             List<Property> rezultatiPretrage = SearchProperty(name, location, type, guests, days);
 
-
-            PropertyDataGrid.ItemsSource = rezultatiPretrage;
-            PropertyDataGrid.Items.Refresh();
-
+            propertiesData.ItemsSource = rezultatiPretrage;
+            propertiesData.Items.Refresh();
         }
        private List<Property> SearchProperty(string name, string location, string type, string guests, string days)
         {
@@ -91,27 +90,39 @@ namespace BookingApp.GuestView
             return results;
         }
 
-        private void MakeReservation_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedProperty == null)
-            {
-                MessageBox.Show("Please choose a property to make a reservation!");
-            }
-            else
-            {
-                PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
-                propertybooking.Owner = this;
-                propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                propertybooking.ShowDialog();
-                Close();
-            }
-            
-        }
+        /* private void MakeReservation_Click(object sender, RoutedEventArgs e)
+         {
+             if (SelectedProperty == null)
+             {
+                 MessageBox.Show("Please choose a property to make a reservation!");
+             }
+             else
+             {
+                 PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
+                 //propertybooking.Owner = this;
+                 propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                 propertybooking.ShowDialog();
+                 //Close();
+             }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
+         }
+
+         */
+
+        //private void Refresh_Click(object sender, RoutedEventArgs e)
+        //{
+        //  Properties = PropertyRepository.GetAllProperties();
+        ///}
+
+        private void propertiesData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PropertyDataGrid.ItemsSource = PropertyRepository.GetAllProperties();
-            PropertyDataGrid.Items.Refresh();
+            if (propertiesData.SelectedItem != null && propertiesData.SelectedItem is Property)
+            {
+                SelectedProperty = propertiesData.SelectedItem as Property;
+
+                SelectedPropertyView selectedPropertyView = new SelectedPropertyView(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
+                NavigationService.Navigate(selectedPropertyView);
+            }
         }
     }
 

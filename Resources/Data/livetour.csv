@@ -3,5 +3,6 @@
 3|False|3|Novi Sad|Begining|1|False|3|Irig|End|2|False
 4|False|4|Beograd|Begining|1|False|4|Ruma|End|2|False
 5|False|5|key1|Begining|1|False|5|key2|Middle|2|False|5|key3|End|3|False
-6|True|6|key1|Begining|1|True|6|key2|Middle|2|True|6|ke3|Middle|3|False|6|key4|End|4|False
+6|False|6|key1|Begining|1|False|6|key2|Middle|2|False|6|ke3|Middle|3|False|6|key4|End|4|False
 7|False|7|key7|Begining|1|False|7|key8|Middle|2|False|7|key9|End|3|False
+10|False|10|Gorica|Begining|1|False|10|Vinogradi|Middle|2|False|10|Police|End|3|False

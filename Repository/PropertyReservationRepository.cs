@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
@@ -36,16 +37,26 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, propertyReservations);
         }
 
-        public List<PropertyReservation> GetAllPropertyReservation()
+        public List<PropertyReservation> GetAll()
         {
             return propertyReservations;
         }
 
-        public List<PropertyReservation> GetReservationDataByTourId(int id)
+        public List<PropertyReservation> GetReservationDataById(int id)
         {
             return propertyReservations.FindAll(t => t.Id == id);
         }
 
+        public void Delete(int reservationId)
+        {
+            propertyReservations = GetAll();
+            PropertyReservation propertyReservation = propertyReservations.FirstOrDefault(t => t.Id == reservationId);
+            if (propertyReservation != null)
+            {
+                propertyReservations.Remove(propertyReservation);
+                _serializer.ToCSV(FilePath, propertyReservations);
+            }
+        }
 
         private void SaveChanges()
         {
