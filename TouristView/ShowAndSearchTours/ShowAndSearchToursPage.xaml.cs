@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.TouristView.TourBooking;
+using BookingApp.UseCases;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +30,7 @@ namespace BookingApp.TouristView.ShowAndSearchTours
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
+        public ImageService ImageService { get; set; }
         public TourDto SelectedTour { get; set; }
 
         private readonly TourRepository repository;
@@ -43,6 +45,7 @@ namespace BookingApp.TouristView.ShowAndSearchTours
             repository = new TourRepository();
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
+            ImageService = new ImageService();
 
             IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;

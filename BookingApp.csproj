@@ -27,6 +27,7 @@
     <None Remove="TouristView\Icons\travel.png" />
     <None Remove="TouristView\Icons\user.png" />
     <None Remove="TouristView\Icons\view.png" />
+    <None Remove="TouristView\Images\addimage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TouristView\Images\" />
     <Folder Include="TouristView\TourRequests\" />
   </ItemGroup>
 
@@ -69,6 +69,7 @@
     <Resource Include="TouristView\Icons\travel.png" />
     <Resource Include="TouristView\Icons\user.png" />
     <Resource Include="TouristView\Icons\view.png" />
+    <Resource Include="TouristView\Images\addimage.png" />
   </ItemGroup>
 
 </Project>
