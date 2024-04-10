@@ -12,7 +12,7 @@ namespace BookingApp.GuestView
     /// <summary>
     /// Interaction logic for PropertyBooking.xaml
     /// </summary>
-    public partial class PropertyBooking : Window
+    public partial class PropertyBooking : Page
     {
         public static PropertyRepository PropertyRepository = new PropertyRepository();
         public static PropertyReservationRepository PropertyReservationRepository = new PropertyReservationRepository();
@@ -72,7 +72,7 @@ namespace BookingApp.GuestView
             if (!ValidateSearchInput())
                 return;
 
-            DateTime BellowStart = StartDate.AddDays(-10);
+            DateTime BellowStart = StartDate.AddDays(-100);
             DateTime AboveEnd = EndDate;
             FindAvailableDateRanges(StartDate, PropertyReservation.Days - 1, EndDate);
 
@@ -84,7 +84,7 @@ namespace BookingApp.GuestView
                 FindAvailableDateRanges(BellowStart, 0, StartDate);
 
                 //10 days above higher border
-                FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(10));
+                FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(100));
             }
 
             DateDataGrid.Items.Refresh();
@@ -98,6 +98,7 @@ namespace BookingApp.GuestView
                 return false;
 
             }
+
             if (PropertyReservation.Days < SelectedProperty.MinReservationDays)
             {
                 MessageBox.Show("Minimum number of reservation days is " + SelectedProperty.MinReservationDays);
@@ -164,7 +165,6 @@ namespace BookingApp.GuestView
             PropertyReservation.EndDate = SelectedDateRange.End;
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
-            Close();
         }
 
         private bool ValidateConfirmationInput()

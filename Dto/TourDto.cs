@@ -1,4 +1,5 @@
 using BookingApp.Model;
+using BookingApp.UseCases;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +57,10 @@ namespace BookingApp.DTO
             name = tour.Name;
             description = tour.Description;
             duration = tour.Duration;
-            imagesPaths = tour.ImagesPaths;
+            foreach (string path in tour.ImagesPaths)
+            {
+                imagesPaths.Add(ImageService.GetAbsolutePath(path));
+            }
             locationDto = new LocationDto(tour.Location);
             keyPoints = tour.KeyPoints;
         }

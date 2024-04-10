@@ -9,8 +9,22 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\back %281%29.png" />
+    <None Remove="Resources\Images\back %282%29.png" />
+    <None Remove="Resources\Images\back.png" />
+    <None Remove="Resources\Images\bell.png" />
+    <None Remove="Resources\Images\booking.png" />
+    <None Remove="Resources\Images\chat.png" />
+    <None Remove="Resources\Images\contract.png" />
+    <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\icons8-play-50.png" />
+    <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
+    <None Remove="Resources\Images\paper-plane.png" />
+    <None Remove="Resources\Images\pin.png" />
+    <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="TouristView\Icons\addimage.png" />
     <None Remove="TouristView\Icons\broken-image.png" />
@@ -27,6 +41,7 @@
     <None Remove="TouristView\Icons\travel.png" />
     <None Remove="TouristView\Icons\user.png" />
     <None Remove="TouristView\Icons\view.png" />
+    <None Remove="TouristView\Images\addimage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TouristView\Images\" />
     <Folder Include="TouristView\TourRequests\" />
   </ItemGroup>
 
@@ -55,6 +69,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\back (1).png" />
+    <Resource Include="Resources\Images\back (2).png" />
+    <Resource Include="Resources\Images\back.png" />
+    <Resource Include="Resources\Images\bell.png" />
+    <Resource Include="Resources\Images\booking.png" />
+    <Resource Include="Resources\Images\chat.png" />
+    <Resource Include="Resources\Images\contract.png" />
+    <Resource Include="Resources\Images\earth.png" />
+    <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\icons8-play-50.png" />
+    <Resource Include="Resources\Images\menu-burger.png" />
+    <Resource Include="Resources\Images\paper-plane.png" />
+    <Resource Include="Resources\Images\pin.png" />
+    <Resource Include="Resources\Images\star.png" />
     <Resource Include="TouristView\Icons\addimage.png" />
     <Resource Include="TouristView\Icons\broken-image.png" />
     <Resource Include="TouristView\Icons\help1.png" />
@@ -70,6 +98,7 @@
     <Resource Include="TouristView\Icons\travel.png" />
     <Resource Include="TouristView\Icons\user.png" />
     <Resource Include="TouristView\Icons\view.png" />
+    <Resource Include="TouristView\Images\addimage.png" />
   </ItemGroup>
 
 </Project>

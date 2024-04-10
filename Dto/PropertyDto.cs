@@ -15,6 +15,8 @@ namespace BookingApp.Dto
         private string name;
         private int maxGuests;
         private int minReservationDays;
+        private string city;
+        private string country;
         private LocationDto locationDto = new LocationDto();
         private List<string> imagesPaths = new List<string>();
         private int cancellationDeadline;
@@ -35,6 +37,8 @@ namespace BookingApp.Dto
             this.cancellationDeadline = cancellationDeadline;
             this.imagesPaths = imagesPaths;
             this.locationDto = locationDto;
+            city = locationDto.City;
+            country = locationDto.Country;
         }
        
         public PropertyDto(Property property)
@@ -46,6 +50,8 @@ namespace BookingApp.Dto
             type = property.Type;
             imagesPaths = property.ImagesPaths;
             locationDto = new LocationDto(property.Location);
+            city = property.Location.City;
+            country = property.Location.Country;
 
         }
 
@@ -73,10 +79,43 @@ namespace BookingApp.Dto
                 if (value != locationDto)
                 {
                     locationDto = value;
+                    city = locationDto.City;
+                    country = locationDto.Country;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(City));
+                    OnPropertyChanged(nameof(Country));
+                }
+            }
+        }
+
+        public string City
+        {
+            get { return city; }
+            set
+            {
+                if (value != city)
+                {
+                    city = value;
+                    locationDto.City = value;
                     OnPropertyChanged();
                 }
             }
         }
+
+        public string Country
+        {
+            get { return country; }
+            set
+            {
+                if (value != country)
+                {
+                    country = value;
+                    locationDto.Country = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         public string Name
         {

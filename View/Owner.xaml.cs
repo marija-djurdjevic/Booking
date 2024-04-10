@@ -36,6 +36,7 @@ namespace BookingApp.View
            // DataContext = this;
             //SelectedReservation = new PropertyReservation();
             _notifications = new List<Notification>();
+
            // _propertyReservationRepository = new PropertyReservationRepository();
            // ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAllPropertyReservation();
             //PropertyReservations = new List<PropertyReservationDto>();
@@ -43,6 +44,7 @@ namespace BookingApp.View
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage());
             //MainFrame.NavigationService.Navigate(new OwnerHomePage());
+
 
         }
 
@@ -77,7 +79,9 @@ namespace BookingApp.View
             this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
             //AddPropertyFrame.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
 
+
         }*/
+
 
        
     }

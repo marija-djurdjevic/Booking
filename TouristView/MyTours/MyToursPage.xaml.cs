@@ -27,6 +27,7 @@ namespace BookingApp.TouristView.MyTours
     /// </summary>
     public partial class MyToursPage : Page
     {
+        public static ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>> ActiveTours { get; set; }
         public static ObservableCollection<Tuple<TourDto, Visibility>> Tours { get; set; }
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
@@ -47,9 +48,11 @@ namespace BookingApp.TouristView.MyTours
             touristExperienceRepository= new TouristExperienceRepository();
             Tours = new ObservableCollection<Tuple<TourDto, Visibility>>();
             SelectedTour = new TourDto();
+            ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
 
             LoggedInUser = loggedInUser;
             GetMyTours();
+            GetMyActiveTours();
         }
 
         public void GetMyTours()
@@ -59,8 +62,26 @@ namespace BookingApp.TouristView.MyTours
             {
                 Tours.Add(new Tuple<TourDto, Visibility>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id)));
             }
+            if (Tours.Count() < 1)
+            {
+                NoMyTours.Visibility = Visibility.Visible;
+            }
         }
-
+        public void GetMyActiveTours()
+        {
+            ActiveTours.Clear();
+            foreach (Tour tour in tourRepository.GetMyActiveReserved(LoggedInUser.Id))
+            {
+                TourDto tourDto = new TourDto(tour);
+                List<KeyPoint> keyPoints = tourDto.KeyPoints.Skip(1).Take(tourDto.KeyPoints.Count - 2).ToList();
+                KeyPoint endPoint = tour.KeyPoints.Last();
+                ActiveTours.Add(new Tuple<TourDto, List<KeyPoint>, KeyPoint>(tourDto, keyPoints, endPoint));
+            }
+            if(ActiveTours.Count() < 1)
+            {
+                NoActiveTours.Visibility = Visibility.Visible;
+            }
+        }
         private Visibility IsRateButtonVisible(int tourId, int userId)
         {
             Visibility visibility = Visibility.Hidden;
