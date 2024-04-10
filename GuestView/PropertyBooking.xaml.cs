@@ -72,7 +72,7 @@ namespace BookingApp.GuestView
             if (!ValidateSearchInput())
                 return;
 
-            DateTime BellowStart = StartDate.AddDays(-10);
+            DateTime BellowStart = StartDate.AddDays(-100);
             DateTime AboveEnd = EndDate;
             FindAvailableDateRanges(StartDate, PropertyReservation.Days - 1, EndDate);
 
@@ -84,7 +84,7 @@ namespace BookingApp.GuestView
                 FindAvailableDateRanges(BellowStart, 0, StartDate);
 
                 //10 days above higher border
-                FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(10));
+                FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(100));
             }
 
             DateDataGrid.Items.Refresh();
