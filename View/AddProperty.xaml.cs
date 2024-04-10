@@ -21,7 +21,7 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for AddProperty.xaml
     /// </summary>
-    public partial class AddProperty : Window
+    public partial class AddProperty : Page
     {
         private PropertyDto _propertyDto;
 
@@ -40,7 +40,9 @@ namespace BookingApp.View
             int id = propertyRepository.NextId() - 1;
             
             MessageBox.Show("Property created successfully!");
-            this.Close();
+            // NavigationService.GoBack();
+            // this.Close();
+            //NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
 
 
         }

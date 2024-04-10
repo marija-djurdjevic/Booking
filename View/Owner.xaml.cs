@@ -14,7 +14,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Controls;
+using BookingApp.Service;
 
 namespace BookingApp.View
 {
@@ -40,6 +41,7 @@ namespace BookingApp.View
             PropertyReservations = new List<PropertyReservationDto>();
             _reviewRepository = new ReviewRepository();
             
+
         }
        
        
@@ -47,7 +49,21 @@ namespace BookingApp.View
         {
             AddProperty addProperty = new AddProperty();
             //MainFrame.Navigate(addProperty);
-            addProperty.Show();
+            //this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
+            //addProperty.Show();
+            // MainFrame.NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
+            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
+            MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Mora se okruziti if-om radi zastite od greske, tj. exception-a kada nije moguce navigirati nazad
+            if (MainFrame.CanGoBack)
+            {
+                //MainFrame.GoBack();
+                MainFrame.NavigationService.GoBack();
+                // ovo je skraceni zapis za MainFrame.NavigationService.GoBack();
+            }
         }
         private void RateGuestButton_Click(object sender, RoutedEventArgs e)
         {
@@ -108,13 +124,22 @@ namespace BookingApp.View
         {
             return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.Id);
         }
+        /* private void NotificationsButton_Click(object sender, RoutedEventArgs e)
+         {
+             int unratedGuests = CalculateUnratedGuests();
+
+             Notification notificationWindow = new Notification(unratedGuests);
+             notificationWindow.Show();
+         }*/
         private void NotificationsButton_Click(object sender, RoutedEventArgs e)
         {
-            int unratedGuests = CalculateUnratedGuests();
+            NotificationService notificationManager = new NotificationService();
+            var unratedGuests = notificationManager.GetUnratedGuests();
 
-            Notification notificationWindow = new Notification(unratedGuests);
-            notificationWindow.Show();
+            NotificationWindow notificationsWindow = new NotificationWindow(unratedGuests);
+            notificationsWindow.ShowDialog();
         }
+
         private int CalculateUnratedGuests()
         {
 

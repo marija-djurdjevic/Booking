@@ -8,11 +8,13 @@ using BookingApp.Model.Enums;
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
+using BookingApp.DTO;
 
 namespace BookingApp.View
 {
     public partial class Guide : Window
     {
+        
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
         private readonly KeyPointRepository keyPointRepository;

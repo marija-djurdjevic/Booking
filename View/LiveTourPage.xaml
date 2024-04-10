@@ -1,0 +1,110 @@
+﻿<Page x:Class="BookingApp.View.LiveTourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View"
+      mc:Ignorable="d" 
+      Title="LiveTourPage" Height="768" Width="1024">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Gornja navigaciona traka -->
+            <RowDefinition Height="*"/>
+            <!-- Centralni sadržaj -->
+            <RowDefinition Height="Auto"/>
+            <!-- Donja navigaciona traka -->
+        </Grid.RowDefinitions>
+
+        <!-- Gornja navigaciona traka -->
+        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="71"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Slika u prvoj koloni -->
+            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
+                 Stretch="Uniform"
+                 Width="71"
+                 Height="71"
+                 MouseLeftButtonUp="NavigateToSideMenuPage"/>
+        </Grid>
+
+        <!-- Centralni sadržaj -->
+        <Grid Grid.Row="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Lista turista -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Tourists list:" FontSize="32" Margin="0,0,0,10"/>
+                <ListBox x:Name="touristsListBox" >
+                    <!-- Stil za ListBoxItems -->
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <!-- Template za prikaz turista -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TouristFirstName}" FontSize="24"/>
+                                <TextBlock Text=" " FontSize="24"/>
+                                <TextBlock Text="{Binding TouristLastName}" FontSize="24"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="ADD" Width="Auto" Height="40" Click="AddTouristButtonClick"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="10" >
+                <Grid Margin="0,70,0,0" Height="437" Width="390">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Prikaz teksta "Key points:" -->
+                            <TextBlock FontSize="40" Text="Key points:" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                            <!-- Lista ključnih tačaka -->
+                            <ListBox x:Name="keyPointsListBox" MinWidth="200" Height="200">
+                                <!-- Stil za ListBoxItems -->
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <Button Content="Finish Tour" Width="232" Height="59" Margin="0,10,0,0" FontSize="28" Click="FinishTourButtonClick"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Donja navigaciona traka -->
+        <Grid Grid.Row="1" VerticalAlignment="Top" Background="LightGray" Margin="0,602,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Prva slika u levom cosku -->
+            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\back.png"
+                 Stretch="Uniform"
+                 Width="59"
+                 Height="59"
+                 MouseLeftButtonUp="NavigateToMainPage"/>
+            <!-- Druga slika u sredini -->
+            <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
+                Stretch="Uniform"
+                Width="59"
+                Height="59" 
+                 MouseLeftButtonUp="NavigateToMainPage"/>
+        </Grid>
+      
+
+    </Grid>
+</Page>

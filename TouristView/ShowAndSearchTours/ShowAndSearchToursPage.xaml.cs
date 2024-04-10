@@ -1,10 +1,13 @@
-﻿using System;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
+using BookingApp.TouristView.TourBooking;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,18 +17,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.TouristView.TourBooking;
 
-namespace BookingApp.TouristView
+namespace BookingApp.TouristView.ShowAndSearchTours
 {
     /// <summary>
-    /// Interaction logic for TouristMainWindow.xaml
+    /// Interaction logic for ShowAndSearchToursPage.xaml
     /// </summary>
-    public partial class TouristMainWindow : Window, INotifyPropertyChanged
+    public partial class ShowAndSearchToursPage : Page,INotifyPropertyChanged
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
@@ -35,7 +35,7 @@ namespace BookingApp.TouristView
 
         private bool _isCancelSearchButtonVisible;
 
-        public TouristMainWindow(User loggedInUser)
+        public ShowAndSearchToursPage(User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
@@ -47,6 +47,7 @@ namespace BookingApp.TouristView
             IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;
             GetAllTours();
+
         }
 
         public bool IsCancelSearchButtonVisible
@@ -102,7 +103,7 @@ namespace BookingApp.TouristView
             IsCancelSearchButtonVisible = searchWindow.IsCancelSearchButtonVisible;
         }
 
-        private void CancelSearchButtonClick(object sender, RoutedEventArgs e)
+        private void ShowAllToursButtonClick(object sender, RoutedEventArgs e)
         {
             IsCancelSearchButtonVisible = false;
             GetAllTours();
@@ -110,13 +111,7 @@ namespace BookingApp.TouristView
 
         private void ShowUnbookedToursInCity()
         {
-
-            TourDto searchCriteria = new TourDto();
-            searchCriteria.LocationDto.City = SelectedTour.LocationDto.City;
-            searchCriteria.MaxTouristNumber = 1;
-
-            List<Tour> unBookedToursInCity = repository.GetMatchingTours(searchCriteria);
-            unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
+            List<Tour> unBookedToursInCity = repository.GetUnBookedToursInCity(SelectedTour.LocationDto.City);
 
             if (unBookedToursInCity.Count > 0)
             {
@@ -132,5 +127,11 @@ namespace BookingApp.TouristView
                 MessageBox.Show("There are no tours from that city");
             }
         }
+
+        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+
 }

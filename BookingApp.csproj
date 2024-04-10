@@ -11,56 +11,93 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
     <None Remove="Resources\Images\back %282%29.png" />
+    <None Remove="Resources\Images\back.png" />
     <None Remove="Resources\Images\bell.png" />
     <None Remove="Resources\Images\booking.png" />
     <None Remove="Resources\Images\chat.png" />
     <None Remove="Resources\Images\contract.png" />
-    <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\icons8-play-50.png" />
-    <None Remove="Resources\Images\location-pin.png" />
     <None Remove="Resources\Images\menu-burger.png" />
+    <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\paper-plane.png" />
     <None Remove="Resources\Images\pin.png" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="TouristView\Icons\addimage.png" />
+    <None Remove="TouristView\Icons\broken-image.png" />
+    <None Remove="TouristView\Icons\help1.png" />
+    <None Remove="TouristView\Icons\home.png" />
+    <None Remove="TouristView\Icons\location-pin.png" />
+    <None Remove="TouristView\Icons\logout.png" />
+    <None Remove="TouristView\Icons\next.png" />
+    <None Remove="TouristView\Icons\photo.png" />
+    <None Remove="TouristView\Icons\previous.png" />
+    <None Remove="TouristView\Icons\removeimage.png" />
+    <None Remove="TouristView\Icons\settings.png" />
+    <None Remove="TouristView\Icons\target.png" />
+    <None Remove="TouristView\Icons\travel.png" />
+    <None Remove="TouristView\Icons\user.png" />
+    <None Remove="TouristView\Icons\view.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\delete.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\menu.png" />
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="TouristView\Images\" />
+    <Folder Include="TouristView\TourRequests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.9.5" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.9.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\back (1).png" />
     <Resource Include="Resources\Images\back (2).png" />
+    <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\bell.png" />
     <Resource Include="Resources\Images\booking.png" />
     <Resource Include="Resources\Images\chat.png" />
     <Resource Include="Resources\Images\contract.png" />
     <Resource Include="Resources\Images\earth.png" />
-    <Resource Include="Resources\Images\icons8-play-50.png" />
-    <Resource Include="Resources\Images\location-pin.png" />
-    <Resource Include="Resources\Images\menu-burger.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\icons8-play-50.png" />
+    <Resource Include="Resources\Images\menu-burger.png" />
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />
     <Resource Include="Resources\Images\star.png" />
+    <Resource Include="TouristView\Icons\addimage.png" />
+    <Resource Include="TouristView\Icons\broken-image.png" />
+    <Resource Include="TouristView\Icons\help1.png" />
+    <Resource Include="TouristView\Icons\home.png" />
+    <Resource Include="TouristView\Icons\location-pin.png" />
+    <Resource Include="TouristView\Icons\logout.png" />
+    <Resource Include="TouristView\Icons\next.png" />
+    <Resource Include="TouristView\Icons\photo.png" />
+    <Resource Include="TouristView\Icons\previous.png" />
+    <Resource Include="TouristView\Icons\removeimage.png" />
+    <Resource Include="TouristView\Icons\settings.png" />
+    <Resource Include="TouristView\Icons\target.png" />
+    <Resource Include="TouristView\Icons\travel.png" />
+    <Resource Include="TouristView\Icons\user.png" />
+    <Resource Include="TouristView\Icons\view.png" />
   </ItemGroup>
 
 </Project>

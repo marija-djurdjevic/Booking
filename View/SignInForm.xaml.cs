@@ -7,8 +7,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using BookingApp.TouristView;
+
 using BookingApp.GuestView;
+using System.Windows.Controls;
 
 namespace BookingApp.View
 {
@@ -68,7 +71,9 @@ namespace BookingApp.View
                             {
                                 MessageBox.Show("You signed in as Owner User!");
                                 Owner owner = new Owner();
+                               
                                 owner.Show();
+                               
                                 Close();
                                 break;
                             }
@@ -80,16 +85,15 @@ namespace BookingApp.View
                                 Close();
                                 break;
                             }
+
                         case UserRole.Guide:
                             {
-                                MessageBox.Show("You signed in as Guide User!");
-
-
-                                Guide guide = new Guide();
-                                guide.Show();
-                                Close();
+                                GuideMainWindow guide = new GuideMainWindow();
+                                guide.Show(); Close();
                                 break;
                             }
+
+
                         case UserRole.Tourist:
                             {
                                 
@@ -105,7 +109,7 @@ namespace BookingApp.View
             }
             else
             {
-                TouristMainWindow touristMainWindow = new TouristMainWindow(new User(4,"Dusko","pili123",UserRole.Tourist));
+                TouristsMainWindow touristMainWindow = new TouristsMainWindow(new User(4, "Dusko", "pili123", UserRole.Tourist));
                 touristMainWindow.Show();
                 Close();
                 //MessageBox.Show("Wrong username!");

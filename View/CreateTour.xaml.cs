@@ -16,7 +16,9 @@ namespace BookingApp.View
         private TourDto tourDto;
 
         public String startDateTimeInput;
-        
+
+        private List<DateTime> tourDates = new List<DateTime>();
+
         TourRepository tourRepository;
         KeyPointRepository keyPointRepository;
         public CreateTour()
@@ -26,10 +28,8 @@ namespace BookingApp.View
             DataContext = tourDto;
             tourRepository = new TourRepository();
             keyPointRepository = new KeyPointRepository();
-            startDateTextBox.TextChanged += (sender, e) =>
-            {
-                startDateTimeInput = startDateTextBox.Text;
-            };
+            tourDates=new List<DateTime>();
+
 
         }
 
@@ -44,6 +44,27 @@ namespace BookingApp.View
                 tourDto.ImagesPaths.Add(newImagePath);
             }
         }
+
+
+        private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            string newDateAndTime = Microsoft.VisualBasic.Interaction.InputBox("Enter a new date and time (format: M/d/yyyy h:mm:ss tt):", "Add Date and Time", "");
+
+            if (!string.IsNullOrEmpty(newDateAndTime))
+            {
+                if (DateTime.TryParseExact(newDateAndTime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateAndTime))
+                {
+                    tourDates.Add(dateAndTime);
+                    DatesAndTimes.Items.Add(dateAndTime.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Invalid date and time format. Please enter a valid date and time (format: M/d/yyyy h:mm:ss tt).");
+                }
+            }
+        }
+
+
 
         private bool SetKeyPoints(int tourId)
         {
@@ -83,20 +104,24 @@ namespace BookingApp.View
             {
                 return;
             }
-            
-            TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, tourDto.Language, tourDto.MaxTouristNumber, tourDto.StartDateTime, tourDto.Duration, tourDto.LocationDto, tourDto.ImagesPaths);
-            DateTime i;
-            DateTime.TryParseExact(startDateTimeInput, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out i);
-            newTourDto.StartDateTime = i;
-            tourRepository.Save(newTourDto.ToTour());
-            int id = tourRepository.NextId() - 1;
 
-            if (SetKeyPoints(id))
+            foreach (var startDate in tourDates)
             {
-                MessageBox.Show("Tour created successfully!");
-                this.Close();
+                TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, tourDto.Language, tourDto.MaxTouristNumber, startDate, tourDto.Duration, tourDto.LocationDto, tourDto.ImagesPaths);
+                tourRepository.Save(newTourDto.ToTour());
+                int id = tourRepository.NextId() - 1;
+
+                if (!SetKeyPoints(id))
+                {
+                    MessageBox.Show("Failed to create tour.");
+                    return;
+                }
             }
+
+            MessageBox.Show("ActiveTours created successfully!");
+            this.Close();
         }
+
 
 
 
