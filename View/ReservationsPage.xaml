@@ -1,0 +1,31 @@
+﻿<Page x:Class="BookingApp.View.ReservationsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="ReservationsPage">
+
+    <Grid>
+        <StackPanel>
+            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+            <!-- Reservation DataGrid -->
+            <DataGrid BorderBrush="Black"
+            AutoGenerateColumns="False"
+            SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
+            x:Name="ReservationDataGrid"
+            SelectionMode="Single" IsReadOnly="True" Margin="10,20,10,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
+                    <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
+                    <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
+                    <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                    <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Page>
