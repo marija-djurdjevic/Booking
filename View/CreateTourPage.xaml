@@ -61,7 +61,7 @@
 
                     <ComboBox x:Name="ComboBoxLocation" Grid.Row="0" Height="42" Margin="360,493,482,905"/>
 
-                    <TextBox Text="{Binding MaxTouristNumber, Mode=TwoWay}" Grid.Row="0" Height="42" Margin="354,584,488,814"/>
+                    <xctk:IntegerUpDown Value="{Binding MaxTouristNumber, Mode=TwoWay}" Minimum="0" Increment="1" Grid.Row="0" Height="42" Margin="354,584,488,814"/>
 
 
                     <Label Content="Key Point:" FontSize="32" Margin="18,676,17,704"/>
