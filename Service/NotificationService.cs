@@ -19,7 +19,7 @@ namespace BookingApp.Service
             List<Notification> notifications = new List<Notification>();
 
             List<Review> reviews = reviewRepository.GetAllReviews();
-            List<PropertyReservation> reservations = propertyReservationRepository.GetAllPropertyReservation();
+            List<PropertyReservation> reservations = propertyReservationRepository.GetAll();
 
             foreach (var reservation in reservations)
             {

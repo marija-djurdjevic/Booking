@@ -37,7 +37,7 @@ namespace BookingApp.View
             SelectedReservation = new PropertyReservation();
             _notifications = new List<Notification>();
             _propertyReservationRepository = new PropertyReservationRepository();
-            ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAllPropertyReservation();
+            ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAll();
             PropertyReservations = new List<PropertyReservationDto>();
             _reviewRepository = new ReviewRepository();
             
@@ -143,7 +143,7 @@ namespace BookingApp.View
         private int CalculateUnratedGuests()
         {
 
-            var allReservations = _propertyReservationRepository.GetAllPropertyReservation();
+            var allReservations = _propertyReservationRepository.GetAll();
             var unratedGuests = 0;
 
             foreach (var reservation in allReservations)

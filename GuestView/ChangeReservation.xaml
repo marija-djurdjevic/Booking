@@ -1,0 +1,158 @@
+﻿<Page x:Class="BookingApp.GuestView.ChangeReservation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.GuestView"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="450"
+        Title="ChangeReservation" Height="660" Width="430">
+    <Grid Width="430" Margin="0,20,0,17" Background="#8FB9A8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="212*"/>
+            <RowDefinition Height="301*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <Image Margin="10,0,375,154" Source="\Resources\Images\contract.png"/>
+        <Label FontSize="26" Margin="55,10,0,157">Request to change reservation</Label>
+
+        <StackPanel Background="BlanchedAlmond"  Orientation="Horizontal" Margin="10,64,20,37">
+            <Label Content="{Binding Path=SelectedProperty.Name}" FontWeight="Bold" VerticalAlignment="Top" Margin="5, 0, 10, 0" Width="170" FontSize="25"/>
+            <Label Content="{Binding Path=SelectedReservation.StartDate, StringFormat={}{0:dd/MM/yyyy}}" VerticalAlignment="Top" Margin="20,5, 0, 0" HorizontalAlignment="Right" FontSize="18"/>
+            <Label Content="-" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="18"/> 
+            <Label Content="{Binding Path=SelectedReservation.EndDate, StringFormat={}{0:dd/MM/yyyy}}" Margin="0,5" VerticalAlignment="Top" FontSize="18"/>
+            <Line X1="-395" Y1="50" X2="20" Y2="50" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <ListView
+    Background="#8FB9A8"
+    x:Name="ReservationsListView"
+    Margin="5,183,20,10"
+    Padding="0"
+    BorderThickness="0"
+    ItemsSource="{Binding GuestsReservations}"
+    ScrollViewer.VerticalScrollBarVisibility="Auto"
+    SelectedItem="{Binding SelectedReservation}"
+    SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.RowSpan="3">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="BlanchedAlmond" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0,5,5,5" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+        BorderBrush="Gray"
+        BorderThickness="1"
+        CornerRadius="5">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="BlanchedAlmond" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Beige" />
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid Height="100">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5,10,5,5"
+                FontSize="14"
+                FontWeight="Bold">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="Index" />
+                                        <Binding Path="FullName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock
+                            Grid.Column="1"
+                            Margin="20,5,5,5"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="{Binding PropertyName}" />
+                            <TextBlock
+                            Grid.Column="1"
+                            Margin="220,10,5,5"
+                            Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" />
+                            <TextBlock
+                            Grid.Column="1"
+                            Margin="282,10,0,65"
+                            Text=" - " Grid.RowSpan="2" />
+                            <TextBlock
+                            Grid.Column="1"
+                            Margin="293,10,0,5"
+                            Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" Grid.RowSpan="2"/>
+                            <Button
+                            x:Name="CancelButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="80"
+                            Height="25"
+                            Margin="280,25,0,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Content="Cancel"
+                            Cursor="Hand"
+                            Tag="{Binding}" />
+                            <Button
+                            x:Name="ChangeReservationButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="80"
+                            Height="25"
+                            Margin="280,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Change"
+                            Cursor="Hand"
+                            Tag="{Binding}" Grid.ColumnSpan="2"/>
+                            <Button
+                            x:Name="ReviewButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="80"
+                            Height="25"
+                            Margin="20,25,5,10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Content="Make review"
+                            Cursor="Hand"
+                            Tag="{Binding}"/>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
