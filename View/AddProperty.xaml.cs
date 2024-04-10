@@ -32,6 +32,7 @@ namespace BookingApp.View
             _propertyDto = new PropertyDto();
             DataContext = _propertyDto;
             propertyRepository = new PropertyRepository();
+            
         }
         private void SaveProperty_Click(object sender, RoutedEventArgs e)
         {
@@ -40,9 +41,11 @@ namespace BookingApp.View
             int id = propertyRepository.NextId() - 1;
             
             MessageBox.Show("Property created successfully!");
-            // NavigationService.GoBack();
+            NavigationService.GoBack();
             // this.Close();
             //NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
+           //Window.GetWindow(this).Visibility = Visibility.Visible;
+            //Window.GetWindow(this).Close();
 
 
         }
