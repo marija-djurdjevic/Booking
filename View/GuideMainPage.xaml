@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="GuideMainPage"  Height="768" Width="1024">
 
+    <Page.Resources>
+        <local:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+    </Page.Resources>
+
+
 
     <Grid>
         <!-- Gornja navigaciona traka -->
@@ -43,25 +48,32 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
-                                            <Image Grid.Column="0" Source="{Binding ImagePath}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Image Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
+                                                <Image.Source>
+                                                    <Binding Path="ImagesPaths[0]" Converter="{StaticResource ImagePathToBitmapConverter}" />
+                                                </Image.Source>
+                                            </Image>
+
+
+
 
                                             <!-- Informacije o turi -->
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                <TextBlock>
+                                                <TextBlock Margin="0,0,0,10">
                                                     <Run Text="Location: "/>
-                                                    <Run Text="{Binding LocationDto.City}" FontSize="24" FontWeight="Bold"/>
+                                                    <Run Text="{Binding Location.City}" FontSize="24" />
                                                 </TextBlock>
 
-                                                <TextBlock>
+                                                <TextBlock Margin="0,0,0,10">
                                                      <Run Text="Language: "/>
                                                      <Run Text="{Binding Language}" FontSize="24"/>
                                                 </TextBlock>
 
-                                                <TextBlock>
-                                                    <Run Text="Start Date and Time: "/>
-                                                    <Run Text="{Binding StartDateTime}" FontSize="24"/>
+                                                <TextBlock Margin="0,0,0,10">
+                                                     <Run Text="Start Date and Time: "/>
+                                                     <Run Text="{Binding StartDateTime}" FontSize="24"/>
                                                 </TextBlock>
-                                                <Button Content="START"  Width="138" Height="36" FontSize="28" Margin="600,20,0,0"  Click="StartTourButtonClick"/>
+                                                <Button Content="START"  Width="143" Height="40" FontSize="28" Margin="550,-3,0,0"  Click="StartTourButtonClick"/>
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>
@@ -90,11 +102,11 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
-                                            <Image Grid.Column="0" Source="{Binding ImagePath}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                           
 
                                             <!-- Informacije o turi -->
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                <TextBlock><Run Text="Location: "/><Run Text=" "/><Run Text="{Binding LocationDto.City}" FontSize="24" FontWeight="Bold"/></TextBlock>
+                                                <TextBlock><Run Text="Location: "/><Run Text=" "/><Run Text="{Binding Location.City}" FontSize="24"/></TextBlock>
 
                                                 <TextBlock><Run Text="Language: "/><Run Text=" "/><Run Text="{Binding Language}" FontSize="24"/></TextBlock>
 
@@ -128,11 +140,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
-                                            <Image Grid.Column="0" Source="{Binding ImagePath}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
+                                           
                                             <!-- Informacije o turi -->
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                <TextBlock><Run Text="Location: "/><Run Text=" "/><Run Text="{Binding LocationDto.City}" FontSize="24" FontWeight="Bold"/></TextBlock>
+                                                <TextBlock><Run Text="Location: "/><Run Text=" "/><Run Text="{Binding Location.City}" FontSize="24" /></TextBlock>
 
                                                 <TextBlock><Run Text="Language: "/><Run Text=" "/><Run Text="{Binding Language}" FontSize="24"/></TextBlock>
 
