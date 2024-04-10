@@ -24,6 +24,36 @@
         <SolidColorBrush x:Key="SelectedCardColor" Color="LightGreen" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
+        <Style x:Key="TabStyle" TargetType="TabItem">
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <!--  Prilagođeni izgled taba  -->
+                            <Border
+                                Name="Border"
+                                Background="LightGray"
+                                BorderThickness="1"
+                                CornerRadius="2">
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ContentSource="Header" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#8c92ac" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="PageSetup" TargetType="Page">
             <Setter Property="Width" Value="auto" />
             <Setter Property="Height" Value="auto" />
