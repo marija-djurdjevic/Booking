@@ -45,9 +45,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!-- Prva slika u levom cosku -->
-            <Image Grid.Column="0" Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" HorizontalAlignment="Left" Margin="0,6,0,6"/>
-            <!-- Druga slika u sredini -->
-            <Image Grid.Column="1" Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59"/>
+            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}"
+    Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
+
+
+            <Button Grid.Column="1" Command="{Binding NavigateHomeCommand}"
+    Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
         </Grid>
     </Grid>
 </Page>

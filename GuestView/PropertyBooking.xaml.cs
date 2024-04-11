@@ -154,15 +154,18 @@ namespace BookingApp.GuestView
                 ReservedDate = new ReservedDate
                 {
                     PropertyId = SelectedProperty.Id,
-                    Value = DateRangeStart 
-                };
+                    Value = DateRangeStart,
+                    ReservationId = PropertyReservationRepository.NextId()
+            };
                 ReservedDateRepository.AddReservedDate(ReservedDate);
                 SelectedProperty.ReservedDates.Add(ReservedDate);
                 DateRangeStart = DateRangeStart.AddDays(1);
             }
+  
             PropertyRepository.UpdateProperty(SelectedProperty);
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
+            PropertyReservation.PropertyName = SelectedProperty.Name;
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
         }

@@ -56,7 +56,8 @@ namespace BookingApp.GuestView
                 SelectedProperty = PropertyRepository.GetPropertyById(SelectedReservation.PropertyId);
                 if (DateTime.Now.AddDays(SelectedProperty.CancellationDeadline) <= SelectedReservation.StartDate)
                 {
-                    PropertyReservationRepository.Delete(SelectedReservation.Id);
+                    SelectedReservation.Canceled = true;
+                    PropertyReservationRepository.Update(SelectedReservation);
                     ReservedDateRepository.Delete(SelectedReservation.Id);
                     MessageBox.Show("Succesfully canceled!");
 
@@ -79,7 +80,11 @@ namespace BookingApp.GuestView
 
         private void MakeReview_Button(object sender, RoutedEventArgs e)
         {
-
+            Button makeReviewButton = sender as Button;
+            SelectedReservation = makeReviewButton.Tag as PropertyReservation;
+            SelectedProperty = PropertyRepository.GetPropertyById(SelectedReservation.PropertyId);
+            OwnerReview ownerReview = new OwnerReview(SelectedReservation, SelectedProperty, LoggedInGuest);
+            NavigationService.Navigate(ownerReview);
         }
     }
 }
