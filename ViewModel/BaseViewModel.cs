@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BookingApp.GuideView
+namespace BookingApp.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
@@ -14,6 +14,6 @@ namespace BookingApp.GuideView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
     }
 }

@@ -9,40 +9,41 @@ using System.Diagnostics;
 using BookingApp.View;
 using System.Windows;
 using BookingApp.Commands;
+using BookingApp.Service;
+using BookingApp.GuideView;
 
-
-
-namespace BookingApp.GuideView
+namespace BookingApp.ViewModel
 {
     public class TourStatisticViewModel : BaseViewModel
     {
-        private readonly TourRepository tourRepository;
-        private readonly LiveTourRepository liveTourRepository;
-        private readonly TouristExperienceRepository touristExperienceRepository;
+        private readonly TourService tourService;
+        private readonly LiveTourService liveTourService;
+        private readonly TouristExperienceService touristExperienceService;
         private ObservableCollection<Tour> finishedTours;
         private ObservableCollection<Tour> sortedTours;
-        private RelayCommand _touristsButtonClickCommand;
+        private RelayCommand touristsButtonClickCommand;
+        private RelayCommand _navigateBackCommand;
 
 
         public TourStatisticViewModel()
         {
-            tourRepository = new TourRepository();
-            liveTourRepository = new LiveTourRepository();
-            touristExperienceRepository = new TouristExperienceRepository();
-            _touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
-
+            tourService = new TourService();
+            liveTourService = new LiveTourService();
+            touristExperienceService = new TouristExperienceService();
+            touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
+            _navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();
-           // SelectedYear = "2023";
+            // SelectedYear = "2023";
         }
 
         private void LoadData()
         {
-            var finishedLiveTours = liveTourRepository.GetAllLiveTours().Where(t => !t.IsLive).ToList();
+            var finishedLiveTours = liveTourService.GetAllLiveTours().Where(t => !t.IsLive).ToList();
 
             finishedTours = new ObservableCollection<Tour>();
             foreach (var tour in finishedLiveTours)
             {
-                var finishedTour = tourRepository.GetTourById(tour.TourId);
+                var finishedTour = tourService.GetTourById(tour.TourId);
                 finishedTours.Add(finishedTour);
             }
 
@@ -51,10 +52,10 @@ namespace BookingApp.GuideView
 
         private int GetNumberOfTouristsForTour(int tourId)
         {
-            return touristExperienceRepository.GetNumberOfTouristsForTour(tourId);
+            return touristExperienceService.GetNumberOfTouristsForTour(tourId);
         }
 
-        
+
 
         public ObservableCollection<Tour> SortedTours
         {
@@ -95,7 +96,7 @@ namespace BookingApp.GuideView
                 {
                     selectedYear = value;
                     OnPropertyChanged(nameof(SelectedYear));
-                    UpdateTourList(); 
+                    UpdateTourList();
                 }
             }
         }
@@ -118,7 +119,7 @@ namespace BookingApp.GuideView
 
                 foreach (var tour in toursForYear)
                 {
-                    int numberOfTourists = touristExperienceRepository.GetNumberOfTouristsForTour(tour.Id);
+                    int numberOfTourists = touristExperienceService.GetNumberOfTouristsForTour(tour.Id);
                     touristCounts.Add(tour.Id, numberOfTourists);
                 }
 
@@ -137,21 +138,37 @@ namespace BookingApp.GuideView
         }
 
 
-       
+
 
         public RelayCommand TouristsButtonClickCommand
         {
 
-            get { return _touristsButtonClickCommand; }
+            get { return touristsButtonClickCommand; }
             set
             {
-                if (_touristsButtonClickCommand != value)
+                if (touristsButtonClickCommand != value)
                 {
-                    _touristsButtonClickCommand = value;
+                    touristsButtonClickCommand = value;
                     OnPropertyChanged();
                 }
             }
 
+        }
+
+
+
+
+        public RelayCommand NavigateBackCommand
+        {
+            get { return _navigateBackCommand; }
+            set
+            {
+                if (_navigateBackCommand != value)
+                {
+                    _navigateBackCommand = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
 
@@ -164,7 +181,12 @@ namespace BookingApp.GuideView
             }
         }
 
+        private void ExecuteNavigateBack()
+        {
+            var mainPage = new GuideMainPage();
+            GuideMainWindow.MainFrame.Navigate(mainPage);
 
+        }
 
     }
 
