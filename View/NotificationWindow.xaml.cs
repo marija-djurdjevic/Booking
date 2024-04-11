@@ -24,17 +24,15 @@ namespace BookingApp.View
     public partial class NotificationWindow: Window
     {
         private List<Notification> _notifications;
-        /*public Notification(int unratedGuests)
-        {
-            InitializeComponent();
-            DataContext = new NotificationViewModel(unratedGuests);
-        }*/
+     
         public NotificationWindow(List<Notification> notifications)
         {
             InitializeComponent();
             _notifications = notifications;
             NotificationsListBox.ItemsSource = _notifications;
+           
         }
+      
     }
 
     public class NotificationViewModel

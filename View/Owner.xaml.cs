@@ -34,17 +34,12 @@ namespace BookingApp.View
         public Owner()
         {
             InitializeComponent();
-           // DataContext = this;
-            //SelectedReservation = new PropertyReservation();
+          
             _notifications = new List<Notification>();
 
-           // _propertyReservationRepository = new PropertyReservationRepository();
-           // ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAllPropertyReservation();
-            //PropertyReservations = new List<PropertyReservationDto>();
-            //_reviewRepository = new ReviewRepository();
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage());
-            //MainFrame.NavigationService.Navigate(new OwnerHomePage());
+            
 
 
         }
@@ -63,29 +58,20 @@ namespace BookingApp.View
 
         private void NotificationsButton_Click(object sender, RoutedEventArgs e)
         {
-            NotificationService notificationManager = new NotificationService();
-            var unratedGuests = notificationManager.GetUnratedGuests();
+             NotificationService notificationManager = new NotificationService();
+             var unratedGuests = notificationManager.GetUnratedGuests();
+             var canceledReservations = notificationManager.GetCanceledReservations();
 
-            NotificationWindow notificationsWindow = new NotificationWindow(unratedGuests);
-            notificationsWindow.ShowDialog();
+             var allNotifications = new List<Notification>();
+             allNotifications.AddRange(unratedGuests);
+             allNotifications.AddRange(canceledReservations);
+             NotificationWindow notificationsWindow = new NotificationWindow(allNotifications);
+             notificationsWindow.ShowDialog();
+           
         }
-       /* private void AddProperty_Click(object sender, RoutedEventArgs e)
-        {
-            AddProperty addProperty = new AddProperty();
-            //MainFrame.Navigate(addProperty);
-            //this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
-            //addProperty.Show();
-            // MainFrame.NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
-            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-            this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
-            //AddPropertyFrame.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-
-
-        }*/
-
-
        
+       
+
     }
 }
             
