@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using BookingApp.Service;
+using System.Windows.Navigation;
 
 namespace BookingApp.View
 {
@@ -50,13 +51,14 @@ namespace BookingApp.View
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Mora se okruziti if-om radi zastite od greske, tj. exception-a kada nije moguce navigirati nazad
-            /*if (MainFrame.CanGoBack)
+            if (ReservationsFrame.CanGoBack)
             {
-                //MainFrame.GoBack();
-                MainFrame.NavigationService.GoBack();
-                // ovo je skraceni zapis za MainFrame.NavigationService.GoBack();
-            }*/
+                ReservationsFrame.GoBack();
+            }
+            else if (PropertyFrame.CanGoBack)
+            {
+                PropertyFrame.GoBack();
+            }
         }
 
         private void NotificationsButton_Click(object sender, RoutedEventArgs e)

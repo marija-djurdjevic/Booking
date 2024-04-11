@@ -35,6 +35,21 @@ namespace BookingApp.Dto
             }
         }
 
+        private string _status;
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         public string PropertyName
         {
             get { return propertyName; }
@@ -141,7 +156,7 @@ namespace BookingApp.Dto
 
         public ReservationChangeRequest ToReservationChangeRequest()
         {
-            return new ReservationChangeRequest(reservationId, oldStartDate, oldEndDate, newStartDate ,NewEndDate, RequestStatus, GuestId, PropertyName, comment);
+            return new ReservationChangeRequest(reservationId, oldStartDate, oldEndDate, newStartDate ,NewEndDate, RequestStatus, GuestId, PropertyName, comment, _status);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

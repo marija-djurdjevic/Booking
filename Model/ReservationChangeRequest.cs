@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ namespace BookingApp.Model
         public string PropertyName {  get; set; }
         public string Comment { get; set; }
 
-
+        public string Status { get; set; }
         public ReservationChangeRequest() {
             RequestStatus = RequestStatus.Processing;
+            //Status = "Occupied";
         }
 
         public ReservationChangeRequest(int id)
@@ -44,9 +46,24 @@ namespace BookingApp.Model
             GuestId = guestId;
             PropertyName = propertyName;
             Comment = comment;
+            
+        }
+        public ReservationChangeRequest(int id, int reservationId, DateTime oldStartDate, DateTime oldEndDate, DateTime newStartDate, DateTime newEndDate, RequestStatus status, int guestId, string propertyName, string comment, string status2)
+        {
+            Id = id;
+            ReservationId = reservationId;
+            OldStartDate = oldStartDate;
+            OldEndDate = oldEndDate;
+            NewStartDate = newStartDate;
+            NewEndDate = newEndDate;
+            RequestStatus = status;
+            GuestId = guestId;
+            PropertyName = propertyName;
+            Comment = comment;
+            Status = status2;
         }
 
-        public ReservationChangeRequest(int reservationId, DateTime oldStartDate, DateTime oldEndDate, DateTime newStartDate, DateTime newEndDate, RequestStatus status, int guestId, string propertyName, string comment)
+        public ReservationChangeRequest(int reservationId, DateTime oldStartDate, DateTime oldEndDate, DateTime newStartDate, DateTime newEndDate, RequestStatus status, int guestId, string propertyName, string comment, string status2)
         {
             ReservationId = reservationId;
             OldStartDate = oldStartDate;
@@ -57,6 +74,8 @@ namespace BookingApp.Model
             GuestId = guestId;
             PropertyName = propertyName;
             Comment = comment;
+
+            Status = status2;
         }
 
         public string[] ToCSV()
