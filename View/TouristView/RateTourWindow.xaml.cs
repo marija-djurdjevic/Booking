@@ -49,6 +49,7 @@ namespace BookingApp.View.TouristView
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             rateTourViewModel.Confirm();
+            MessageBox.Show("You have successfully rated the tour!");
             Close();
 
         }

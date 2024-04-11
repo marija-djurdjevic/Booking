@@ -37,6 +37,40 @@ namespace BookingApp.ViewModel.TouristViewModel
         public TourDto SelectedTour { get; set; }
         public User LoggedInTourist { get; set; }
         public TouristExperience TouristExperience { get; set; }
+
+        private int tourInterestingness;
+        public int TourInterestingness
+        {
+            get { return tourInterestingness; }
+            set
+            {
+                tourInterestingness = value;
+                TouristExperience.TourInterestingesRating = value;
+                OnPropertyChanged(nameof(TourInterestingness));
+            }
+        }
+        private int guideLanguage;
+        public int GuideLanguage
+        {
+            get { return guideLanguage; }
+            set
+            {
+                guideLanguage = value;
+                TouristExperience.GuideLanguageRating = value;
+                OnPropertyChanged(nameof(GuideLanguage));
+            }
+        }
+        private int guideKnowledge;
+        public int GuideKnowledge
+        {
+            get { return guideKnowledge; }
+            set
+            {
+                guideKnowledge = value;
+                TouristExperience.GuideKnowledgeRating = value;
+                OnPropertyChanged(nameof(GuideKnowledge));
+            }
+        }
         private TouristExperienceRepository touristExperienceRepository { get; set; }
 
         public RateTourViewModel(TourDto selectedTour, User loggedInTourist)
@@ -46,6 +80,8 @@ namespace BookingApp.ViewModel.TouristViewModel
             touristExperienceRepository = new TouristExperienceRepository();
             SelectedTour = selectedTour;
             LoggedInTourist = loggedInTourist;
+            TouristExperience.TouristId = LoggedInTourist.Id;
+            TouristExperience.TourId = SelectedTour.Id;
 
             ImageIndex = -1;
         }
@@ -56,25 +92,7 @@ namespace BookingApp.ViewModel.TouristViewModel
 
         public void Confirm()
         {
-            TouristExperience.TouristId = LoggedInTourist.Id;
-            TouristExperience.TourId = SelectedTour.Id;
-
             touristExperienceRepository.Save(TouristExperience);
-
-        }
-
-        private string GetSelectedRadioButtonValue(UniformGrid RadioName, string groupName)
-        {
-            var radioButtons = RadioName.Children.OfType<RadioButton>().Where(r => r.GroupName == groupName);
-
-            var selectedRadioButton = radioButtons.FirstOrDefault(r => r.IsChecked == true);
-
-            if (selectedRadioButton != null)
-            {
-                return selectedRadioButton.Content.ToString();
-            }
-
-            return null;
         }
 
         public void AddImage()

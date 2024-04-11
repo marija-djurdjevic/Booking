@@ -34,5 +34,10 @@ namespace BookingApp.View.TouristView
         {
 
         }
+
+        private void CloseButtonCLick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

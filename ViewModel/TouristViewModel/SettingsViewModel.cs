@@ -10,10 +10,22 @@ using System.Threading.Tasks;
 
 namespace BookingApp.ViewModel.TouristViewModel
 {
-    public class SettingsViewModel: INotifyPropertyChanged
+    public class SettingsViewModel : INotifyPropertyChanged
     {
         public Tourist Tourist { get; set; }
         public TouristRepository TouristRepository { get; set; }
+
+        private bool showTooltips;
+
+        public bool ShowTooltips
+        {
+            get { return showTooltips; }
+            set 
+            { 
+                showTooltips = value; 
+                OnPropertyChanged(nameof(ShowTooltips)); 
+            }
+        }
 
         public SettingsViewModel(User loggedInUser)
         {

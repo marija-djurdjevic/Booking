@@ -11,29 +11,27 @@ namespace BookingApp.Converter
 {
     public class RadioButtonConverter : MarkupExtension, IValueConverter
     {
+        [ConstructorArgument("value")]
+        public int Value { get; set; }
+
+        public RadioButtonConverter(int value)
+        {
+            Value = value;
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || parameter == null)
-                return false;
-
-            string checkedValue = value.ToString();
-            string radioButtonValue = parameter.ToString();
-
-            return checkedValue.Equals(radioButtonValue, StringComparison.OrdinalIgnoreCase);
+            return Value == (int)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value)
-            {
-                return parameter;
-            }
-
-            return Binding.DoNothing;
-        }
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return this;
+            return (bool)value ? Value : Binding.DoNothing;
         }
     }
 }

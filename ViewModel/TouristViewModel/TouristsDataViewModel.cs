@@ -42,7 +42,7 @@ namespace BookingApp.ViewModel.TouristViewModel
 
         }
 
-        public void Confirm()
+        public bool UseVouchers()
         {
             TourReservationRepository reservationDataRepository = new TourReservationRepository();
 
@@ -53,7 +53,7 @@ namespace BookingApp.ViewModel.TouristViewModel
                 vouchersForReservationWindow.ShowDialog();
                 if (!vouchersForReservationWindow.VouchersForReservationViewModel.WindowReturnValue)
                 {
-                    return;
+                    return false;
                 }
             }
 
@@ -66,6 +66,7 @@ namespace BookingApp.ViewModel.TouristViewModel
             TourRepository.Update(SelectedTour.ToTour());
 
             MessageBoxResult successfullyBooked = MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK);
+            return true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

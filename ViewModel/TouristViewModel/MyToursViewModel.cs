@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.Service;
 using System.Windows.Controls;
 
 namespace BookingApp.ViewModel.TouristView
@@ -67,6 +68,7 @@ namespace BookingApp.ViewModel.TouristView
         private readonly TourRepository tourRepository;
         private readonly TouristExperienceRepository touristExperienceRepository;
         private readonly TourReservationRepository reservationRepository;
+        private readonly TourService tourService;
 
         public MyToursViewModel(User loggedInUser)
         {
@@ -78,6 +80,7 @@ namespace BookingApp.ViewModel.TouristView
             tourRepository = new TourRepository();
             reservationRepository = new TourReservationRepository();
             touristExperienceRepository = new TouristExperienceRepository();
+            tourService = new TourService();
 
             GetMyTours();
             GetMyActiveTours();
@@ -86,7 +89,7 @@ namespace BookingApp.ViewModel.TouristView
         public void GetMyTours()
         {
             Tours.Clear();
-            foreach (var tour in tourRepository.GetMyReserved(LoggedInUser.Id))
+            foreach (var tour in tourService.GetMyReserved(LoggedInUser.Id))
             {
                 Tours.Add(new Tuple<TourDto, Visibility>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id)));
             }
@@ -103,7 +106,7 @@ namespace BookingApp.ViewModel.TouristView
         public void GetMyActiveTours()
         {
             ActiveTours.Clear();
-            foreach (Tour tour in tourRepository.GetMyActiveReserved(LoggedInUser.Id))
+            foreach (Tour tour in tourService.GetMyActiveReserved(LoggedInUser.Id))
             {
                 TourDto tourDto = new TourDto(tour);
                 List<KeyPoint> keyPoints = tourDto.KeyPoints.Skip(1).Take(tourDto.KeyPoints.Count - 2).ToList();

@@ -133,11 +133,11 @@
                     <DockPanel>
                         <TextBlock
                             x:Name="NoMyTours"
-                            Margin="0,20,0,0"
+                            Margin="20,20,0,0"
                             HorizontalAlignment="Center"
                             FontSize="20"
                             FontWeight="Black"
-                            Text="You haven't created any reservations yet."
+                            Text="You haven't created any reservation yet."
                             Visibility="Collapsed" />
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
@@ -281,7 +281,7 @@
                     <DockPanel>
                         <TextBlock
                             x:Name="NoActiveTours"
-                            Margin="0,20,0,0"
+                            Margin="20,20,0,0"
                             HorizontalAlignment="Center"
                             FontSize="20"
                             FontWeight="Black"

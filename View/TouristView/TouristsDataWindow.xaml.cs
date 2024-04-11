@@ -35,15 +35,17 @@ namespace BookingApp.View.TouristView
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            touristsDataViewModel.Confirm();
-            Close();
+            if (touristsDataViewModel.UseVouchers())
+            {
+                Close();
+            }
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
+         
         private void HelpButtonClick(object sender, RoutedEventArgs e)
         {
 

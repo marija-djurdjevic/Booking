@@ -136,30 +136,35 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 3}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
+                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
@@ -174,30 +179,35 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 3}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
+                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
@@ -212,35 +222,35 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TouristExperience.TourInterestingesRating}"
+                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TouristExperience.TourInterestingesRating}"
+                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TouristExperience.TourInterestingesRating}"
+                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 3}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TouristExperience.TourInterestingesRating, ConverterParameter=4, Mode=OneWay, Converter={cvt:RadioButtonConverter}}"
+                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TouristExperience.TourInterestingesRating, Mode=TwoWay}"
+                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
