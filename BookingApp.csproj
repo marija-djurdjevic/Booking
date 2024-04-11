@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TouristView\**" />
+    <EmbeddedResource Remove="TouristView\**" />
+    <None Remove="TouristView\**" />
+    <Page Remove="TouristView\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
@@ -103,22 +110,6 @@
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />
     <Resource Include="Resources\Images\star.png" />
-    <Resource Include="TouristView\Icons\addimage.png" />
-    <Resource Include="TouristView\Icons\broken-image.png" />
-    <Resource Include="TouristView\Icons\help1.png" />
-    <Resource Include="TouristView\Icons\home.png" />
-    <Resource Include="TouristView\Icons\location-pin.png" />
-    <Resource Include="TouristView\Icons\logout.png" />
-    <Resource Include="TouristView\Icons\next.png" />
-    <Resource Include="TouristView\Icons\photo.png" />
-    <Resource Include="TouristView\Icons\previous.png" />
-    <Resource Include="TouristView\Icons\removeimage.png" />
-    <Resource Include="TouristView\Icons\settings.png" />
-    <Resource Include="TouristView\Icons\target.png" />
-    <Resource Include="TouristView\Icons\travel.png" />
-    <Resource Include="TouristView\Icons\user.png" />
-    <Resource Include="TouristView\Icons\view.png" />
-    <Resource Include="TouristView\Images\addimage.png" />
   </ItemGroup>
 
 </Project>
