@@ -19,13 +19,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="70" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <TextBlock
                     Grid.ColumnSpan="2"
                     Margin="100,0,0,0"
-                    VerticalAlignment="Bottom"
                     Style="{StaticResource NasloviProzoraTextBlock}"
                     Text="All tours" />
                 <StackPanel
@@ -35,18 +34,45 @@
                     VerticalAlignment="Top">
                     <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
                         <Button.Content>
-                            <StackPanel Style="{StaticResource HelpStyle}">
+                            <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
                                 <TextBlock
                                     Height="30"
-                                    HorizontalAlignment="Center"
+                                    Margin="7,0,0,0"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Text="Help" />
                                 <Image
                                     Width="30"
                                     Height="30"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Source="/Resources/Icons/TouristIcons/help1.png" />
-                            </StackPanel>
+                            </DockPanel>
+                        </Button.Content>
+
+                    </Button>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="2"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+                    <Button Click="InboxButtonClick" Style="{StaticResource HoverStilHelp}">
+                        <Button.Content>
+                            <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
+                                <TextBlock
+                                    Height="30"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Text="Inbox" />
+                                <Image
+                                    Width="30"
+                                    Height="30"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Source="/Resources/Icons/TouristIcons/help1.png" />
+                            </DockPanel>
                         </Button.Content>
 
                     </Button>

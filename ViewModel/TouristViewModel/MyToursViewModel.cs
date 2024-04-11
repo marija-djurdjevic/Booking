@@ -135,6 +135,12 @@ namespace BookingApp.ViewModel.TouristView
             return visibility;
         }
 
+        public void OpenInbox()
+        {
+            NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
+            notificationsWindow.ShowDialog();
+        }
+
         public void RateTour(object sender)
         {
             Button rateButton = (Button)sender;
