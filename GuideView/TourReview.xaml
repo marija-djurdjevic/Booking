@@ -99,7 +99,10 @@
                                         <TextBlock Grid.Column="0" Text="Review: " />
                                         <TextBlock Grid.Column="1" Text="{Binding Comment}" TextWrapping="Wrap" />
                                     </Grid>
-                                    <Button Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" FontSize="28" Content="REPORT REVIEW" Click="ReportReviewClick" />
+                                    <Button Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" FontSize="28" Content="REPORT REVIEW"
+  Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" />
+
+
                                 </Grid>
                             </GroupBox>
                         </DataTemplate>
@@ -118,13 +121,16 @@
             </Grid.ColumnDefinitions>
 
             <!-- Prva slika u levom cosku -->
-            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\back.png"
-       Stretch="Uniform" Width="59" Height="59"/>
+            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}"
+                Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
 
-            <!-- Druga slika u sredini -->
-            <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
-       Stretch="Uniform" Width="59" Height="59"
-     />
+
+            <Button Grid.Column="1" Command="{Binding NavigateBackCommand}"
+                Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
         </Grid>
 
     </Grid>

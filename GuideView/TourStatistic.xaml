@@ -94,12 +94,17 @@
             </Grid.ColumnDefinitions>
 
             <!-- Prva slika u levom cosku -->
-            <Image Grid.Column="0" Source="/Resources/Images/back.png"
-           Stretch="Uniform" Width="59" Height="59"/>
+            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}"
+        Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
 
-            <!-- Druga slika u sredini -->
-            <Image Grid.Column="1" Source="/Resources/Images/home4.png"
-           Stretch="Uniform" Width="59" Height="59"/>
+
+            <Button Grid.Column="1" Command="{Binding NavigateBackCommand}"
+        Background="Transparent" BorderBrush="Transparent">
+                <Image Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59" />
+            </Button>
+
         </Grid>
         
     </Grid>

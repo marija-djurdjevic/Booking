@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Navigation;
+using BookingApp.Commands;
+using BookingApp.GuideView;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Service;
+using BookingApp.View;
 
-namespace BookingApp.GuideView
+namespace BookingApp.ViewModel
 {
     internal class TouristsNumberPageViewModel : BaseViewModel
     {
@@ -13,15 +18,18 @@ namespace BookingApp.GuideView
         private int under18Count;
         private int between18And50Count;
         private int over50Count;
-        private readonly TouristRepository touristRepository;
-        private readonly TouristExperienceRepository touristExperienceRepository;
-       
+        private readonly TouristService touristService;
+        private readonly TouristExperienceService touristExperienceService;
+        private RelayCommand navigateHomeCommand;
+        private RelayCommand navigateBackCommand;
 
         public TouristsNumberPageViewModel(int tourId)
         {
             this.tourId = tourId;
-            TouristExperienceRepository touristExperienceRepository = new TouristExperienceRepository();
-            TouristRepository touristRepository = new TouristRepository();
+            touristExperienceService = new TouristExperienceService();
+            touristService = new TouristService();
+            navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
+            navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             CountTouristsByAge();
         }
 
@@ -66,12 +74,12 @@ namespace BookingApp.GuideView
 
         private void CountTouristsByAge()
         {
-            TouristRepository touristRepository = new TouristRepository();
-            var touristIds = new TouristExperienceRepository().GetTouristIdsByTourId(tourId);
+
+            var touristIds = touristExperienceService.GetTouristIdsByTourId(tourId);
 
             foreach (var touristId in touristIds)
             {
-                int age = touristRepository.GetAgeById(touristId);
+                int age = touristService.GetAgeById(touristId);
                 if (age < 18)
                 {
                     Under18Count++;
@@ -85,6 +93,50 @@ namespace BookingApp.GuideView
                     Over50Count++;
                 }
             }
+        }
+
+
+
+        public RelayCommand NavigateHomeCommand
+        {
+            get { return navigateHomeCommand; }
+            set
+            {
+                if (navigateHomeCommand != value)
+                {
+                    navigateHomeCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public RelayCommand NavigateBackCommand
+        {
+            get { return navigateBackCommand; }
+            set
+            {
+                if (navigateBackCommand != value)
+                {
+                    navigateBackCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+
+
+        }
+
+        private void ExecuteNavigateHome()
+        {
+            var mainPage = new GuideMainPage();
+            GuideMainWindow.MainFrame.Navigate(mainPage);
+
+        }
+
+        private void ExecuteNavigateBack()
+        {
+            var tourStatisticPage = new TourStatisticPage1();
+            GuideMainWindow.MainFrame.Navigate(tourStatisticPage);
         }
     }
 }
