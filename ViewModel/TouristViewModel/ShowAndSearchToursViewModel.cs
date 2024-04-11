@@ -94,6 +94,12 @@ namespace BookingApp.ViewModel.TouristViewModel
             IsCancelSearchButtonVisible = searchWindow.searchViewModel.IsCancelSearchButtonVisible;
         }
 
+        public void OpenInbox()
+        {
+            NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
+            notificationsWindow.ShowDialog();
+        }
+
         public void ShowAllTours()
         {
             IsCancelSearchButtonVisible = false;

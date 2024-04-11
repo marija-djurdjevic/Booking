@@ -49,5 +49,10 @@ namespace BookingApp.View.TouristView
         {
             myToursViewModel.RateTour(sender);
         }
+
+        private void InboxButtonClick(object sender, RoutedEventArgs e)
+        {
+            myToursViewModel.OpenInbox();
+        }
     }
 }

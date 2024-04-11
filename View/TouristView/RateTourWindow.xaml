@@ -62,36 +62,40 @@
     <DockPanel Margin="20,0,20,20">
         <DockPanel
             Grid.ColumnSpan="2"
-            Height="50"
+            Height="70"
             Margin="0,0,0,0"
             DockPanel.Dock="Top">
 
             <TextBlock
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 Style="{StaticResource NasloviProzoraTextBlock}"
                 Text="Rate the tour and the guide" />
             <StackPanel
+                Grid.Column="2"
                 Height="30"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top">
                 <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
                     <Button.Content>
-                        <StackPanel Style="{StaticResource HelpStyle}">
+                        <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
                             <TextBlock
                                 Height="30"
-                                HorizontalAlignment="Center"
+                                Margin="7,0,0,0"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Text="Help" />
                             <Image
                                 Width="30"
                                 Height="30"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Source="/Resources/Icons/TouristIcons/help1.png" />
-                        </StackPanel>
+                        </DockPanel>
                     </Button.Content>
 
                 </Button>
             </StackPanel>
+
         </DockPanel>
 
         <Grid>
