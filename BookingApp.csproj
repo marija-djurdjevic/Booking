@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,9 +10,25 @@
   <ItemGroup>
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\back %281%29.png" />
+    <None Remove="Resources\Images\back %282%29.png" />
+    <None Remove="Resources\Images\back.png" />
+    <None Remove="Resources\Images\bell.png" />
+    <None Remove="Resources\Images\booking.png" />
+    <None Remove="Resources\Images\chat.png" />
+    <None Remove="Resources\Images\contract.png" />
+    <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\home4.png" />
+    <None Remove="Resources\Images\icons8-play-50.png" />
+    <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\TouristExperienceImages\add.png" />
+    <None Remove="Resources\Images\menu5.png" />
+    <None Remove="Resources\Images\paper-plane.png" />
+    <None Remove="Resources\Images\pin.png" />
+    <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
     <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
@@ -71,6 +87,38 @@
     <Resource Include="Resources\Icons\TouristIcons\travel.png" />
     <Resource Include="Resources\Icons\TouristIcons\user.png" />
     <Resource Include="Resources\Icons\TouristIcons\view.png" />
+    <Resource Include="Resources\Images\back (1).png" />
+    <Resource Include="Resources\Images\back (2).png" />
+    <Resource Include="Resources\Images\back.png" />
+    <Resource Include="Resources\Images\bell.png" />
+    <Resource Include="Resources\Images\booking.png" />
+    <Resource Include="Resources\Images\chat.png" />
+    <Resource Include="Resources\Images\contract.png" />
+    <Resource Include="Resources\Images\earth.png" />
+    <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\home4.png" />
+    <Resource Include="Resources\Images\icons8-play-50.png" />
+    <Resource Include="Resources\Images\menu-burger.png" />
+    <Resource Include="Resources\Images\menu5.png" />
+    <Resource Include="Resources\Images\paper-plane.png" />
+    <Resource Include="Resources\Images\pin.png" />
+    <Resource Include="Resources\Images\star.png" />
+    <Resource Include="TouristView\Icons\addimage.png" />
+    <Resource Include="TouristView\Icons\broken-image.png" />
+    <Resource Include="TouristView\Icons\help1.png" />
+    <Resource Include="TouristView\Icons\home.png" />
+    <Resource Include="TouristView\Icons\location-pin.png" />
+    <Resource Include="TouristView\Icons\logout.png" />
+    <Resource Include="TouristView\Icons\next.png" />
+    <Resource Include="TouristView\Icons\photo.png" />
+    <Resource Include="TouristView\Icons\previous.png" />
+    <Resource Include="TouristView\Icons\removeimage.png" />
+    <Resource Include="TouristView\Icons\settings.png" />
+    <Resource Include="TouristView\Icons\target.png" />
+    <Resource Include="TouristView\Icons\travel.png" />
+    <Resource Include="TouristView\Icons\user.png" />
+    <Resource Include="TouristView\Icons\view.png" />
+    <Resource Include="TouristView\Images\addimage.png" />
   </ItemGroup>
 
 </Project>

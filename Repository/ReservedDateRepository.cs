@@ -44,6 +44,13 @@ namespace BookingApp.Repository
             return reservedDates.FindAll(t => t.PropertyId == propertyId);
         }
 
+        public void Delete(int reservationId)
+        {
+            reservedDates = GetAllReservedDates();
+            reservedDates.RemoveAll(t =>  t.ReservationId == reservationId);
+            _serializer.ToCSV(FilePath, reservedDates);
+        }
+        
 
         private void SaveChanges()
         {

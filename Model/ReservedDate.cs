@@ -10,7 +10,7 @@ namespace BookingApp.Model
     public class ReservedDate : ISerializable
     {
 
-        //public int Id;
+        public int ReservationId;
         public int PropertyId;
         public DateTime Value;
 
@@ -18,15 +18,16 @@ namespace BookingApp.Model
         {
         }
 
-        public ReservedDate(int propertyId, DateTime value)
+        public ReservedDate(int propertyId, DateTime value, int reservationId)
         {
             PropertyId = propertyId;
             Value = value;
+            ReservationId = reservationId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { PropertyId.ToString(), Value.ToString() };
+            string[] csvValues = { PropertyId.ToString(), Value.ToString(), ReservationId.ToString()};
             return csvValues;
         }
 
@@ -34,6 +35,7 @@ namespace BookingApp.Model
         {
             PropertyId = Convert.ToInt32(values[0]);
             Value = Convert.ToDateTime(values[1]);
+            ReservationId = Convert.ToInt32(values[2]);
         }
     }
 }

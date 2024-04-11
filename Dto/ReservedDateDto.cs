@@ -13,6 +13,7 @@ namespace BookingApp.Dto
     public class ReservedDateDto : INotifyPropertyChanged
     {
         private int propertyId;
+        private int reservationId;
         private DateTime datevalue;
 
 
@@ -31,6 +32,19 @@ namespace BookingApp.Dto
 
         }
 
+        public int ReservationId
+        {
+            get { return reservationId; }
+            set
+            {
+                if (value != reservationId)
+                {
+                    reservationId = value;
+                    OnPropertyChanged();
+                }
+
+            }
+        }
         public int PropertyId
         {
             get { return propertyId; }
@@ -61,7 +75,7 @@ namespace BookingApp.Dto
 
         public ReservedDate ToReservedDate()
         {
-            return new ReservedDate(PropertyId, datevalue);
+            return new ReservedDate(PropertyId, datevalue, reservationId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

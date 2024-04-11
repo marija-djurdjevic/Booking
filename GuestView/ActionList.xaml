@@ -1,0 +1,54 @@
+﻿<Page x:Class="BookingApp.GuestView.ActionList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.GuestView"
+      mc:Ignorable="d" 
+          Title="ActionList" Height="705" Width="300">
+    <Grid Background="LightSteelBlue" Margin="0,0,0,43">
+        <ToolBar Background="#dddddd" VerticalAlignment="Top" Height="45" Width="300">
+            <Button HorizontalAlignment="Left">
+                <Image Width="25" Height="25" Source="\Resources\Images\back (2).png"></Image>
+            </Button>
+            <Label Margin="165, 0, 0, 0" VerticalAlignment="Center" FontSize="16">Booking</Label>
+        </ToolBar>
+        <Button FontSize="30" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,45,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\pin.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Stays"/>
+            </StackPanel>
+        </Button>
+
+        <Button Background="#8FB9A8" Height="103" VerticalAlignment="Top" Margin="0,148,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\earth.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Anywhere-Anytime" Width="222"/>
+            </StackPanel>
+        </Button>
+        <Button Click="Reservations_Click" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,251,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\paper-plane.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Reservations" Width="222"/>
+            </StackPanel>
+        </Button>
+        <Button Background="#8FB9A8" Height="103" VerticalAlignment="Top" Margin="0,354,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\star.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Review score" Width="222"/>
+            </StackPanel>
+        </Button>
+        <Button Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,457,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\chat.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Forums" Width="222"/>
+            </StackPanel>
+        </Button>
+        <Button Background="#8FB9A8" Height="105" VerticalAlignment="Top" Margin="0,560,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
+                <Image Source="\Resources\Images\bell.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <TextBlock Margin="2, 6" FontSize="25" Text="Notifications" Width="222"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>
