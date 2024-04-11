@@ -28,7 +28,7 @@ namespace BookingApp.Model
             Seen = false;
         }
 
-        public TouristGuideNotification(int touristId, int guideId, int tourId, List<string> addedPersons, DateTime date, NotificationType type, bool seen, string activeKeyPoint, string guideName, string tourName)
+        public TouristGuideNotification(int touristId, int guideId, int tourId, List<string> addedPersons, DateTime date, NotificationType type, string activeKeyPoint, string guideName, string tourName)
         {
             TouristId = touristId;
             GuideId = guideId;
@@ -36,7 +36,7 @@ namespace BookingApp.Model
             AddedPersons = addedPersons;
             Date = date;
             Type = type;
-            Seen = seen;
+            Seen = false;
             ActiveKeyPoint = activeKeyPoint;
             GuideName = guideName;
             TourName = tourName;

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Model.Enums;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace BookingApp.View
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
         private readonly KeyPointRepository keyPointRepository;
+        private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
         public LiveTourPage(Tour selectedTour)
@@ -37,6 +39,7 @@ namespace BookingApp.View
             keyPointRepository = new KeyPointRepository();
             tourReservationRepository = new TourReservationRepository();
             liveTourRepository = new LiveTourRepository();
+            touristGuideNotificationRepository = new TouristGuideNotificationRepository();
 
             if (IsActiveTour())
             {
@@ -341,6 +344,13 @@ namespace BookingApp.View
                     selectedTourist.IsOnTour = true;
                     tourReservationRepository.UpdateReservation(selectedTourist);
                     MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
+
+                    if (tourReservationRepository.IsUserOnTour(selectedTourist.UserId,selectedTourist.TourId))
+                    {
+                        List<string> addedPersons = new List<string>();
+                        addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
+                        touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId,2, selectedTourist.TourId,addedPersons,System.DateTime.Now,NotificationType.TouristJoined, keyPoint.Name,"Ognjen",selectedTour.Name));
+                    }
 
                     var tourists = ((ObservableCollection<TourReservation>)touristsListBox.ItemsSource);
                     tourists.Remove(selectedTourist);
