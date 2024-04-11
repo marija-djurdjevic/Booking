@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using BookingApp.Service;
+using System.Windows.Navigation;
 
 namespace BookingApp.View
 {
@@ -33,104 +34,33 @@ namespace BookingApp.View
         public Owner()
         {
             InitializeComponent();
-            DataContext = this;
-            SelectedReservation = new PropertyReservation();
+           // DataContext = this;
+            //SelectedReservation = new PropertyReservation();
             _notifications = new List<Notification>();
-            _propertyReservationRepository = new PropertyReservationRepository();
-            ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAll();
-            PropertyReservations = new List<PropertyReservationDto>();
-            _reviewRepository = new ReviewRepository();
-            
+
+           // _propertyReservationRepository = new PropertyReservationRepository();
+           // ReservationDataGrid.ItemsSource = _propertyReservationRepository.GetAllPropertyReservation();
+            //PropertyReservations = new List<PropertyReservationDto>();
+            //_reviewRepository = new ReviewRepository();
+            ReservationsFrame.Navigate(new ReservationsPage());
+            PropertyFrame.Navigate(new PropertyPage());
+            //MainFrame.NavigationService.Navigate(new OwnerHomePage());
+
 
         }
-       
-       
-        private void AddProperty_Click(object sender, RoutedEventArgs e)
-        {
-            AddProperty addProperty = new AddProperty();
-            //MainFrame.Navigate(addProperty);
-            //this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
-            //addProperty.Show();
-            // MainFrame.NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
-            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-            MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-        }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Mora se okruziti if-om radi zastite od greske, tj. exception-a kada nije moguce navigirati nazad
-            if (MainFrame.CanGoBack)
+            if (ReservationsFrame.CanGoBack)
             {
-                //MainFrame.GoBack();
-                MainFrame.NavigationService.GoBack();
-                // ovo je skraceni zapis za MainFrame.NavigationService.GoBack();
+                ReservationsFrame.GoBack();
+            }
+            else if (PropertyFrame.CanGoBack)
+            {
+                PropertyFrame.GoBack();
             }
         }
-        private void RateGuestButton_Click(object sender, RoutedEventArgs e)
-        {
-            PropertyReservation selectedReservation = ReservationDataGrid.SelectedItem as PropertyReservation;
-            if (selectedReservation != null)
-            {
-                if (ValidateGuestReviewFormAvailability(selectedReservation)&&!HasReviewed(selectedReservation))
-                {
-                    PropertyReservationDto propertyReservationDto = new PropertyReservationDto();
-                   
-                    propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
-                    propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
 
-                    GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id, selectedReservation.GuestId);
-
-                    guestReviewForm.Show();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a reservation before rating the guest.");
-            }
-        }
-        private bool ValidateGuestReviewFormAvailability(PropertyReservation reservation)
-        {
-           
-            DateTime currentDate = DateTime.Now;
-            if (currentDate < reservation.EndDate)
-            {
-                MessageBox.Show("Reservation has not yet ended.");
-                return false;
-            }
-
-            TimeSpan difference = currentDate - reservation.EndDate;
-            if (difference.TotalDays > 5)
-            {
-                MessageBox.Show("More than 5 days have passed since the end of the reservation.");
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsReviewable(PropertyReservation reservation)
-        {
-            DateTime currentDate = DateTime.Now;
-            TimeSpan difference = currentDate - reservation.EndDate;
-            if (currentDate < reservation.EndDate || difference.TotalDays > 5)
-            {
-                return false;
-
-            }
-               return true;
-
-        }
-
-        private bool HasReviewed(PropertyReservation reservation)
-        {
-            return _reviewRepository.GetAllReviews().Any(r => r.ReservationId == reservation.Id);
-        }
-        /* private void NotificationsButton_Click(object sender, RoutedEventArgs e)
-         {
-             int unratedGuests = CalculateUnratedGuests();
-
-             Notification notificationWindow = new Notification(unratedGuests);
-             notificationWindow.Show();
-         }*/
         private void NotificationsButton_Click(object sender, RoutedEventArgs e)
         {
             NotificationService notificationManager = new NotificationService();
@@ -139,25 +69,23 @@ namespace BookingApp.View
             NotificationWindow notificationsWindow = new NotificationWindow(unratedGuests);
             notificationsWindow.ShowDialog();
         }
-
-        private int CalculateUnratedGuests()
+       /* private void AddProperty_Click(object sender, RoutedEventArgs e)
         {
+            AddProperty addProperty = new AddProperty();
+            //MainFrame.Navigate(addProperty);
+            //this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
+            //addProperty.Show();
+            // MainFrame.NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
+            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
+            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
+            //AddPropertyFrame.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
 
-            var allReservations = _propertyReservationRepository.GetAll();
-            var unratedGuests = 0;
 
-            foreach (var reservation in allReservations)
-            {
-               
-                if (!HasReviewed(reservation) && IsReviewable(reservation))
-                {
-                    unratedGuests++;
-                }
-            }
+        }*/
 
-            return unratedGuests;
-           
-        }
+
+       
     }
 }
             

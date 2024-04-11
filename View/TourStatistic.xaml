@@ -23,7 +23,7 @@
         <ListBox x:Name="tourListBox" Margin="0,76,0,76" Grid.Column="0" SelectionMode="Single" SelectedItem="{Binding selectedTour, Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="260" Margin="5">
+                    <Grid Height="260" Margin="5" Width="1020">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -32,44 +32,43 @@
                         <!-- Slika ture -->
                         <Image Grid.Column="0" Source="{Binding ImagePath}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
+                        <!-- Most visited tour -->
+                        <TextBlock x:Name="MostVisitedLabel" Grid.Column="1" FontSize="32" Visibility="Collapsed" Text="Most visited tour" Margin="0"/>
+
                         <!-- Informacije o turi -->
-                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <StackPanel Grid.Column="1" Margin="10,50,0,0">
                             <TextBlock>
-                                <Run Text="Location: " FontSize="24"/>
-                                <Run Text="{Binding LocationDto.City}" FontSize="24" FontWeight="Bold"/>
+                        <Run Text="Location: " FontSize="24"/>
+                        <Run Text="{Binding Location.City}" FontSize="24" FontWeight="Bold"/>
                             </TextBlock>
 
                             <TextBlock Margin="0,10,0,0">
-                                <Run Text="Language: " FontSize="24"/>
-                                <Run Text="{Binding Language}" FontSize="24"/>
+                        <Run Text="Language: " FontSize="24"/>
+                        <Run Text="{Binding Language}" FontSize="24"/>
                             </TextBlock>
 
                             <TextBlock Margin="0,10,50,0">
-                                <Run Text="Start Date and Time: " FontSize="24"/>
-                                <Run Text="{Binding StartDateTime}" FontSize="24"/>
+                        <Run Text="Start Date and Time: " FontSize="24"/>
+                        <Run Text="{Binding StartDateTime}" FontSize="24"/>
                             </TextBlock>
-
-
-                            <Button Content="TOURISTS ON TOUR" Width="294" Height="36" FontSize="28" Margin="600,100,0,0" Click="TouristsButtonClick"/>
                         </StackPanel>
 
-                        <!-- ComboBox za prvu turu -->
-                        <ComboBox x:Name="firstTourComboBox" Grid.Column="0" Margin="10,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="30" Visibility="Collapsed" SelectionChanged="firstTourComboBox_SelectionChanged">
-                            <ComboBoxItem IsSelected="True">General</ComboBoxItem>
+                        <!-- Period label -->
+                        <TextBlock x:Name="PeriodLabel" Grid.Column="1" FontSize="32" Visibility="Collapsed" Text="Period" HorizontalAlignment="Right" Margin="0,0,213,0"/>
+
+                        <!-- ComboBox -->
+                        <ComboBox x:Name="firstTourComboBox" Grid.Column="1" Margin="540,0,0,100" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="30" Visibility="Collapsed"  SelectionChanged="firstTourComboBox_SelectionChanged">
+                            <ComboBoxItem>General</ComboBoxItem>
                             <ComboBoxItem>2024</ComboBoxItem>
                             <ComboBoxItem>2023</ComboBoxItem>
                             <ComboBoxItem>2022</ComboBoxItem>
                             <ComboBoxItem>2021</ComboBoxItem>
                             <ComboBoxItem>2020</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock x:Name="MostVisitedLabel" Grid.Column="1" Margin="10,10,0,0" FontSize="32" Visibility="Collapsed" Text="Most visited tour"/>
-                        <TextBlock x:Name="PeriodLabel" Grid.Column="1"  FontSize="32" Visibility="Collapsed" Text="Period"/>
 
+                        <!-- Button -->
+                        <Button Content="TOURISTS ON TOUR" Grid.Column="1" Width="294" Height="36"  HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="28" Margin="0,10,0,0" Click="TouristsButtonClick"/>
 
-
-
-                        <TextBlock Text="Most visited tour" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,15,100,0" Visibility="Collapsed"/>
-                        <TextBlock Text="Period:" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Collapsed"/>
                     </Grid>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">
@@ -81,6 +80,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
 
         <!-- Donja navigaciona traka -->
         <Grid VerticalAlignment="Bottom" Background="LightGray" Height="71" >

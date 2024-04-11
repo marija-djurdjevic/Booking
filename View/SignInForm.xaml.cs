@@ -1,14 +1,14 @@
 ﻿using BookingApp.Model;
 using BookingApp.Model.Enums;
 using BookingApp.Repository;
-using BookingApp.TouristView;
+using BookingApp.View.TouristView;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using BookingApp.TouristView;
+using BookingApp.View.TouristView;
 
 using BookingApp.GuestView;
 using System.Windows.Controls;
@@ -53,6 +53,7 @@ namespace BookingApp.View
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
+
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {

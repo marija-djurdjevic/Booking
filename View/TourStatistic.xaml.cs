@@ -4,6 +4,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.GuideView;
 
 namespace BookingApp.View
 {
@@ -32,6 +34,7 @@ namespace BookingApp.View
         private ComboBox comboBox;
         private List<Tour> finishedTours;
         private List<Tour> sortedTours;
+        private string selectedYear;
         public TourStatistic()
         {
             InitializeComponent();
@@ -74,12 +77,12 @@ namespace BookingApp.View
 
 
             tourListBox.ItemsSource = sortedTours;
+          
 
         }
 
-
-
-
+        
+       
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
         {
 
@@ -87,72 +90,81 @@ namespace BookingApp.View
 
         private void TouristsButtonClick(object sender, RoutedEventArgs e)
         {
-            // Pronađi ListBoxItem roditelja dugmeta
+            
             DependencyObject parent = VisualTreeHelper.GetParent((Button)sender);
             while (!(parent is ListBoxItem))
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
-
-            // Ako je roditelj ListBoxItem, pronalazi ListBox i dobija DataContext
+            
             if (parent is ListBoxItem listBoxItem)
             {
                 ListBox listBox = ItemsControl.ItemsControlFromItemContainer(listBoxItem) as ListBox;
                 if (listBox != null)
                 {
                     var selectedTour = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Tour;
-                    TouristsNumberPage touristsNumberPage = new TouristsNumberPage(selectedTour.Id);
-                    NavigationService.Navigate(touristsNumberPage);
+                    TouristsNumberPage1 touristsNumberPage1 = new TouristsNumberPage1(selectedTour.Id);
+                    NavigationService.Navigate(touristsNumberPage1);
                 }
             }
         }
 
         private void firstTourComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateTourList();
-        }
-
-        private void UpdateTourList()
-        {
-            if (tourListBox.SelectedItem != null)
+            ComboBox comboBox = (ComboBox)sender;
+            if (comboBox.SelectedItem != null)
             {
-                ComboBox comboBox = tourListBox.FindName("firstTourComboBox") as ComboBox;
-
-                string selectedYear = (comboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
-
-                if (selectedYear == "General")
+                ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+                string selectedValue = selectedItem.Content.ToString();
+              
+                if (selectedValue != selectedYear)
                 {
-                    tourListBox.ItemsSource = sortedTours; 
-                }
-                else if (int.TryParse(selectedYear, out int year))
-                {
-                    // Filtriraj i sortiraj ture za izabranu godinu
-                    var toursForYear = finishedTours.Where(t => t.StartDateTime.Year == year).ToList();
-                    var touristCounts = new Dictionary<int, int>();
-
-                    foreach (var tour in toursForYear)
-                    {
-                        int numberOfTourists = touristExperienceRepository.GetNumberOfTouristsForTour(tour.Id);
-                        touristCounts.Add(tour.Id, numberOfTourists);
-                    }
-
-
-
-
-                    var sortedToursForYear = toursForYear.OrderByDescending(t => touristCounts[t.Id]).ToList();
-
-
-                    if (sortedToursForYear.Count > 0)
-                    {
-                        sortedTours.Insert(0, sortedToursForYear[0]);
-                    }
-
-                    tourListBox.ItemsSource = sortedTours; 
+                    selectedYear = selectedValue;
+                    UpdateTourList();
+                    comboBox.SelectedItem = selectedItem;
                 }
             }
         }
 
 
+
+
+
+        private void UpdateTourList()
+        {
+
+           
+
+            if (selectedYear == "General")
+            {
+                tourListBox.ItemsSource = sortedTours;
+               // tourListBox.SelectedItem = sortedTours.FirstOrDefault();
+            }
+            else if (int.TryParse(selectedYear, out int year))
+            {
+
+                var toursForYear = finishedTours.Where(t => t.StartDateTime.Year == year).ToList();
+                var touristCounts = new Dictionary<int, int>();
+
+                foreach (var tour in toursForYear)
+                {
+                    int numberOfTourists = touristExperienceRepository.GetNumberOfTouristsForTour(tour.Id);
+                    touristCounts.Add(tour.Id, numberOfTourists);
+                }
+
+                var sortedToursForYear = toursForYear.OrderByDescending(t => touristCounts[t.Id]).ToList();
+
+                if (sortedToursForYear.Count > 0)
+                {
+                    var tours = new List<Tour>(sortedTours);
+                    tours.Insert(0, sortedToursForYear[0]);
+                    tourListBox.ItemsSource = tours;
+                }
+
+
+            }
+
+        }
 
 
 

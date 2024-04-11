@@ -73,6 +73,44 @@ namespace BookingApp.Repository
         {
             _serializer.ToCSV(FilePath, propertyReservations);
         }
+        public List<PropertyReservation> GetAllReservationsForProperty(int propertyId)
+        {
+            return propertyReservations.Where(r => r.PropertyId == propertyId).ToList();
+        }
+        public int GetPropertyIdByReservationId(int reservationId)
+        {
+            var reservation = propertyReservations.FirstOrDefault(r => r.Id == reservationId);
+            if (reservation != null)
+            {
+                return reservation.PropertyId;
+            }
+            else
+            {
+                // Ukoliko rezervacija sa datim ID-om nije pronađena, vratite -1 ili neki drugi indikator greške
+                return -1;
+            }
+        }
+        public void UpdatePropertyReservation(PropertyReservation updatedReservation)
+        {
+            propertyReservations = GetAll();
+            PropertyReservation existingReservation = propertyReservations.FirstOrDefault(r => r.Id == updatedReservation.Id);
+
+            if (existingReservation != null)
+            {
+                // Ažurirajte postojeću rezervaciju sa novim podacima
+                existingReservation.StartDate = updatedReservation.StartDate;
+                existingReservation.EndDate = updatedReservation.EndDate;
+
+                // Ako želite ažurirati i druge podatke rezervacije, ovdje ih ažurirajte
+
+                // Zapišite promjene u CSV datoteku
+                _serializer.ToCSV(FilePath, propertyReservations);
+            }
+            else
+            {
+                // Rezervacija nije pronađena, moguće je dodati logiku za rukovanje ovim slučajem
+            }
+        }
 
         public int NextId()
         {

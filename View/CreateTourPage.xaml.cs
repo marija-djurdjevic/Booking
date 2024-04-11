@@ -211,7 +211,7 @@ namespace BookingApp.View
                         string city = locationParts[0].Trim();
                         string country = locationParts[1].Trim();
 
-                        // Kreiranje LocationDto objekta sa izabranim gradom i državom
+                        // Kreiranje LocationDto objekta sa izabranim gradom i državom 
                         LocationDto locationDto = new LocationDto { City = city, Country = country };
 
                         // Kreiranje nove ture sa novom lokacijom i jezikom
