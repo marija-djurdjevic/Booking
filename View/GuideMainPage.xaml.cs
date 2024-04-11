@@ -1,4 +1,5 @@
 ﻿using BookingApp.DTO;
+using BookingApp.GuideView;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -89,7 +90,7 @@ namespace BookingApp.View
                 if (listBox != null)
                 {
                     var selectedTour = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Tour;
-                    TouristsReviewPage touristsReviewPage = new TouristsReviewPage(selectedTour.Id);
+                    TourReviewPage1 touristsReviewPage = new TourReviewPage1(selectedTour.Id);
                     NavigationService.Navigate(touristsReviewPage);
                 }
             }
@@ -187,7 +188,7 @@ namespace BookingApp.View
 
         private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
         {
-            TourStatistic tourStatistic = new TourStatistic();
+            TourStatisticPage1 tourStatistic = new TourStatisticPage1();
             this.NavigationService.Navigate(tourStatistic);
         }
     }

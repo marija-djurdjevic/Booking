@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.GuideView;
 
 namespace BookingApp.View
 {
@@ -89,22 +90,21 @@ namespace BookingApp.View
 
         private void TouristsButtonClick(object sender, RoutedEventArgs e)
         {
-            // Pronađi ListBoxItem roditelja dugmeta
+            
             DependencyObject parent = VisualTreeHelper.GetParent((Button)sender);
             while (!(parent is ListBoxItem))
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
-
-            // Ako je roditelj ListBoxItem, pronalazi ListBox i dobija DataContext
+            
             if (parent is ListBoxItem listBoxItem)
             {
                 ListBox listBox = ItemsControl.ItemsControlFromItemContainer(listBoxItem) as ListBox;
                 if (listBox != null)
                 {
                     var selectedTour = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Tour;
-                    TouristsNumberPage touristsNumberPage = new TouristsNumberPage(selectedTour.Id);
-                    NavigationService.Navigate(touristsNumberPage);
+                    TouristsNumberPage1 touristsNumberPage1 = new TouristsNumberPage1(selectedTour.Id);
+                    NavigationService.Navigate(touristsNumberPage1);
                 }
             }
         }

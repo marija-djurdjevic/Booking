@@ -50,6 +50,10 @@ namespace BookingApp.Repository
             }
         }
 
+        
+
+
+
         public void Delete(int touristExperienceId)
         {
             touristExperiences = GetAll();
