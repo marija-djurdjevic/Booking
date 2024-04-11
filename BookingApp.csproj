@@ -24,6 +24,9 @@
     <None Remove="Resources\Images\booking.png" />
     <None Remove="Resources\Images\chat.png" />
     <None Remove="Resources\Images\contract.png" />
+    <None Remove="Resources\Images\correct.png" />
+    <None Remove="Resources\Images\decline.png" />
+    <None Remove="Resources\Images\delete-button.png" />
     <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
@@ -35,6 +38,8 @@
     <None Remove="Resources\Images\menu5.png" />
     <None Remove="Resources\Images\paper-plane.png" />
     <None Remove="Resources\Images\pin.png" />
+    <None Remove="Resources\Images\question.png" />
+    <None Remove="Resources\Images\star %281%29.png" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
@@ -101,6 +106,9 @@
     <Resource Include="Resources\Images\booking.png" />
     <Resource Include="Resources\Images\chat.png" />
     <Resource Include="Resources\Images\contract.png" />
+    <Resource Include="Resources\Images\correct.png" />
+    <Resource Include="Resources\Images\decline.png" />
+    <Resource Include="Resources\Images\delete-button.png" />
     <Resource Include="Resources\Images\earth.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\home4.png" />
@@ -109,6 +117,8 @@
     <Resource Include="Resources\Images\menu5.png" />
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />
+    <Resource Include="Resources\Images\question.png" />
+    <Resource Include="Resources\Images\star (1).png" />
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 

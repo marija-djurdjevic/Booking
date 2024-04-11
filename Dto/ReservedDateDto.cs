@@ -19,16 +19,18 @@ namespace BookingApp.Dto
 
         public ReservedDateDto() { }
 
-        public ReservedDateDto(int idProperty, DateTime datevalue)
+        public ReservedDateDto(int idProperty, DateTime datevalue, int reservationId)
         {
             this.propertyId = idProperty;
             this.datevalue = datevalue;
+            this.reservationId = reservationId;
         }
 
         public ReservedDateDto(ReservedDate reservedDate)
         {
             propertyId = reservedDate.PropertyId;
             datevalue = reservedDate.Value;
+            reservationId = reservedDate.ReservationId;
 
         }
 

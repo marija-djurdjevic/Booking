@@ -20,6 +20,7 @@ namespace BookingApp.Dto
         private string guestLastName { get; set; }
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
+        private bool canceled {  get; set; }
 
         public int Id { get; set; }
         public int Guests
@@ -34,6 +35,20 @@ namespace BookingApp.Dto
                 }
             }
         }
+
+        public bool Canceled
+        {
+            get { return canceled; }
+            set
+            {
+                if (value != canceled)
+                {
+                    canceled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string GuestFirstName
         {
             get { return guestFirstName; }
@@ -139,7 +154,7 @@ namespace BookingApp.Dto
         }
         public PropertyReservation ToPropertyReservation()
         {
-            return new PropertyReservation(propertyId, guests, days, guestId, guestFirstName, guestLastName, startDate, endDate, propertyName);
+            return new PropertyReservation(propertyId, guests, days, guestId, guestFirstName, guestLastName, startDate, endDate, propertyName, canceled);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -148,9 +163,11 @@ namespace BookingApp.Dto
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public PropertyReservationDto() { }
+        public PropertyReservationDto() { 
+            canceled = false;
+        }
 
-        public PropertyReservationDto(int guests, int days, int propertyId, int guestId, string guestFirstName, string guestLastName, string propertyName)
+        public PropertyReservationDto(int guests, int days, int propertyId, int guestId, string guestFirstName, string guestLastName, string propertyName, bool canceled)
         {
             this.propertyId = propertyId;
             this.propertyName = propertyName;
@@ -159,6 +176,8 @@ namespace BookingApp.Dto
             this.days = days;
             this.guestFirstName = guestFirstName;
             this.guestLastName = guestLastName;
+            this.propertyName = propertyName;
+            this.canceled = canceled;
         }
 
     }

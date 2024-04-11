@@ -47,6 +47,17 @@ namespace BookingApp.Repository
             return propertyReservations.FindAll(t => t.Id == id);
         }
 
+        public void Update(PropertyReservation updatedPropertyReservation)
+        {
+            PropertyReservation existingPropertyReservation = propertyReservations.FirstOrDefault(t => t.Id == updatedPropertyReservation.Id);
+            if (existingPropertyReservation != null)
+            { 
+                int index = propertyReservations.IndexOf(existingPropertyReservation);
+                propertyReservations[index] = existingPropertyReservation;
+                _serializer.ToCSV(FilePath, propertyReservations);
+            }
+        }
+
         public void Delete(int reservationId)
         {
             propertyReservations = GetAll();
