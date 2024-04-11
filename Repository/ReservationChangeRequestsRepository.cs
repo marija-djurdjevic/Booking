@@ -56,6 +56,27 @@ namespace BookingApp.Repository
                 _serializer.ToCSV(FilePath, reservationChangeRequests);
             }
         }
+        public void UpdateChangeRequestComment(int requestId, string comment)
+        {
+            reservationChangeRequests = GetAll();
+            ReservationChangeRequest changeRequest = reservationChangeRequests.FirstOrDefault(t => t.Id == requestId);
+            if (changeRequest != null)
+            {
+                changeRequest.Comment = comment;
+                _serializer.ToCSV(FilePath, reservationChangeRequests);
+            }
+        }
+        public void UpdateChangeRequestStatus(int requestId, RequestStatus newStatus)
+        {
+            reservationChangeRequests = GetAll();
+            ReservationChangeRequest changeRequest = reservationChangeRequests.FirstOrDefault(t => t.Id == requestId);
+            if (changeRequest != null)
+            {
+                changeRequest.RequestStatus = newStatus;
+                _serializer.ToCSV(FilePath, reservationChangeRequests);
+            }
+        }
+
 
         private void SaveChanges()
         {

@@ -53,6 +53,7 @@ namespace BookingApp.View
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
+
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {

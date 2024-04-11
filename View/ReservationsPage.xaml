@@ -9,23 +9,31 @@
       Title="ReservationsPage">
 
     <Grid>
-        <StackPanel>
-            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
-            <!-- Reservation DataGrid -->
-            <DataGrid BorderBrush="Black"
-            AutoGenerateColumns="False"
-            SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
-            x:Name="ReservationDataGrid"
-            SelectionMode="Single" IsReadOnly="True" Margin="10,20,10,10">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
-                    <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
-                    <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
-                    <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                    <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Height="30" Margin="0,0,10,0"/>
+            <Button Click="Requests_Click" Content="Requests for reservation changes" Width="200" Height="30" HorizontalAlignment="Right"/>
         </StackPanel>
 
+        <!-- Reservation DataGrid -->
+        <DataGrid Grid.Row="1"
+                  BorderBrush="Black"
+                  AutoGenerateColumns="False"
+                  SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
+                  x:Name="ReservationDataGrid"
+                  SelectionMode="Single" IsReadOnly="True" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
+                <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
+                <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
+                <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
