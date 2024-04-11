@@ -37,8 +37,7 @@ namespace BookingApp.ViewModel.TouristViewModel
                 string showingText = "";
                 if (notification.Type == NotificationType.TouristJoined)
                 {
-                    showingText="Persons: " + string.Join(", ", notification.AddedPersons);
-                    showingText += $" have been added to the tour {notification.TourName}, KeyPoint:{notification.ActiveKeyPoint} ";
+                    showingText=string.Join(", ", notification.AddedPersons);
                 }
                 Notifications.Add(new Tuple<TouristGuideNotification,string>(notification,showingText));
             }

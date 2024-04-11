@@ -43,7 +43,8 @@ namespace BookingApp.Repository
         public List<TouristGuideNotification> GetByUserId(int Id)
         {
             touristGuideNotifications = _serializer.FromCSV(FilePath);
-            return touristGuideNotifications.FindAll(t => t.TouristId == Id);
+            return touristGuideNotifications.FindAll(t => t.TouristId == Id).OrderByDescending(x=>x.Date).ToList();
         }
+
     }
 }
