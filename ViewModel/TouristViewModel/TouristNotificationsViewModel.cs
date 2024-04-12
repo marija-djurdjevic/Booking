@@ -41,6 +41,7 @@ namespace BookingApp.ViewModel.TouristViewModel
                 }
                 Notifications.Add(new Tuple<TouristGuideNotification,string>(notification,showingText));
             }
+            touristGuideNotificationRepository.MarkAllUserMessagesAsRead(LoggedInUser.Id);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

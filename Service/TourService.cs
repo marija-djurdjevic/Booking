@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BookingApp.Service
     public class TourService
     {
         private TourRepository tourRepository;
+        private TouristExperienceRepository experienceRepository;
         private TourReservationRepository tourReservationRepository;
         private LiveTourRepository liveTourRepository;
         private readonly TourRepository _tourRepository;
@@ -21,6 +23,7 @@ namespace BookingApp.Service
         {
             tourRepository = new TourRepository();
             tourReservationRepository = new TourReservationRepository();
+            experienceRepository = new TouristExperienceRepository();
             liveTourRepository = new LiveTourRepository();
             _tourRepository = new TourRepository();
             _keyPointService = new KeyPointService();
@@ -36,13 +39,22 @@ namespace BookingApp.Service
             }
             return myReservedTours.DistinctBy(x => x.Id).ToList();
         }
+
+        public bool CanTouristRateTour(int userId,int tourId)
+        {
+            List<TourReservation> reservationsAttendedByUser= tourReservationRepository.GetReservationsAttendedByUser(userId);
+            LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
+            
+            return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive&& !experienceRepository.IsTourRatedByUser(tourId,userId);
+        }
+
         public List<Tour> GetMyActiveReserved(int userId)
         {
             List<Tour> myActiveReservedTours = new List<Tour>();
             foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
             {
                 LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
-                if (tourReservation.IsOnTour)
+                if (liveTour.IsLive)
                 {
                     Tour activeTour = tourRepository.GetTourById(tourReservation.TourId);
                     activeTour.KeyPoints = liveTour.KeyPoints;

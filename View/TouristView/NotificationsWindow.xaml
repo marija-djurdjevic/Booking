@@ -65,10 +65,7 @@
                     Style="{StaticResource CardView}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox
-                                Height="auto"
-                                MaxHeight="150"
-                                Style="{StaticResource GroupVauceri}">
+                            <GroupBox Height="auto" MaxHeight="150">
                                 <GroupBox.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontSize="20" Text="Guide: " />
@@ -130,6 +127,15 @@
                                         FontWeight="Bold"
                                         Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                 </Grid>
+                                <GroupBox.Style>
+                                    <Style BasedOn="{StaticResource GroupVauceri}" TargetType="GroupBox">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Item1.Seen}" Value="False">
+                                                <Setter Property="Background" Value="LightGreen" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

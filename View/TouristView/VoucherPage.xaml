@@ -73,6 +73,25 @@
         </DockPanel>
 
         <Grid Margin="50,25,5,5">
+            <TextBlock
+                Margin="20,20,0,0"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                FontWeight="Black"
+                Text="Currently, you don't have any earned vouchers.">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsNoVoucherTextVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsNoVoucherTextVisible}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                 <ItemsControl ItemsSource="{Binding Vouchers}" Style="{StaticResource CardView}">
                     <ItemsControl.ItemTemplate>

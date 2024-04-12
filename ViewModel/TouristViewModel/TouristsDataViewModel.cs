@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace BookingApp.ViewModel.TouristViewModel
 {
-    public class TouristsDataViewModel:INotifyPropertyChanged
+    public class TouristsDataViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Tuple<TourReservation, string, bool>> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
@@ -33,11 +33,11 @@ namespace BookingApp.ViewModel.TouristViewModel
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
-            Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, LoggedInTourist,true), "Tourist 1", true));
+            Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, LoggedInTourist, true), "Tourist 1", true));
             for (int i = 0; i < touristNumber - 1; i++)
             {
                 int a = i + 2;
-                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId,false), "Tourist " + a, false));
+                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId, false), "Tourist " + a, false));
             }
 
         }
@@ -45,16 +45,21 @@ namespace BookingApp.ViewModel.TouristViewModel
         public bool UseVouchers()
         {
             TourReservationRepository reservationDataRepository = new TourReservationRepository();
+            VoucherRepository voucherRepository = new VoucherRepository();
 
-            MessageBoxResult useVouchers = MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo);
-            if (useVouchers == MessageBoxResult.Yes)
+            if (voucherRepository.GetByToueristId(LoggedInTourist.Id).Count() > 0)
             {
-                VouchersForReservationWindow vouchersForReservationWindow = new VouchersForReservationWindow(LoggedInTourist);
-                vouchersForReservationWindow.ShowDialog();
-                if (!vouchersForReservationWindow.VouchersForReservationViewModel.WindowReturnValue)
+                MessageBoxResult useVouchers = MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo);
+                if (useVouchers == MessageBoxResult.Yes)
                 {
-                    return false;
+                    VouchersForReservationWindow vouchersForReservationWindow = new VouchersForReservationWindow(LoggedInTourist);
+                    vouchersForReservationWindow.ShowDialog();
+                    if (!vouchersForReservationWindow.VouchersForReservationViewModel.WindowReturnValue)
+                    {
+                        return false;
+                    }
                 }
+
             }
 
             foreach (TourReservation data in Tourists.Select(t => t.Item1).ToList())

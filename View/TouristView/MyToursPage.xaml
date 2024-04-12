@@ -159,13 +159,12 @@
                     </TabItem.Header>
                     <DockPanel>
                         <TextBlock
-                            x:Name="NoMyTours"
                             Margin="20,20,0,0"
                             HorizontalAlignment="Center"
                             FontSize="20"
                             FontWeight="Black"
                             Text="You haven't created any reservation yet."
-                            Visibility="Collapsed" />
+                            Visibility="{Binding NoMyToursTextVisibility}" />
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                             <ItemsControl
@@ -307,13 +306,12 @@
 
                     <DockPanel>
                         <TextBlock
-                            x:Name="NoActiveTours"
                             Margin="20,20,0,0"
                             HorizontalAlignment="Center"
                             FontSize="20"
                             FontWeight="Black"
                             Text="No active tours available at the moment."
-                            Visibility="Collapsed" />
+                            Visibility="{Binding NoActiveToursTextVisibility}" />
 
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">

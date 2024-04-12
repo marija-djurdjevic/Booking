@@ -18,6 +18,18 @@ namespace BookingApp.ViewModel.TouristViewModel
         public static ObservableCollection<Tuple<Voucher, string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
+        private bool isNoVoucherTextVisible;
+
+        public bool IsNoVoucherTextVisible
+        {
+            get { return isNoVoucherTextVisible; }
+            set
+            {
+                isNoVoucherTextVisible = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsNoVoucherTextVisible)));
+            }
+        }
+
         private readonly VoucherRepository repository;
 
         public VoucherViewModel(User loggedInUser)
@@ -26,6 +38,7 @@ namespace BookingApp.ViewModel.TouristViewModel
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
+            IsNoVoucherTextVisible = false;
             GetMyVouchers();
         }
 
@@ -37,6 +50,10 @@ namespace BookingApp.ViewModel.TouristViewModel
             {
                 var voucherName = "Voucher " + (++number).ToString();
                 Vouchers.Add(new Tuple<Voucher, string>(voucher, voucherName));
+            }
+            if (Vouchers.Count() < 1)
+            {
+                IsNoVoucherTextVisible = true;
             }
         }
 
