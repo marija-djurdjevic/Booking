@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Command;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
@@ -219,6 +220,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
                 return;
             }
+            liveTourService.RemoveLiveTour(tour.Id);
             tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
             GenerateVouchersForCanceledTourists(tour.Id, tourReservations);

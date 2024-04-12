@@ -10,6 +10,7 @@ using BookingApp.View;
 using System.Windows;
 using BookingApp.Service;
 using BookingApp.View.GuideView;
+using BookingApp.Command;
 
 namespace BookingApp.ViewModel.GuidesViewModel
 {

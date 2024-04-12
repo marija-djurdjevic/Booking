@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Command;
+using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;

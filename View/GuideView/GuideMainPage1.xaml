@@ -174,7 +174,7 @@
         </ScrollViewer>
 
         <!-- Donja navigaciona traka -->
-        <Grid VerticalAlignment="Bottom" Background="LightGray" Height="71" >
+        <Grid VerticalAlignment="Top" Background="LightGray" Height="71" Margin="0,664,0,0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.View.GuideView
+namespace BookingApp.Command
 {
     public class RelayCommand : ICommand
     {
