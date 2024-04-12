@@ -161,7 +161,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Slika u prvoj koloni -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
+                <Image Grid.Column="0" Source="/Resources/Images/menu5.png"
                     Stretch="Uniform"
                     Width="71"
                     Height="71"
@@ -184,14 +184,14 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Prva slika u levom cosku -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\back.png"
+                <Image Grid.Column="0" Source="/Resources/Images/back.png"
                     Stretch="Uniform"
                     Width="59"
                     Height="59"
                     MouseLeftButtonUp="NavigateToMainPage"/>
 
                 <!-- Druga slika u sredini -->
-                <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
+                <Image Grid.Column="1" Source="/Resources/Images/home4.png"
                     Stretch="Uniform"
                     Width="59"
                     Height="59"
