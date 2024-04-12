@@ -43,6 +43,7 @@
             </TabItem>
             <TabItem Header="GuestReviews">
                 <!-- GuestReviews Tab Content -->
+                <Frame x:Name="GuestReviewsFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
             <TabItem Header="Analytics">
                 <!-- Analytics Tab Content -->
