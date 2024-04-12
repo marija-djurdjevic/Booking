@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.ViewModel;
+using BookingApp.ViewModel.GuidesViewModel;
 
 
 namespace BookingApp.View.GuideView

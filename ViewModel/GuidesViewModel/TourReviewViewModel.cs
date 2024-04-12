@@ -10,7 +10,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Input;
 
-namespace BookingApp.ViewModel
+namespace BookingApp.ViewModel.GuidesViewModel
 {
     public class TourReviewViewModel : BaseViewModel
     {
@@ -77,7 +77,7 @@ namespace BookingApp.ViewModel
 
         private void ExecuteNavigateBack()
         {
-            var mainPage = new GuideMainPage();
+            var mainPage = new GuideMainPage1();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }

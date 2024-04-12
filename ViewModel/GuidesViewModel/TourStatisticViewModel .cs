@@ -11,7 +11,7 @@ using System.Windows;
 using BookingApp.Service;
 using BookingApp.View.GuideView;
 
-namespace BookingApp.ViewModel
+namespace BookingApp.ViewModel.GuidesViewModel
 {
     public class TourStatisticViewModel : BaseViewModel
     {
@@ -32,7 +32,7 @@ namespace BookingApp.ViewModel
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
             _navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();
-           
+
         }
 
         private void LoadData()
@@ -182,7 +182,7 @@ namespace BookingApp.ViewModel
 
         private void ExecuteNavigateBack()
         {
-            var mainPage = new GuideMainPage();
+            var mainPage = new GuideMainPage1();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }

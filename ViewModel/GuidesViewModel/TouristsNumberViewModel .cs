@@ -10,7 +10,7 @@ using BookingApp.Service;
 using BookingApp.View;
 
 
-namespace BookingApp.ViewModel
+namespace BookingApp.ViewModel.GuidesViewModel
 {
     internal class TouristsNumberPageViewModel : BaseViewModel
     {

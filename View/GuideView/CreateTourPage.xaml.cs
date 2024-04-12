@@ -118,6 +118,8 @@ namespace BookingApp.View
                 {
                     tourDto.ImagesPaths.Add(relativeImagePath);
                 }
+                currentImageIndex = tourDto.ImagesPaths.Count - 1;
+
                 UpdateImage();
             }
         }

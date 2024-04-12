@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.View;
 using BookingApp.ViewModel;
+using BookingApp.ViewModel.GuidesViewModel;
 
 namespace BookingApp.View.GuideView
 {
@@ -35,6 +36,21 @@ namespace BookingApp.View.GuideView
             this.NavigationService.Navigate(ts);
         }
 
-       
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+
+            SignInForm signInWindow = new SignInForm();
+            signInWindow.Show();
+           
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Close();
+
+            
+           
+        }
+
+
+
+
     }
 }
