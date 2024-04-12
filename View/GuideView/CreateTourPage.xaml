@@ -5,13 +5,13 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View"
+      xmlns:local="clr-namespace:BookingApp.Converter"
       
       mc:Ignorable="d" 
       Title="CreateTourPage" Height="768" Width="1024" >
 
     <Page.Resources>
-        <local:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+        <local:ImagePathConverter x:Key="ImagePathToBitmapConverter" />
     </Page.Resources>
 
     <Grid>
@@ -174,7 +174,7 @@
 
 
             <!-- Donja navigaciona traka -->
-            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,297,0,0" >
+            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,288,0,0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <!-- Prva kolona za sliku u levom cosku -->

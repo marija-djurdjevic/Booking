@@ -5,9 +5,6 @@
 3|Irig|End|2|False
 4|Beograd|Begining|1|False
 4|Ruma|End|2|False
-5|key1|Begining|1|False
-5|key2|Middle|2|False
-5|key3|End|3|False
 7|key7|Begining|1|False
 7|key8|Middle|2|False
 7|key9|End|3|False
@@ -90,3 +87,5 @@
 37|sijetl|End|3|False
 38|Banjani|Begining|1|False
 38|Avtovac|End|2|False
+6|jedan|Begining|1|False
+6|dva|End|2|False

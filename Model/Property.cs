@@ -12,6 +12,7 @@ namespace BookingApp.Model
      public class Property : ISerializable
     {
         public int Id { get; set; }
+        public int OwnerId {  get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public PropertyType Type { get; set; }
@@ -27,9 +28,10 @@ namespace BookingApp.Model
             ImagesPaths = new List<string>();
             ReservedDates = new List<ReservedDate>();
         }
-        public Property(int id, string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
+        public Property(int id, int ownerId, string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {
             Id = id;
+            OwnerId = ownerId;
             Name = name;
             Type = type;
             MaxGuests = maxGuests;
@@ -40,8 +42,9 @@ namespace BookingApp.Model
 
 
         }
-        public Property(string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
+        public Property(int ownerId, string name, Location location, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {
+            OwnerId = ownerId;
             Name = name;
             Type = type;
             MaxGuests = maxGuests;
@@ -57,13 +60,13 @@ namespace BookingApp.Model
         {
             if (ImagesPaths == null)
             {
-                string[] csvValues = { Id.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString() };
+                string[] csvValues = { Id.ToString(),OwnerId.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString() };
                 return csvValues;
             }
             else
             {
                 string imagesPathsStr = string.Join("|", ImagesPaths);
-                string[] csvValues = { Id.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString(), imagesPathsStr };
+                string[] csvValues = { Id.ToString(),OwnerId.ToString(), Name, Location.City, Location.Country, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancellationDeadline.ToString(), imagesPathsStr };
                 return csvValues;
             }
         }
@@ -71,14 +74,15 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Location.City = values[2];
-            Location.Country = values[3];
-            Type = (PropertyType)Enum.Parse(typeof(PropertyType),values[4]);
-            MaxGuests = Convert.ToInt32(values[5]);
-            MinReservationDays = Convert.ToInt32(values[6]);
-            CancellationDeadline = Convert.ToInt32(values[7]);
-            for (int i = 8; i < values.Length; i++)
+            OwnerId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            Location.City = values[3];
+            Location.Country = values[4];
+            Type = (PropertyType)Enum.Parse(typeof(PropertyType),values[5]);
+            MaxGuests = Convert.ToInt32(values[6]);
+            MinReservationDays = Convert.ToInt32(values[7]);
+            CancellationDeadline = Convert.ToInt32(values[8]);
+            for (int i = 9; i < values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }

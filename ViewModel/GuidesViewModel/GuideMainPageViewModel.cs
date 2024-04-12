@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Command;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
@@ -9,10 +10,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace BookingApp.ViewModel
+namespace BookingApp.ViewModel.GuidesViewModel
 {
     public class GuideMainPageViewModel : BaseViewModel
     {
@@ -31,8 +34,9 @@ namespace BookingApp.ViewModel
         private RelayCommand reviewTourClickCommand;
         private RelayCommand cancelTourClickCommand;
 
+
         public GuideMainPageViewModel()
-        {
+        { 
             tourService = new TourService();
             keyPointService = new KeyPointService();
             liveTourService = new LiveTourService();
@@ -43,6 +47,7 @@ namespace BookingApp.ViewModel
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
+           
             LoadTours();
         }
 
@@ -62,16 +67,16 @@ namespace BookingApp.ViewModel
         public ObservableCollection<Tour> FinishedTours
         {
             get { return finishedTours; }
-            set { finishedTours = value;OnPropertyChanged(); }
+            set { finishedTours = value; OnPropertyChanged(); }
         }
 
         public Tour SelectedTour
         {
             get { return selectedTour; }
-            set { selectedTour = value;OnPropertyChanged(); }
+            set { selectedTour = value; OnPropertyChanged(); }
         }
 
-        
+
         private void LoadTours()
         {
             TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours());
@@ -81,9 +86,9 @@ namespace BookingApp.ViewModel
             FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)));
         }
 
-       
 
-      
+
+
 
 
         public RelayCommand CreateTourClickCommand
@@ -150,6 +155,14 @@ namespace BookingApp.ViewModel
         }
 
 
+
+       
+
+
+
+       
+
+
         private void ExecuteCreateTourClick()
         {
             var createTourPage = new CreateTourPage();
@@ -167,7 +180,7 @@ namespace BookingApp.ViewModel
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
                 }
             }
-            
+
         }
 
         private void ExecuteReviewTourClick(object parameter)
@@ -177,7 +190,7 @@ namespace BookingApp.ViewModel
                 TourReview touristsReviewPage = new TourReview(tourId);
                 GuideMainWindow.MainFrame.Navigate(touristsReviewPage);
             }
-            
+
         }
 
         private void ExecuteCancelTourClick(object parameter)
@@ -186,8 +199,8 @@ namespace BookingApp.ViewModel
             {
                 var tour = tourService.GetTourById(tourId);
 
-                var tourKeyPoints=keyPointService.GetTourKeyPoints(tourId);
-                var tourReservation=tourReservationService.GetByTourId(tourId);
+                var tourKeyPoints = keyPointService.GetTourKeyPoints(tourId);
+                var tourReservation = tourReservationService.GetByTourId(tourId);
 
                 CancelTour(tour, tourKeyPoints, tourReservation);
 
@@ -201,12 +214,13 @@ namespace BookingApp.ViewModel
 
         public void CancelTour(Tour tour, List<KeyPoint> keyPoints, List<TourReservation> tourReservations)
         {
-            
+
             if ((tour.StartDateTime - DateTime.Now).TotalHours <= 48)
             {
-                
+
                 return;
             }
+            liveTourService.RemoveLiveTour(tour.Id);
             tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
             GenerateVouchersForCanceledTourists(tour.Id, tourReservations);
