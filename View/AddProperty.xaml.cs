@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Dto;
+using BookingApp.Model;
 
 namespace BookingApp.View
 {
@@ -25,10 +26,13 @@ namespace BookingApp.View
     {
         private PropertyDto _propertyDto;
 
+        public User LoggedInUser { get; set; }
+
         PropertyRepository propertyRepository;
-        public AddProperty()
+        public AddProperty(User user)
         {
             InitializeComponent();
+            this.LoggedInUser = user;
             _propertyDto = new PropertyDto();
             DataContext = _propertyDto;
             propertyRepository = new PropertyRepository();
@@ -36,16 +40,14 @@ namespace BookingApp.View
         }
         private void SaveProperty_Click(object sender, RoutedEventArgs e)
         {
-            PropertyDto newPropertyDto = new PropertyDto(_propertyDto.Name, _propertyDto.LocationDto, _propertyDto.Type, _propertyDto.MaxGuests, _propertyDto.MinReservationDays, _propertyDto.CancellationDeadline, _propertyDto.ImagesPaths);
+            _propertyDto.OwnerId = LoggedInUser.Id;
+            PropertyDto newPropertyDto = new PropertyDto(_propertyDto.OwnerId, _propertyDto.Name, _propertyDto.LocationDto, _propertyDto.Type, _propertyDto.MaxGuests, _propertyDto.MinReservationDays, _propertyDto.CancellationDeadline, _propertyDto.ImagesPaths);
             propertyRepository.AddProperty(newPropertyDto.ToProperty());
             int id = propertyRepository.NextId() - 1;
             
             MessageBox.Show("Property created successfully!");
             NavigationService.GoBack();
-            // this.Close();
-            //NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
-           //Window.GetWindow(this).Visibility = Visibility.Visible;
-            //Window.GetWindow(this).Close();
+      
 
 
         }
