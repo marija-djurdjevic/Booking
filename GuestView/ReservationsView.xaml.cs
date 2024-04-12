@@ -3,6 +3,7 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace BookingApp.GuestView
         public PropertyRepository PropertyRepository { get; set; }
         public PropertyReservationRepository PropertyReservationRepository { get; set; }
         public ReservedDateRepository ReservedDateRepository { get; set; }
-        public List<PropertyReservation> GuestsReservations { get; set; }
+        public ObservableCollection<PropertyReservation> GuestsReservations { get; set; }
         public PropertyReservation SelectedReservation { get; set; }
         public Property SelectedProperty { get; set; }
         public Guest LoggedInGuest { get; set; }
@@ -39,12 +40,7 @@ namespace BookingApp.GuestView
             PropertyReservationRepository = new PropertyReservationRepository();
             ReservedDateRepository = new ReservedDateRepository();
             SelectedReservation = new PropertyReservation();
-            GuestsReservations = PropertyReservationRepository.GetAll().FindAll(r => r.GuestId == loggedInGuest.Id);
-        }
-
-        private void ReservationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            GuestsReservations = new ObservableCollection<PropertyReservation>(PropertyReservationRepository.GetAll().FindAll(r => r.GuestId == loggedInGuest.Id && r.Canceled == false));
         }
 
         private void Cancel_Button(object sender, RoutedEventArgs e)
@@ -59,6 +55,8 @@ namespace BookingApp.GuestView
                     SelectedReservation.Canceled = true;
                     PropertyReservationRepository.Update(SelectedReservation);
                     ReservedDateRepository.Delete(SelectedReservation.Id);
+                    GuestsReservations.Clear();
+                    PropertyReservationRepository.GetAll().FindAll(r => r.GuestId == LoggedInGuest.Id && r.Canceled == false).ForEach(GuestsReservations.Add);
                     MessageBox.Show("Succesfully canceled!");
 
                 }
@@ -83,8 +81,16 @@ namespace BookingApp.GuestView
             Button makeReviewButton = sender as Button;
             SelectedReservation = makeReviewButton.Tag as PropertyReservation;
             SelectedProperty = PropertyRepository.GetPropertyById(SelectedReservation.PropertyId);
-            OwnerReview ownerReview = new OwnerReview(SelectedReservation, SelectedProperty, LoggedInGuest);
-            NavigationService.Navigate(ownerReview);
+            if (SelectedReservation.EndDate < DateTime.Now && DateTime.Now <= SelectedReservation.EndDate.AddDays(5))
+            {
+                OwnerRating ownerRating = new OwnerRating(SelectedReservation, SelectedProperty, LoggedInGuest);
+                NavigationService.Navigate(ownerRating);
+            }
+            else
+            {
+                MessageBox.Show("The deadline for making review is 5 days after the reservation.");
+            }
+            
         }
     }
 }

@@ -1,0 +1,72 @@
+﻿<Page x:Class="BookingApp.GuestView.OwnerRating"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.GuestView"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="450"
+        Title="OwnerRating" Height="660" Width="430">
+    <Grid Width="430" Margin="0,20,0,17" Background="#8FB9A8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="265*"/>
+            <RowDefinition Height="256*"/>
+            <RowDefinition Height="102*"/>
+        </Grid.RowDefinitions>
+
+        <Image Margin="10,0,375,206" Source="\Resources\Images\star (1).png"/>
+        <Label FontSize="26" Margin="55,10,0,157">Make review</Label>
+
+        <GroupBox Header="Criteria" BorderBrush="Black" BorderThickness="1" Background="BlanchedAlmond" VerticalAlignment="Top" Height="200" Margin="10,60,20,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="20, 10, 0, 0" >
+                        <Label HorizontalAlignment="Left" FontSize="16" Content="Cleanliness"></Label>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="40, 10, 80, 0">
+                        <Label HorizontalAlignment="Right" FontSize="16" Content="Correctness of the owner"></Label>
+                    </Border>
+                </StackPanel>
+                <StackPanel Margin="0, 10, 0, 0" Grid.Row="1" Orientation="Vertical">
+                    <RadioButton GroupName="cleanlinessGroup" Margin="20, 0, 0, 0" Content="1" HorizontalAlignment="Left" Width="100" Checked="CleanlinessRadioButton_Checked"/>
+                    <RadioButton GroupName="cleanlinessGroup" Margin="20, 10, 0, 0" Content="2" HorizontalAlignment="Left" Width="100" Checked="CleanlinessRadioButton_Checked"/>
+                    <RadioButton GroupName="cleanlinessGroup" Margin="20, 10, 0, 0" Content="3" HorizontalAlignment="Left" Width="100" Checked="CleanlinessRadioButton_Checked"/>
+                    <RadioButton GroupName="cleanlinessGroup" Margin="20, 10, 0, 0" Content="4" HorizontalAlignment="Left" Width="100" Checked="CleanlinessRadioButton_Checked"/>
+                    <RadioButton GroupName="cleanlinessGroup" Margin="20, 10, 0, 0" Content="5" HorizontalAlignment="Left" Width="100" Checked="CleanlinessRadioButton_Checked"/>
+                </StackPanel>
+                <StackPanel Margin="130, 10, 0, 0" Grid.Row="1" Orientation="Vertical">
+                    <RadioButton GroupName="correctnessGroup" Margin="20, 0, 0, 0" Content="1" HorizontalAlignment="Left" Width="100" Checked="CorrectnessRadioButton_Checked"/>
+                    <RadioButton GroupName="correctnessGroup" Margin="20, 10, 0, 0" Content="2" HorizontalAlignment="Left" Width="100" Checked="CorrectnessRadioButton_Checked"/>
+                    <RadioButton GroupName="correctnessGroup" Margin="20, 10, 0, 0" Content="3" HorizontalAlignment="Left" Width="100" Checked="CorrectnessRadioButton_Checked"/>
+                    <RadioButton GroupName="correctnessGroup" Margin="20, 10, 0, 0" Content="4" HorizontalAlignment="Left" Width="100" Checked="CorrectnessRadioButton_Checked"/>
+                    <RadioButton GroupName="correctnessGroup" Margin="20, 10, 0, 0" Content="5" HorizontalAlignment="Left" Width="100" Checked="CorrectnessRadioButton_Checked"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Your comment:" Margin="10, 10,0,0" Height="25" Width="90"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0" Height="100" Width="400">
+            <TextBox Text="{Binding Path=OwnerReview.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Border>
+        <Button Content="Renovation reccomendations" Grid.Row="1" HorizontalAlignment="Left" Margin="10, 45,0,0" VerticalAlignment="Center" Width="170" Height="30"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,175,0,0" Grid.RowSpan="2">
+            <Button Content="Add photos" Width="100" Height="30" HorizontalAlignment="Left" Click="AddPhotos_Click"/>
+            <ListBox x:Name="imageListBox" Height="110" Background="BlanchedAlmond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Width="400" Height="30" Margin="0, 5, 0, 0" Content="Send" Click="Send_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
