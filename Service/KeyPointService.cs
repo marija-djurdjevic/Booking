@@ -10,26 +10,26 @@ namespace BookingApp.Service
 {
     public class KeyPointService
     {
-        private readonly KeyPointRepository _keyPointRepository;
+        private readonly KeyPointRepository keyPointRepository;
 
         public KeyPointService()
         {
-            _keyPointRepository = new KeyPointRepository();
+            keyPointRepository = new KeyPointRepository();
         }
 
         public List<KeyPoint> GetTourKeyPoints(int tourId)
         {
-            return _keyPointRepository.GetTourKeyPoints(tourId);
+            return keyPointRepository.GetTourKeyPoints(tourId);
         }
 
         public void AddKeyPoint(KeyPoint keyPoint)
         {
-            _keyPointRepository.AddKeyPoint(keyPoint);
+            keyPointRepository.AddKeyPoint(keyPoint);
         }
 
         public void DeleteKeyPoints(int tourId)
         {
-            _keyPointRepository.DeleteKeyPoints(tourId);
+            keyPointRepository.DeleteKeyPoints(tourId);
         }
     }
 }

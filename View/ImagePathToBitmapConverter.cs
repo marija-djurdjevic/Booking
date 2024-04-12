@@ -17,8 +17,8 @@ namespace BookingApp.View
             {
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
-                image.UriSource = new Uri(imagePath, UriKind.Absolute);
-                image.EndInit();
+                image.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute); 
+                image.EndInit(); 
                 return image;
             }
 

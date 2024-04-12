@@ -7,31 +7,31 @@ namespace BookingApp.Service
 {
     public class LiveTourService
     {
-        private readonly LiveTourRepository _liveTourRepository;
+        private readonly LiveTourRepository liveTourRepository;
 
         public LiveTourService()
         {
-            _liveTourRepository = new LiveTourRepository();
+            liveTourRepository = new LiveTourRepository();
         }
 
         public LiveTour GetLiveTourById(int tourId)
         {
-            return _liveTourRepository.GetLiveTourById(tourId);
+            return liveTourRepository.GetLiveTourById(tourId);
         }
 
 
         public List<LiveTour> GetAllLiveTours()
         {
-            return _liveTourRepository.GetAllLiveTours();
+            return liveTourRepository.GetAllLiveTours();
         }
 
         public void ActivateTour(int tourId)
         {
-            var liveTour = _liveTourRepository.GetLiveTourById(tourId);
+            var liveTour = liveTourRepository.GetLiveTourById(tourId);
             if (liveTour != null && !liveTour.IsLive)
             {
                 liveTour.IsLive = true;
-                _liveTourRepository.SaveChanges();
+                liveTourRepository.SaveChanges();
             }
         }
     }
