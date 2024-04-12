@@ -9,9 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Width="554"
-    Height="517"
-    MinWidth="454"
-    MinHeight="487"
+    Height="527"
+    Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -62,7 +61,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Margin="0,0,0,0">
+            <StackPanel Grid.Column="0" Margin="0,-20,0,0">
 
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Country" />
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="City" />
@@ -71,7 +70,7 @@
                 <TextBlock Style="{StaticResource TekstualnaPoljaTextBlock}" Text="Tourist number" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Margin="0,30,0,0">
+            <StackPanel Grid.Column="1" Margin="0,10,0,0">
                 <ComboBox
                     Width="300"
                     Height="40"
@@ -145,17 +144,44 @@
 
 
             </StackPanel>
+
             <Button
                 Grid.Column="1"
                 Click="ConfirmClick"
-                Content="Confirm"
-                Style="{StaticResource ConfirmButton}" />
+                Style="{StaticResource ConfirmButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/confirm.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Confirm" />
+                    </StackPanel>
+                </Button.Content>
+                <Button.BorderBrush>
+                    <SolidColorBrush Opacity="0" Color="White" />
+                </Button.BorderBrush>
+
+            </Button>
 
             <Button
                 Grid.Column="0"
                 Click="CancelClick"
-                Content="Cancel"
-                Style="{StaticResource CancelButton}" />
+                Style="{StaticResource CancelButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/cancel.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Cancel" />
+                    </StackPanel>
+                </Button.Content>
+                <Button.BorderBrush>
+                    <SolidColorBrush Opacity="0" Color="White" />
+                </Button.BorderBrush>
+
+            </Button>
         </Grid>
     </DockPanel>
 

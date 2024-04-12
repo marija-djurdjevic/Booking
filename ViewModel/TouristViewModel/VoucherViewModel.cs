@@ -46,7 +46,8 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             Vouchers.Clear();
             int number = 0;
-            foreach (var voucher in repository.GetByToueristId(LoggedInUser.Id))
+            List<Voucher> sortedVouchers = repository.GetByToueristId(LoggedInUser.Id).OrderBy(x => x.ExpirationDate).ToList();
+            foreach (var voucher in sortedVouchers)
             {
                 var voucherName = "Voucher " + (++number).ToString();
                 Vouchers.Add(new Tuple<Voucher, string>(voucher, voucherName));

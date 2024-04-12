@@ -17,6 +17,12 @@
   <ItemGroup>
     <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
     <None Remove="Resources\Icons\TouristIcons\broken-image1.png" />
+    <None Remove="Resources\Icons\TouristIcons\cancel.png" />
+    <None Remove="Resources\Icons\TouristIcons\close.png" />
+    <None Remove="Resources\Icons\TouristIcons\confirm.png" />
+    <None Remove="Resources\Icons\TouristIcons\next.png" />
+    <None Remove="Resources\Icons\TouristIcons\previous.png" />
+    <None Remove="Resources\Icons\TouristIcons\show.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
@@ -49,15 +55,12 @@
     <None Remove="Resources\Icons\TouristIcons\home.png" />
     <None Remove="Resources\Icons\TouristIcons\location-pin.png" />
     <None Remove="Resources\Icons\TouristIcons\logout.png" />
-    <None Remove="Resources\Icons\TouristIcons\next.png" />
     <None Remove="Resources\Icons\TouristIcons\photo.png" />
-    <None Remove="Resources\Icons\TouristIcons\previous.png" />
     <None Remove="Resources\Icons\TouristIcons\removeimage.png" />
     <None Remove="Resources\Icons\TouristIcons\settings.png" />
     <None Remove="Resources\Icons\TouristIcons\target.png" />
     <None Remove="Resources\Icons\TouristIcons\travel.png" />
     <None Remove="Resources\Icons\TouristIcons\user.png" />
-    <None Remove="Resources\Icons\TouristIcons\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +90,9 @@
     <Resource Include="Resources\Icons\TouristIcons\addimage.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image1.png" />
+    <Resource Include="Resources\Icons\TouristIcons\cancel.png" />
+    <Resource Include="Resources\Icons\TouristIcons\close.png" />
+    <Resource Include="Resources\Icons\TouristIcons\confirm.png" />
     <Resource Include="Resources\Icons\TouristIcons\help1.png" />
     <Resource Include="Resources\Icons\TouristIcons\home.png" />
     <Resource Include="Resources\Icons\TouristIcons\location-pin.png" />
@@ -96,11 +102,11 @@
     <Resource Include="Resources\Icons\TouristIcons\previous.png" />
     <Resource Include="Resources\Icons\TouristIcons\removeimage.png" />
     <Resource Include="Resources\Icons\TouristIcons\settings.png" />
+    <Resource Include="Resources\Icons\TouristIcons\show.png" />
     <Resource Include="Resources\Icons\TouristIcons\target.png" />
     <Resource Include="Resources\Icons\TouristIcons\tooltip.png" />
     <Resource Include="Resources\Icons\TouristIcons\travel.png" />
     <Resource Include="Resources\Icons\TouristIcons\user.png" />
-    <Resource Include="Resources\Icons\TouristIcons\view.png" />
     <Resource Include="Resources\Images\back (1).png" />
     <Resource Include="Resources\Images\back (2).png" />
     <Resource Include="Resources\Images\back.png" />

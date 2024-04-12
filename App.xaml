@@ -10,18 +10,11 @@
 
 
         <!--  STilovi za turistu  -->
-        <!--<Style TargetType="Label">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="20" />
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="20" />
-        </Style>-->
 
-        <SolidColorBrush x:Key="BackgroundColor" Color="#8c92ac" />
-        <SolidColorBrush x:Key="CardColor" Color="LightBlue" />
-        <SolidColorBrush x:Key="SelectedCardColor" Color="LightGreen" />
+        <SolidColorBrush x:Key="BackgroundColor" Color="#00896F" />
+        <SolidColorBrush x:Key="CardColor" Color="#E6F4F1" />
+        <SolidColorBrush x:Key="PageColor" Color="#EEE8AA" />
+        <SolidColorBrush x:Key="SelectedCardColor" Color="#F59432" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
         <Style x:Key="TabStyle" TargetType="TabItem">
@@ -35,7 +28,7 @@
                             <!--  Prilagođeni izgled taba  -->
                             <Border
                                 Name="Border"
-                                Background="LightGray"
+                                Background="{StaticResource CardColor}"
                                 BorderThickness="1"
                                 CornerRadius="2">
                                 <ContentPresenter
@@ -46,7 +39,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#8c92ac" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource SelectedCardColor}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -59,7 +52,7 @@
             <Setter Property="Height" Value="auto" />
             <Setter Property="MinHeight" Value="700" />
             <Setter Property="MinWidth" Value="820" />
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{StaticResource PageColor}" />
         </Style>
 
         <Style x:Key="TekstualnaPoljaTextBlock" TargetType="TextBlock">
@@ -74,18 +67,66 @@
         <Style x:Key="ConfirmButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="30" />
             <Setter Property="Margin" Value="0,0,0,10" />
             <Setter Property="Width" Value="auto" />
+            <Setter Property="Background" Value="Green" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <!--  Dodato CornerRadius za zaobljeni ugao  -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="FontSize" Value="36" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="CancelButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="30" />
             <Setter Property="Margin" Value="0,0,0,10" />
             <Setter Property="Width" Value="auto" />
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <!--  Dodato CornerRadius za zaobljeni ugao  -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="FontSize" Value="36" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
+
 
         <Style
             x:Key="NasloviProzoraTextBlock"
@@ -105,7 +146,7 @@
             <Setter Property="Width" Value="320" />
             <Setter Property="Height" Value="70" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
-            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="CornerRadius" Value="15" />
         </Style>
 
         <Style x:Key="MainCardTabs" TargetType="Button">
@@ -154,7 +195,7 @@
             <Setter Property="Background" Value="{StaticResource CardColor}" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="CornerRadius" Value="15" />
         </Style>
 
         <!--  Group box za prikaz svih vaucera  -->
@@ -184,7 +225,7 @@
                                     Duration="0:0:0.300" />
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
-                                    To="LightBlue"
+                                    To="#F59432"
                                     Duration="0:0:0.300" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -200,7 +241,7 @@
                                     Duration="0:0:0.200" />
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
-                                    To="LightGray"
+                                    To="#E6F4F1"
                                     Duration="0:0:0.200" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -223,7 +264,7 @@
 
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
-                                    To="LightBlue"
+                                    To="#F59432"
                                     Duration="0:0:0.900" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -235,7 +276,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
-                                    To="LightBlue"
+                                    To="#E6F4F1"
                                     Duration="0:0:0.200" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -252,8 +293,8 @@
             <Setter Property="Margin" Value="0,0,15,0" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="Background" Value="{StaticResource PageColor}" />
+            <Setter Property="BorderBrush" Value="{StaticResource PageColor}" />
             <Style.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <EventTrigger.Actions>

@@ -9,6 +9,7 @@
     Title="Booking app"
     Width="820"
     Height="700"
+    Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -103,17 +104,44 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Button
                     Grid.Column="1"
                     Click="ConfirmClick"
-                    Content="Confirm"
-                    Style="{StaticResource ConfirmButton}" />
+                    Style="{StaticResource ConfirmButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/confirm.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Confirm" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.BorderBrush>
+                        <SolidColorBrush Opacity="0" Color="White" />
+                    </Button.BorderBrush>
+
+                </Button>
 
                 <Button
                     Grid.Column="0"
                     Click="CancelClick"
-                    Content="Cancel"
-                    Style="{StaticResource CancelButton}" />
+                    Style="{StaticResource CancelButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/cancel.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Cancel" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.BorderBrush>
+                        <SolidColorBrush Opacity="0" Color="White" />
+                    </Button.BorderBrush>
+
+                </Button>
             </Grid>
         </DockPanel>
 
@@ -122,7 +150,8 @@
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
 
                 <ListBox
-                    BorderBrush="Black"
+                    Background="{StaticResource PageColor}"
+                    BorderBrush="{StaticResource BackgroundColor}"
                     ItemsSource="{Binding Vouchers}"
                     SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource CardView}">

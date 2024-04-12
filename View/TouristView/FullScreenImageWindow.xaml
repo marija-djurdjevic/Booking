@@ -9,7 +9,7 @@
     Title="Booking app"
     MinWidth="500"
     MinHeight="500"
-    Background="{StaticResource BackgroundColor}"
+    Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     mc:Ignorable="d">
     <Grid>
@@ -32,7 +32,7 @@
                 Grid.Column="0"
                 Width="350"
                 Height="70"
-                Background="White"
+                Background="{StaticResource PageColor}"
                 Click="PreviousImageButtonClick">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
@@ -45,7 +45,7 @@
                 Grid.Column="1"
                 Width="350"
                 Height="70"
-                Background="White"
+                Background="{StaticResource PageColor}"
                 Click="NextImageButtonClick">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
@@ -55,13 +55,23 @@
                 </Button.Content>
             </Button>
         </Grid>
+
         <Button
             Grid.Row="1"
+            Padding="10,0"
             HorizontalAlignment="Center"
             Click="CloseButtonClick"
-            Content="Close"
             FontSize="50"
             Style="{StaticResource CancelButton}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Height="60"
+                        Margin="10,0,5,0"
+                        Source="/Resources/Icons/TouristIcons/close.png" />
+                    <TextBlock Margin="0,0,10,0" Text="Close" />
+                </StackPanel>
+            </Button.Content>
             <Button.BorderBrush>
                 <SolidColorBrush Opacity="0" Color="White" />
             </Button.BorderBrush>

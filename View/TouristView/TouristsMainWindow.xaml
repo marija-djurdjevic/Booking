@@ -110,11 +110,11 @@
                         <Border>
 
                             <TextBlock
-                                Margin="25,0,0,0"
+                                Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="26"
-                                Text="Show And Search Tours">
+                                Text="Show and search tours">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
@@ -155,7 +155,7 @@
                         <Border>
 
                             <TextBlock
-                                Margin="25,0,0,0"
+                                Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="26"
@@ -200,7 +200,7 @@
                         <Border>
 
                             <TextBlock
-                                Margin="25,0,0,0"
+                                Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="26"
@@ -245,7 +245,7 @@
                         <Border>
 
                             <TextBlock
-                                Margin="25,0,0,0"
+                                Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="26"
@@ -292,7 +292,7 @@
                         <Border>
 
                             <TextBlock
-                                Margin="25,0,0,0"
+                                Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="26"

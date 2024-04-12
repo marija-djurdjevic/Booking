@@ -150,7 +150,7 @@
         </DockPanel>
 
         <Grid Margin="15,25,15,15">
-            <TabControl>
+            <TabControl Background="{StaticResource PageColor}">
                 <TabItem Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
