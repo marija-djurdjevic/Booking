@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class TouristGuideNotification: ISerializable
+    public class TouristGuideNotification : ISerializable
     {
+        public int Id { get; set; }
         public int TouristId { get; set; }
         public int GuideId { get; set; }
         public int TourId { get; set; }
@@ -22,7 +23,7 @@ namespace BookingApp.Model
 
         public string ActiveKeyPoint { get; set; }
 
-        public TouristGuideNotification() 
+        public TouristGuideNotification()
         {
             AddedPersons = new List<string>();
             Seen = false;
@@ -45,26 +46,27 @@ namespace BookingApp.Model
         public virtual string[] ToCSV()
         {
             string addedPersons = string.Join("|", AddedPersons);
-            string[] csvValues = { TouristId.ToString(),GuideId.ToString(),TourId.ToString(),Date.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(),ActiveKeyPoint,TourName,GuideName, addedPersons };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), TourId.ToString(), Date.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(), ActiveKeyPoint, TourName, GuideName, addedPersons };
             return csvValues;
         }
 
         public virtual void FromCSV(string[] values)
         {
-            TouristId = Convert.ToInt32(values[0]);
-            GuideId = Convert.ToInt32(values[1]);
-            TourId = Convert.ToInt32(values[2]);
+            Id = Convert.ToInt32(values[0]);
+            TouristId = Convert.ToInt32(values[1]);
+            GuideId = Convert.ToInt32(values[2]);
+            TourId = Convert.ToInt32(values[3]);
 
-            Date = DateTime.ParseExact(values[3], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            Date = DateTime.ParseExact(values[4], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
 
-            Type = (NotificationType)Enum.Parse(typeof(NotificationType),values[4]);
-            Seen = Boolean.Parse(values[5]);
-            ActiveKeyPoint = values[6];
-            TourName = values[7];
-            GuideName = values[8];
+            Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[5]);
+            Seen = Boolean.Parse(values[6]);
+            ActiveKeyPoint = values[7];
+            TourName = values[8];
+            GuideName = values[9];
 
-            for (int i = 9; i < values.Length; i++)
+            for (int i = 10; i < values.Length; i++)
             {
                 AddedPersons.Add(values[i]);
             }

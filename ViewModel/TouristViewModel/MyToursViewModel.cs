@@ -125,14 +125,11 @@ namespace BookingApp.ViewModel.TouristView
 
         private Visibility IsRateButtonVisible(int tourId, int userId)
         {
-            Visibility visibility = Visibility.Hidden;
-            List<TourReservation> finishedReservationsAttendedByUser = reservationRepository.GetFinishedReservationsAttendedByUser(userId);
-
-            if (finishedReservationsAttendedByUser.Find(t => t.TourId == tourId) != null && !touristExperienceRepository.IsTourRatedByUser(tourId, userId))
+            if (tourService.CanTouristRateTour(userId,tourId))
             {
-                visibility = Visibility.Visible;
+                return Visibility.Visible;
             }
-            return visibility;
+            return Visibility.Collapsed;
         }
 
         public void OpenInbox()

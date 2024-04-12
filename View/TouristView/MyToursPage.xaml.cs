@@ -34,10 +34,6 @@ namespace BookingApp.View.TouristView
             InitializeComponent();
             myToursViewModel = new MyToursViewModel(loggedInUser);
             DataContext = myToursViewModel;
-
-            NoMyTours.SetBinding(TextBlock.VisibilityProperty, new System.Windows.Data.Binding(nameof(myToursViewModel.NoMyToursTextVisibility)));
-            NoActiveTours.SetBinding(TextBlock.VisibilityProperty, new System.Windows.Data.Binding(nameof(myToursViewModel.NoActiveToursTextVisibility)));
-
         }
         
         private void HelpButtonClick(object sender, RoutedEventArgs e)
