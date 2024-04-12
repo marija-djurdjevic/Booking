@@ -35,31 +35,24 @@
                     Grid.Column="0"
                     Style="{StaticResource NasloviProzoraTextBlock}"
                     Text="Tour details" />
-                <StackPanel
+                <Button
+                    Grid.Row="0"
                     Grid.Column="2"
-                    Height="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top">
-                    <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
-                        <Button.Content>
-                            <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
-                                <TextBlock
-                                    Height="30"
-                                    Margin="7,0,0,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Text="Help" />
-                                <Image
-                                    Width="30"
-                                    Height="30"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Source="/Resources/Icons/TouristIcons/help1.png" />
-                            </DockPanel>
-                        </Button.Content>
-
-                    </Button>
-                </StackPanel>
+                    Margin="0"
+                    VerticalAlignment="Top"
+                    Background="{StaticResource SelectedCardColor}"
+                    Click="HelpButtonClick"
+                    Style="{StaticResource ConfirmButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/help.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Help" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
 
             </Grid>
         </DockPanel>
@@ -170,7 +163,7 @@
                         <Button
                             Width="50"
                             Height="50"
-                            Background="White"
+                            Background="{StaticResource PageColor}"
                             Click="PreviousImageButtonClick">
                             <Button.BorderBrush>
                                 <SolidColorBrush Opacity="0" Color="White" />
@@ -197,7 +190,7 @@
                         <Button
                             Width="50"
                             Height="50"
-                            Background="White"
+                            Background="{StaticResource PageColor}"
                             Click="NextImageButtonClick">
                             <Button.BorderBrush>
                                 <SolidColorBrush Opacity="0" Color="White" />
@@ -246,12 +239,14 @@
                                         <Image
                                             Width="30"
                                             Height="30"
-                                            Source="/Resources/Icons/TouristIcons/home.png" />
+                                            Source="/Resources/Icons/TouristIcons/start.png" />
                                         <TextBlock
                                             Margin="5,0,10,10"
                                             Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="Start: " />
+                                            Text="Start: "
+                                            Visibility="Collapsed" />
                                         <TextBlock
+                                            Margin="15,0,0,0"
                                             FontWeight="Bold"
                                             Style="{StaticResource GroupBoxTextBlocs}"
                                             Text="{Binding StartPoint.Name}" />
@@ -264,13 +259,14 @@
                                         ItemsSource="{Binding SelectedTour.KeyPoints}">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+                                                <StackPanel Margin="35,0,0,0" Orientation="Horizontal">
 
                                                     <Image
                                                         Width="30"
                                                         Height="30"
-                                                        Source="/Resources/Icons/TouristIcons/location-pin.png" />
+                                                        Source="/Resources/Icons/TouristIcons/middle.png" />
                                                     <TextBlock
+                                                        Margin="15,0,0,0"
                                                         FontSize="20"
                                                         FontWeight="Bold"
                                                         Text="{Binding Name}" />
@@ -284,12 +280,14 @@
                                         <Image
                                             Width="30"
                                             Height="30"
-                                            Source="/Resources/Icons/TouristIcons/target.png" />
+                                            Source="/Resources/Icons/TouristIcons/end.png" />
                                         <TextBlock
                                             Margin="5,0,10,10"
                                             Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="End: " />
+                                            Text="End: "
+                                            Visibility="Collapsed" />
                                         <TextBlock
+                                            Margin="15,0,0,0"
                                             FontWeight="Bold"
                                             Style="{StaticResource GroupBoxTextBlocs}"
                                             Text="{Binding EndPoint.Name}" />

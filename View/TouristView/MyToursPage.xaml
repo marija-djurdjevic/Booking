@@ -87,7 +87,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
@@ -95,56 +95,42 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource NasloviProzoraTextBlock}"
                     Text="My tours" />
-                <StackPanel
+                <Button
+                    Grid.Row="0"
                     Grid.Column="2"
-                    Height="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top">
-                    <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
-                        <Button.Content>
-                            <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
-                                <TextBlock
-                                    Height="30"
-                                    Margin="7,0,0,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Text="Help" />
-                                <Image
-                                    Width="30"
-                                    Height="30"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Source="/Resources/Icons/TouristIcons/help1.png" />
-                            </DockPanel>
-                        </Button.Content>
-
-                    </Button>
-                </StackPanel>
-
-                <StackPanel
+                    Margin="0"
+                    VerticalAlignment="Top"
+                    Background="{StaticResource SelectedCardColor}"
+                    Click="HelpButtonClick"
+                    Style="{StaticResource ConfirmButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/help.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Help" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button
+                    Grid.Row="0"
                     Grid.Column="2"
-                    Height="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom">
-                    <Button Click="InboxButtonClick" Style="{StaticResource HoverStilHelp}">
-                        <Button.Content>
-                            <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
-                                <TextBlock
-                                    Height="30"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Text="Inbox" />
-                                <Image
-                                    Width="30"
-                                    Height="30"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Source="/Resources/Icons/TouristIcons/help1.png" />
-                            </DockPanel>
-                        </Button.Content>
-
-                    </Button>
-                </StackPanel>
+                    Margin="0"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource BackgroundColor}"
+                    Click="InboxButtonClick"
+                    Style="{StaticResource ConfirmButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/inbox.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Inbox" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
         </DockPanel>
@@ -273,18 +259,27 @@
                                                     </StackPanel>
 
                                                     <Button
-                                                        x:Name="Rate"
                                                         Grid.Column="1"
-                                                        Width="60"
                                                         Margin="50,10,10,10"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Bottom"
                                                         Click="RateButtonClick"
+                                                        Style="{StaticResource ConfirmButton}"
                                                         Tag="{Binding}"
                                                         Visibility="{Binding Item2}">
                                                         <Button.Content>
-                                                            <TextBlock FontSize="20" Text="Rate" />
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image
+                                                                    Height="40"
+                                                                    Margin="5,0,5,0"
+                                                                    Source="/Resources/Icons/TouristIcons/grade.png" />
+                                                                <TextBlock Margin="0,0,5,0" Text="Grade" />
+                                                            </StackPanel>
                                                         </Button.Content>
+                                                        <Button.BorderBrush>
+                                                            <SolidColorBrush Opacity="0" Color="White" />
+                                                        </Button.BorderBrush>
+
                                                     </Button>
                                                 </Grid>
 
@@ -323,7 +318,7 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Height="auto" Style="{StaticResource HoverStilKartice}">
+                                        <Border Height="auto" Style="{StaticResource OkvirKarticeTura}">
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -443,11 +438,17 @@
                                                             Width="30"
                                                             Height="52"
                                                             Orientation="Vertical">
+                                                            <Image
+                                                                Height="30"
+                                                                Margin="0,10,0,0"
+                                                                Source="/Resources/Icons/TouristIcons/arrived.png" />
                                                             <RadioButton
+                                                                x:Name="Radio"
                                                                 Margin="0,10,0,0"
                                                                 IsChecked="{Binding Item1.KeyPoints[0].IsChecked}"
                                                                 IsEnabled="False"
-                                                                Style="{StaticResource LargeRadioButtonStyle}" />
+                                                                Style="{StaticResource LargeRadioButtonStyle}"
+                                                                Visibility="Collapsed" />
                                                             <Border
                                                                 Width="5"
                                                                 Height="10"
@@ -483,11 +484,20 @@
                                                                             Width="5"
                                                                             Height="10"
                                                                             Style="{StaticResource dash}" />
+                                                                        <Image
+                                                                            Height="30"
+                                                                            Source="/Resources/Icons/TouristIcons/arrived.png"
+                                                                            Visibility="{Binding IsChecked, ConverterParameter='a', Converter={cvt:VisitedKeyPoint}}" />
+                                                                        <Image
+                                                                            Height="30"
+                                                                            Source="/Resources/Icons/TouristIcons/unarrived.png"
+                                                                            Visibility="{Binding IsChecked, ConverterParameter='u', Converter={cvt:VisitedKeyPoint}}" />
                                                                         <RadioButton
                                                                             x:Name="Radio"
                                                                             IsChecked="{Binding IsChecked}"
                                                                             IsEnabled="False"
-                                                                            Style="{StaticResource LargeRadioButtonStyle}" />
+                                                                            Style="{StaticResource LargeRadioButtonStyle}"
+                                                                            Visibility="Collapsed" />
                                                                         <Border
                                                                             Width="5"
                                                                             Height="10"
@@ -518,7 +528,12 @@
                                                             <RadioButton
                                                                 IsChecked="{Binding Item3.IsChecked}"
                                                                 IsEnabled="False"
-                                                                Style="{StaticResource LargeRadioButtonStyle}" />
+                                                                Style="{StaticResource LargeRadioButtonStyle}"
+                                                                Visibility="Collapsed" />
+                                                            <Image
+                                                                Height="30"
+                                                                Margin="0,0,0,0"
+                                                                Source="/Resources/Icons/TouristIcons/unarrived.png" />
                                                         </StackPanel>
 
                                                         <TextBlock

@@ -41,8 +41,8 @@
                 <StackPanel Orientation="Vertical">
                     <DockPanel Margin="0,0,0,50">
                         <DockPanel
-                            Width="40"
-                            Height="40"
+                            Width="50"
+                            Height="50"
                             VerticalAlignment="Top"
                             DockPanel.Dock="Right">
                             <Button Click="SettingsButtonClick">
@@ -54,7 +54,7 @@
                                 </Button.Background>
                                 <Button.Content>
                                     <Image
-                                        Width="30"
+                                        Height="50"
                                         VerticalAlignment="Top"
                                         Source="/Resources/Icons/TouristIcons/settings.png" />
 
@@ -63,7 +63,37 @@
 
                         </DockPanel>
 
-                        <StackPanel Margin="0,0,0,40" Orientation="Horizontal">
+                        <DockPanel
+                            Height="50"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            DockPanel.Dock="Bottom">
+                            <Button
+                                Margin="0"
+                                VerticalAlignment="Top"
+                                Background="{StaticResource CardColor}"
+                                Click="LogoutButtonClick"
+                                Style="{StaticResource ConfirmButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            Height="40"
+                                            Margin="5,0,5,0"
+                                            Source="/Resources/Icons/TouristIcons/logout.png" />
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            Foreground="Black"
+                                            Text="Logout" />
+                                    </StackPanel>
+                                </Button.Content>
+                                <Button.BorderBrush>
+                                    <SolidColorBrush Opacity="0" Color="White" />
+                                </Button.BorderBrush>
+
+                            </Button>
+                        </DockPanel>
+
+                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
                             <StackPanel Margin="0,0,10,0">
                                 <Image Width="100" Source="/Resources/Icons/TouristIcons/user.png" />
                             </StackPanel>
@@ -77,29 +107,6 @@
                                     FontSize="24"
                                     Foreground="White"
                                     Text="{Binding Tourist.LastName}" />
-                                <Button
-                                    Padding="2"
-                                    Click="LogoutButtonClick"
-                                    FontSize="24">
-                                    <Button.Background>
-                                        <SolidColorBrush Color="White" />
-                                    </Button.Background>
-                                    <Button.BorderBrush>
-                                        <SolidColorBrush Opacity="0" />
-                                    </Button.BorderBrush>
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image
-                                                Width="30"
-                                                Margin="5,0,5,0"
-                                                Source="/Resources/Icons/TouristIcons/logout.png" />
-                                            <TextBlock
-                                                Margin="0,0,5,0"
-                                                FontSize="24"
-                                                Text="Logout" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
 
                             </StackPanel>
 

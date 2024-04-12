@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
+using BookingApp.Service;
 
 namespace BookingApp.ViewModel.TouristViewModel
 {
@@ -24,12 +25,14 @@ namespace BookingApp.ViewModel.TouristViewModel
         public TourDto SelectedTour { get; set; }
 
         private readonly TourRepository repository;
+        private readonly KeyPointService keyPointService;
 
         private bool _isCancelSearchButtonVisible;
 
         public ShowAndSearchToursViewModel(User loggedInUser)
         {
             repository = new TourRepository();
+            keyPointService = new KeyPointService();
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
@@ -72,6 +75,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             Border border = (Border)sender;
             SelectedTour = (TourDto)border.DataContext;
+            SelectedTour.KeyPoints = keyPointService.GetTourKeyPoints(SelectedTour.Id);
             if (SelectedTour.MaxTouristNumber > 0)
             {
                 TourBookingWindow tourBookingWindow = new TourBookingWindow(SelectedTour, LoggedInUser.Id);

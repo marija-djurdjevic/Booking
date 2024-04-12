@@ -71,31 +71,24 @@
                 VerticalAlignment="Center"
                 Style="{StaticResource NasloviProzoraTextBlock}"
                 Text="Rate the tour and the guide" />
-            <StackPanel
+            <Button
+                Grid.Row="0"
                 Grid.Column="2"
-                Height="30"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
-                <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
-                    <Button.Content>
-                        <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
-                            <TextBlock
-                                Height="30"
-                                Margin="7,0,0,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Help" />
-                            <Image
-                                Width="30"
-                                Height="30"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Source="/Resources/Icons/TouristIcons/help1.png" />
-                        </DockPanel>
-                    </Button.Content>
-
-                </Button>
-            </StackPanel>
+                Margin="0"
+                VerticalAlignment="Top"
+                Background="{StaticResource SelectedCardColor}"
+                Click="HelpButtonClick"
+                Style="{StaticResource ConfirmButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/help.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Help" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
 
         </DockPanel>
 
@@ -290,7 +283,7 @@
                             Width="60"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Background="White"
+                            Background="{StaticResource PageColor}"
                             BorderBrush="White"
                             Click="PreviousImageButtonClick">
                             <Image
@@ -303,7 +296,7 @@
                             Width="60"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Background="White"
+                            Background="{StaticResource PageColor}"
                             BorderBrush="White"
                             Click="NextImageButtonClick">
                             <Image
@@ -332,7 +325,7 @@
                         Height="40"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Background="White"
+                        Background="{StaticResource PageColor}"
                         BorderBrush="Red"
                         Click="RemoveImageButtonClick">
                         <Button.Content>
@@ -340,7 +333,7 @@
                                 Width="35"
                                 Height="35"
                                 VerticalAlignment="Center"
-                                Source="/Resources/Icons/TouristIcons/removeimage.png" />
+                                Source="/Resources/Icons/TouristIcons/photo.png" />
                         </Button.Content>
                     </Button>
                     <Button
@@ -350,7 +343,7 @@
                         Height="80"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Background="White"
+                        Background="{StaticResource PageColor}"
                         BorderBrush="White"
                         Click="AddImageButtonClick">
                         <Button.Content>
@@ -358,7 +351,7 @@
                                 Width="75"
                                 Height="75"
                                 VerticalAlignment="Center"
-                                Source="/Resources/Icons/TouristIcons/addimage.png" />
+                                Source="/Resources/Icons/TouristIcons/image.png" />
                         </Button.Content>
                     </Button>
                 </Grid>

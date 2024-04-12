@@ -132,9 +132,9 @@
             x:Key="NasloviProzoraTextBlock"
             BasedOn="{StaticResource TekstualnaPoljaTextBlock}"
             TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontSize" Value="34" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Height" Value="40" />
+            <Setter Property="Height" Value="auto" />
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
@@ -193,8 +193,8 @@
             <Setter Property="Height" Value="175" />
             <Setter Property="Margin" Value="50,15" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="BorderThickness" Value="4" />
             <Setter Property="CornerRadius" Value="15" />
         </Style>
 
@@ -204,8 +204,8 @@
             <Setter Property="Margin" Value="50,15" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Background" Value="{StaticResource CardColor}" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="BorderThickness" Value="4" />
         </Style>
 
 
@@ -221,7 +221,7 @@
                             <Storyboard>
                                 <DoubleAnimation
                                     Storyboard.TargetProperty="FontSize"
-                                    To="24"
+                                    To="22"
                                     Duration="0:0:0.300" />
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
@@ -265,7 +265,7 @@
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
                                     To="#F59432"
-                                    Duration="0:0:0.900" />
+                                    Duration="0:0:0.300" />
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -277,7 +277,7 @@
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(GroupBox.Background).(SolidColorBrush.Color)"
                                     To="#E6F4F1"
-                                    Duration="0:0:0.200" />
+                                    Duration="0:0:0.300" />
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
