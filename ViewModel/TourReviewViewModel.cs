@@ -1,9 +1,9 @@
-﻿using BookingApp.Commands;
-using BookingApp.DTO;
+﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
+using BookingApp.View.GuideView;
 using Microsoft.Build.Framework;
 using System.Collections.ObjectModel;
 using System.Linq;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Navigation;
-using BookingApp.Commands;
-using BookingApp.GuideView;
+using BookingApp.View.GuideView;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
+
 
 namespace BookingApp.ViewModel
 {
@@ -135,7 +135,7 @@ namespace BookingApp.ViewModel
 
         private void ExecuteNavigateBack()
         {
-            var tourStatisticPage = new TourStatisticPage1();
+            var tourStatisticPage = new TourStatistic();
             GuideMainWindow.MainFrame.Navigate(tourStatisticPage);
         }
     }

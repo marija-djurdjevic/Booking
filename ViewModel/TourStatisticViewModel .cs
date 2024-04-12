@@ -8,9 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using BookingApp.View;
 using System.Windows;
-using BookingApp.Commands;
 using BookingApp.Service;
-using BookingApp.GuideView;
+using BookingApp.View.GuideView;
 
 namespace BookingApp.ViewModel
 {
@@ -33,7 +32,7 @@ namespace BookingApp.ViewModel
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
             _navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();
-            // SelectedYear = "2023";
+           
         }
 
         private void LoadData()
@@ -125,7 +124,7 @@ namespace BookingApp.ViewModel
 
                 var sortedToursForYear = toursForYear.OrderByDescending(t => touristCounts[t.Id]).ToList();
 
-                if (sortedToursForYear.Count > 0)
+                if (sortedToursForYear.Count > 0 && sortedToursForYear[0] != sortedTours[0])
                 {
                     var tours = new List<Tour>(sortedTours);
                     tours.Insert(0, sortedToursForYear[0]);
@@ -176,7 +175,7 @@ namespace BookingApp.ViewModel
         {
             if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
             {
-                var touristsNumberPage1 = new TouristsNumberPage1(tourId);
+                var touristsNumberPage1 = new TouristsNumber(tourId);
                 GuideMainWindow.MainFrame.Navigate(touristsNumberPage1);
             }
         }
