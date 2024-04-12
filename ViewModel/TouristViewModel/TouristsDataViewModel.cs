@@ -33,11 +33,11 @@ namespace BookingApp.ViewModel.TouristViewModel
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
-            Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, LoggedInTourist), "Tourist 1", true));
+            Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, LoggedInTourist,true), "Tourist 1", true));
             for (int i = 0; i < touristNumber - 1; i++)
             {
                 int a = i + 2;
-                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId), "Tourist " + a, false));
+                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId,false), "Tourist " + a, false));
             }
 
         }

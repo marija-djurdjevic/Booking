@@ -49,13 +49,13 @@ namespace BookingApp.Repository
 
         public List<TourReservation> GetByTourId(int tourId)
         {
-            tourReservations = _serializer.FromCSV(FilePath);
+            tourReservations = GetAll();
             return tourReservations.FindAll(t => t.TourId == tourId);
         }
 
         public List<TourReservation> GetByUserId(int userId)
         {
-            tourReservations = _serializer.FromCSV(FilePath);
+            tourReservations = GetAll();
             return tourReservations.FindAll(t => t.UserId == userId);
         }
 
@@ -94,5 +94,10 @@ namespace BookingApp.Repository
             SaveChanges();
         }
 
+        public bool IsUserOnTour(int userId,int tourId)
+        {
+            var userReservations = GetByUserId(userId);
+            return userReservations.Any(r => r.TourId == tourId && r.IsOnTour && r.IsUser);
+        }
     }
 }

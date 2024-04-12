@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BookingApp.View.GuideView;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.View
@@ -11,7 +12,7 @@ namespace BookingApp.View
         {
             InitializeComponent();
             MainFrame = (Frame)this.FindName("MainFrameControl");
-            MainFrame.Navigate(new GuideMainPage());
+            MainFrame.Navigate(new GuideMainPage1());
         }
     }
 }

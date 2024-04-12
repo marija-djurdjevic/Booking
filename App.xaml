@@ -92,6 +92,7 @@
             BasedOn="{StaticResource TekstualnaPoljaTextBlock}"
             TargetType="TextBlock">
             <Setter Property="FontSize" Value="24" />
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Height" Value="40" />
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="FontWeight" Value="Bold" />
@@ -118,11 +119,17 @@
 
         </Style>
 
+        <Style x:Key="HelpInboxStyle" TargetType="DockPanel">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="TextBlock.FontSize" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+
         <Style x:Key="HelpStyle" TargetType="StackPanel">
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="TextBlock.Text" Value="Help" />
-            <Setter Property="TextBlock.Margin" Value="0,0,0,0" />
             <Setter Property="TextBlock.FontSize" Value="20" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Orientation" Value="Horizontal" />
@@ -240,8 +247,9 @@
 
         <!--  Dugme help  -->
         <Style x:Key="HoverStilHelp" TargetType="Button">
-            <Setter Property="Width" Value="80" />
+            <Setter Property="Width" Value="90" />
             <Setter Property="Height" Value="26" />
+            <Setter Property="Margin" Value="0,0,15,0" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Background" Value="White" />

@@ -54,6 +54,11 @@ namespace BookingApp.View.TouristView
         {
 
         }
+
+        private void InboxButtonClick(object sender, RoutedEventArgs e)
+        {
+            showAndSearchToursViewModel.OpenInbox();
+        }
     }
 
 }

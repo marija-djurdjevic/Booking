@@ -1,5 +1,5 @@
 ﻿using BookingApp.DTO;
-using BookingApp.GuideView;
+using BookingApp.View.GuideView;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -73,7 +73,7 @@ namespace BookingApp.View
         }
 
 
-
+/*
         private void ReviewButtonClick(object sender, RoutedEventArgs e)
         {
             // Pronađi ListBoxItem roditelja dugmeta
@@ -95,7 +95,7 @@ namespace BookingApp.View
                 }
             }
         }
-
+*/
 
 
 
@@ -186,10 +186,20 @@ namespace BookingApp.View
             }
         }
 
-        private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
+      /*  private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
         {
             TourStatisticPage1 tourStatistic = new TourStatisticPage1();
             this.NavigationService.Navigate(tourStatistic);
+        }*/
+
+        private void ReviewButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,6 +38,12 @@ namespace BookingApp.ViewModel.TouristViewModel
                 var voucherName = "Voucher " + (++number).ToString();
                 Vouchers.Add(new Tuple<Voucher, string>(voucher, voucherName));
             }
+        }
+
+        public void OpenInbox()
+        {
+            NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
+            notificationsWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

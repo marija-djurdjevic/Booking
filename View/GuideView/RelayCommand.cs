@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.Commands
+namespace BookingApp.View.GuideView
 {
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
         private readonly Func<bool> _canExecute;
+        private readonly Action _executeWithoutParameter;
 
         public event EventHandler CanExecuteChanged;
 
@@ -20,6 +21,11 @@ namespace BookingApp.Commands
             _canExecute = canExecute;
         }
 
+        public RelayCommand(Action execute)
+        {
+            _executeWithoutParameter = execute ?? throw new ArgumentNullException(nameof(execute));
+        }
+
         public bool CanExecute(object parameter)
         {
             return _canExecute == null || _canExecute();
@@ -27,7 +33,14 @@ namespace BookingApp.Commands
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            if (_execute != null)
+            {
+                _execute(parameter);
+            }
+            else
+            {
+                _executeWithoutParameter?.Invoke();
+            }
         }
 
         public void RaiseCanExecuteChanged()
@@ -35,4 +48,5 @@ namespace BookingApp.Commands
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
+
 }

@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository;
 using BookingApp.View;
+using BookingApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,29 +17,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.GuideView
+namespace BookingApp.View.GuideView
 {
     /// <summary>
-    /// Interaction logic for TourStatisticPage1.xaml
+    /// Interaction logic for TourReviewPage1.xaml
     /// </summary>
-    public partial class TourStatisticPage1 : Page
+    public partial class TourReview : Page
     {
-        public TourStatisticPage1()
+        
+        public TourReview(int tourId)
         {
             InitializeComponent();
-            DataContext = new TourStatisticViewModel();
+            DataContext = new TourReviewViewModel(tourId);
         }
 
-      
 
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
         {
 
         }
-
-
-        
-       
-
     }
 }

@@ -22,33 +22,34 @@
             Height="50"
             DockPanel.Dock="Top">
 
-            <TextBlock
-                VerticalAlignment="Bottom"
-                Style="{StaticResource NasloviProzoraTextBlock}"
-                Text="{Binding TitleTxt}" />
+            <TextBlock Style="{StaticResource NasloviProzoraTextBlock}" Text="{Binding TitleTxt}" />
 
             <StackPanel
+                Grid.Column="2"
                 Height="30"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top">
                 <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
                     <Button.Content>
-                        <StackPanel Style="{StaticResource HelpStyle}">
+                        <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
                             <TextBlock
                                 Height="30"
-                                HorizontalAlignment="Center"
+                                Margin="7,0,0,0"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Text="Help" />
                             <Image
                                 Width="30"
                                 Height="30"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Source="/Resources/Icons/TouristIcons/help1.png" />
-                        </StackPanel>
+                        </DockPanel>
                     </Button.Content>
 
                 </Button>
             </StackPanel>
+
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Bottom">

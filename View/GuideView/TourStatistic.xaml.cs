@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.View;
+using BookingApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +17,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace BookingApp.GuideView
+namespace BookingApp.View.GuideView
 {
     /// <summary>
-    /// Interaction logic for TouristsNumberPage1.xaml
+    /// Interaction logic for TourStatisticPage1.xaml
     /// </summary>
-    public partial class TouristsNumberPage1 : Page
+    public partial class TourStatistic : Page
     {
-        public TouristsNumberPage1(int tourId)
+        public TourStatistic()
         {
             InitializeComponent();
-            DataContext = new GuideView.TouristsNumberPageViewModel(tourId);
+            DataContext = new TourStatisticViewModel();
         }
 
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
