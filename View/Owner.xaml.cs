@@ -31,14 +31,14 @@ namespace BookingApp.View
         public PropertyReservationRepository _propertyReservationRepository { get; set; }
         public ReviewRepository _reviewRepository;
         private List<Notification> _notifications;
-        public Owner()
+        public Owner(User LoggedInUser)
         {
             InitializeComponent();
-          
+            this.LoggedInUser = LoggedInUser;
             _notifications = new List<Notification>();
 
             ReservationsFrame.Navigate(new ReservationsPage());
-            PropertyFrame.Navigate(new PropertyPage());
+            PropertyFrame.Navigate(new PropertyPage(LoggedInUser));
             GuestReviewsFrame.Navigate(new GuestReviewsPage());
 
             

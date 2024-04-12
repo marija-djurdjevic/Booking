@@ -27,11 +27,13 @@ namespace BookingApp.View
 
         private OwnerReviewRepository ownerReviewRepository;
         private PropertyReservationRepository reservationRepository;
+        private ReviewRepository reviewRepository;
         public GuestReviewsPage()
         {
             InitializeComponent();
             ownerReviewRepository = new OwnerReviewRepository();
             reservationRepository = new PropertyReservationRepository();
+            reviewRepository = new ReviewRepository();
 
             // Inicijalizacija ObservableCollection-a za recenzije gostiju
             OwnerReviews = new ObservableCollection<KeyValuePair<OwnerReview, PropertyReservation>>();
@@ -45,32 +47,19 @@ namespace BookingApp.View
             // Dodavanje događaja Loaded
             Loaded += GuestReviewsPage_Loaded;
         }
-        /*private void LoadOwnerReviewsFromRepository()
-        {
-            var reviews = ownerReviewRepository.GetAllReviews();
-
-            // Dodavanje svih recenzija u ObservableCollection
-            foreach (var review in reviews)
-            {
-                // Dohvatanje informacija o rezervaciji na osnovu ReservationId
-                var reservation = reservationRepository.GetReservationDataById(review.ReservationId);
-
-                // Dodavanje informacija o rezervaciji u recenziju gostiju
-                review.Reservation = reservation;
-
-                // Dodavanje recenzije u ObservableCollection
-                OwnerReviews.Add(review);
-            }
-        }*/
+        
         private void LoadOwnerReviewsFromRepository()
         {
-            var reviews = ownerReviewRepository.GetAllReviews();
+            var ownerReviews = ownerReviewRepository.GetAllReviews();
+            var guestReviews = reviewRepository.GetAllReviews();
+            var guestReviewReservationIds = guestReviews.Select(review => review.ReservationId).ToList();
 
             // Dodavanje svih recenzija u ObservableCollection
-            foreach (var review in reviews)
+            /*foreach (var review in reviews)
             {
                 // Dohvatanje informacija o rezervaciji na osnovu ReservationId
                 var reservation = reservationRepository.GetReservationById(review.ReservationId);
+                
 
                 // Ako rezervacija nije pronađena, preskačemo ovu recenziju
                 if (reservation == null)
@@ -83,6 +72,27 @@ namespace BookingApp.View
 
                 // Dodavanje recenzije u ObservableCollection
                 OwnerReviews.Add(reviewWithReservation);
+            }*/
+            foreach (var ownerReview in ownerReviews)
+            {
+                // Provjera da li se ID rezervacije iz OwnerReview nalazi u listi ID-ova ocijenjenih rezervacija
+                if (guestReviewReservationIds.Contains(ownerReview.ReservationId))
+                {
+                    // Dohvatanje informacija o rezervaciji na osnovu ReservationId
+                    var reservation = reservationRepository.GetReservationById(ownerReview.ReservationId);
+
+                    // Ako rezervacija nije pronađena, preskačemo ovu recenziju
+                    if (reservation == null)
+                    {
+                        continue;
+                    }
+
+                    // Privremeno povezivanje recenzije i podataka o rezervaciji
+                    var reviewWithReservation = new KeyValuePair<OwnerReview, PropertyReservation>(ownerReview, reservation);
+
+                    // Dodavanje recenzije u ObservableCollection
+                    OwnerReviews.Add(reviewWithReservation);
+                }
             }
         }
 
