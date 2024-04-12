@@ -7,8 +7,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="Guest unrated:"/>
-                        <TextBlock Text="{Binding GuestName}"/>
+                        <TextBlock Text="{Binding Message}"/>
                        
                         <!-- Dodajte dodatne informacije o obavještenju ako je potrebno -->
                     </StackPanel>

@@ -23,7 +23,7 @@ namespace BookingApp.Service
 
             foreach (var reservation in reservations)
             {
-                if (!HasReviewForReservation(reviews, reservation))
+                if (!HasReviewForReservation(reviews, reservation) && IsReservationExpired(reservation))
                 {
                     int remainingDays = CalculateRemainingDays(reservation.EndDate);
                     Notification notification = CreateNotification(reservation, remainingDays);
@@ -32,6 +32,38 @@ namespace BookingApp.Service
             }
 
             return notifications;
+        }
+        private bool IsReservationExpired(PropertyReservation reservation)
+        {
+            // Provjerite da li je rezervacija istekla
+            if (reservation.EndDate < DateTime.Today)
+            {
+                // Provjerite da li nije prošlo više od 5 dana od isteka rezervacije
+                TimeSpan difference = DateTime.Today - reservation.EndDate;
+                return difference.Days <= 5;
+            }
+            return false;
+        }
+        public List<Notification> GetCanceledReservations()
+        {
+            List<Notification> notifications = new List<Notification>();
+
+            var reservations = propertyReservationRepository.GetAll();
+            var canceledReservations = reservations.Where(r => r.Canceled).ToList();
+
+            foreach (var reservation in canceledReservations)
+            {
+                int remainingDays = CalculateRemainingDays(reservation.EndDate);
+                Notification notification = CreateCancellationNotification(reservation);
+                notifications.Add(notification);
+            }
+
+            return notifications;
+        }
+        public Notification CreateCancellationNotification(PropertyReservation reservation)
+        {
+            string guestName = $"{reservation.GuestFirstName} {reservation.GuestLastName}";
+            return new Notification(guestName, reservation.StartDate);
         }
         private bool HasReviewForReservation(List<Review> reviews, PropertyReservation reservation)
         {
