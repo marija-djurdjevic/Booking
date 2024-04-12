@@ -3,10 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View.GuideView"
+      xmlns:local="clr-namespace:BookingApp.View"
       mc:Ignorable="d" 
       Title="GuideMainPage1"  Height="768" Width="1024">
 
+    <Page.Resources>
+        <local:ImagePathToBitmapConverter x:Key="ImagePathConverter"/>
+    </Page.Resources>
 
 
     <Grid>
@@ -18,8 +21,8 @@
             </Grid.ColumnDefinitions>
 
             <!-- Slika u prvoj koloni -->
-            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
-                Stretch="Uniform" Width="71" Height="71" MouseLeftButtonUp="NavigateToSideMenuPage"/>
+            <Image Grid.Column="0" Source="/Resources/Images/menu5.png"
+                Stretch="Uniform" Width="71" Height="71" />
         </Grid>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="768" Margin="0,71,0,0">
@@ -44,12 +47,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
-                                            <Image Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
-                                                <Image.Source>
-                                                    <Binding Path="ImagesPaths[0]" />
-                                                </Image.Source>
+                                            <Image Source="{Binding ImagesPaths[0]}" Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
+                                               
+                                                    
                                             </Image>
-
 
 
 
@@ -98,6 +99,11 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
+                                            <Image Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
+                                                <Image.Source>
+                                                    <Binding Path="ImagesPaths[0]" Converter="{StaticResource ImagePathConverter}" />
+                                                </Image.Source>
+                                            </Image>
 
 
                                             <!-- Informacije o turi -->
@@ -136,6 +142,12 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Slika ture -->
+                                            <Image Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
+                                                <Image.Source>
+                                                    <Binding Path="ImagesPaths[0]" Converter="{StaticResource ImagePathConverter}" />
+                                                </Image.Source>
+                                            </Image>
+
 
                                             <!-- Informacije o turi -->
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">

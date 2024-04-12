@@ -8,24 +8,27 @@ namespace BookingApp.Service
 {
     public class TourReservationService
     {
-        private readonly TourReservationRepository _tourReservationRepository;
+        private readonly TourReservationRepository tourReservationRepository;
 
         public TourReservationService()
         {
-            _tourReservationRepository = new TourReservationRepository();
+            tourReservationRepository = new TourReservationRepository();
         }
 
 
         public List<TourReservation> GetByTourId(int tourId)
         {
-           return _tourReservationRepository.GetByTourId(tourId);
+           return tourReservationRepository.GetByTourId(tourId);
         }
 
-
-
-        public void UpdateReservation(TourReservation reservationData)
+        public void DeleteByTourId(int tourId)
         {
-            var tourReservations = _tourReservationRepository.GetAll();
+             tourReservationRepository.DeleteByTourId(tourId) ;
+        }
+
+            public void UpdateReservation(TourReservation reservationData)
+        {
+            var tourReservations = tourReservationRepository.GetAll();
             var existingReservation = tourReservations.FirstOrDefault(r => r.TourId == reservationData.TourId && r.TouristFirstName == reservationData.TouristFirstName && r.TouristLastName == reservationData.TouristLastName);
             if (existingReservation != null)
             {
@@ -36,7 +39,7 @@ namespace BookingApp.Service
             {
                 tourReservations.Add(reservationData);
             }
-            _tourReservationRepository.SaveChanges();
+            tourReservationRepository.SaveChanges();
         }
     }
 }

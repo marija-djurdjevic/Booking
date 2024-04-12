@@ -207,7 +207,7 @@ namespace BookingApp.ViewModel
                 
                 return;
             }
-
+            tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
             GenerateVouchersForCanceledTourists(tour.Id, tourReservations);
         }

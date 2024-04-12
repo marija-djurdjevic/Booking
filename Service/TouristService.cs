@@ -6,18 +6,18 @@ namespace BookingApp.Service
 {
     internal class TouristService
     {
-        private readonly TouristRepository _touristRepository;
+        private readonly TouristRepository touristRepository;
 
         public TouristService()
         {
-            _touristRepository = new TouristRepository();
+            touristRepository = new TouristRepository();
         }
 
 
 
         public Tourist GetByUserId(int Id)
         {
-            return _touristRepository.GetByUserId(Id);
+            return touristRepository.GetByUserId(Id);
         }
 
         public int GetAgeById(int touristId)

@@ -124,4 +124,8 @@
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\TourImages\" />
+  </ItemGroup>
+
 </Project>

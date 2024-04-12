@@ -35,9 +35,6 @@ namespace BookingApp.View.GuideView
             this.NavigationService.Navigate(ts);
         }
 
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+       
     }
 }
