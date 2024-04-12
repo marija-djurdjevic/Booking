@@ -1,4 +1,4 @@
 2|False|2|Pocetna|Begining|1|False|2|srednja 1|Middle|2|False|2|srednja 2|Middle|3|False|2|Krajnja|End|4|False
 3|False|3|Novi Sad|Begining|1|False|3|Irig|End|2|False
 4|False|4|Beograd|Begining|1|False|4|Ruma|End|2|False
-6|False|6|jedan|Begining|1|False|6|dva|End|2|False
+6|True|6|jedan|Begining|1|True|6|dva|End|2|False

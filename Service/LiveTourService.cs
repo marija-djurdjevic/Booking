@@ -19,6 +19,10 @@ namespace BookingApp.Service
             return liveTourRepository.GetLiveTourById(tourId);
         }
 
+        public void RemoveLiveTour(int tourId)
+        {
+            liveTourRepository.RemoveLiveTour(tourId);
+        }
 
         public List<LiveTour> GetAllLiveTours()
         {

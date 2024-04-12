@@ -174,7 +174,7 @@
 
 
             <!-- Donja navigaciona traka -->
-            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,297,0,0" >
+            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,288,0,0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <!-- Prva kolona za sliku u levom cosku -->

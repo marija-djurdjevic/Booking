@@ -8,6 +8,7 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
+using BookingApp.Command;
 
 
 namespace BookingApp.ViewModel.GuidesViewModel
