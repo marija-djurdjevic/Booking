@@ -65,9 +65,6 @@ namespace BookingApp.ViewModel.TouristView
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
-        private readonly TourRepository tourRepository;
-        private readonly TouristExperienceRepository touristExperienceRepository;
-        private readonly TourReservationRepository reservationRepository;
         private readonly TourService tourService;
 
         public MyToursViewModel(User loggedInUser)
@@ -77,9 +74,6 @@ namespace BookingApp.ViewModel.TouristView
             Tours = new ObservableCollection<Tuple<TourDto, Visibility>>();
             ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
 
-            tourRepository = new TourRepository();
-            reservationRepository = new TourReservationRepository();
-            touristExperienceRepository = new TouristExperienceRepository();
             tourService = new TourService();
 
             GetMyTours();
@@ -93,14 +87,7 @@ namespace BookingApp.ViewModel.TouristView
             {
                 Tours.Add(new Tuple<TourDto, Visibility>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id)));
             }
-            if (Tours.Count() < 1)
-            {
-                NoMyToursTextVisibility = Visibility.Visible;
-            }
-            else
-            {
-                NoMyToursTextVisibility = Visibility.Collapsed;
-            }
+            NoMyToursTextVisibility = Tours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void GetMyActiveTours()
@@ -113,23 +100,12 @@ namespace BookingApp.ViewModel.TouristView
                 KeyPoint endPoint = tour.KeyPoints.Last();
                 ActiveTours.Add(new Tuple<TourDto, List<KeyPoint>, KeyPoint>(tourDto, keyPoints, endPoint));
             }
-            if (ActiveTours.Count() < 1)
-            {
-                NoActiveToursTextVisibility = Visibility.Visible;
-            }
-            else
-            {
-                NoActiveToursTextVisibility = Visibility.Collapsed;
-            }
+            NoActiveToursTextVisibility = ActiveTours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private Visibility IsRateButtonVisible(int tourId, int userId)
         {
-            if (tourService.CanTouristRateTour(userId,tourId))
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
+            return tourService.CanTouristRateTour(userId, tourId) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void OpenInbox()

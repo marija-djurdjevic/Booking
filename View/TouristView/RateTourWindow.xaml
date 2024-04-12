@@ -320,7 +320,7 @@
                         Background="White"
                         Click="ImageButtonClick">
                         <Button.Content>
-                            <Image Source="{Binding ShowingImage, UpdateSourceTrigger=PropertyChanged}" />
+                            <Image Source="{Binding ShowingImage, UpdateSourceTrigger=PropertyChanged, Converter={cvt:ImagePathConverter}}" />
 
                         </Button.Content>
                     </Button>

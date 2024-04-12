@@ -21,7 +21,6 @@ namespace BookingApp.ViewModel.TouristViewModel
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
-        public ImageService ImageService { get; set; }
         public TourDto SelectedTour { get; set; }
 
         private readonly TourRepository repository;
@@ -33,7 +32,6 @@ namespace BookingApp.ViewModel.TouristViewModel
             repository = new TourRepository();
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
-            ImageService = new ImageService();
 
             IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;

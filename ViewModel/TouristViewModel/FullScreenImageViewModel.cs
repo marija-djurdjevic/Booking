@@ -24,7 +24,6 @@ namespace BookingApp.ViewModel.TouristViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private string showingImage { get; set; }
-        public ImageService ImageService { get; set; }
         public int ImageIndex { get; set; }
 
         public List<string> ImagesPaths { get; set; }
@@ -40,8 +39,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         }
         public FullScreenImageViewModel(List<string> imagePaths, int showingIndex)
         {
-            ImageService = new ImageService();
-            ShowingImage = ImageService.GetAbsolutePath(imagePaths[showingIndex]);
+            ShowingImage = imagePaths[showingIndex];
             ImagesPaths = imagePaths;
             ImageIndex = showingIndex;
         }
@@ -51,8 +49,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             if (ImageIndex < ImagesPaths.Count - 1)
             {
-                string imagePath = ImageService.GetAbsolutePath(ImagesPaths[++ImageIndex]);
-                ShowingImage = imagePath;
+                ShowingImage = ImagesPaths[++ImageIndex];
             }
         }
 
@@ -60,9 +57,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             if (ImageIndex > 0)
             {
-                string imagePath = ImageService.GetAbsolutePath(ImagesPaths[--ImageIndex]);
-                ShowingImage = imagePath;
-
+                ShowingImage = ImagesPaths[--ImageIndex];
             }
         }
     }

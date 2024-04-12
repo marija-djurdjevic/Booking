@@ -21,7 +21,11 @@ namespace BookingApp.UseCases
         }
         public static string GetAbsolutePath(string relativePath)
         {
-            if(relativePath == null)
+            string projectPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+
+            projectAbsolutePath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(projectPath)));
+            
+            if (relativePath == null)
             {
                 return null;
             }

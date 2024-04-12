@@ -40,12 +40,14 @@ namespace BookingApp.Service
             return myReservedTours.DistinctBy(x => x.Id).ToList();
         }
 
-        public bool CanTouristRateTour(int userId,int tourId)
+        public bool CanTouristRateTour(int userId, int tourId)
         {
-            List<TourReservation> reservationsAttendedByUser= tourReservationRepository.GetReservationsAttendedByUser(userId);
+            List<TourReservation> reservationsAttendedByUser = tourReservationRepository.GetReservationsAttendedByUser(userId);
             LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
-            
-            return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive&& !experienceRepository.IsTourRatedByUser(tourId,userId);
+
+            if (liveTour != null)
+                return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceRepository.IsTourRatedByUser(tourId, userId);
+            return false;
         }
 
         public List<Tour> GetMyActiveReserved(int userId)
@@ -54,7 +56,7 @@ namespace BookingApp.Service
             foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
             {
                 LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
-                if (liveTour.IsLive)
+                if (liveTour != null && liveTour.IsLive)
                 {
                     Tour activeTour = tourRepository.GetTourById(tourReservation.TourId);
                     activeTour.KeyPoints = liveTour.KeyPoints;
@@ -65,7 +67,7 @@ namespace BookingApp.Service
             return myActiveReservedTours.DistinctBy(x => x.Id).ToList();
         }
 
-          public List<Tour> GetToursWithKeyPoints()
+        public List<Tour> GetToursWithKeyPoints()
         {
             var tours = _tourRepository.GetAll();
             foreach (var tour in tours)
@@ -85,7 +87,7 @@ namespace BookingApp.Service
             _tourRepository.Delete(tourId);
         }
 
-            public List<Tour> GetTodayTours()
+        public List<Tour> GetTodayTours()
         {
             var tours = _tourRepository.GetAll();
             string todayDate = DateTime.Now.ToString("yyyy-MM-dd");

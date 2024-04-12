@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
+    <None Remove="Resources\Icons\TouristIcons\broken-image1.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
@@ -43,7 +45,6 @@
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
-    <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
     <None Remove="Resources\Icons\TouristIcons\help1.png" />
     <None Remove="Resources\Icons\TouristIcons\home.png" />
     <None Remove="Resources\Icons\TouristIcons\location-pin.png" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\TouristIcons\addimage.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
+    <Resource Include="Resources\Icons\TouristIcons\broken-image1.png" />
     <Resource Include="Resources\Icons\TouristIcons\help1.png" />
     <Resource Include="Resources\Icons\TouristIcons\home.png" />
     <Resource Include="Resources\Icons\TouristIcons\location-pin.png" />
