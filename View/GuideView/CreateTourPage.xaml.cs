@@ -59,27 +59,7 @@ namespace BookingApp.View
             keyPointNames = new ObservableCollection<string>();
         }
 
-        /*    private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
-            {
-                string newDateAndTime = Microsoft.VisualBasic.Interaction.InputBox("Enter a new date and time (format: M/d/yyyy h:mm:ss tt):", "Add Date and Time", "");
-
-                if (!string.IsNullOrEmpty(newDateAndTime))
-                {
-                    if (DateTime.TryParseExact(newDateAndTime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateAndTime))
-                    {
-                        tourDates.Add(dateAndTime);
-                        NewDateTextBox.Text = dateAndTime.ToString();
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid date and time format. Please enter a valid date and time (format: M/d/yyyy h:mm:ss tt).");
-                    }
-                }
-            }
-        */
-
-
+       
         private void LoadLanguagesFromCSV()
         {
             string[] lines = File.ReadAllLines("../../../Resources/Data/globalLanguages.csv");

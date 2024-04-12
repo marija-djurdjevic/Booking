@@ -80,9 +80,12 @@ namespace BookingApp.Service
             return _touristExperienceService.GetNumberOfTouristsForTour(tourId);
         }
 
+        public void Delete(int tourId)
+        {
+            _tourRepository.Delete(tourId);
+        }
 
-
-        public List<Tour> GetTodayTours()
+            public List<Tour> GetTodayTours()
         {
             var tours = _tourRepository.GetAll();
             string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
