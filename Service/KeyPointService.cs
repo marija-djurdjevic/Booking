@@ -11,10 +11,11 @@ namespace BookingApp.Service
     public class KeyPointService
     {
         private readonly KeyPointRepository keyPointRepository;
-
+        private readonly LiveTourRepository liveTourService;
         public KeyPointService()
         {
             keyPointRepository = new KeyPointRepository();
+            liveTourService = new LiveTourRepository();    
         }
 
         public List<KeyPoint> GetTourKeyPoints(int tourId)
@@ -31,5 +32,26 @@ namespace BookingApp.Service
         {
             keyPointRepository.DeleteKeyPoints(tourId);
         }
+
+        public void SaveChanges()
+        {
+             keyPointRepository.SaveChanges();
+        }
+
+
+        public KeyPoint GetLastActiveKeyPoint()
+        {
+            var liveTour = liveTourService.GetAllLiveTours().FirstOrDefault(t => t.IsLive);
+            if (liveTour != null)
+            {
+                var checkedKeyPoints = liveTour.KeyPoints.Where(k => k.IsChecked).ToList();
+                if (checkedKeyPoints.Any())
+                {
+                    return checkedKeyPoints.Last();
+                }
+            }
+            return null;
+        }
+
     }
 }

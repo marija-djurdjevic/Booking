@@ -21,6 +21,11 @@ namespace BookingApp.Service
            return tourReservationRepository.GetByTourId(tourId);
         }
 
+        public void SaveChanges()
+        { 
+            tourReservationRepository.SaveChanges();
+        }
+
         public void DeleteByTourId(int tourId)
         {
              tourReservationRepository.DeleteByTourId(tourId) ;

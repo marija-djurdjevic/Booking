@@ -33,7 +33,7 @@ namespace BookingApp.Repository
                 SaveChanges();
         }
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             _serializer.ToCSV(FilePath, keyPoints);
         }
