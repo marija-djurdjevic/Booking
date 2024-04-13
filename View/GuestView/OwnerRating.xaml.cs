@@ -1,59 +1,91 @@
 ﻿using BookingApp.Dto;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.UseCases;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookingApp.GuestView
 {
     /// <summary>
     /// Interaction logic for OwnerReview.xaml
     /// </summary>
-    public partial class OwnerRating : Page
+    public partial class OwnerRating : Page, INotifyPropertyChanged
     {
         public PropertyReservation SelectedReservation { get; set; }
         public Property SelectedProperty { get; set; }
         public Guest LoggedInGuest { get; set; }
         public OwnerReviewDto OwnerReview { get; set; }
         public OwnerReviewRepository OwnerReviewRepository { get; set; }
+        public ImageService ImageService { get; set; }
+        public int ImageIndex { get; set; }
+
         private ObservableCollection<BitmapImage> images = new ObservableCollection<BitmapImage>();
+        public List<string> ImagesPaths { get; set; }
+        public List<string> AbsolutePaths {  get; set; }
+
+        private string showingImage;
+        public string ShowingImage
+        {
+            get { return showingImage; }
+            set
+            {
+                showingImage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowingImage)));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public OwnerRating(PropertyReservation selectedReservation, Property selectedProperty, Guest guest)
         {
             InitializeComponent();
             DataContext = this;
             OwnerReview = new OwnerReviewDto();
             SelectedReservation = selectedReservation;
+            ImageService = new ImageService();
             OwnerReview.ReservationId = SelectedReservation.Id;
             SelectedProperty = selectedProperty;
+            ImagesPaths = new List<string>();
+            AbsolutePaths = new List<string>();
             OwnerReviewRepository = new OwnerReviewRepository();
             LoggedInGuest = guest;
             imageListBox.ItemsSource = images;
         }
 
-        private void AddPhotos_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void AddPhotos_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            openFileDialog.Title = "Select an Image File";
             openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.gif)|*.png;*.jpeg;*.jpg;*.gif|All files (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Iteriranje kroz odabrane datoteke i dodavanje slika u ObservableCollection
-                foreach (string fileName in openFileDialog.FileNames)
-                {
-                    OwnerReview.ImagesPaths.Add(fileName);
-                    BitmapImage bitmap = new BitmapImage(new Uri(fileName));
-                    images.Add(bitmap);
-                }
+                string[] selectedImages = openFileDialog.FileNames;
+                string relativePath = "Resources\\Images\\GuestExperienceImages";
+                ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativePath));
+                ShowingImage = ImageService.GetAbsolutePath(ImagesPaths.Last());
+                AbsolutePaths.Add(ShowingImage);
+                BitmapImage bitmap = new BitmapImage(new Uri(ShowingImage));
+                images.Add(bitmap);
+                ImageIndex = OwnerReview.ImagesPaths.Count - 1;
             }
+
         }
 
         private void Send_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            OwnerReview.ImagesPaths = ImagesPaths;
             OwnerReviewRepository.AddOwnerReview(OwnerReview.ToOwnerReview());
             MessageBox.Show("Review sent!");
         }
@@ -117,5 +149,12 @@ namespace BookingApp.GuestView
                 }
             }
         }
+
+        private void RemovePhotos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

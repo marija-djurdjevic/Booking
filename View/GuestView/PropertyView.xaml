@@ -38,7 +38,7 @@
             </StackPanel>
         </StackPanel>
 
-        <ListBox Background="#8FB9A8" Grid.Row="1" Margin="15,15,30,15" x:Name="propertiesData" SelectionChanged="propertiesData_SelectionChanged">
+        <ListBox Background="#8FB9A8" Grid.Row="1" Margin="15,15,30,15" x:Name="propertiesData" SelectionChanged="propertiesData_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border 
@@ -46,7 +46,7 @@
                             Background="BurlyWood"
                             BorderBrush="#8FB9A8"
                             BorderThickness="2"
-                            CornerRadius="20">      
+                            CornerRadius="20">
                         <StackPanel
                             Background="BlanchedAlmond">
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" Height="150" Width="350"/>
@@ -57,6 +57,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
     </Grid>
 </Page>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -15,27 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Icons\TouristIcons\arrived.png" />
-    <None Remove="Resources\Icons\TouristIcons\cancel.png" />
-    <None Remove="Resources\Icons\TouristIcons\close.png" />
-    <None Remove="Resources\Icons\TouristIcons\confirm.png" />
-    <None Remove="Resources\Icons\TouristIcons\end.png" />
-    <None Remove="Resources\Icons\TouristIcons\grade.png" />
-    <None Remove="Resources\Icons\TouristIcons\help.png" />
-    <None Remove="Resources\Icons\TouristIcons\image.png" />
-    <None Remove="Resources\Icons\TouristIcons\inbox.png" />
-    <None Remove="Resources\Icons\TouristIcons\logout.png" />
-    <None Remove="Resources\Icons\TouristIcons\middle.png" />
-    <None Remove="Resources\Icons\TouristIcons\next.png" />
-    <None Remove="Resources\Icons\TouristIcons\pdf.png" />
-    <None Remove="Resources\Icons\TouristIcons\previous.png" />
-    <None Remove="Resources\Icons\TouristIcons\settings.png" />
-    <None Remove="Resources\Icons\TouristIcons\show.png" />
-    <None Remove="Resources\Icons\TouristIcons\showall.png" />
-    <None Remove="Resources\Icons\TouristIcons\start.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
-    <None Remove="Resources\Icons\TouristIcons\travel.png" />
-    <None Remove="Resources\Icons\TouristIcons\unarrived.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
     <None Remove="Resources\Images\back %282%29.png" />
@@ -62,8 +42,21 @@
     <None Remove="Resources\Images\star %281%29.png" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\Icons\TouristIcons\addimage.png" />
+    <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
+    <None Remove="Resources\Icons\TouristIcons\help1.png" />
+    <None Remove="Resources\Icons\TouristIcons\home.png" />
+    <None Remove="Resources\Icons\TouristIcons\location-pin.png" />
+    <None Remove="Resources\Icons\TouristIcons\logout.png" />
+    <None Remove="Resources\Icons\TouristIcons\next.png" />
     <None Remove="Resources\Icons\TouristIcons\photo.png" />
+    <None Remove="Resources\Icons\TouristIcons\previous.png" />
+    <None Remove="Resources\Icons\TouristIcons\removeimage.png" />
+    <None Remove="Resources\Icons\TouristIcons\settings.png" />
+    <None Remove="Resources\Icons\TouristIcons\target.png" />
+    <None Remove="Resources\Icons\TouristIcons\travel.png" />
     <None Remove="Resources\Icons\TouristIcons\user.png" />
+    <None Remove="Resources\Icons\TouristIcons\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,28 +83,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\TouristIcons\arrived.png" />
-    <Resource Include="Resources\Icons\TouristIcons\cancel.png" />
-    <Resource Include="Resources\Icons\TouristIcons\close.png" />
-    <Resource Include="Resources\Icons\TouristIcons\confirm.png" />
-    <Resource Include="Resources\Icons\TouristIcons\end.png" />
-    <Resource Include="Resources\Icons\TouristIcons\grade.png" />
-    <Resource Include="Resources\Icons\TouristIcons\help.png" />
-    <Resource Include="Resources\Icons\TouristIcons\image.png" />
-    <Resource Include="Resources\Icons\TouristIcons\inbox.png" />
+    <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
     <Resource Include="Resources\Icons\TouristIcons\logout.png" />
-    <Resource Include="Resources\Icons\TouristIcons\middle.png" />
     <Resource Include="Resources\Icons\TouristIcons\next.png" />
-    <Resource Include="Resources\Icons\TouristIcons\pdf.png" />
     <Resource Include="Resources\Icons\TouristIcons\photo.png" />
     <Resource Include="Resources\Icons\TouristIcons\previous.png" />
     <Resource Include="Resources\Icons\TouristIcons\settings.png" />
-    <Resource Include="Resources\Icons\TouristIcons\show.png" />
-    <Resource Include="Resources\Icons\TouristIcons\showall.png" />
-    <Resource Include="Resources\Icons\TouristIcons\start.png" />
     <Resource Include="Resources\Icons\TouristIcons\tooltip.png" />
     <Resource Include="Resources\Icons\TouristIcons\travel.png" />
-    <Resource Include="Resources\Icons\TouristIcons\unarrived.png" />
     <Resource Include="Resources\Icons\TouristIcons\user.png" />
     <Resource Include="Resources\Images\back (1).png" />
     <Resource Include="Resources\Images\back (2).png" />
@@ -137,6 +116,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Images\GuestExperienceImages\" />
     <Folder Include="Resources\Images\TourImages\" />
   </ItemGroup>
 
