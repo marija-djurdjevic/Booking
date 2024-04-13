@@ -72,9 +72,9 @@ namespace BookingApp.View
                             {
                                 MessageBox.Show("You signed in as Owner User!");
                                 OwnerWindow owner = new OwnerWindow(user);
-                               
+
                                 owner.Show();
-                               
+
                                 Close();
                                 break;
                             }
@@ -97,7 +97,9 @@ namespace BookingApp.View
 
                         case UserRole.Tourist:
                             {
-                                
+                                TouristsMainWindow touristsMainWindow = new TouristsMainWindow(user);
+                                touristsMainWindow.Show();
+                                Close();
                                 break;
                             }
                     }

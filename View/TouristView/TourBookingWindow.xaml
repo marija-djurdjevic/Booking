@@ -142,200 +142,202 @@
             </GroupBox.Header>
             <!--  Ovdje stavite elemente koje zelite grupirati  -->
             <DockPanel Margin="10,5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
 
-                    <StackPanel
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
+                            <Button
+                                Width="50"
+                                Height="50"
+                                Background="{StaticResource PageColor}"
+                                Click="PreviousImageButtonClick">
+                                <Button.BorderBrush>
+                                    <SolidColorBrush Opacity="0" Color="White" />
+                                </Button.BorderBrush>
+                                <Button.Content>
+                                    <Image HorizontalAlignment="Left" Source="/Resources/Icons/TouristIcons/previous.png" />
+                                </Button.Content>
+                            </Button>
 
-                        <Button
-                            Width="50"
-                            Height="50"
-                            Background="{StaticResource PageColor}"
-                            Click="PreviousImageButtonClick">
-                            <Button.BorderBrush>
-                                <SolidColorBrush Opacity="0" Color="White" />
-                            </Button.BorderBrush>
-                            <Button.Content>
-                                <Image HorizontalAlignment="Left" Source="/Resources/Icons/TouristIcons/previous.png" />
-                            </Button.Content>
-                        </Button>
-
-                        <Button Padding="5" Click="ImageButtonClick">
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0" />
-                            </Button.Background>
-                            <Button.Content>
-                                <Image
-                                    Width="400"
-                                    Height="250"
-                                    Source="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}"
-                                    Stretch="Uniform" />
-                            </Button.Content>
-                        </Button>
+                            <Button Padding="5" Click="ImageButtonClick">
+                                <Button.Background>
+                                    <SolidColorBrush Opacity="0" />
+                                </Button.Background>
+                                <Button.Content>
+                                    <Image
+                                        Width="400"
+                                        Height="250"
+                                        Source="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}"
+                                        Stretch="Uniform" />
+                                </Button.Content>
+                            </Button>
 
 
-                        <Button
-                            Width="50"
-                            Height="50"
-                            Background="{StaticResource PageColor}"
-                            Click="NextImageButtonClick">
-                            <Button.BorderBrush>
-                                <SolidColorBrush Opacity="0" Color="White" />
-                            </Button.BorderBrush>
-                            <Button.Content>
-                                <Image HorizontalAlignment="Right" Source="/Resources/Icons/TouristIcons/next.png" />
-                            </Button.Content>
-                        </Button>
+                            <Button
+                                Width="50"
+                                Height="50"
+                                Background="{StaticResource PageColor}"
+                                Click="NextImageButtonClick">
+                                <Button.BorderBrush>
+                                    <SolidColorBrush Opacity="0" Color="White" />
+                                </Button.BorderBrush>
+                                <Button.Content>
+                                    <Image HorizontalAlignment="Right" Source="/Resources/Icons/TouristIcons/next.png" />
+                                </Button.Content>
+                            </Button>
 
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Margin="10,0,0,0"
-                        HorizontalAlignment="Left"
-                        Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Location: " />
-                            <TextBlock
-                                Margin="0"
-                                FontWeight="Bold"
-                                Style="{StaticResource GroupBoxTextBlocs}"
-                                Text="{Binding SelectedTour.LocationDto.City}" />
-                            <TextBlock
-                                FontSize="18"
-                                FontWeight="Bold"
-                                Text=", " />
-                            <TextBlock
-                                FontWeight="Bold"
-                                Style="{StaticResource GroupBoxTextBlocs}"
-                                Text="{Binding SelectedTour.LocationDto.Country}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Grid Margin="0,20,0,20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Location: " />
                                 <TextBlock
-                                    Grid.Column="0"
+                                    Margin="0"
+                                    FontWeight="Bold"
                                     Style="{StaticResource GroupBoxTextBlocs}"
-                                    Text="Key points: " />
-                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image
-                                            Width="30"
-                                            Height="30"
-                                            Source="/Resources/Icons/TouristIcons/start.png" />
-                                        <TextBlock
-                                            Margin="5,0,10,10"
-                                            Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="Start: "
-                                            Visibility="Collapsed" />
-                                        <TextBlock
-                                            Margin="15,0,0,0"
-                                            FontWeight="Bold"
-                                            Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="{Binding StartPoint.Name}" />
+                                    Text="{Binding SelectedTour.LocationDto.City}" />
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text=", " />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Style="{StaticResource GroupBoxTextBlocs}"
+                                    Text="{Binding SelectedTour.LocationDto.Country}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Margin="0,20,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Style="{StaticResource GroupBoxTextBlocs}"
+                                        Text="Key points: " />
+                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Width="30"
+                                                Height="30"
+                                                Source="/Resources/Icons/TouristIcons/start.png" />
+                                            <TextBlock
+                                                Margin="5,0,10,10"
+                                                Style="{StaticResource GroupBoxTextBlocs}"
+                                                Text="Start: "
+                                                Visibility="Collapsed" />
+                                            <TextBlock
+                                                Margin="15,0,0,0"
+                                                FontWeight="Bold"
+                                                Style="{StaticResource GroupBoxTextBlocs}"
+                                                Text="{Binding StartPoint.Name}" />
+                                        </StackPanel>
+
+                                        <ListBox
+                                            Grid.Column="1"
+                                            Background="{StaticResource PageColor}"
+                                            BorderBrush="{StaticResource PageColor}"
+                                            ItemsSource="{Binding SelectedTour.KeyPoints}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Margin="35,0,0,0" Orientation="Horizontal">
+
+                                                        <Image
+                                                            Width="30"
+                                                            Height="30"
+                                                            Source="/Resources/Icons/TouristIcons/middle.png" />
+                                                        <TextBlock
+                                                            Margin="15,0,0,0"
+                                                            FontSize="20"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Width="30"
+                                                Height="30"
+                                                Source="/Resources/Icons/TouristIcons/end.png" />
+                                            <TextBlock
+                                                Margin="5,0,10,10"
+                                                Style="{StaticResource GroupBoxTextBlocs}"
+                                                Text="End: "
+                                                Visibility="Collapsed" />
+                                            <TextBlock
+                                                Margin="15,0,0,0"
+                                                FontWeight="Bold"
+                                                Style="{StaticResource GroupBoxTextBlocs}"
+                                                Text="{Binding EndPoint.Name}" />
+                                        </StackPanel>
+
                                     </StackPanel>
+                                </Grid>
 
-                                    <ListBox
-                                        Grid.Column="1"
-                                        Background="{StaticResource PageColor}"
-                                        BorderBrush="{StaticResource PageColor}"
-                                        ItemsSource="{Binding SelectedTour.KeyPoints}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Margin="35,0,0,0" Orientation="Horizontal">
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Start date and time: " />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Style="{StaticResource GroupBoxTextBlocs}"
+                                    Text="{Binding SelectedTour.StartDateTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Duration: " />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Style="{StaticResource GroupBoxTextBlocs}"
+                                    Text="{Binding SelectedTour.Duration}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Language: " />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Style="{StaticResource GroupBoxTextBlocs}"
+                                    Text="{Binding SelectedTour.Language}" />
+                            </StackPanel>
 
-                                                    <Image
-                                                        Width="30"
-                                                        Height="30"
-                                                        Source="/Resources/Icons/TouristIcons/middle.png" />
-                                                    <TextBlock
-                                                        Margin="15,0,0,0"
-                                                        FontSize="20"
-                                                        FontWeight="Bold"
-                                                        Text="{Binding Name}" />
 
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image
-                                            Width="30"
-                                            Height="30"
-                                            Source="/Resources/Icons/TouristIcons/end.png" />
-                                        <TextBlock
-                                            Margin="5,0,10,10"
-                                            Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="End: "
-                                            Visibility="Collapsed" />
-                                        <TextBlock
-                                            Margin="15,0,0,0"
-                                            FontWeight="Bold"
-                                            Style="{StaticResource GroupBoxTextBlocs}"
-                                            Text="{Binding EndPoint.Name}" />
-                                    </StackPanel>
-
-                                </StackPanel>
-                            </Grid>
 
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Start date and time: " />
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="10,0,0,5"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Description: " />
                             <TextBlock
-                                FontWeight="Bold"
-                                Style="{StaticResource GroupBoxTextBlocs}"
-                                Text="{Binding SelectedTour.StartDateTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                FontSize="20"
+                                FontStyle="Italic"
+                                Text="{Binding SelectedTour.Description}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Duration: " />
-                            <TextBlock
-                                FontWeight="Bold"
-                                Style="{StaticResource GroupBoxTextBlocs}"
-                                Text="{Binding SelectedTour.Duration}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Language: " />
-                            <TextBlock
-                                FontWeight="Bold"
-                                Style="{StaticResource GroupBoxTextBlocs}"
-                                Text="{Binding SelectedTour.Language}" />
-                        </StackPanel>
+                    </Grid>
 
-
-
-
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GroupBoxTextBlocs}" Text="Description: " />
-                        <TextBlock
-                            FontSize="20"
-                            FontStyle="Italic"
-                            Text="{Binding SelectedTour.Description}" />
-                    </StackPanel>
-                </Grid>
+                </ScrollViewer>
             </DockPanel>
         </GroupBox>
 
