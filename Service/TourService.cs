@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace BookingApp.Service
 {
@@ -100,15 +102,32 @@ namespace BookingApp.Service
             List<Tour> upcomingTours = tours.Where(t => t.StartDateTime.Date > today).ToList();
             return upcomingTours;
         }
-
-
-
-
         public Tour GetTourById(int tourId)
         {
             var tours = tourRepository.GetAll();
             return tours.FirstOrDefault(t => t.Id == tourId);
         }
+
+
+        // Metoda iz createtourpage premjestena
+        public List<string> GetCitiesCountriesFromCSV(string filePath, int maxLines)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            List<string> locations = new List<string>();
+
+            for (int i = 0; i < maxLines && i < lines.Length; i++)
+            {
+                string[] parts = lines[i].Split(',');
+                if (parts.Length == 2)
+                {
+                    string location = $"{parts[0].Trim()}, {parts[1].Trim()}";
+                    locations.Add(location);
+                }
+            }
+
+            return locations;
+        }
+
 
     }
 }

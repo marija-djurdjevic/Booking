@@ -41,6 +41,28 @@ namespace BookingApp.Repository
             SaveChanges();
         }
 
+
+        public List<LiveTour> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+
+        public LiveTour Update(LiveTour liveTour)
+        {
+            liveTours = _serializer.FromCSV(FilePath);
+            LiveTour current = liveTours.Find(c => c.TourId == liveTour.TourId);
+            int index = liveTours.IndexOf(current);
+            liveTours.Remove(current);
+            liveTours.Insert(index, liveTour);
+            _serializer.ToCSV(FilePath, liveTours);
+            return liveTour;
+
+
+        }
+
+
+
         public void RemoveLiveTour(int tourId)
         {
             liveTours.RemoveAll(t => t.TourId == tourId);
@@ -54,9 +76,14 @@ namespace BookingApp.Repository
 
         public List<LiveTour> GetAllLiveTours()
         {
+            liveTours = GetAll().Where(t => t.IsLive).ToList();
             return liveTours;
         }
 
+        public List<LiveTour> GetFinishedTours()
+        {
+            return liveTours.Where(t => !t.IsLive).ToList();
+        }
 
         public List<int> GetFinishedTourIds()
         {

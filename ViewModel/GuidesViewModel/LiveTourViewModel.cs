@@ -24,10 +24,19 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private Tour selectedTour;
         private RelayCommand finishTourClickCommand;
         private RelayCommand addTouristClickCommand;
+        private RelayCommand uncheckCommand;
+        private RelayCommand checkCommand;
+        private KeyPointRepository keyPointRepository;
+        private LiveTourRepository liveTourRepository;
+        private LiveTour liveTour;
 
         public LiveTourViewModel(int tourId)
         {
             this.tourId = tourId;
+           
+            keyPointRepository = new KeyPointRepository();
+            liveTourRepository= new LiveTourRepository();
+            liveTour = liveTourRepository.GetLiveTourById(tourId);
             liveTourService = new LiveTourService();
             keyPointService = new KeyPointService();
             tourReservationService = new TourReservationService();
@@ -35,6 +44,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             KeyPoints = new ObservableCollection<KeyPoint>(liveTourService.GetTourKeyPoints(tourId));
             finishTourClickCommand = new RelayCommand(ExecuteFinishTourClick);
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
+            checkCommand = new RelayCommand(Check);
         }
 
 
@@ -72,17 +82,17 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
 
 
-        private bool isAllKeyPointsChecked;
-        public bool IsAllKeyPointsChecked
+        private bool isChecked;
+
+        public bool IsChecked
         {
-            get { return isAllKeyPointsChecked; }
+            get { return isChecked; }
             set
             {
-                if (isAllKeyPointsChecked != value)
-                {
-                    isAllKeyPointsChecked = value;
+                
+                    isChecked = value;
                     OnPropertyChanged();
-                }
+                
             }
         }
 
@@ -122,6 +132,49 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
 
 
+        public RelayCommand CheckCommand
+        {
+
+            get { return checkCommand; }
+            set
+            {
+                if (checkCommand != value)
+                {
+                    checkCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+
+        }
+
+
+
+
+        private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints)
+        {
+            int checkedKeyPointsCount = keyPoints.Count(kp => kp.IsChecked);
+            return checkedKeyPointsCount == keyPoints.Count;
+        }
+
+
+        private void Check(object parameter)
+        {
+            KeyPoint keyPoint = parameter as KeyPoint;
+            keyPoint.IsChecked = true;
+            keyPointRepository.Update(keyPoint);
+            liveTourRepository.AddOrUpdateLiveTour(liveTour);
+            liveTourRepository.Update(liveTour);
+            var keypoints = keyPointRepository.GetTourKeyPoints(tourId);
+            if (AreAllKeyPointsChecked(keypoints))
+            {
+                ExecuteFinishTourClick();
+            }
+
+
+        }
+
+        
+
         private void ExecuteFinishTourClick()
         {
 
@@ -129,8 +182,16 @@ namespace BookingApp.ViewModel.GuidesViewModel
             foreach (var tourist in touristsOnTour)
             {
                 tourist.IsOnTour = false;
+                tourReservationService.UpdateReservation(tourist);
             }
-            tourReservationService.SaveChanges();
+
+            var keyPoints = keyPointRepository.GetTourKeyPoints(tourId);
+            foreach (var keyPoint in keyPoints)
+            {
+                keyPoint.IsChecked = false;
+                keyPointRepository.Update(keyPoint);    
+            }
+            
             liveTourService.FinishTour(tourId);
 
         }

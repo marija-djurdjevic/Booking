@@ -11,6 +11,7 @@ namespace BookingApp.Model
 {
     public class KeyPoint : ISerializable
     {
+        public int Id { get; set; }
         public int TourId { get; set; }
         public string Name { get; set; }
         public KeyPointType Type { get; set; }
@@ -19,8 +20,9 @@ namespace BookingApp.Model
 
         public KeyPoint() { }
 
-        public KeyPoint(int tourId, string keyName, KeyPointType keyType, int ordinalNumber, bool isChecked)
+        public KeyPoint(int id,int tourId, string keyName, KeyPointType keyType, int ordinalNumber, bool isChecked)
         {
+            Id = id;
             TourId = tourId;
             Name = keyName;
             Type = keyType;
@@ -28,18 +30,32 @@ namespace BookingApp.Model
             IsChecked = isChecked;
         }
 
+        public KeyPoint( int tourId, string keyName, KeyPointType keyType, int ordinalNumber, bool isChecked)
+        {
+            
+            TourId = tourId;
+            Name = keyName;
+            Type = keyType;
+            OrdinalNumber = ordinalNumber;
+            IsChecked = isChecked;
+        }
+
+
+
+
         public void FromCSV(string[] values)
         {
-            TourId = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Type = (KeyPointType)Enum.Parse(typeof(KeyPointType), values[2]);
-            OrdinalNumber = Convert.ToInt32(values[3]);
-            IsChecked = Convert.ToBoolean(values[4]);
+            Id = Convert.ToInt32(values[0]);
+            TourId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            Type = (KeyPointType)Enum.Parse(typeof(KeyPointType), values[3]);
+            OrdinalNumber = Convert.ToInt32(values[4]);
+            IsChecked = Convert.ToBoolean(values[5]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Type.ToString(), OrdinalNumber.ToString(), IsChecked.ToString() };
+            string[] csvValues = {Id.ToString(), TourId.ToString(), Name, Type.ToString(), OrdinalNumber.ToString(), IsChecked.ToString() };
             return csvValues;
         }
     }

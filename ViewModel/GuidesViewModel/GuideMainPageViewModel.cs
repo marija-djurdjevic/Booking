@@ -34,7 +34,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private RelayCommand startTourClickCommand;
         private RelayCommand reviewTourClickCommand;
         private RelayCommand cancelTourClickCommand;
-
+        private LiveTourRepository liveTourRepository;
 
         public GuideMainPageViewModel()
         { 
@@ -49,6 +49,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
+              
            
             LoadTours();
         }
@@ -84,7 +85,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours());
             UpcomingTours = new ObservableCollection<Tour>(tourService.GetUpcomingTours());
 
-            var finishedLiveTours = liveTourService.GetAllLiveTours().Where(t => t.IsLive == false).ToList();
+            var finishedLiveTours = liveTourService.GetFinishedTours();
             FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)));
         }
 
