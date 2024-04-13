@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Model;
 
 namespace BookingApp.View
 {
@@ -20,21 +21,20 @@ namespace BookingApp.View
     /// </summary>
     public partial class PropertyPage : Page
     {
-        public PropertyPage()
+        public User LoggedInUser { get; set; }
+        public PropertyPage(User LoggedInUser)
         {
             InitializeComponent();
+            this.LoggedInUser = LoggedInUser;
         }
         private void AddProperty_Click(object sender, RoutedEventArgs e)
         {
-            AddProperty addProperty = new AddProperty();
-            //MainFrame.Navigate(addProperty);
-            //this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
-            //addProperty.Show();
-            // MainFrame.NavigationService.Navigate(new Uri("View/Owner.xaml", UriKind.Relative));
-            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-            //MainFrame.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
-            this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));
-            //AddPropertyFrame.Navigate(new Uri("View/AddProperty.xaml", UriKind.Relative));
+            /*AddProperty addProperty = new AddProperty(LoggedInUser);
+            
+            this.NavigationService.Navigate(new Uri("View/AddProperty.xaml", UriKind.RelativeOrAbsolute));*/
+            AddProperty addProperty = new AddProperty(LoggedInUser);
+            this.NavigationService.Navigate(addProperty);
+
 
         }
     }

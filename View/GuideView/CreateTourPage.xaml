@@ -5,13 +5,13 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View"
+      xmlns:local="clr-namespace:BookingApp.Converter"
       
       mc:Ignorable="d" 
       Title="CreateTourPage" Height="768" Width="1024" >
 
     <Page.Resources>
-        <local:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+        <local:ImagePathConverter x:Key="ImagePathToBitmapConverter" />
     </Page.Resources>
 
     <Grid>
@@ -161,7 +161,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Slika u prvoj koloni -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
+                <Image Grid.Column="0" Source="/Resources/Images/menu5.png"
                     Stretch="Uniform"
                     Width="71"
                     Height="71"
@@ -174,7 +174,7 @@
 
 
             <!-- Donja navigaciona traka -->
-            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,297,0,0" >
+            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,288,0,0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <!-- Prva kolona za sliku u levom cosku -->
@@ -184,14 +184,14 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Prva slika u levom cosku -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\back.png"
+                <Image Grid.Column="0" Source="/Resources/Images/back.png"
                     Stretch="Uniform"
                     Width="59"
                     Height="59"
                     MouseLeftButtonUp="NavigateToMainPage"/>
 
                 <!-- Druga slika u sredini -->
-                <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
+                <Image Grid.Column="1" Source="/Resources/Images/home4.png"
                     Stretch="Uniform"
                     Width="59"
                     Height="59"

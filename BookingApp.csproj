@@ -83,22 +83,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\TouristIcons\addimage.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
-    <Resource Include="Resources\Icons\TouristIcons\help1.png" />
-    <Resource Include="Resources\Icons\TouristIcons\home.png" />
-    <Resource Include="Resources\Icons\TouristIcons\location-pin.png" />
     <Resource Include="Resources\Icons\TouristIcons\logout.png" />
     <Resource Include="Resources\Icons\TouristIcons\next.png" />
     <Resource Include="Resources\Icons\TouristIcons\photo.png" />
     <Resource Include="Resources\Icons\TouristIcons\previous.png" />
-    <Resource Include="Resources\Icons\TouristIcons\removeimage.png" />
     <Resource Include="Resources\Icons\TouristIcons\settings.png" />
-    <Resource Include="Resources\Icons\TouristIcons\target.png" />
     <Resource Include="Resources\Icons\TouristIcons\tooltip.png" />
     <Resource Include="Resources\Icons\TouristIcons\travel.png" />
     <Resource Include="Resources\Icons\TouristIcons\user.png" />
-    <Resource Include="Resources\Icons\TouristIcons\view.png" />
     <Resource Include="Resources\Images\back (1).png" />
     <Resource Include="Resources\Images\back (2).png" />
     <Resource Include="Resources\Images\back.png" />
@@ -124,6 +117,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\GuestExperienceImages\" />
+    <Folder Include="Resources\Images\TourImages\" />
   </ItemGroup>
 
 </Project>

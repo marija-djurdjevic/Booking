@@ -90,6 +90,10 @@ namespace BookingApp.Repository
                 return -1;
             }
         }
+        public PropertyReservation GetReservationById(int id)
+        {
+            return propertyReservations.FirstOrDefault(r => r.Id == id);
+        }
         public void UpdatePropertyReservation(PropertyReservation updatedReservation)
         {
             propertyReservations = GetAll();

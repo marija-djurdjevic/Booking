@@ -109,7 +109,7 @@ namespace BookingApp.ViewModel.TouristViewModel
 
                 TouristExperience.ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativPath));
 
-                ShowingImage = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths.Last());
+                ShowingImage = TouristExperience.ImagesPaths.Last();
                 ImageIndex = TouristExperience.ImagesPaths.Count - 1;
             }
 
@@ -121,7 +121,7 @@ namespace BookingApp.ViewModel.TouristViewModel
             {
                 TouristExperience.ImagesPaths.RemoveAt(ImageIndex);
                 ImageIndex = TouristExperience.ImagesPaths.Count - 1;
-                ShowingImage = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths.LastOrDefault());
+                ShowingImage = TouristExperience.ImagesPaths.LastOrDefault();
             }
         }
 
@@ -129,8 +129,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             if (ImageIndex < TouristExperience.ImagesPaths.Count - 1)
             {
-                string imagePath = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths[++ImageIndex]);
-                ShowingImage = imagePath;
+                ShowingImage = TouristExperience.ImagesPaths[++ImageIndex];
             }
         }
 
@@ -138,9 +137,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         {
             if (ImageIndex > 0)
             {
-                string imagePath = ImageService.GetAbsolutePath(TouristExperience.ImagesPaths[--ImageIndex]);
-                ShowingImage = imagePath;
-
+                ShowingImage = TouristExperience.ImagesPaths[--ImageIndex];
             }
         }
 

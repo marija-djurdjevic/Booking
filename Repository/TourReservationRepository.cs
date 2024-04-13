@@ -83,10 +83,10 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, tourReservations);
         }
 
-        public List<TourReservation> GetFinishedReservationsAttendedByUser(int userId)
+        public List<TourReservation> GetReservationsAttendedByUser(int userId)
         {
             tourReservations = GetByUserId(userId);
-            return tourReservations.FindAll(t => !t.IsOnTour && !t.JoinedKeyPoint.Name.Equals(""));
+            return tourReservations.FindAll(t => t.JoinedKeyPoint.OrdinalNumber>0 && t.IsUser);
         }
         public void DeleteByTourId(int tourId)
         {

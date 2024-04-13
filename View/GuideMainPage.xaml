@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View"
+        xmlns:local="clr-namespace:BookingApp.Converter"
         mc:Ignorable="d"
         Title="GuideMainPage"  Height="768" Width="1024">
 
     <Page.Resources>
-        <local:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+        <local:ImagePathConverter x:Key="ImagePathToBitmapConverter" />
     </Page.Resources>
 
 

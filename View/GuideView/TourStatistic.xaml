@@ -3,11 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View.GuideView"
+      xmlns:local="clr-namespace:BookingApp.Converter"
       
       mc:Ignorable="d" 
       Title="TourStatisticPage1" Height="768" Width="1024">
-      
+
+
+    <Page.Resources>
+        <local:ImagePathConverter x:Key="ImagePathConverter"/>
+    </Page.Resources>
+
+
+
     <Grid x:Name="mainGrid">
         <!-- Navigaciona traka -->
         <Grid VerticalAlignment="Top" Height="71" Background="LightGray">

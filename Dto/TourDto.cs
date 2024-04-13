@@ -57,10 +57,7 @@ namespace BookingApp.DTO
             name = tour.Name;
             description = tour.Description;
             duration = tour.Duration;
-            foreach (string path in tour.ImagesPaths)
-            {
-                imagesPaths.Add(ImageService.GetAbsolutePath(path));
-            }
+            imagesPaths = tour.ImagesPaths;
             locationDto = new LocationDto(tour.Location);
             keyPoints = tour.KeyPoints;
         }

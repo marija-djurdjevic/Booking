@@ -2,13 +2,14 @@
     x:Class="BookingApp.View.TouristView.FullScreenImageWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:BookingApp.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     MinWidth="500"
     MinHeight="500"
-    Background="{StaticResource BackgroundColor}"
+    Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     mc:Ignorable="d">
     <Grid>
@@ -20,7 +21,7 @@
             x:Name="Slika"
             Grid.Row="0"
             Margin="10"
-            Source="{Binding ShowingImage}"
+            Source="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}"
             Stretch="Uniform" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -31,7 +32,7 @@
                 Grid.Column="0"
                 Width="350"
                 Height="70"
-                Background="White"
+                Background="{StaticResource PageColor}"
                 Click="PreviousImageButtonClick">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
@@ -44,7 +45,7 @@
                 Grid.Column="1"
                 Width="350"
                 Height="70"
-                Background="White"
+                Background="{StaticResource PageColor}"
                 Click="NextImageButtonClick">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
@@ -54,13 +55,23 @@
                 </Button.Content>
             </Button>
         </Grid>
+
         <Button
             Grid.Row="1"
+            Padding="10,0"
             HorizontalAlignment="Center"
             Click="CloseButtonClick"
-            Content="Close"
             FontSize="50"
             Style="{StaticResource CancelButton}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Height="60"
+                        Margin="10,0,5,0"
+                        Source="/Resources/Icons/TouristIcons/close.png" />
+                    <TextBlock Margin="0,0,10,0" Text="Close" />
+                </StackPanel>
+            </Button.Content>
             <Button.BorderBrush>
                 <SolidColorBrush Opacity="0" Color="White" />
             </Button.BorderBrush>

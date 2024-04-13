@@ -13,6 +13,7 @@ namespace BookingApp.Dto
     public class PropertyDto: INotifyPropertyChanged
     {
         private string name;
+        private int ownerId;
         private int maxGuests;
         private int minReservationDays;
         private string city;
@@ -28,8 +29,9 @@ namespace BookingApp.Dto
             CancellationDeadline = 1;
         }
 
-        public PropertyDto(string name, LocationDto locationDto, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
+        public PropertyDto(int ownerId, string name, LocationDto locationDto, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
         {
+            this.ownerId = ownerId;
             this.name = name;
             this.type = type;
             this.maxGuests = maxGuests;
@@ -43,6 +45,7 @@ namespace BookingApp.Dto
        
         public PropertyDto(Property property)
         {
+            ownerId = property.OwnerId;
             name = property.Name;
             maxGuests = property.MaxGuests;
             minReservationDays = property.MinReservationDays;
@@ -68,6 +71,18 @@ namespace BookingApp.Dto
                     OnPropertyChanged();
                 }
 
+            }
+        }
+        public int OwnerId
+        {
+            get { return ownerId; }
+            set
+            {
+                if (value != ownerId)
+                {
+                    ownerId = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -200,7 +215,7 @@ namespace BookingApp.Dto
         public Property ToProperty()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Property(Name, location, Type, MaxGuests, MinReservationDays, CancellationDeadline, ImagesPaths);
+            return new Property(OwnerId, Name, location, Type, MaxGuests, MinReservationDays, CancellationDeadline, ImagesPaths);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

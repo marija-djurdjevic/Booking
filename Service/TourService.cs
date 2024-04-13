@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,20 @@ namespace BookingApp.Service
     public class TourService
     {
         private TourRepository tourRepository;
+        private TouristExperienceRepository experienceRepository;
         private TourReservationRepository tourReservationRepository;
         private LiveTourRepository liveTourRepository;
-        private readonly TourRepository _tourRepository;
-        private readonly KeyPointService _keyPointService;
-        private readonly TouristExperienceService _touristExperienceService;
+        private readonly KeyPointService keyPointService;
+        private readonly TouristExperienceService touristExperienceService;
 
         public TourService()
         {
             tourRepository = new TourRepository();
             tourReservationRepository = new TourReservationRepository();
+            experienceRepository = new TouristExperienceRepository();
             liveTourRepository = new LiveTourRepository();
-            _tourRepository = new TourRepository();
-            _keyPointService = new KeyPointService();
-            _touristExperienceService = new TouristExperienceService();
+            keyPointService = new KeyPointService();
+            touristExperienceService = new TouristExperienceService();
         }
 
         public List<Tour> GetMyReserved(int userId)
@@ -36,13 +37,24 @@ namespace BookingApp.Service
             }
             return myReservedTours.DistinctBy(x => x.Id).ToList();
         }
+
+        public bool CanTouristRateTour(int userId, int tourId)
+        {
+            List<TourReservation> reservationsAttendedByUser = tourReservationRepository.GetReservationsAttendedByUser(userId);
+            LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
+
+            if (liveTour != null)
+                return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceRepository.IsTourRatedByUser(tourId, userId);
+            return false;
+        }
+
         public List<Tour> GetMyActiveReserved(int userId)
         {
             List<Tour> myActiveReservedTours = new List<Tour>();
             foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
             {
                 LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
-                if (tourReservation.IsOnTour)
+                if (liveTour != null && liveTour.IsLive)
                 {
                     Tour activeTour = tourRepository.GetTourById(tourReservation.TourId);
                     activeTour.KeyPoints = liveTour.KeyPoints;
@@ -53,29 +65,29 @@ namespace BookingApp.Service
             return myActiveReservedTours.DistinctBy(x => x.Id).ToList();
         }
 
-          public List<Tour> GetToursWithKeyPoints()
+        public List<Tour> GetToursWithKeyPoints()
         {
-            var tours = _tourRepository.GetAll();
+            var tours = tourRepository.GetAll();
             foreach (var tour in tours)
             {
-                tour.KeyPoints = _keyPointService.GetTourKeyPoints(tour.Id);
+                tour.KeyPoints = keyPointService.GetTourKeyPoints(tour.Id);
             }
             return tours;
         }
 
         public int GetNumberOfTouristsForTour(int tourId)
         {
-            return _touristExperienceService.GetNumberOfTouristsForTour(tourId);
+            return touristExperienceService.GetNumberOfTouristsForTour(tourId);
         }
 
         public void Delete(int tourId)
         {
-            _tourRepository.Delete(tourId);
+            tourRepository.Delete(tourId);
         }
 
-            public List<Tour> GetTodayTours()
+        public List<Tour> GetTodayTours()
         {
-            var tours = _tourRepository.GetAll();
+            var tours = tourRepository.GetAll();
             string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
             List<Tour> toursWithTodayDate = tours.Where(t => t.StartDateTime.Date == DateTime.Today).ToList();
             return toursWithTodayDate;
@@ -83,7 +95,7 @@ namespace BookingApp.Service
 
         public List<Tour> GetUpcomingTours()
         {
-            var tours = _tourRepository.GetAll();
+            var tours = tourRepository.GetAll();
             DateTime today = DateTime.Today;
             List<Tour> upcomingTours = tours.Where(t => t.StartDateTime.Date > today).ToList();
             return upcomingTours;
@@ -94,7 +106,7 @@ namespace BookingApp.Service
 
         public Tour GetTourById(int tourId)
         {
-            var tours = _tourRepository.GetAll();
+            var tours = tourRepository.GetAll();
             return tours.FirstOrDefault(t => t.Id == tourId);
         }
 

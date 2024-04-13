@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.View;
 using BookingApp.ViewModel;
+using BookingApp.ViewModel.GuidesViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

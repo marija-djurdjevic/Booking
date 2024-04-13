@@ -21,6 +21,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using BookingApp.View.GuideView;
+using BookingApp.UseCases;
 
 namespace BookingApp.View
 {
@@ -75,7 +77,7 @@ namespace BookingApp.View
             List<string> locations = new List<string>();
             Random random = new Random();
 
-            // Shuffle the lines array
+           
             for (int i = lines.Length - 1; i > 0; i--)
             {
                 int j = random.Next(0, i + 1);
@@ -84,7 +86,7 @@ namespace BookingApp.View
                 lines[j] = temp;
             }
 
-            // Take the first 50 lines
+            
             for (int i = 0; i < 50 && i < lines.Length; i++)
             {
                 string[] parts = lines[i].Split(',');
@@ -107,7 +109,17 @@ namespace BookingApp.View
             if (openFileDialog.ShowDialog() == true)
             {
                 string selectedImagePath = openFileDialog.FileName;
-                tourDto.ImagesPaths.Add(selectedImagePath);
+                string[] images = { selectedImagePath };
+                string relativePath = "Resources\\Images\\TourImages\\"; // Folder where images should be saved
+
+                ImageService imageService = new ImageService(); // Kreiranje instance ImageService klase
+                List<string> relativeImagePaths = imageService.SaveImages(images, relativePath);
+                foreach (var relativeImagePath in relativeImagePaths)
+                {
+                    tourDto.ImagesPaths.Add(relativeImagePath);
+                }
+                currentImageIndex = tourDto.ImagesPaths.Count - 1;
+
                 UpdateImage();
             }
         }
@@ -177,44 +189,52 @@ namespace BookingApp.View
         {
             foreach (var startDate in tourDates)
             {
-                // Dobijanje selektovane lokacije iz ComboBox-a
                 string selectedLocation = ComboBoxLocation.SelectedItem as string;
-
-                // Dobijanje selektovanog jezika iz ComboBox-a
                 string selectedLanguage = ComboBoxLanguage.SelectedItem as string;
 
-                if (selectedLocation != null && selectedLanguage != null)
+                if (selectedLocation == null || selectedLanguage == null)
                 {
-                    string[] locationParts = selectedLocation.Split(',');
-                    if (locationParts.Length == 2)
-                    {
-                        string city = locationParts[0].Trim();
-                        string country = locationParts[1].Trim();
+                    continue;
+                }
 
-                        // Kreiranje LocationDto objekta sa izabranim gradom i državom 
-                        LocationDto locationDto = new LocationDto { City = city, Country = country };
+                string[] locationParts = selectedLocation.Split(',');
+                if (locationParts.Length != 2)
+                {
+                    continue;
+                }
 
-                        // Kreiranje nove ture sa novom lokacijom i jezikom
-                        TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, selectedLanguage, tourDto.MaxTouristNumber, startDate, tourDto.Duration, locationDto, tourDto.ImagesPaths);
-                        tourRepository.Save(newTourDto.ToTour());
-                        int id = tourRepository.NextId() - 1;
+                string city = locationParts[0].Trim();
+                string country = locationParts[1].Trim();
 
-                        if (!SetKeyPoints(id))
-                        {
-                            MessageBox.Show("Failed to create tour.");
-                            return;
-                        }
-                    }
+                LocationDto locationDto = new LocationDto { City = city, Country = country };
+
+                TourDto newTourDto = new TourDto(tourDto.Name, tourDto.Description, selectedLanguage, tourDto.MaxTouristNumber, startDate, tourDto.Duration, locationDto, tourDto.ImagesPaths);
+                if (!SaveNewTour(newTourDto))
+                {
+                    MessageBox.Show("Failed to create tour.");
+                    return;
+                }
+
+                int id = tourRepository.NextId() - 1;
+                if (!SetKeyPoints(id))
+                {
+                    MessageBox.Show("Failed to create tour.");
+                    return;
                 }
             }
         }
 
+        private bool SaveNewTour(TourDto tourDto)
+        {
+            tourRepository.Save(tourDto.ToTour());
+            return true;
+        }
 
 
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage guideMainPage = new GuideMainPage();
+            GuideMainPage1 guideMainPage = new GuideMainPage1();
             this.NavigationService.Navigate(guideMainPage);
 
 
@@ -262,7 +282,7 @@ namespace BookingApp.View
         {
             if (tourDto.ImagesPaths.Count > 0)
             {
-                string selectedImagePath = tourDto.ImagesPaths[currentImageIndex];
+                string selectedImagePath = ImageService.GetAbsolutePath(tourDto.ImagesPaths[currentImageIndex]);
                 BitmapImage imageSource = new BitmapImage();
                 imageSource.BeginInit();
                 imageSource.CacheOption = BitmapCacheOption.OnLoad;
@@ -275,6 +295,7 @@ namespace BookingApp.View
                 ImagePreview.Source = null;
             }
         }
+
 
         private void AddDateAndTimeButtonClick(object sender, RoutedEventArgs e)
         {

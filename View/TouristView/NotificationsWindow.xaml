@@ -2,12 +2,14 @@
     x:Class="BookingApp.View.TouristView.NotificationsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:BookingApp.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Width="750"
     Height="650"
+    Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -19,42 +21,49 @@
             DockPanel.Dock="Top">
 
             <TextBlock Style="{StaticResource NasloviProzoraTextBlock}" Text="Notifications" />
-            <StackPanel
+            <Button
+                Grid.Row="0"
                 Grid.Column="2"
-                Height="30"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
-                <Button Click="HelpButtonClick" Style="{StaticResource HoverStilHelp}">
-                    <Button.Content>
-                        <DockPanel Width="80" Style="{StaticResource HelpInboxStyle}">
-                            <TextBlock
-                                Height="30"
-                                Margin="7,0,0,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Help" />
-                            <Image
-                                Width="30"
-                                Height="30"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Source="/Resources/Icons/TouristIcons/help1.png" />
-                        </DockPanel>
-                    </Button.Content>
-
-                </Button>
-            </StackPanel>
-
+                Margin="0"
+                VerticalAlignment="Top"
+                Background="{StaticResource SelectedCardColor}"
+                Click="HelpButtonClick"
+                Style="{StaticResource ConfirmButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/help.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Help" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
 
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Bottom">
             <Button
+                Grid.Row="1"
                 Margin="15,15"
+                Padding="10,0"
                 HorizontalAlignment="Right"
                 Click="CloseButtonClick"
-                Content="Close"
-                Style="{StaticResource CancelButton}" />
+                Style="{StaticResource CancelButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/close.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Close" />
+                    </StackPanel>
+                </Button.Content>
+                <Button.BorderBrush>
+                    <SolidColorBrush Opacity="0" Color="White" />
+                </Button.BorderBrush>
+
+            </Button>
         </DockPanel>
 
         <Grid Margin="15,5,15,5">
@@ -65,10 +74,7 @@
                     Style="{StaticResource CardView}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox
-                                Height="auto"
-                                MaxHeight="150"
-                                Style="{StaticResource GroupVauceri}">
+                            <GroupBox Height="auto" MaxHeight="150">
                                 <GroupBox.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontSize="20" Text="Guide: " />
@@ -130,6 +136,15 @@
                                         FontWeight="Bold"
                                         Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                 </Grid>
+                                <GroupBox.Style>
+                                    <Style BasedOn="{StaticResource GroupVauceri}" TargetType="GroupBox">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Item1.Seen}" Value="False">
+                                                <Setter Property="Background" Value="LightGreen" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

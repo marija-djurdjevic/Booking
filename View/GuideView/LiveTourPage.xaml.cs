@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Model.Enums;
 using BookingApp.Repository;
+using BookingApp.View.GuideView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -334,33 +335,35 @@ namespace BookingApp.View
 
         private void AddTouristButtonClick(object sender, RoutedEventArgs e)
         {
-            if (selectedTour != null && touristsListBox.SelectedItem != null)
-            {
-                var selectedTourist = (TourReservation)touristsListBox.SelectedItem;
-                if (!selectedTourist.IsOnTour)
-                {
-                    var keyPoint = GetLastActiveKeyPoint();
-                    selectedTourist.JoinedKeyPoint = keyPoint;
-                    selectedTourist.IsOnTour = true;
-                    tourReservationRepository.UpdateReservation(selectedTourist);
-                    MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
-
-                    if (tourReservationRepository.IsUserOnTour(selectedTourist.UserId,selectedTourist.TourId))
-                    {
-                        List<string> addedPersons = new List<string>();
-                        addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
-                        touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId,2, selectedTourist.TourId,addedPersons,System.DateTime.Now,NotificationType.TouristJoined, keyPoint.Name,"Ognjen",selectedTour.Name));
-                    }
-
-                    var tourists = ((ObservableCollection<TourReservation>)touristsListBox.ItemsSource);
-                    tourists.Remove(selectedTourist);
-                }
-            }
-            else
+            if (selectedTour == null || touristsListBox.SelectedItem == null)
             {
                 MessageBox.Show("Please select a tour and a tourist first.");
+                return;
             }
+
+            var selectedTourist = (TourReservation)touristsListBox.SelectedItem;
+            if (selectedTourist.IsOnTour)
+            {
+                MessageBox.Show("Tourist is already on tour.");
+                return;
+            }
+
+            var keyPoint = GetLastActiveKeyPoint();
+            selectedTourist.JoinedKeyPoint = keyPoint;
+            selectedTourist.IsOnTour = true;
+            tourReservationRepository.UpdateReservation(selectedTourist);
+            MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
+
+            if (tourReservationRepository.IsUserOnTour(selectedTourist.UserId, selectedTourist.TourId))
+            {
+                List<string> addedPersons = new List<string> { $"{selectedTourist.TouristFirstName} {selectedTourist.TouristLastName}" };
+                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", selectedTour.Name));
+            }
+
+            var tourists = (ObservableCollection<TourReservation>)touristsListBox.ItemsSource;
+            tourists.Remove(selectedTourist);
         }
+
 
 
 
@@ -383,7 +386,7 @@ namespace BookingApp.View
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage guideMainPage = new GuideMainPage();
+            GuideMainPage1 guideMainPage = new GuideMainPage1();
             this.NavigationService.Navigate(guideMainPage);
 
 
