@@ -24,8 +24,6 @@ namespace BookingApp.DTO
         private List<string> imagesPaths = new List<string>();
         private List<KeyPoint> keyPoints = new List<KeyPoint>();
 
-
-
         public TourDto()
         {
             locationDto = new LocationDto();
@@ -46,8 +44,6 @@ namespace BookingApp.DTO
             keyPoints = new List<KeyPoint>();
         }
 
-
-
         public TourDto(Tour tour)
         {
             Id = tour.Id;
@@ -62,22 +58,6 @@ namespace BookingApp.DTO
             keyPoints = tour.KeyPoints;
         }
 
-        public TourDto(TourDto tour)
-        {
-            Id = tour.Id;
-            language = tour.language;
-            maxTouristsNumber = tour.maxTouristsNumber;
-            startDateTime = tour.startDateTime;
-            name = tour.name;
-            description = tour.description;
-            duration = tour.duration;
-            imagesPaths = tour.imagesPaths;
-            locationDto = new LocationDto(tour.locationDto);
-            keyPoints = tour.keyPoints;
-        }
-
-
-
         public List<KeyPoint> KeyPoints
         {
             get { return keyPoints; }
@@ -90,9 +70,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-
-
 
         public List<string> ImagesPaths
         {
@@ -160,7 +137,6 @@ namespace BookingApp.DTO
             }
         }
 
-
         public int MaxTouristNumber
         {
             get { return maxTouristsNumber; }
@@ -173,9 +149,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-
-
 
         public DateTime StartDateTime
         {
@@ -190,7 +163,6 @@ namespace BookingApp.DTO
             }
         }
 
-
         public double Duration
         {
             get { return duration; }
@@ -203,8 +175,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-
 
         public Tour ToTour()
         {
