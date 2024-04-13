@@ -14,7 +14,7 @@ namespace BookingApp.Repository
 
         private List<OwnerReview> _ownersreviews;
 
-        public int idd;
+        public int id;
 
         public OwnerReviewRepository()
         {
@@ -88,6 +88,30 @@ namespace BookingApp.Repository
         {
             return OwnerReview.Id;
         }
+        public List<OwnerReview> GetReviewsByOwnerId(int ownerId)
+        {
+            return _ownersreviews.Where(review => review.OwnerId == ownerId).ToList();
+        }
+        /*public double CalculateAverageRating(OwnerReviewRepository ownerReviewRepository)
+        {
+            List<OwnerReview> ownerReviews = ownerReviewRepository.GetReviewsByOwnerId(this.id);
+            if (ownerReviews.Count == 0)
+            {
+                return 0; 
+            }
+            double totalRating = ownerReviews.Sum(review => (review.Cleanliness + review.Correctness) / 2.0);
+            return totalRating / ownerReviews.Count;
+        }*/
+        public double CalculateAverageRating(int ownerId)
+    {
+        List<OwnerReview> ownerReviews = GetReviewsByOwnerId(ownerId);
+        if (ownerReviews.Count == 0)
+        {
+            return 0;
+        }
+        double totalRating = ownerReviews.Sum(review => (review.Cleanliness + review.Correctness) / 2.0);
+        return totalRating / ownerReviews.Count;
     }
+}
 }
 

@@ -23,7 +23,7 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for Owner.xaml
     /// </summary>
-    public partial class Owner : Window
+    public partial class OwnerWindow : Window
     {
         public List<PropertyReservationDto> PropertyReservations { get; set; }
         public PropertyReservation SelectedReservation { get; set; }
@@ -31,18 +31,17 @@ namespace BookingApp.View
         public PropertyReservationRepository _propertyReservationRepository { get; set; }
         public ReviewRepository _reviewRepository;
         private List<Notification> _notifications;
-        public Owner(User LoggedInUser)
+        public OwnerRepository ownerRepository { get; set; }
+        public OwnerWindow(User LoggedInUser)
         {
             InitializeComponent();
             this.LoggedInUser = LoggedInUser;
             _notifications = new List<Notification>();
-
+            ownerRepository = new OwnerRepository();
+            ownerRepository.UpdateOwnerPropertiesBasedOnReviews();
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage(LoggedInUser));
             GuestReviewsFrame.Navigate(new GuestReviewsPage());
-
-            
-
 
         }
 

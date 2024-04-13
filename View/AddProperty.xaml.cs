@@ -27,12 +27,16 @@ namespace BookingApp.View
         private PropertyDto _propertyDto;
 
         public User LoggedInUser { get; set; }
+        public Owner LoggedInOwner { get; set; }
+        public OwnerRepository OwnerRepository { get; set; }
 
         PropertyRepository propertyRepository;
-        public AddProperty(User user)
-        {
+        public AddProperty(User loggedInUser)
+        { 
             InitializeComponent();
-            this.LoggedInUser = user;
+            OwnerRepository = new OwnerRepository();
+            this.LoggedInUser = loggedInUser;
+            LoggedInOwner = OwnerRepository.GetByUserId(loggedInUser.Id);
             _propertyDto = new PropertyDto();
             DataContext = _propertyDto;
             propertyRepository = new PropertyRepository();
