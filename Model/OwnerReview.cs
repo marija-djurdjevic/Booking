@@ -61,7 +61,7 @@ namespace BookingApp.Model
             Cleanliness = Convert.ToInt32(values[3]);
             Correctness = Convert.ToInt32(values[4]);
             Comment = values[5];
-            for (int i = 8; i < values.Length; i++)
+            for (int i = 6; i < values.Length; i++)
             {
                 ImagesPaths.Add(values[i]);
             }
