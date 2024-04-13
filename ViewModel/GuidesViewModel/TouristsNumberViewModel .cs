@@ -129,7 +129,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
         private void ExecuteNavigateHome()
         {
-            var mainPage = new GuideMainPage();
+            var mainPage = new GuideMainPage1();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }

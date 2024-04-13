@@ -25,6 +25,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private readonly TourReservationService tourReservationService;
         private readonly VoucherService voucherService;
         private readonly TouristService touristService;
+        private readonly TourCancellationService tourCancellationService;
         private ObservableCollection<Tour> todayTours;
         private ObservableCollection<Tour> upcomingTours;
         private ObservableCollection<Tour> finishedTours;
@@ -43,6 +44,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             tourReservationService = new TourReservationService();
             voucherService = new VoucherService();
             touristService = new TouristService();
+            tourCancellationService = new TourCancellationService(liveTourService,tourReservationService,tourService,keyPointService,voucherService,touristService);
             createTourClickCommand = new RelayCommand(ExecuteCreateTourClick);
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
@@ -154,15 +156,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
         }
 
-
-
-       
-
-
-
-       
-
-
         private void ExecuteCreateTourClick()
         {
             var createTourPage = new CreateTourPage();
@@ -176,7 +169,10 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var tour = tourService.GetTourById(tourId);
                 if (tour != null)
                 {
-                    LiveTourPage liveTourPage = new LiveTourPage(tour);
+                    LiveTourPage liveTourPage = new LiveTourPage(tourId);
+                    liveTourService.ActivateTour(tourId);
+                    liveTourService.CheckFirstKeyPoint(tourId);
+                    liveTourService.SaveChanges();
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
                 }
             }
@@ -198,82 +194,14 @@ namespace BookingApp.ViewModel.GuidesViewModel
             if (parameter != null && parameter is int tourId)
             {
                 var tour = tourService.GetTourById(tourId);
-
                 var tourKeyPoints = keyPointService.GetTourKeyPoints(tourId);
                 var tourReservation = tourReservationService.GetByTourId(tourId);
 
-                CancelTour(tour, tourKeyPoints, tourReservation);
+                tourCancellationService.CancelTour(tour, tourKeyPoints, tourReservation);
 
                 LoadTours();
             }
-
         }
-
-
-
-
-        public void CancelTour(Tour tour, List<KeyPoint> keyPoints, List<TourReservation> tourReservations)
-        {
-
-            if ((tour.StartDateTime - DateTime.Now).TotalHours <= 48)
-            {
-
-                return;
-            }
-            liveTourService.RemoveLiveTour(tour.Id);
-            tourReservationService.DeleteByTourId(tour.Id);
-            DeleteTourAndKeyPoints(tour.Id);
-            GenerateVouchersForCanceledTourists(tour.Id, tourReservations);
-        }
-
-        private void DeleteTourAndKeyPoints(int tourId)
-        {
-            tourService.Delete(tourId);
-            keyPointService.DeleteKeyPoints(tourId);
-        }
-
-        private void GenerateVouchersForCanceledTourists(int tourId, List<TourReservation> tourReservations)
-        {
-            var usersToReceiveVoucher = new List<int>();
-
-            foreach (var reservation in tourReservations)
-            {
-                int userId = reservation.UserId;
-                var tourist = touristService.GetByUserId(userId);
-
-                if (tourist != null && IsTouristReservationMatch(tourist, reservation))
-                {
-                    usersToReceiveVoucher.Add(userId);
-                }
-            }
-
-            foreach (var userId in usersToReceiveVoucher)
-            {
-                GenerateVoucher(userId);
-            }
-        }
-
-        private bool IsTouristReservationMatch(Tourist tourist, TourReservation reservation)
-        {
-            string fullName = $"{tourist.FirstName} {tourist.LastName}";
-            string reservationFullName = $"{reservation.TouristFirstName} {reservation.TouristLastName}";
-            return fullName == reservationFullName;
-        }
-
-        private void GenerateVoucher(int userId)
-        {
-            var newVoucher = new Voucher()
-            {
-                TouristId = userId,
-                Reason = "Tour guide cancellation",
-                ExpirationDate = DateTime.Now.AddYears(1),
-                IsUsed = false
-            };
-
-            voucherService.Save(newVoucher);
-        }
-
-
 
     }
 }

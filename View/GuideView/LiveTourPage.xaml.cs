@@ -1,7 +1,9 @@
 ﻿using BookingApp.Model;
 using BookingApp.Model.Enums;
 using BookingApp.Repository;
+using BookingApp.Service;
 using BookingApp.View.GuideView;
+using BookingApp.ViewModel.GuidesViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +25,7 @@ namespace BookingApp.View
    
     public partial class LiveTourPage : Page
     {
+        private int tourId;
 
         private readonly TourRepository tourRepository;
         private Tour selectedTour;
@@ -30,27 +33,29 @@ namespace BookingApp.View
         private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
-        public LiveTourPage(Tour selectedTour)
+        public LiveTourPage(int tourId)
         {
 
             InitializeComponent();
-            this.selectedTour = selectedTour;
-            DataContext = selectedTour;
-            tourRepository = new TourRepository(); 
             keyPointRepository = new KeyPointRepository();
-            tourReservationRepository = new TourReservationRepository();
-            liveTourRepository = new LiveTourRepository();
-            touristGuideNotificationRepository = new TouristGuideNotificationRepository();
+            DataContext = new LiveTourViewModel(tourId);
+            /* this.selectedTour = selectedTour;
+             DataContext = selectedTour;
+             tourRepository = new TourRepository(); 
+             keyPointRepository = new KeyPointRepository();
+             tourReservationRepository = new TourReservationRepository();
+             liveTourRepository = new LiveTourRepository();
+             touristGuideNotificationRepository = new TouristGuideNotificationRepository();
 
-            if (IsActiveTour())
-            {
-                MessageBox.Show("Please finish the active tour before starting a new one.");
-                DisplayActiveTourDetails();
-                return;
-            }
+             if (IsActiveTour())
+             {
+                 MessageBox.Show("Please finish the active tour before starting a new one.");
+                 DisplayActiveTourDetails();
+                 return;
+             }
 
-            StartSelectedTour();
-           
+             StartSelectedTour();
+            */
         }
 
 
@@ -401,5 +406,23 @@ namespace BookingApp.View
 
 
 
+
+
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            KeyPoint keyPoint = (KeyPoint)checkBox.DataContext;
+            keyPoint.IsChecked = true;
+            keyPointRepository.SaveChanges();
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            KeyPoint keyPoint = (KeyPoint)checkBox.DataContext;
+            keyPoint.IsChecked = false;
+            keyPointRepository.SaveChanges();
+        }
     }
 }

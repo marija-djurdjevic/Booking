@@ -3,7 +3,7 @@
 1|Gacko|End|3|False
 3|Novi Sad|Begining|1|False
 3|Irig|End|2|False
-4|Beograd|Begining|1|False
+4|Beograd|Begining|1|True
 4|Ruma|End|2|False
 7|key7|Begining|1|False
 7|key8|Middle|2|False
@@ -16,13 +16,11 @@
 10|ognjen2|End|2|False
 11|ognjen1|Begining|1|False
 11|ognjen2|End|2|False
-40|key1|Begining|1|False
-40|key1|Middle|2|False
-40|key1|Middle|3|False
-40|key1|Middle|4|False
-40|key1|Middle|5|False
-40|key1|Middle|6|False
-40|key2|End|7|False
+6|Novi Sad|Begining|1|True
+6|Irig|Middle|2|False
+6|Ruma|Middle|3|False
+6|Mitrovica|Middle|4|False
+6|Beograd|Middle|5|False
 9|aaaaa|Begining|1|False
 9|aaaaa|End|2|False
 10|aaaaa|Begining|1|False
@@ -87,5 +85,5 @@
 37|sijetl|End|3|False
 38|Banjani|Begining|1|False
 38|Avtovac|End|2|False
-6|jedan|Begining|1|False
-6|dva|End|2|False
+7|tacka1|Begining|1|False
+7|tacka2|End|2|False

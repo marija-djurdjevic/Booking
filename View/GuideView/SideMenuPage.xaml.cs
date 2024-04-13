@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.View.GuideView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ namespace BookingApp.View
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage guideMainPage = new GuideMainPage();
+            GuideMainPage1 guideMainPage = new GuideMainPage1();
             this.NavigationService.Navigate(guideMainPage);
 
 
