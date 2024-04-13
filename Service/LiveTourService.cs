@@ -45,12 +45,7 @@ namespace BookingApp.Service
 
         public void ActivateTour(int tourId)
         {
-            var liveTour = liveTourRepository.GetLiveTourById(tourId);
-            if (liveTour != null && !liveTour.IsLive)
-            {
-                liveTour.IsLive = true;
-                liveTourRepository.SaveChanges();
-            }
+            liveTourRepository.ActivateTour(tourId);
         }
 
 
@@ -60,9 +55,14 @@ namespace BookingApp.Service
 
         }
 
-       
 
-        public void CheckFirstKeyPoint(int tourId)
+        public List<LiveTour> GetFinishedTours()
+        {
+            return liveTourRepository.GetFinishedTours();
+        }
+
+
+            public void CheckFirstKeyPoint(int tourId)
         {
             var keyPoints = GetTourKeyPoints(tourId);
             LiveTour liveTour = new LiveTour(tourId , keyPoints, true);
@@ -94,7 +94,8 @@ namespace BookingApp.Service
                 for (int i = 0; i < activeTour.KeyPoints.Count; i++)
                 {
                     keyPoint[i].IsChecked = false;
-                    liveTourRepository.SaveChanges();
+                    
+                    liveTourRepository.Update(activeTour);
                 }
                 liveTourRepository.SaveChanges();
             }

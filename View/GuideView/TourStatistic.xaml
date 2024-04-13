@@ -39,7 +39,11 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Slika ture -->
-                        <Image Grid.Column="0" Source="{Binding ImagePath}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Image Grid.Column="0" Width="150" Height="230" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Fill" Margin="0,7,10,38">
+                            <Image.Source>
+                                <Binding Path="ImagesPaths[0]" Converter="{StaticResource ImagePathConverter}" />
+                            </Image.Source>
+                        </Image>
 
                         <!-- Most visited tour -->
                         <TextBlock x:Name="MostVisitedLabel" Grid.Column="1" FontSize="32" Visibility="Collapsed" Text="Most visited tour" Margin="0"/>
