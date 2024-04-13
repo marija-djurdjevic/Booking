@@ -1,49 +1,49 @@
-1|Novi Sad|Begining|1|False
-1|Ruma|Middle|2|False
-1|Mitrovica|Middle|3|False
-1|Beograd|Middle|4|False
-1|Raca|Middle|5|False
-1|Zvornik|Middle|6|False
-1|Trebinje|End|7|False
-2|Novi Sad|Begining|1|False
-2|Ruma|Middle|2|False
-2|Mitrovica|Middle|3|False
-2|Beograd|Middle|4|False
-2|Raca|Middle|5|False
-2|Zvornik|Middle|6|False
-2|Trebinje|End|7|False
-3|Novi Sad|Begining|1|False
-3|Ruma|Middle|2|False
-3|Mitrovica|Middle|3|False
-3|Beograd|Middle|4|False
-3|Raca|Middle|5|False
-3|Zvornik|Middle|6|False
-3|Trebinje|End|7|False
-4|Novi Sad|Begining|1|True
-4|Ruma|Middle|2|True
-4|Batrovci|Middle|3|True
-4|Gradiska|Middle|4|True
-4|Nova Topola|Middle|5|False
-4|Aleksandrovac|Middle|6|False
-4|Miljevici|End|7|True
-5|Novi Sad|Begining|1|False
-5|Ruma|Middle|2|False
-5|Batrovci|Middle|3|False
-5|Gradiska|Middle|4|False
-5|Nova Topola|Middle|5|False
-5|Aleksandrovac|Middle|6|False
-5|Miljevici|End|7|False
-6|Novi Sad|Begining|1|False
-6|Ruma|Middle|2|False
-6|Batrovci|Middle|3|False
-6|Gradiska|Middle|4|False
-6|Nova Topola|Middle|5|False
-6|Aleksandrovac|Middle|6|False
-6|Miljevici|End|7|False
-7|Novi Sad|Begining|1|False
-7|Ruma|Middle|2|False
-7|Batrovci|Middle|3|False
-7|Gradiska|Middle|4|False
-7|Nova Topola|Middle|5|False
-7|Aleksandrovac|Middle|6|False
-7|Miljevici|End|7|False
+1|1|Novi Sad|Begining|1|False
+2|1|Ruma|Middle|2|False
+3|1|Mitrovica|Middle|3|False
+4|1|Beograd|Middle|4|False
+5|1|Raca|Middle|5|False
+6|1|Zvornik|Middle|6|False
+7|1|Trebinje|End|7|False
+8|2|Novi Sad|Begining|1|False
+9|2|Ruma|Middle|2|False
+10|2|Mitrovica|Middle|3|False
+11|2|Beograd|Middle|4|False
+12|2|Raca|Middle|5|False
+13|2|Zvornik|Middle|6|False
+14|2|Trebinje|End|7|False
+15|3|Novi Sad|Begining|1|False
+16|3|Ruma|Middle|2|False
+17|3|Mitrovica|Middle|3|False
+18|3|Beograd|Middle|4|False
+19|3|Raca|Middle|5|False
+20|3|Zvornik|Middle|6|False
+21|3|Trebinje|End|7|False
+22|4|Novi Sad|Begining|1|True
+23|4|Ruma|Middle|2|True
+25|4|Batrovci|Middle|3|True
+26|4|Gradiska|Middle|4|True
+27|4|Nova Topola|Middle|5|False
+28|4|Aleksandrovac|Middle|6|False
+29|4|Miljevici|End|7|True
+30|5|Novi Sad|Begining|1|False
+31|5|Ruma|Middle|2|False
+32|5|Batrovci|Middle|3|False
+33|5|Gradiska|Middle|4|False
+34|5|Nova Topola|Middle|5|False
+35|5|Aleksandrovac|Middle|6|False
+36|5|Miljevici|End|7|False
+37|6|Novi Sad|Begining|1|False
+38|6|Ruma|Middle|2|False
+39|6|Batrovci|Middle|3|False
+40|6|Gradiska|Middle|4|False
+41|6|Nova Topola|Middle|5|False
+42|6|Aleksandrovac|Middle|6|False
+43|6|Miljevici|End|7|False
+44|7|Novi Sad|Begining|1|False
+45|7|Ruma|Middle|2|False
+46|7|Batrovci|Middle|3|False
+47|7|Gradiska|Middle|4|False
+48|7|Nova Topola|Middle|5|False
+49|7|Aleksandrovac|Middle|6|False
+50|7|Miljevici|End|7|False
