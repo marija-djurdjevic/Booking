@@ -7,6 +7,7 @@ using BookingApp.Dto;
 using BookingApp.Repository;
 using System.Windows.Controls;
 using BookingApp.DTO;
+using System.Transactions;
 
 namespace BookingApp.GuestView
 {
@@ -21,6 +22,10 @@ namespace BookingApp.GuestView
         public GuestRepository GuestRepository { get; set; }
         public PropertyRepository PropertyRepository { get; set; }
         public PropertyReservationRepository PropertyReservationRepository { get; set; }
+        public OwnerRepository OwnerRepository { get; set; }
+        public List<int> SueprOwnersIds {  get; set; }
+        private int SuperOwnerProperties {  get; set; }
+        private bool IsSuperOwnerProperty { get; set; }
         public PropertyView(User user)
         {
             InitializeComponent();
@@ -30,7 +35,20 @@ namespace BookingApp.GuestView
             SelectedProperty = new Property();
             PropertyRepository = new PropertyRepository();
             PropertyReservationRepository = new PropertyReservationRepository();
-            propertiesData.ItemsSource = PropertyRepository.GetAllProperties();
+            SueprOwnersIds = new List<int>();
+            OwnerRepository = new OwnerRepository();
+            foreach (Owner owner in OwnerRepository.GetAll())
+            {
+                if (owner.IsSuperOwner == true)
+                {
+                    SueprOwnersIds.Add(owner.Id);
+                }
+            }
+            var superOwnerProperties = PropertyRepository.GetAllProperties().Where(property => SueprOwnersIds.Contains(property.OwnerId));
+            SuperOwnerProperties = superOwnerProperties.Count();
+            var otherProperties = PropertyRepository.GetAllProperties().Except(superOwnerProperties);
+            var sortedProperties = superOwnerProperties.Concat(otherProperties);
+            propertiesData.ItemsSource = sortedProperties;
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -89,30 +107,6 @@ namespace BookingApp.GuestView
 
             return results;
         }
-
-        /* private void MakeReservation_Click(object sender, RoutedEventArgs e)
-         {
-             if (SelectedProperty == null)
-             {
-                 MessageBox.Show("Please choose a property to make a reservation!");
-             }
-             else
-             {
-                 PropertyBooking propertybooking = new PropertyBooking(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
-                 //propertybooking.Owner = this;
-                 propertybooking.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                 propertybooking.ShowDialog();
-                 //Close();
-             }
-
-         }
-
-         */
-
-        //private void Refresh_Click(object sender, RoutedEventArgs e)
-        //{
-        //  Properties = PropertyRepository.GetAllProperties();
-        ///}
 
         private void propertiesData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

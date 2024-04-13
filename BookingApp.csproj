@@ -49,6 +49,7 @@
     <None Remove="Resources\Images\icons8-play-50.png" />
     <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
+    <None Remove="Resources\Images\star %282%29.png" />
     <None Remove="Resources\Images\TouristExperienceImages\add.png" />
     <None Remove="Resources\Images\menu5.png" />
     <None Remove="Resources\Images\paper-plane.png" />
@@ -142,6 +143,7 @@
     <Resource Include="Resources\Images\pin.png" />
     <Resource Include="Resources\Images\question.png" />
     <Resource Include="Resources\Images\star (1).png" />
+    <Resource Include="Resources\Images\star (2).png" />
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 

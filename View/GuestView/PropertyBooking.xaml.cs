@@ -43,7 +43,8 @@ namespace BookingApp.GuestView
                GuestId = LoggedInGuest.Id,
                GuestFirstName = LoggedInGuest.FirstName,
                GuestLastName = LoggedInGuest.LastName,
-               PropertyId = SelectedProperty.Id
+               PropertyId = SelectedProperty.Id,
+               OwnerId = SelectedProperty.OwnerId
             };
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
         }
