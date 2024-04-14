@@ -88,7 +88,7 @@
                 <Button Content="Remove" Width="100" Height="30" HorizontalAlignment="Left" Click="RemovePhotos_Click"/>
             </StackPanel>
             <Border BorderBrush="Black" BorderThickness="1">
-                <ListBox x:Name="imageListBox" SelectionMode="Multiple" Height="110" Background="BlanchedAlmond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox x:Name="imageListBox" ItemsSource="{Binding AddedImages}" SelectedItem="{Binding SelectedImage}" Height="110" Background="BlanchedAlmond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
