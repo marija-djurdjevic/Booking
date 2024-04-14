@@ -45,5 +45,11 @@ namespace BookingApp.Service
         {
             return ReservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == guestId);
         }
+
+        public void UpdateChangeRequestComment(int requestId, string comment)
+        {
+            _repository.UpdateChangeRequestComment(requestId, comment);
+        }
+
     }
 }
