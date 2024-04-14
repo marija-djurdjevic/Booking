@@ -155,7 +155,7 @@ namespace BookingApp.GuestView
                     PropertyId = SelectedProperty.Id,
                     Value = DateRangeStart,
                     ReservationId = PropertyReservationRepository.NextId()
-            };
+                };
                 ReservedDateRepository.AddReservedDate(ReservedDate);
                 SelectedProperty.ReservedDates.Add(ReservedDate);
                 DateRangeStart = DateRangeStart.AddDays(1);
