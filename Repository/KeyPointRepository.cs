@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
@@ -29,13 +30,41 @@ namespace BookingApp.Repository
 
         public void AddKeyPoint(KeyPoint keyPoint)
         {
-                keyPoints.Add(keyPoint);
+            int nextId = NextId();
+            keyPoint.Id = nextId;
+            
+            keyPoints.Add(keyPoint);
                 SaveChanges();
         }
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             _serializer.ToCSV(FilePath, keyPoints);
+        }
+
+
+        public KeyPoint Update(KeyPoint keyPoint)
+        {
+            keyPoints = _serializer.FromCSV(FilePath);
+            KeyPoint current = keyPoints.Find(c => c.Id == keyPoint.Id);
+            int index = keyPoints.IndexOf(current);
+            keyPoints.Remove(current);
+            keyPoints.Insert(index, keyPoint);
+            _serializer.ToCSV(FilePath, keyPoints);
+            return keyPoint;
+
+
+        }
+
+
+        public int NextId()
+        {
+            keyPoints = _serializer.FromCSV(FilePath);
+            if (keyPoints.Count < 1)
+            {
+                return 1;
+            }
+            return keyPoints.Max(t => t.Id) + 1;
         }
 
         public List<KeyPoint> GetTourKeyPoints(int tourId)

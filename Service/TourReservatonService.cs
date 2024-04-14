@@ -21,6 +21,23 @@ namespace BookingApp.Service
            return tourReservationRepository.GetByTourId(tourId);
         }
 
+        public int  GetTouristsForTour(int tourId)
+        {
+            var tourists = tourReservationRepository.GetByTourId(tourId);
+            return tourists.Where(t => t.JoinedKeyPoint != null && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name)).Count();
+        }
+
+        public bool IsUserOnTour(int userId, int tourId)
+        {
+            return tourReservationRepository.IsUserOnTour(userId, tourId);
+        }
+
+
+            public void SaveChanges()
+        { 
+            tourReservationRepository.SaveChanges();
+        }
+
         public void DeleteByTourId(int tourId)
         {
              tourReservationRepository.DeleteByTourId(tourId) ;
@@ -28,18 +45,7 @@ namespace BookingApp.Service
 
             public void UpdateReservation(TourReservation reservationData)
         {
-            var tourReservations = tourReservationRepository.GetAll();
-            var existingReservation = tourReservations.FirstOrDefault(r => r.TourId == reservationData.TourId && r.TouristFirstName == reservationData.TouristFirstName && r.TouristLastName == reservationData.TouristLastName);
-            if (existingReservation != null)
-            {
-                existingReservation.IsOnTour = reservationData.IsOnTour;
-                existingReservation.JoinedKeyPoint = reservationData.JoinedKeyPoint;
-            }
-            else
-            {
-                tourReservations.Add(reservationData);
-            }
-            tourReservationRepository.SaveChanges();
+            tourReservationRepository.UpdateReservation(reservationData);
         }
     }
 }

@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using BookingApp.Service;
 
 namespace BookingApp.ViewModel.TouristViewModel
 {
-    public class SearchViewModel:INotifyPropertyChanged
+    public class SearchViewModel : INotifyPropertyChanged
     {
         public TourDto SearchParams { get; set; }
         public static ObservableCollection<TourDto> Tours { get; set; }
@@ -27,6 +28,7 @@ namespace BookingApp.ViewModel.TouristViewModel
 
         private readonly TourRepository TourRepository;
         private readonly GlobalLanguagesRepository GlobalLanguagesRepository;
+        private readonly SearchTourService SearchTourService;
         private readonly GlobalLocationsRepository GlobalLocationsRepository;
         public bool IsCancelSearchButtonVisible { get; set; }
 
@@ -64,6 +66,7 @@ namespace BookingApp.ViewModel.TouristViewModel
             Countires = GlobalLocationsRepository.GetAllCountries();
             Languages = GlobalLanguagesRepository.GetAll();
             AllCities = GlobalLocationsRepository.GetAllCities();
+            SearchTourService = new SearchTourService();
 
             IsCancelSearchButtonVisible = false;
 
@@ -77,7 +80,7 @@ namespace BookingApp.ViewModel.TouristViewModel
 
         public void Confirm()
         {
-            List<Tour> matchingTours = TourRepository.GetMatchingTours(SearchParams);
+            List<Tour> matchingTours = SearchTourService.GetMatchingTours(SearchParams);
 
             if (matchingTours.Count > 0)
             {
@@ -111,23 +114,24 @@ namespace BookingApp.ViewModel.TouristViewModel
 
         public void CountryComboBoxChanged()
         {
-            if (!string.IsNullOrEmpty(SelectedLocation.Country) && !string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
+            if (!string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
             {
-                List<string> citisInCountry = GlobalLocationsRepository.GetCitiesFromCountry(SelectedLocation.Country.ToString());
-                UpdateCitiesFromList(citisInCountry);
+                if (!string.IsNullOrEmpty(SelectedLocation.Country))
+                {
+                    List<string> citisInCountry = GlobalLocationsRepository.GetCitiesFromCountry(SelectedLocation.Country.ToString());
+                    UpdateCitiesFromList(citisInCountry);
+                }
+                else if (string.IsNullOrEmpty(SelectedLocation.Country))
+                    UpdateCitiesFromList(AllCities);
+                SearchParams.LocationDto.Country = SelectedLocation.Country;
+
             }
-            else if (string.IsNullOrEmpty(SelectedLocation.Country) && !string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
-                UpdateCitiesFromList(AllCities);
-            SearchParams.LocationDto.Country = SelectedLocation.Country;
         }
 
         public void OpenDropDownClick(object sender)
         {
             var comboBox = sender as ComboBox;
-            if (Cities.Count() > 1000)
-                comboBox.IsDropDownOpen = false;
-            else
-                comboBox.IsDropDownOpen = true;
+            comboBox.IsDropDownOpen = Cities.Count() > 100 ? false : true;
         }
     }
 }

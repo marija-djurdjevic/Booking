@@ -25,6 +25,7 @@ namespace BookingApp.Model
         public TouristExperience()
         {
             ImagesPaths = new List<string>();
+            CommentStatus = "Valid";
         }
 
         public TouristExperience(int id, int touristId, int tourId, int tourInterestingesRating, int guideKnowledgeRating, int guideLanguageRating, string comment,string commentStatus ,List<string> imagesPaths)
@@ -36,7 +37,7 @@ namespace BookingApp.Model
             GuideKnowledgeRating = guideKnowledgeRating;
             GuideLanguageRating = guideLanguageRating;
             Comment = comment;
-            CommentStatus= commentStatus;
+            CommentStatus = "Valid";
             ImagesPaths = imagesPaths;
         }
 

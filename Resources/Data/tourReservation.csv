@@ -1,11 +1,14 @@
-2|4|Душко|Пилиповић|20||0|False|True
-3|4|Душко|Пилиповић|20||0|False|True
-1|4|Душко|Пилиповић|20||0|False|True
-1|4|Mrko|MArkovi|5||0|False|True
-1|4|Mirko|Mirkovic|4||0|False|True
-1|4|Душко|Пилиповић|20||0|False|True
-1|4|Ognjen|Papovic|22||0|False|False
-6|4|Душко|Пилиповић|20|Ruma|3|False|True
-6|4|Marko|MArkovic|10|Irig|2|False|False
-6|4|Petar|Petrovic|50|Mitrovica|4|False|False
-6|4|Mika|Mikic|35|Ruma|3|False|False
+2|4|Душко|Пилиповић|20|Mitrovica|3|False|True
+2|4|Ognjen|Papovic|25|Beograd|4|False|False
+2|4|Marko|Markovic|30|Raca|5|False|False
+1|15|Marko|Markovic|25||0|False|True
+4|4|Душко|Пилиповић|20||0|False|True
+8|4|Душко|Пилиповић|20|Beograd|6|False|True
+8|4|Marko|Markovi|20|Banja Luka|2|False|False
+8|4|Petar|Petrovic|30|Leskovac|4|False|False
+8|4|Ognjen|Papovic|20|Novi Sad|7|False|False
+8|4|Jana|Jankovic|20|Beograd|6|False|False
+8|4|Marija|Djurdjevic|20|Novi Sad|7|False|False
+8|4|Ana|Anic|40|Sarajevo|3|False|False
+8|15|Marko|Markovic|25|Novi Sad|7|False|True
+8|15|Stana|Stankovic|75|Novi Sad|7|False|False

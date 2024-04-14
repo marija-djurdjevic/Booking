@@ -22,7 +22,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private RelayCommand navigateBackCommand;
         private RelayCommand reportReviewCommand;
         private ObservableCollection<TouristExperience> touristExperiences;
-        //public ObservableCollection<TouristExperience> TouristExperiences { get;  set; }
 
         public TourReviewViewModel(int tourId)
         {
@@ -82,9 +81,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
-
-
-
         public RelayCommand ReportReviewCommand
         {
             get
@@ -117,12 +113,9 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 if (touristExperiences != value)
                 {
                     touristExperiences = value;
-                    OnPropertyChanged(); // Obavesti UI da je promenjena cela lista TouristExperiences
+                    OnPropertyChanged(); 
                 }
             }
         }
-
-
-
     }
 }

@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <DockPanel Margin="20,0,20,20">
+    <DockPanel Margin="20,10,20,10">
         <DockPanel
             Grid.ColumnSpan="2"
             Height="70"

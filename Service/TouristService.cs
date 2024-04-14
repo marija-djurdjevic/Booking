@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BookingApp.Service
 {
-    internal class TouristService
+    public class TouristService
     {
         private readonly TouristRepository touristRepository;
 

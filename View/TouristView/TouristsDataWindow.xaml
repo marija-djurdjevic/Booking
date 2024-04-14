@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Width="700"
-    Height="450"
+    Height="650"
     MinWidth="700"
     MinHeight="450"
     MaxWidth="800"
@@ -18,7 +18,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <DockPanel Margin="40,0,40,20">
+    <DockPanel Margin="40,10,40,10">
         <DockPanel
             Grid.ColumnSpan="2"
             Height="50"

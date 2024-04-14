@@ -118,7 +118,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Top"
-                                            Text=", KeyPoint: "
+                                            Text=" KeyPoint: "
                                             TextWrapping="Wrap" />
                                         <TextBlock
                                             HorizontalAlignment="Left"

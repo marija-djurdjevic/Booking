@@ -1,7 +1,2 @@
-2|False|2|Pocetna|Begining|1|False|2|srednja 1|Middle|2|False|2|srednja 2|Middle|3|False|2|Krajnja|End|4|False
-3|False|3|Novi Sad|Begining|1|False|3|Irig|End|2|False
-4|False|4|Beograd|Begining|1|False|4|Ruma|End|2|False
-5|False|5|key1|Begining|1|False|5|key2|Middle|2|False|5|key3|End|3|False
-6|True|6|Novi Sad|Begining|1|True|6|Irig|Middle|2|True|6|Ruma|Middle|3|True|6|Mitrovica|Middle|4|False|6|Beograd|End|5|False
-7|False|7|key7|Begining|1|True|7|key8|Middle|2|False|7|key9|End|3|False
-35|False|35|pariz|Begining|1|False|35|london|Middle|2|False|35|lisabon|End|3|False
+2|False|2|Novi Sad|Begining|1|False|2|Ruma|Middle|2|False|2|Mitrovica|Middle|3|False|2|Beograd|Middle|4|False|2|Raca|Middle|5|False|2|Zvornik|Middle|6|False|2|Trebinje|End|7|False
+8|False|8|Linz|Begining|1|False|8|Banja Luka|Middle|2|False|8|Sarajevo|Middle|3|False|8|Leskovac|Middle|4|False|8|Gornji Milanovac|Middle|5|False|8|Beograd|Middle|6|False|8|Novi Sad|Middle|7|False|8|Subotica|End|8|False

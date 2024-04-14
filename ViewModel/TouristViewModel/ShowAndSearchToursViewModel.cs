@@ -65,7 +65,7 @@ namespace BookingApp.ViewModel.TouristViewModel
         public void GetAllTours()
         {
             Tours.Clear();
-            foreach (var tour in repository.GetAll())
+            foreach (var tour in repository.GetAll().OrderBy(x=>x.StartDateTime).ToList())
             {
                 Tours.Add(new TourDto(tour));
             }

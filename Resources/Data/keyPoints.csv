@@ -1,91 +1,44 @@
-1|Trebinje|Begining|1|False
-1|Bileca|Middle|2|False
-1|Gacko|End|3|False
-3|Novi Sad|Begining|1|False
-3|Irig|End|2|False
-4|Beograd|Begining|1|False
-4|Ruma|End|2|False
-7|key7|Begining|1|False
-7|key8|Middle|2|False
-7|key9|End|3|False
-8|fff|Begining|1|False
-8|hhh|End|2|False
-9|adf|Begining|1|False
-9|sdf|End|2|False
-10|ognjen1|Begining|1|False
-10|ognjen2|End|2|False
-11|ognjen1|Begining|1|False
-11|ognjen2|End|2|False
-40|key1|Begining|1|False
-40|key1|Middle|2|False
-40|key1|Middle|3|False
-40|key1|Middle|4|False
-40|key1|Middle|5|False
-40|key1|Middle|6|False
-40|key2|End|7|False
-9|aaaaa|Begining|1|False
-9|aaaaa|End|2|False
-10|aaaaa|Begining|1|False
-10|aaaaa|End|2|False
-11|aaaaa|Begining|1|False
-11|aaaaa|End|2|False
-12|aaaaa|Begining|1|False
-12|aaaaa|End|2|False
-13|aaaaa|Begining|1|False
-13|aaaaa|End|2|False
-14|key1|Begining|1|False
-14|key1,key2|End|2|False
-15|tacka1|Begining|1|False
-15|tacka2|End|2|False
-16|eee|Begining|1|False
-16|ee|End|2|False
-17|bileca|Begining|1|False
-17|gacko|End|2|False
-18|dddd|Begining|1|False
-18|sss|End|2|False
-19|dddd|Begining|1|False
-19|sss|End|2|False
-20|dddd|Begining|1|False
-20|sss|End|2|False
-21|eee|Begining|1|False
-21|rrr|End|2|False
-22|eee|Begining|1|False
-22|rrr|End|2|False
-23|eee|Begining|1|False
-23|rrr|End|2|False
-24|eee|Begining|1|False
-24|eww|End|2|False
-25|qqq|Begining|1|False
-25|tttt|End|2|False
-26|qqq|Begining|1|False
-26|tttt|End|2|False
-27|www|Begining|1|False
-27|eeer|End|2|False
-28|www|Begining|1|False
-28|eeer|End|2|False
-29|www|Begining|1|False
-29|eee|End|2|False
-30|taca1|Begining|1|False
-30|sssss|Middle|2|False
-30|ddd|End|3|False
-31|taca1|Begining|1|False
-31|sssss|Middle|2|False
-31|ddd|End|3|False
-32|aaa|Begining|1|False
-32|ssss|End|2|False
-33|sas|Begining|1|False
-33|adf|End|2|False
-34|www|Begining|1|False
-34|rrt|End|2|False
-35|pariz|Begining|1|False
-35|london|Middle|2|False
-35|lisabon|End|3|False
-36|sss|Begining|1|False
-36|dddd|End|2|False
-37|maribor|Begining|1|False
-37|denver|Middle|2|False
-37|sijetl|End|3|False
-38|Banjani|Begining|1|False
-38|Avtovac|End|2|False
-6|jedan|Begining|1|False
-6|dva|End|2|False
+1|1|Novi Sad|Begining|1|False
+2|1|Ruma|Middle|2|False
+3|1|Mitrovica|Middle|3|False
+4|1|Beograd|Middle|4|False
+5|1|Raca|Middle|5|False
+6|1|Zvornik|Middle|6|False
+7|1|Trebinje|End|7|False
+8|2|Novi Sad|Begining|1|False
+9|2|Ruma|Middle|2|False
+10|2|Mitrovica|Middle|3|False
+11|2|Beograd|Middle|4|False
+12|2|Raca|Middle|5|False
+13|2|Zvornik|Middle|6|False
+14|2|Trebinje|End|7|False
+22|4|Novi Sad|Begining|1|False
+23|4|Ruma|Middle|2|False
+25|4|Batrovci|Middle|3|False
+26|4|Gradiska|Middle|4|False
+27|4|Nova Topola|Middle|5|False
+28|4|Aleksandrovac|Middle|6|False
+29|4|Miljevici|End|7|False
+30|5|Novi Sad|Begining|1|False
+31|5|Ruma|Middle|2|False
+32|5|Batrovci|Middle|3|False
+33|5|Gradiska|Middle|4|False
+34|5|Nova Topola|Middle|5|False
+35|5|Aleksandrovac|Middle|6|False
+36|5|Miljevici|End|7|False
+37|8|Linz|Begining|1|False
+38|8|Banja Luka|Middle|2|False
+39|8|Sarajevo|Middle|3|False
+40|8|Leskovac|Middle|4|False
+41|8|Gornji Milanovac|Middle|5|False
+42|8|Beograd|Middle|6|False
+43|8|Novi Sad|Middle|7|False
+44|8|Subotica|End|8|False
+45|9|Linz|Begining|1|False
+46|9|Banja Luka|Middle|2|False
+47|9|Sarajevo|Middle|3|False
+48|9|Leskovac|Middle|4|False
+49|9|Gornji Milanovac|Middle|5|False
+50|9|Beograd|Middle|6|False
+51|9|Novi Sad|Middle|7|False
+52|9|Subotica|End|8|False

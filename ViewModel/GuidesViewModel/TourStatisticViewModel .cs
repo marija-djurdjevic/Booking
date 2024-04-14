@@ -13,32 +13,31 @@ using BookingApp.View.GuideView;
 using BookingApp.Command;
 
 namespace BookingApp.ViewModel.GuidesViewModel
-{
-    public class TourStatisticViewModel : BaseViewModel
+{   public class TourStatisticViewModel : BaseViewModel
     {
+        private string selectedYear;
+        private Tour selectedTour;
         private readonly TourService tourService;
         private readonly LiveTourService liveTourService;
+        private readonly TourReservationService tourReservationService;
         private readonly TouristExperienceService touristExperienceService;
         private ObservableCollection<Tour> finishedTours;
         private ObservableCollection<Tour> sortedTours;
         private RelayCommand touristsButtonClickCommand;
-        private RelayCommand _navigateBackCommand;
-
-
+        private RelayCommand navigateBackCommand;
         public TourStatisticViewModel()
         {
             tourService = new TourService();
             liveTourService = new LiveTourService();
+            tourReservationService = new TourReservationService();
             touristExperienceService = new TouristExperienceService();
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
-            _navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
+            navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();
-
         }
-
         private void LoadData()
         {
-            var finishedLiveTours = liveTourService.GetAllLiveTours().Where(t => !t.IsLive).ToList();
+            var finishedLiveTours = liveTourService.GetFinishedTours();
 
             finishedTours = new ObservableCollection<Tour>();
             foreach (var tour in finishedLiveTours)
@@ -46,30 +45,17 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var finishedTour = tourService.GetTourById(tour.TourId);
                 finishedTours.Add(finishedTour);
             }
-
-            sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => GetNumberOfTouristsForTour(t.Id)));
+            sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id)));
         }
-
         private int GetNumberOfTouristsForTour(int tourId)
         {
             return touristExperienceService.GetNumberOfTouristsForTour(tourId);
         }
-
-
-
         public ObservableCollection<Tour> SortedTours
-        {
+        { 
             get { return sortedTours; }
-            set
-            {
-                sortedTours = value;
-                OnPropertyChanged();
-            }
+            set { sortedTours = value; OnPropertyChanged();}
         }
-
-
-        private Tour selectedTour;
-
         public Tour SelectedTour
         {
             get { return selectedTour; }
@@ -78,15 +64,10 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 if (selectedTour != value)
                 {
                     selectedTour = value;
-                    OnPropertyChanged(nameof(SelectedTour));
+                    OnPropertyChanged();
                 }
             }
         }
-
-
-
-        private string selectedYear;
-
         public string SelectedYear
         {
             get { return selectedYear; }
@@ -100,49 +81,33 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 }
             }
         }
-
-
-
-
-
         private void UpdateTourList()
         {
             if (SelectedYear == "General")
             {
-                SortedTours = new ObservableCollection<Tour>(finishedTours);
+                var generalTours = finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id));
+                SortedTours = new ObservableCollection<Tour>(generalTours);
             }
             else if (int.TryParse(SelectedYear, out int year))
             {
-
                 var toursForYear = finishedTours.Where(t => t.StartDateTime.Year == year).ToList();
                 var touristCounts = new Dictionary<int, int>();
-
                 foreach (var tour in toursForYear)
                 {
-                    int numberOfTourists = touristExperienceService.GetNumberOfTouristsForTour(tour.Id);
+                    int numberOfTourists = tourReservationService.GetTouristsForTour(tour.Id);
                     touristCounts.Add(tour.Id, numberOfTourists);
                 }
-
                 var sortedToursForYear = toursForYear.OrderByDescending(t => touristCounts[t.Id]).ToList();
-
                 if (sortedToursForYear.Count > 0 && sortedToursForYear[0] != sortedTours[0])
                 {
                     var tours = new List<Tour>(sortedTours);
                     tours.Insert(0, sortedToursForYear[0]);
                     SortedTours = new ObservableCollection<Tour>(tours);
-
-                }
-
-
+                } 
             }
         }
-
-
-
-
-        public RelayCommand TouristsButtonClickCommand
+       public RelayCommand TouristsButtonClickCommand
         {
-
             get { return touristsButtonClickCommand; }
             set
             {
@@ -152,26 +117,19 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
         }
-
-
-
-
         public RelayCommand NavigateBackCommand
         {
-            get { return _navigateBackCommand; }
+            get { return navigateBackCommand; }
             set
             {
-                if (_navigateBackCommand != value)
+                if (navigateBackCommand != value)
                 {
-                    _navigateBackCommand = value;
+                    navigateBackCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
-
-
         private void ExecuteTouristsButtonClick(object parameter)
         {
             if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
@@ -180,14 +138,10 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 GuideMainWindow.MainFrame.Navigate(touristsNumberPage1);
             }
         }
-
         private void ExecuteNavigateBack()
         {
             var mainPage = new GuideMainPage1();
             GuideMainWindow.MainFrame.Navigate(mainPage);
-
         }
-
     }
-
 }

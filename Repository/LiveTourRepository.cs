@@ -32,14 +32,34 @@ namespace BookingApp.Repository
             {
                 existingTour.KeyPoints = liveTour.KeyPoints;
                 existingTour.IsLive = liveTour.IsLive;
+                Update(liveTour);
             }
             else
             {
                 liveTours.Add(liveTour);
             }
-
             SaveChanges();
         }
+
+
+        public List<LiveTour> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+
+        public LiveTour Update(LiveTour liveTour)
+        {
+            liveTours = _serializer.FromCSV(FilePath);
+            LiveTour current = liveTours.Find(c => c.TourId == liveTour.TourId);
+            int index = liveTours.IndexOf(current);
+            liveTours.Remove(current);
+            liveTours.Insert(index, liveTour);
+            _serializer.ToCSV(FilePath, liveTours);
+            return liveTour;
+        }
+
+
 
         public void RemoveLiveTour(int tourId)
         {
@@ -54,9 +74,14 @@ namespace BookingApp.Repository
 
         public List<LiveTour> GetAllLiveTours()
         {
+            liveTours = GetAll().Where(t => t.IsLive).ToList();
             return liveTours;
         }
 
+        public List<LiveTour> GetFinishedTours()
+        {
+            return liveTours.Where(t => !t.IsLive).ToList();
+        }
 
         public List<int> GetFinishedTourIds()
         {
@@ -70,6 +95,13 @@ namespace BookingApp.Repository
             return liveTours.FirstOrDefault(t => t.TourId == tourId);
         }
 
+
+        public LiveTour FindLiveTourById(int tourId)
+        {
+            return liveTours.FirstOrDefault(t => t.TourId == tourId && t.IsLive);
+        }
+
+
         public bool IsActiveTour()
         {
             return liveTours.Any(t => t.IsLive);
@@ -81,7 +113,7 @@ namespace BookingApp.Repository
             if (liveTour != null)
             {
                 liveTour.IsLive = true;
-                SaveChanges();
+                Update(liveTour);
             }
         }
     }
