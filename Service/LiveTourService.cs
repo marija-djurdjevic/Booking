@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Controls;
 
 namespace BookingApp.Service
@@ -11,11 +12,14 @@ namespace BookingApp.Service
         private readonly LiveTourRepository liveTourRepository;
         private TourReservationService tourReservationService;
         private KeyPointService keyPointService;
+        private KeyPointRepository keyPointRepository;
+
         public LiveTourService()
         {
             liveTourRepository = new LiveTourRepository();
             tourReservationService = new TourReservationService();
             keyPointService = new KeyPointService();
+            keyPointRepository = new KeyPointRepository();
         }
 
         public LiveTour GetLiveTourById(int tourId)
@@ -62,18 +66,37 @@ namespace BookingApp.Service
         }
 
 
-            public void CheckFirstKeyPoint(int tourId)
+        public void CheckFirstKeyPoint(int tourId)
         {
             var keyPoints = GetTourKeyPoints(tourId);
-            LiveTour liveTour = new LiveTour(tourId , keyPoints, true);
-            liveTourRepository.AddOrUpdateLiveTour(liveTour);
+            var keyPoint = keyPoints[0];
             if (keyPoints != null && keyPoints.Any())
             {
                 keyPoints[0].IsChecked = true;
-                keyPointService.SaveChanges();
-                liveTourRepository.SaveChanges();
+                keyPointRepository.Update(keyPoint);
+                LiveTour liveTour = new LiveTour(tourId, keyPoints, true);
+                liveTourRepository.AddOrUpdateLiveTour(liveTour);
             }
         }
+
+
+        public void CheckKeyPoint(int tourId,KeyPoint keyPoint)
+        {
+            var keyPoints = GetTourKeyPoints(tourId);
+            int ordinalNumber = keyPoint.OrdinalNumber-1;
+            keyPoints[ordinalNumber].IsChecked = true;
+            LiveTour liveTour = new LiveTour(tourId, keyPoints, true);
+            liveTourRepository.AddOrUpdateLiveTour(liveTour);
+            
+        }
+
+        public LiveTour FindLiveTourById(int tourId)
+        {
+            return liveTourRepository.FindLiveTourById(tourId);
+        }
+
+
+
 
         public void FinishTourIfAllChecked(int tourId)
         {
@@ -104,13 +127,3 @@ namespace BookingApp.Service
 
     }
 }
-
-
-
-
-
-
-
-
-
-

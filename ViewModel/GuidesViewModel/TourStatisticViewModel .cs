@@ -19,18 +19,20 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private Tour selectedTour;
         private readonly TourService tourService;
         private readonly LiveTourService liveTourService;
+        private readonly TourReservationService tourReservationService;
         private readonly TouristExperienceService touristExperienceService;
         private ObservableCollection<Tour> finishedTours;
         private ObservableCollection<Tour> sortedTours;
         private RelayCommand touristsButtonClickCommand;
-        private RelayCommand _navigateBackCommand;
+        private RelayCommand navigateBackCommand;
         public TourStatisticViewModel()
         {
             tourService = new TourService();
             liveTourService = new LiveTourService();
+            tourReservationService = new TourReservationService();
             touristExperienceService = new TouristExperienceService();
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
-            _navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
+            navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();
         }
         private void LoadData()
@@ -43,20 +45,17 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var finishedTour = tourService.GetTourById(tour.TourId);
                 finishedTours.Add(finishedTour);
             }
-
-            sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => GetNumberOfTouristsForTour(t.Id)));
+           
+            sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id)));
         }
         private int GetNumberOfTouristsForTour(int tourId)
         {
             return touristExperienceService.GetNumberOfTouristsForTour(tourId);
         }
         public ObservableCollection<Tour> SortedTours
-        {   get { return sortedTours; }
-            set
-            {
-                sortedTours = value;
-                OnPropertyChanged();
-            }
+        { 
+            get { return sortedTours; }
+            set { sortedTours = value; OnPropertyChanged();}
         }
         public Tour SelectedTour
         {
@@ -66,7 +65,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 if (selectedTour != value)
                 {
                     selectedTour = value;
-                    OnPropertyChanged(nameof(SelectedTour));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -87,7 +86,8 @@ namespace BookingApp.ViewModel.GuidesViewModel
         {
             if (SelectedYear == "General")
             {
-                SortedTours = new ObservableCollection<Tour>(finishedTours);
+                var generalTours = finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id));
+                SortedTours = new ObservableCollection<Tour>(generalTours);
             }
             else if (int.TryParse(SelectedYear, out int year))
             {
@@ -95,7 +95,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var touristCounts = new Dictionary<int, int>();
                 foreach (var tour in toursForYear)
                 {
-                    int numberOfTourists = touristExperienceService.GetNumberOfTouristsForTour(tour.Id);
+                    int numberOfTourists = tourReservationService.GetTouristsForTour(tour.Id);
                     touristCounts.Add(tour.Id, numberOfTourists);
                 }
                 var sortedToursForYear = toursForYear.OrderByDescending(t => touristCounts[t.Id]).ToList();
@@ -121,12 +121,12 @@ namespace BookingApp.ViewModel.GuidesViewModel
         }
         public RelayCommand NavigateBackCommand
         {
-            get { return _navigateBackCommand; }
+            get { return navigateBackCommand; }
             set
             {
-                if (_navigateBackCommand != value)
+                if (navigateBackCommand != value)
                 {
-                    _navigateBackCommand = value;
+                    navigateBackCommand = value;
                     OnPropertyChanged();
                 }
             }

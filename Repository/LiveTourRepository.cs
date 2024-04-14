@@ -37,7 +37,7 @@ namespace BookingApp.Repository
             {
                 liveTours.Add(liveTour);
             }
-
+            Update(liveTour);
             SaveChanges();
         }
 
@@ -97,6 +97,13 @@ namespace BookingApp.Repository
             return liveTours.FirstOrDefault(t => t.TourId == tourId);
         }
 
+
+        public LiveTour FindLiveTourById(int tourId)
+        {
+            return liveTours.FirstOrDefault(t => t.TourId == tourId && t.IsLive);
+        }
+
+
         public bool IsActiveTour()
         {
             return liveTours.Any(t => t.IsLive);
@@ -108,7 +115,7 @@ namespace BookingApp.Repository
             if (liveTour != null)
             {
                 liveTour.IsLive = true;
-                SaveChanges();
+                Update(liveTour);
             }
         }
     }

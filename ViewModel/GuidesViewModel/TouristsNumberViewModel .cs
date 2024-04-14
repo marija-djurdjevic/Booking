@@ -9,6 +9,7 @@ using BookingApp.Repository;
 using BookingApp.Service;
 using BookingApp.View;
 using BookingApp.Command;
+using System.Linq;
 
 
 namespace BookingApp.ViewModel.GuidesViewModel
@@ -20,6 +21,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private int between18And50Count;
         private int over50Count;
         private readonly TouristService touristService;
+        private readonly TourReservationService tourReservationService; 
         private readonly TouristExperienceService touristExperienceService;
         private RelayCommand navigateHomeCommand;
         private RelayCommand navigateBackCommand;
@@ -29,6 +31,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             this.tourId = tourId;
             touristExperienceService = new TouristExperienceService();
             touristService = new TouristService();
+            tourReservationService = new TourReservationService();
             navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             CountTouristsByAge();
@@ -75,11 +78,12 @@ namespace BookingApp.ViewModel.GuidesViewModel
 
         private void CountTouristsByAge()
         {
+           
+            var users = tourReservationService.GetByTourId(tourId).Where(t => t.IsUser && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name));
 
-            var touristIds = touristExperienceService.GetTouristIdsByTourId(tourId);
-
-            foreach (var touristId in touristIds)
+            foreach (var user in users)
             {
+                int touristId=user.UserId;
                 int age = touristService.GetAgeById(touristId);
                 if (age < 18)
                 {
@@ -95,9 +99,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 }
             }
         }
-
-
-
         public RelayCommand NavigateHomeCommand
         {
             get { return navigateHomeCommand; }
@@ -110,8 +111,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 }
             }
         }
-
-
         public RelayCommand NavigateBackCommand
         {
             get { return navigateBackCommand; }
@@ -123,8 +122,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
-
         }
 
         private void ExecuteNavigateHome()

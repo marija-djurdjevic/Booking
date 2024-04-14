@@ -21,6 +21,15 @@ namespace BookingApp.Service
            return tourReservationRepository.GetByTourId(tourId);
         }
 
+        public int  GetTouristsForTour(int tourId)
+        {
+            var tourists = tourReservationRepository.GetByTourId(tourId);
+            var temp= tourists.Where(t => t.JoinedKeyPoint != null && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name)).Count();
+            return temp;
+        }
+
+
+
         public void SaveChanges()
         { 
             tourReservationRepository.SaveChanges();

@@ -20,6 +20,12 @@ namespace BookingApp.Service
             liveTourService = new LiveTourRepository();    
         }
 
+        public KeyPoint Update(KeyPoint keyPoint)
+        {
+            return keyPointRepository.Update(keyPoint);
+        }
+
+
         public List<KeyPoint> GetTourKeyPoints(int tourId)
         {
             return keyPointRepository.GetTourKeyPoints(tourId);
@@ -77,6 +83,7 @@ namespace BookingApp.Service
             return true;
         }
 
+      
 
 
 

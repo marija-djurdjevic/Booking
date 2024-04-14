@@ -35,12 +35,12 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private RelayCommand reviewTourClickCommand;
         private RelayCommand cancelTourClickCommand;
         private LiveTourRepository liveTourRepository;
-
         public GuideMainPageViewModel()
         { 
             tourService = new TourService();
             keyPointService = new KeyPointService();
             liveTourService = new LiveTourService();
+            liveTourRepository = new LiveTourRepository();
             tourReservationService = new TourReservationService();
             voucherService = new VoucherService();
             touristService = new TouristService();
@@ -49,54 +49,37 @@ namespace BookingApp.ViewModel.GuidesViewModel
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
-              
-           
             LoadTours();
         }
-
         public ObservableCollection<Tour> TodayTours
         {
             get { return todayTours; }
             set { todayTours = value; OnPropertyChanged(); }
         }
-
-
         public ObservableCollection<Tour> UpcomingTours
         {
             get { return upcomingTours; }
             set { upcomingTours = value; OnPropertyChanged(); }
         }
-
         public ObservableCollection<Tour> FinishedTours
         {
             get { return finishedTours; }
             set { finishedTours = value; OnPropertyChanged(); }
         }
-
         public Tour SelectedTour
         {
             get { return selectedTour; }
             set { selectedTour = value; OnPropertyChanged(); }
         }
-
-
         private void LoadTours()
         {
             TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours());
             UpcomingTours = new ObservableCollection<Tour>(tourService.GetUpcomingTours());
-
-            var finishedLiveTours = liveTourService.GetFinishedTours();
+            var finishedLiveTours =liveTourRepository.GetFinishedTours().Where(t => t.IsLive == false).ToList();
             FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)));
         }
-
-
-
-
-
-
         public RelayCommand CreateTourClickCommand
         {
-
             get { return createTourClickCommand; }
             set
             {
@@ -106,13 +89,9 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
         }
-
-
         public RelayCommand StartTourClickCommand
         {
-
             get { return startTourClickCommand; }
             set
             {
@@ -122,13 +101,9 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
         }
-
-
         public RelayCommand ReviewTourClickCommand
         {
-
             get { return reviewTourClickCommand; }
             set
             {
@@ -138,10 +113,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
         }
-
-
         public RelayCommand CancelTourClickCommand
         {
 
@@ -154,9 +126,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     OnPropertyChanged();
                 }
             }
-
         }
-
         private void ExecuteCreateTourClick()
         {
             var createTourPage = new CreateTourPage();
@@ -169,17 +139,15 @@ namespace BookingApp.ViewModel.GuidesViewModel
             {
                 var tour = tourService.GetTourById(tourId);
                 if (tour != null)
-                {
-                    LiveTourPage liveTourPage = new LiveTourPage(tourId);
+                { 
                     liveTourService.ActivateTour(tourId);
                     liveTourService.CheckFirstKeyPoint(tourId);
                     liveTourService.SaveChanges();
+                    LiveTourPage liveTourPage = new LiveTourPage(tourId);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
                 }
             }
-
         }
-
         private void ExecuteReviewTourClick(object parameter)
         {
             if (parameter != null && parameter is int tourId)
@@ -187,7 +155,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 TourReview touristsReviewPage = new TourReview(tourId);
                 GuideMainWindow.MainFrame.Navigate(touristsReviewPage);
             }
-
         }
 
         private void ExecuteCancelTourClick(object parameter)
@@ -203,6 +170,5 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 LoadTours();
             }
         }
-
     }
 }

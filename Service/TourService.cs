@@ -92,6 +92,12 @@ namespace BookingApp.Service
             var tours = tourRepository.GetAll();
             string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
             List<Tour> toursWithTodayDate = tours.Where(t => t.StartDateTime.Date == DateTime.Today).ToList();
+            var liveTours=liveTourRepository.GetAll();
+            var liveToursIds = liveTours.Where(t => !t.IsLive).Select(t => t.TourId).ToList();
+            toursWithTodayDate.RemoveAll(t => liveToursIds.Contains(t.Id));
+
+
+
             return toursWithTodayDate;
         }
 
@@ -107,9 +113,6 @@ namespace BookingApp.Service
             var tours = tourRepository.GetAll();
             return tours.FirstOrDefault(t => t.Id == tourId);
         }
-
-
-        // Metoda iz createtourpage premjestena
         public List<string> GetCitiesCountriesFromCSV(string filePath, int maxLines)
         {
             string[] lines = File.ReadAllLines(filePath);
