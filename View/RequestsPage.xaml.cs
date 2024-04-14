@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using BookingApp.Repository;
 using BookingApp.Model;
 using BookingApp.Serializer;
+using BookingApp.ViewModel.OwnerViewModel;
+using BookingApp.ViewModel;
 
 namespace BookingApp.View
 {
@@ -25,15 +27,16 @@ namespace BookingApp.View
     /// </summary>
     public partial class RequestsPage : Page
     {
-        public ObservableCollection<ReservationChangeRequest> ReservationChangeRequests { get; set; }
+        /*public ObservableCollection<ReservationChangeRequest> ReservationChangeRequests { get; set; }
 
         PropertyReservationRepository reservationRepository;
-        ReservationChangeRequestsRepository requestsRepository;
+        ReservationChangeRequestsRepository requestsRepository;*/
 
         public RequestsPage()
         {
             InitializeComponent();
-            reservationRepository = new PropertyReservationRepository();
+            DataContext = new RequestsViewModel();
+            /*reservationRepository = new PropertyReservationRepository();
             requestsRepository = new ReservationChangeRequestsRepository();
             ReservationChangeRequests = new ObservableCollection<ReservationChangeRequest>();
 
@@ -44,9 +47,9 @@ namespace BookingApp.View
 
             // Postavljanje DataContext-a na ObservableCollection
             DataContext = this;
-            Loaded += RequestsPage_Loaded;
+            Loaded += RequestsPage_Loaded;*/
         }
-        private void AcceptButton_Click(object sender, RoutedEventArgs e)
+        /*private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
             // Dobijanje DataContext-a dugmeta koje je kliknuto (to bi trebalo biti instanca ReservationChangeRequest)
             if (sender is FrameworkElement element && element.DataContext is ReservationChangeRequest request)
@@ -57,24 +60,35 @@ namespace BookingApp.View
                // requestsRepository.Delete(request.Id);
                 
             }
-        }
+        }*/
         private void DenyButton_Click(object sender, RoutedEventArgs e) 
         {
 
             if (sender is FrameworkElement element && element.DataContext is ReservationChangeRequest request)
             {
-                // Dobijte ID zahtjeva za promjenu rezervacije
-                int requestId = request.Id;
-
-                // Kreirajte novu instancu DenyRequestPage stranice i proslijedite requestId u konstruktor
+                
+                //int requestId = request.Id;
                 DenyRequestPage denyRequestPage = new DenyRequestPage(request);
-
-                // Navigirajte na novu stranicu
                 NavigationService.Navigate(denyRequestPage);
             }
         }
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is RequestsViewModel viewModel && sender is FrameworkElement element && element.DataContext is ReservationChangeRequest request)
+            {
+                viewModel.Accept(request);
+            }
+        }
+        /*private void DenyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is RequestsViewModel viewModel && sender is FrameworkElement element && element.DataContext is ReservationChangeRequest request)
+            {
+                viewModel.Deny(request);
+            }
+        }*/
 
-        private void UpdateReservation(ReservationChangeRequest request)
+
+        /*private void UpdateReservation(ReservationChangeRequest request)
         {
             // Dohvati rezervacije za ovaj zahtjev
             var reservationsForProperty = reservationRepository.GetReservationDataById(request.ReservationId);
@@ -102,31 +116,7 @@ namespace BookingApp.View
         {
             CheckAvailabilityForAllRequests(); // Poziv metode za provjeru dostupnosti smještaja
         }
-        /*private void CheckAvailabilityForAllRequests()
-        {
-            foreach (var item in ReservationChangeRequestsListView.Items)
-            {
-                if (item is ReservationChangeRequest request)
-                { šđ
-                    int reservationId = request.ReservationId;
-                    int propertyId = repository.GetPropertyIdByReservationId(reservationId);
-
-                    if (propertyId != -1) // Ako postoji odgovarajući propertyId za dati reservationId
-                    {
-                        DateTime newStartDate = request.NewStartDate;
-                        DateTime newEndDate = request.NewEndDate;
-
-                        bool isAvailable = CheckAvailability(newStartDate, newEndDate, propertyId);
-                        request.Status = isAvailable ? "Free" : "Occupied";
-                    }
-                    else
-                    {
-                        // Obavijestiti korisnika da se propertyId nije mogao pronaći za dati reservationId
-                        MessageBox.Show("PropertyId not found for ReservationId: " + reservationId);
-                    }
-                }
-            }
-        }*/
+        
         private void CheckAvailabilityForAllRequests()
         {
             //if(reservationRepository != null) {
@@ -145,22 +135,13 @@ namespace BookingApp.View
                     ReservationChangeRequestsListView.Items.Refresh();
                     }
                 }
-            //}
-            /*else
-            {
-                MessageBox.Show("greskaaaaaa");
-            }*/
-            
            
-
-            
-        }
+         }
 
 
 
         private void LoadReservationChangeRequestsFromRepository()
         {
-            // Pozivanje metode getAll iz odgovarajuće repository klase
             ReservationChangeRequestsRepository repository = new ReservationChangeRequestsRepository();
             var requests = repository.GetAll();
 
@@ -174,31 +155,7 @@ namespace BookingApp.View
                    
             }
         }
-        /* private bool CheckAvailability(DateTime newStartDate, DateTime newEndDate, int propertyId)
-         {
-             // Pretpostavljamo da imate neki servis ili repozitorij koji dohvaća rezervacije iz baze podataka ili datoteke
-             var reservations = repository.GetAllReservationsForProperty(propertyId);
-
-             // Provjeravamo postoji li preklapanje s novim datumima
-             foreach (var reservation in reservations)
-             {
-                 // Ako novi datum početka rezervacije padne između postojećih rezervacija
-                 if (newStartDate >= reservation.StartDate && newStartDate <= reservation.EndDate)
-                 {
-                     //StatusTextBlock.Text = "Occupied"; // Postavite tekstualni prikaz statusa na "Occupied"
-                     return false; // Smještaj nije dostupan
-                 }
-                 // Ako novi datum završetka rezervacije padne između postojećih rezervacija
-                 if (newEndDate >= reservation.StartDate && newEndDate <= reservation.EndDate)
-                 {
-                     //StatusTextBlock.Text = "Occupied"; // Postavite tekstualni prikaz statusa na "Occupied"
-                     return false; // Smještaj nije dostupan
-                 }
-             }
-
-             //StatusTextBlock.Text = "Free"; // Postavite tekstualni prikaz statusa na "Free"
-             return true; // Smještaj je dostupan
-         }*/
+       
         private bool CheckAvailability(DateTime newStartDate, DateTime newEndDate, List<PropertyReservation> reservations)
         {
             // Implementirati logiku za provjeru dostupnosti smještaja
@@ -215,7 +172,7 @@ namespace BookingApp.View
                 }
             }
             return true; // Smještaj je dostupan
-        }
+        }*/
 
 
     }

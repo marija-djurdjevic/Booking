@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,22 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Service
 {
-    internal class ChangeRequestService
+    public class ChangeRequestService
     {
+        private readonly ReservationChangeRequestsRepository _repository;
+
+        public ChangeRequestService()
+        {
+            _repository = new ReservationChangeRequestsRepository();
+        }
+
+        public List<ReservationChangeRequest> GetAllRequests()
+        {
+            return _repository.GetAll();
+        }
+        public void UpdateChangeRequestStatus(int requestId, RequestStatus newStatus)
+        {
+            _repository.UpdateChangeRequestStatus(requestId, newStatus);
+        }
     }
 }
