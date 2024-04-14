@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View;
 using System.Windows;
 
 namespace BookingApp.GuestView
@@ -19,18 +20,16 @@ namespace BookingApp.GuestView
             frame.Navigate(new PropertyView(LoggedInUser));
         }
 
-        private void ViewProperties_Click(object sender, RoutedEventArgs e)
-        {
-            //PropertyView propertyview = new PropertyView(LoggedInUser);
-            //propertyview.Owner = this;
-            //propertyview.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            //propertyview.ShowDialog();
-            Close();
-        }
-
         private void MenuBurger_Click(object sender, RoutedEventArgs e)
         {
             ActionFrame.Navigate(new ActionList(LoggedInUser));
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
         }
     }
 }
