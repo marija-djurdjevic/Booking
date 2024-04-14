@@ -50,10 +50,6 @@ namespace BookingApp.Repository
             }
         }
 
-        
-
-
-
         public void Delete(int touristExperienceId)
         {
             touristExperiences = GetAll();
@@ -74,7 +70,6 @@ namespace BookingApp.Repository
         {
             return touristExperiences.Count > 0 ? touristExperiences.Max(t => t.Id) + 1 : 1;
         }
-
 
         public List<int> GetTouristIdsByTourId(int tourId)
         {
@@ -97,9 +92,6 @@ namespace BookingApp.Repository
             touristExperiences = GetAll();
             return touristExperiences.Where(te => te.TourId == tourId).ToList();
         }
-
-
-
 
         public bool IsTourRatedByUser(int tourId, int userId)
         {

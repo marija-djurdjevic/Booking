@@ -24,7 +24,7 @@
         </Style>
     </Window.Resources>
 
-    <DockPanel Margin="20,0,20,20">
+    <DockPanel Margin="20,10,20,10">
         <DockPanel Height="70" DockPanel.Dock="Top">
             <Grid>
                 <Grid.ColumnDefinitions>
