@@ -32,12 +32,12 @@ namespace BookingApp.Repository
             {
                 existingTour.KeyPoints = liveTour.KeyPoints;
                 existingTour.IsLive = liveTour.IsLive;
+                Update(liveTour);
             }
             else
             {
                 liveTours.Add(liveTour);
             }
-            Update(liveTour);
             SaveChanges();
         }
 
@@ -57,8 +57,6 @@ namespace BookingApp.Repository
             liveTours.Insert(index, liveTour);
             _serializer.ToCSV(FilePath, liveTours);
             return liveTour;
-
-
         }
 
 

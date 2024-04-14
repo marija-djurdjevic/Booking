@@ -1,4 +1,4 @@
-﻿using BookingApp.Command;
+using BookingApp.Command;
 using BookingApp.Model;
 using BookingApp.Model.Enums;
 using BookingApp.Repository;
@@ -18,6 +18,7 @@ namespace BookingApp.ViewModel.GuidesViewModel {
         private readonly LiveTourService liveTourService;
         private readonly TourReservationService tourReservationService;
         private readonly KeyPointService keyPointService;
+        private readonly TourService tourService;
         private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
         private ObservableCollection<TourReservation> tourists;
         private ObservableCollection<KeyPoint> keyPoints;
@@ -30,8 +31,10 @@ namespace BookingApp.ViewModel.GuidesViewModel {
         {
             this.tourId = tourId;
             liveTourService = new LiveTourService();
-            touristGuideNotificationRepository=new TouristGuideNotificationRepository();
+            touristGuideNotificationRepository = new TouristGuideNotificationRepository();
             keyPointService = new KeyPointService();
+            tourService = new TourService();
+            SelectedTour = tourService.GetTourById(tourId);
             tourReservationService = new TourReservationService();
             liveTour = liveTourService.FindLiveTourById(tourId);
             Tourists = new ObservableCollection<TourReservation>(liveTourService.GetTouristsByTourId(tourId));
@@ -132,18 +135,18 @@ namespace BookingApp.ViewModel.GuidesViewModel {
             set { selectedTourist = value; OnPropertyChanged(); }
         }
         private void ExecuteAddTouristClick()
-        {   
-                var keyPoint=keyPointService.GetLastActiveKeyPoint();
-                selectedTourist.JoinedKeyPoint = keyPoint;
-                selectedTourist.IsOnTour = true;
-                tourReservationService.UpdateReservation(selectedTourist);
-                MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
-                 if (tourReservationService.IsUserOnTour(selectedTourist.UserId, tourId))
-                 {
-                     List<string>addedPersons=new List<string>();
-                     addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
-                     //touristGuideNotificationRepository.Save();
-                 }
+        {
+            var keyPoint = keyPointService.GetLastActiveKeyPoint();
+            selectedTourist.JoinedKeyPoint = keyPoint;
+            selectedTourist.IsOnTour = true;
+            tourReservationService.UpdateReservation(selectedTourist);
+            MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
+            if (tourReservationService.IsUserOnTour(selectedTourist.UserId, selectedTourist.TourId))
+            {
+                List<string> addedPersons = new List<string>();
+                addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
+                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
+            }
         }
     }
 }
