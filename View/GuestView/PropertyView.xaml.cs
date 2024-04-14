@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using BookingApp.Dto;
 using BookingApp.Repository;
 using System.Windows.Controls;
 using BookingApp.DTO;
-using System.Transactions;
 
 namespace BookingApp.GuestView
 {
@@ -24,8 +22,6 @@ namespace BookingApp.GuestView
         public PropertyReservationRepository PropertyReservationRepository { get; set; }
         public OwnerRepository OwnerRepository { get; set; }
         public List<int> SueprOwnersIds {  get; set; }
-        private int SuperOwnerProperties {  get; set; }
-        private bool IsSuperOwnerProperty { get; set; }
         public PropertyView(User user)
         {
             InitializeComponent();
@@ -45,7 +41,6 @@ namespace BookingApp.GuestView
                 }
             }
             var superOwnerProperties = PropertyRepository.GetAllProperties().Where(property => SueprOwnersIds.Contains(property.OwnerId));
-            SuperOwnerProperties = superOwnerProperties.Count();
             var otherProperties = PropertyRepository.GetAllProperties().Except(superOwnerProperties);
             var sortedProperties = superOwnerProperties.Concat(otherProperties);
             propertiesData.ItemsSource = sortedProperties;
@@ -53,7 +48,6 @@ namespace BookingApp.GuestView
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-
             string name = SearchByName.Text.Trim();
             string location = SearchByLocation.Text.Trim();
             string type = SearchByType.Text.Trim();

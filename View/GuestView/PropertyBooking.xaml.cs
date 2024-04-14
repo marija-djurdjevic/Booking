@@ -81,10 +81,8 @@ namespace BookingApp.GuestView
             {
                 MessageBox.Show("There are no available dates in this range, so other available dates are shown");
 
-                //10 days bellow lower border
                 FindAvailableDateRanges(BellowStart, 0, StartDate);
 
-                //10 days above higher border
                 FindAvailableDateRanges(AboveEnd, 0, EndDate.AddDays(100));
             }
 

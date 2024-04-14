@@ -37,27 +37,6 @@ namespace BookingApp.Repository
             return ownerReview;
         }
 
-        public void UpdateOwnerReview(OwnerReview updatedOwnerReview)
-        {
-            OwnerReview existingReview = _ownersreviews.FirstOrDefault(t => t.Id == updatedOwnerReview.Id);
-            if (existingReview != null)
-            {
-                int index = _ownersreviews.IndexOf(existingReview);
-                _ownersreviews[index] = updatedOwnerReview;
-                _serializer.ToCSV(FilePath, _ownersreviews);
-            }
-        }
-
-        public void DeleteOwnerReview(int ownerReviewId)
-        {
-            OwnerReview existingReview = _ownersreviews.FirstOrDefault(t => t.Id == ownerReviewId);
-            if (existingReview != null)
-            {
-                _ownersreviews.Remove(existingReview);
-                _serializer.ToCSV(FilePath, _ownersreviews);
-            }
-        }
-
         public List<OwnerReview> GetAllReviews()
         {
             return _ownersreviews;
@@ -68,12 +47,6 @@ namespace BookingApp.Repository
             return _ownersreviews.FirstOrDefault(t => t.Id == ownerReviewId);
         }
 
-
-        private void SaveChanges()
-        {
-            _serializer.ToCSV(FilePath, _ownersreviews);
-        }
-
         public int NextId()
         {
             if (_ownersreviews.Count < 1)
@@ -82,7 +55,6 @@ namespace BookingApp.Repository
             }
             return _ownersreviews.Max(t => t.Id) + 1;
         }
-
 
         public int GetReviewId(OwnerReview OwnerReview)
         {
