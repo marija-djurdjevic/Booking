@@ -22,7 +22,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private RelayCommand navigateBackCommand;
         private RelayCommand reportReviewCommand;
         private ObservableCollection<TouristExperience> touristExperiences;
-        //public ObservableCollection<TouristExperience> TouristExperiences { get;  set; }
 
         public TourReviewViewModel(int tourId)
         {

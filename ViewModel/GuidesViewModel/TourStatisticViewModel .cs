@@ -45,7 +45,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var finishedTour = tourService.GetTourById(tour.TourId);
                 finishedTours.Add(finishedTour);
             }
-           
             sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id)));
         }
         private int GetNumberOfTouristsForTour(int tourId)
@@ -104,7 +103,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                     var tours = new List<Tour>(sortedTours);
                     tours.Insert(0, sortedToursForYear[0]);
                     SortedTours = new ObservableCollection<Tour>(tours);
-                }
+                } 
             }
         }
        public RelayCommand TouristsButtonClickCommand

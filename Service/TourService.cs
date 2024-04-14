@@ -19,7 +19,6 @@ namespace BookingApp.Service
         private LiveTourRepository liveTourRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
-
         public TourService()
         {
             tourRepository = new TourRepository();
@@ -29,7 +28,6 @@ namespace BookingApp.Service
             keyPointService = new KeyPointService();
             touristExperienceService = new TouristExperienceService();
         }
-
         public List<Tour> GetMyReserved(int userId)
         {
             List<Tour> myReservedTours = new List<Tour>();
@@ -49,7 +47,6 @@ namespace BookingApp.Service
                 return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceRepository.IsTourRatedByUser(tourId, userId);
             return false;
         }
-
         public List<Tour> GetMyActiveReserved(int userId)
         {
             List<Tour> myActiveReservedTours = new List<Tour>();
@@ -66,7 +63,6 @@ namespace BookingApp.Service
             }
             return myActiveReservedTours.DistinctBy(x => x.Id).ToList();
         }
-
         public List<Tour> GetToursWithKeyPoints()
         {
             var tours = tourRepository.GetAll();
@@ -130,7 +126,6 @@ namespace BookingApp.Service
 
             return locations;
         }
-
 
     }
 }

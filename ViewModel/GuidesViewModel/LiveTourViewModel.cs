@@ -6,6 +6,7 @@ using BookingApp.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
@@ -53,8 +54,7 @@ namespace BookingApp.ViewModel.GuidesViewModel {
             get { return keyPoints; }
             set { keyPoints = value; OnPropertyChanged(); }
         }
-        public Tour SelectedTour
-        {
+        public Tour SelectedTour { 
             get { return selectedTour; }
             set { selectedTour = value; OnPropertyChanged(); }
         }
@@ -65,39 +65,35 @@ namespace BookingApp.ViewModel.GuidesViewModel {
         }
         public RelayCommand FinishTourClickCommand
         {   get { return finishTourClickCommand; }
-            set
-            {
-                if (finishTourClickCommand != value)
-                {
-                    finishTourClickCommand = value;
-                    OnPropertyChanged();
+            set { 
+                    if (finishTourClickCommand != value)
+                     {
+                         finishTourClickCommand = value;
+                         OnPropertyChanged();
+                     }
                 }
-            }
         }
         public RelayCommand AddTouristClickCommand
         {   get { return addTouristClickCommand; }
-            set
-            {
-                if (addTouristClickCommand != value)
-                {
-                    addTouristClickCommand = value;
-                    OnPropertyChanged();
+            set { 
+                    if (addTouristClickCommand != value)
+                    {
+                        addTouristClickCommand = value;
+                        OnPropertyChanged();
+                    }
                 }
-            }
         }
         public RelayCommand CheckCommand
         {   get { return checkCommand; }
             set
-            {
-                if (checkCommand != value)
+            {  if (checkCommand != value)
                 {
                     checkCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints)
-        {
+        private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints) { 
             int checkedKeyPointsCount = keyPoints.Count(kp => kp.IsChecked);
             return checkedKeyPointsCount == keyPoints.Count;
         }
@@ -147,6 +143,7 @@ namespace BookingApp.ViewModel.GuidesViewModel {
                 addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
                 touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
             }
+            Tourists.Remove(selectedTourist);
         }
     }
 }
