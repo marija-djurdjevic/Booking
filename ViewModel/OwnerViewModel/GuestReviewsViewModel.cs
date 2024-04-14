@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using BookingApp.Command;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Service;
 
 namespace BookingApp.ViewModel
 {
@@ -21,17 +22,14 @@ namespace BookingApp.ViewModel
         public BitmapImage CurrentImage { get; set; }
         public int TotalImagesCount { get; set; }
 
-        private readonly OwnerReviewRepository _ownerReviewRepository;
-        private readonly PropertyReservationRepository _reservationRepository;
-        private readonly ReviewRepository _reviewRepository;
+        
+        private OwnerReviewService _reviewService;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public GuestReviewsViewModel()
         {
-            _ownerReviewRepository = new OwnerReviewRepository();
-            _reservationRepository = new PropertyReservationRepository();
-            _reviewRepository = new ReviewRepository();
+            _reviewService = new OwnerReviewService();
             ShowPreviousImageCommand = new RelayCommand(ShowPreviousImage);
             ShowNextImageCommand = new RelayCommand(ShowNextImage);
 
@@ -40,29 +38,11 @@ namespace BookingApp.ViewModel
 
         private void LoadOwnerReviewsFromRepository()
         {
-            var ownerReviews = _ownerReviewRepository.GetAllReviews();
-            var guestReviews = _reviewRepository.GetAllReviews();
-            var guestReviewReservationIds = guestReviews.Select(review => review.ReservationId).ToList();
-
-            OwnerReviews = new ObservableCollection<KeyValuePair<OwnerReview, PropertyReservation>>();
-
-            foreach (var ownerReview in ownerReviews)
-            {
-                if (guestReviewReservationIds.Contains(ownerReview.ReservationId))
-                {
-                    var reservation = _reservationRepository.GetReservationById(ownerReview.ReservationId);
-
-                    if (reservation != null)
-                    {
-                        var reviewWithReservation = new KeyValuePair<OwnerReview, PropertyReservation>(ownerReview, reservation);
-                        OwnerReviews.Add(reviewWithReservation);
-                    }
-                }
-            }
+            OwnerReviews = _reviewService.LoadOwnerReviewsWithReservations();
 
             if (OwnerReviews.Any())
             {
-                LoadImagesForReview(0); // Ovdje postavljamo da se prva slika prikaže kada se učitaju pregledi
+                LoadImagesForReview(0);
             }
         }
 
@@ -100,7 +80,6 @@ namespace BookingApp.ViewModel
                 }
                 else
                 {
-                    // Resetujemo sliku ako nema dostupnih slika
                     CurrentImageIndex = -1;
                     CurrentImage = null;
                 }

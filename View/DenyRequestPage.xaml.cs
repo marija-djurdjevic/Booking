@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace BookingApp.View
         private readonly int requestId;
 
         private readonly ReservationChangeRequestsRepository reservationChangeRequestsRepository;
+        private ChangeRequestService changeRequestService { get; set; }
         public ObservableCollection<ReservationChangeRequest> ReservationChangeRequests { get; set; }
         public ReservationChangeRequest request;
         public DenyRequestPage(ReservationChangeRequest request)
@@ -33,28 +35,19 @@ namespace BookingApp.View
             InitializeComponent();
             requestId = request.Id;
             this.request = request;
+            changeRequestService = new ChangeRequestService();
             reservationChangeRequestsRepository = new ReservationChangeRequestsRepository();
             ReservationChangeRequests = new ObservableCollection<ReservationChangeRequest>();
 
-            // Možete izvršiti dodatne radnje ovdje, ako je potrebno
         }
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Dobijte uneseni komentar
+           
             string comment = CommentTextBox.Text.Trim();
-
-            // Dobijte ID zahtjeva za promjenu rezervacije iz konstruktora
             int requestId = this.requestId;
 
-            // Ažurirajte komentar u zahtjevu za pomijeranje rezervacije
-            reservationChangeRequestsRepository.UpdateChangeRequestComment(requestId, comment);
-            reservationChangeRequestsRepository.UpdateChangeRequestStatus(requestId, RequestStatus.Declined);
-
-            // ReservationChangeRequests.Remove(request);
-            //reservationChangeRequestsRepository.Delete(request.Id);
-
-            //NavigationService.GoBack();
-
+            changeRequestService.UpdateChangeRequestComment(requestId, comment);
+            changeRequestService.UpdateChangeRequestStatus(requestId, RequestStatus.Declined);
             MessageBox.Show("Comment saved successfully.");
         }
     }
