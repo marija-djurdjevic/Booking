@@ -1,6 +1,7 @@
 ﻿using BookingApp.Dto;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Service;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -17,15 +18,16 @@ namespace BookingApp.ViewModel.GuestViewModel
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public ReservationChangeRequestDto ReservationChangeRequest { get; set; }
+        public ChangeRequestService changeRequestService;
 
         public ChangeReservationViewModel(PropertyReservation selectedReservation, Property selectedProperty, Guest guest)
         {
             SelectedReservation = selectedReservation;
             LoggedInGuest = guest;
             SelectedProperty = selectedProperty;
-            ReservationChangeRequest = new ReservationChangeRequestDto();
             ReservationChangeRequestsRepository = new ReservationChangeRequestsRepository();
-            GuestsRequests = new ObservableCollection<ReservationChangeRequest>(ReservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == LoggedInGuest.Id));
+            changeRequestService = new ChangeRequestService();
+            GuestsRequests = changeRequestService.GetAllGuestsRequests(LoggedInGuest.Id);
 
         }
 
@@ -48,16 +50,20 @@ namespace BookingApp.ViewModel.GuestViewModel
 
         public void SendRequest()
         {
-            ReservationChangeRequest.ReservationId = SelectedReservation.Id;
-            ReservationChangeRequest.OldStartDate = SelectedReservation.StartDate;
-            ReservationChangeRequest.OldEndDate = SelectedReservation.EndDate;
-            ReservationChangeRequest.NewStartDate = FromDate;
-            ReservationChangeRequest.NewEndDate = ToDate;
-            ReservationChangeRequest.PropertyName = SelectedProperty.Name;
-            ReservationChangeRequest.GuestId = LoggedInGuest.Id;
-            ReservationChangeRequestsRepository.AddReservationChangeRequest(ReservationChangeRequest.ToReservationChangeRequest());
+            ReservationChangeRequest = new ReservationChangeRequestDto
+            {
+                ReservationId = SelectedReservation.Id,
+                OldStartDate = SelectedReservation.StartDate,
+                OldEndDate = SelectedReservation.EndDate,
+                NewStartDate = FromDate,
+                NewEndDate = ToDate,
+                PropertyName = SelectedProperty.Name,
+                GuestId = LoggedInGuest.Id
+            };
+
+            changeRequestService.SaveRequest(ReservationChangeRequest);
             GuestsRequests.Clear();
-            ReservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == LoggedInGuest.Id).ForEach(GuestsRequests.Add);
+            changeRequestService.UpdateGuestsRequests(LoggedInGuest.Id).ForEach(GuestsRequests.Add);
         }
     }
 }
