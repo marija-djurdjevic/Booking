@@ -12,7 +12,8 @@
                 <Image Source="\Resources\Images\menu-burger.png"></Image>
             </Button>
             <Label Content="BookingApp" Height="40" Margin="10, 3, 0, 0" FontSize="16"/>
-            <Button Margin="180, 0, 0, 0" Background="LightSteelBlue">
+            <Button Background="LightSteelBlue" Content="Log out" Click="LogOut_Click" Height="35" FontSize="16" Width="70" VerticalAlignment="Center" Margin="110, 0, 0, 0"/>
+            <Button Margin="0, 0, 0, 0" Background="LightSteelBlue">
                 <Border CornerRadius="60">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="\Resources\Images\icons8-play-50.png" Margin="2, 0, 0 ,0" Width="20" Height="30"/>
