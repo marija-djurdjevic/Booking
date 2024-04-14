@@ -28,9 +28,13 @@ namespace BookingApp.Service
             return temp;
         }
 
+        public bool IsUserOnTour(int userId, int tourId)
+        {
+            return tourReservationRepository.IsUserOnTour(userId, tourId);
+        }
 
 
-        public void SaveChanges()
+            public void SaveChanges()
         { 
             tourReservationRepository.SaveChanges();
         }

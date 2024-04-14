@@ -1,13 +1,15 @@
 ﻿using BookingApp.Command;
 using BookingApp.Model;
+using BookingApp.Model.Enums;
+using BookingApp.Repository;
 using BookingApp.Service;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 
-namespace BookingApp.ViewModel.GuidesViewModel
-{
+namespace BookingApp.ViewModel.GuidesViewModel { 
     public class LiveTourViewModel : BaseViewModel
     {
         private int tourId;
@@ -16,6 +18,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         private readonly LiveTourService liveTourService;
         private readonly TourReservationService tourReservationService;
         private readonly KeyPointService keyPointService;
+        private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
         private ObservableCollection<TourReservation> tourists;
         private ObservableCollection<KeyPoint> keyPoints;
         private Tour selectedTour;
@@ -27,6 +30,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         {
             this.tourId = tourId;
             liveTourService = new LiveTourService();
+            touristGuideNotificationRepository=new TouristGuideNotificationRepository();
             keyPointService = new KeyPointService();
             tourReservationService = new TourReservationService();
             liveTour = liveTourService.FindLiveTourById(tourId);
@@ -51,15 +55,13 @@ namespace BookingApp.ViewModel.GuidesViewModel
             get { return selectedTour; }
             set { selectedTour = value; OnPropertyChanged(); }
         }
-        
         public bool IsChecked
         {
             get { return isChecked; }
             set { isChecked = value; OnPropertyChanged(); }
         }
         public RelayCommand FinishTourClickCommand
-        {
-            get { return finishTourClickCommand; }
+        {   get { return finishTourClickCommand; }
             set
             {
                 if (finishTourClickCommand != value)
@@ -70,8 +72,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             }
         }
         public RelayCommand AddTouristClickCommand
-        {
-            get { return addTouristClickCommand; }
+        {   get { return addTouristClickCommand; }
             set
             {
                 if (addTouristClickCommand != value)
@@ -82,8 +83,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
             }
         }
         public RelayCommand CheckCommand
-        {
-            get { return checkCommand; }
+        {   get { return checkCommand; }
             set
             {
                 if (checkCommand != value)
@@ -126,7 +126,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
             }        
             liveTourService.FinishTour(tourId);
         }
-       
         public TourReservation SelectedTourist
         {
             get { return selectedTourist; }
@@ -139,6 +138,12 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 selectedTourist.IsOnTour = true;
                 tourReservationService.UpdateReservation(selectedTourist);
                 MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
+                 if (tourReservationService.IsUserOnTour(selectedTourist.UserId, tourId))
+                 {
+                     List<string>addedPersons=new List<string>();
+                     addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
+                     //touristGuideNotificationRepository.Save();
+                 }
         }
     }
 }
