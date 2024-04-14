@@ -27,11 +27,8 @@ namespace BookingApp.GuestView
         public OwnerReviewDto OwnerReview { get; set; }
         public OwnerReviewRepository OwnerReviewRepository { get; set; }
         public ImageService ImageService { get; set; }
-        public int ImageIndex { get; set; }
-
-        private ObservableCollection<BitmapImage> images = new ObservableCollection<BitmapImage>();
+        private ObservableCollection<BitmapImage> images {  get; set; }
         public List<string> ImagesPaths { get; set; }
-        public List<string> AbsolutePaths {  get; set; }
 
         private string showingImage;
         public string ShowingImage
@@ -51,12 +48,13 @@ namespace BookingApp.GuestView
             InitializeComponent();
             DataContext = this;
             OwnerReview = new OwnerReviewDto();
+            OwnerReview.OwnerId = selectedProperty.OwnerId;
             SelectedReservation = selectedReservation;
             ImageService = new ImageService();
             OwnerReview.ReservationId = SelectedReservation.Id;
             SelectedProperty = selectedProperty;
             ImagesPaths = new List<string>();
-            AbsolutePaths = new List<string>();
+            images = new ObservableCollection<BitmapImage>();
             OwnerReviewRepository = new OwnerReviewRepository();
             LoggedInGuest = guest;
             imageListBox.ItemsSource = images;
@@ -75,10 +73,8 @@ namespace BookingApp.GuestView
                 string relativePath = "Resources\\Images\\GuestExperienceImages";
                 ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativePath));
                 ShowingImage = ImageService.GetAbsolutePath(ImagesPaths.Last());
-                AbsolutePaths.Add(ShowingImage);
                 BitmapImage bitmap = new BitmapImage(new Uri(ShowingImage));
                 images.Add(bitmap);
-                ImageIndex = OwnerReview.ImagesPaths.Count - 1;
             }
 
         }
@@ -95,27 +91,13 @@ namespace BookingApp.GuestView
             RadioButton radioButton = sender as RadioButton;
             if (radioButton != null)
             {
-                string cleanliness = radioButton.Content.ToString();
-                switch (cleanliness)
+                if (int.TryParse(radioButton.Content.ToString(), out int cleanlinessValue))
                 {
-                    case "1":
-                        OwnerReview.Cleanliness = 1;
-                        break;
-                    case "2":
-                        OwnerReview.Cleanliness = 2;
-                        break;
-                    case "3":
-                        OwnerReview.Cleanliness = 3;
-                        break;
-                    case "4":
-                        OwnerReview.Cleanliness = 4;
-                        break;
-                    case "5":
-                        OwnerReview.Cleanliness = 5;
-                        break;
-                    default:
-                        OwnerReview.Cleanliness = 0; 
-                        break;
+                    OwnerReview.Cleanliness = cleanlinessValue;
+                }
+                else
+                {
+                    OwnerReview.Cleanliness = 0;
                 }
             }
         }
@@ -125,34 +107,34 @@ namespace BookingApp.GuestView
             RadioButton radioButton = sender as RadioButton;
             if (radioButton != null)
             {
-                string correctness = radioButton.Content.ToString();
-                switch (correctness)
+                if (int.TryParse(radioButton.Content.ToString(), out int correctnessValue))
                 {
-                    case "1":
-                        OwnerReview.Correctness = 1;
-                        break;
-                    case "2":
-                        OwnerReview.Correctness = 2;
-                        break;
-                    case "3":
-                        OwnerReview.Correctness = 3;
-                        break;
-                    case "4":
-                        OwnerReview.Correctness = 4;
-                        break;
-                    case "5":
-                        OwnerReview.Correctness = 5;
-                        break;
-                    default:
-                        OwnerReview.Correctness = 0;
-                        break;
+                    OwnerReview.Correctness = correctnessValue;
+                }
+                else
+                {
+                    OwnerReview.Correctness = 0;
                 }
             }
         }
 
         private void RemovePhotos_Click(object sender, RoutedEventArgs e)
         {
+            var selectedImages = imageListBox.SelectedItems.Cast<BitmapImage>().ToList();
 
+            foreach (var image in selectedImages)
+            {
+                int index = images.IndexOf(image);
+
+                if (index != -1)
+                {
+                    images.RemoveAt(index);
+                    if (index < ImagesPaths.Count)
+                    {
+                        ImagesPaths.RemoveAt(index);
+                    }
+                }
+            }
         }
 
 

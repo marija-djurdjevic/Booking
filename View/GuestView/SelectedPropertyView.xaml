@@ -23,7 +23,7 @@
         <StackPanel Background="BlanchedAlmond" Orientation="Vertical" Margin="15,64,30,26">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
                 <Label Content="City:" Margin="10, 10, 0, 0" Height="30"  HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.City, UpdateSourceTrigger=PropertyChanged}" Margin="5, 10, 0, 0" Width="90" Height="30"  HorizontalAlignment="Left"/>
+                <Label Content="{Binding Path=SelectedProperty.Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="5, 10, 0, 0" Width="90" Height="30"  HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
                 <Label Content="Country: " Margin="10, 0, 0, 0" Height="30" HorizontalAlignment="Left"/>

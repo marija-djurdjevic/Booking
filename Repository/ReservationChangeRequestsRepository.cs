@@ -46,16 +46,6 @@ namespace BookingApp.Repository
             return reservationChangeRequests.FindAll(t => t.Id == id);
         }
 
-        public void Delete(int Id)
-        {
-            reservationChangeRequests = GetAll();
-            ReservationChangeRequest reservationChangeRequest = reservationChangeRequests.FirstOrDefault(t => t.Id == Id);
-            if (reservationChangeRequest != null)
-            {
-                reservationChangeRequests.Remove(reservationChangeRequest);
-                _serializer.ToCSV(FilePath, reservationChangeRequests);
-            }
-        }
         public void UpdateChangeRequestComment(int requestId, string comment)
         {
             reservationChangeRequests = GetAll();
@@ -75,12 +65,6 @@ namespace BookingApp.Repository
                 changeRequest.RequestStatus = newStatus;
                 _serializer.ToCSV(FilePath, reservationChangeRequests);
             }
-        }
-
-
-        private void SaveChanges()
-        {
-            _serializer.ToCSV(FilePath, reservationChangeRequests);
         }
 
         public int NextId()

@@ -27,7 +27,7 @@
                     <Label Content="{Binding Path=SelectedReservation.StartDate, StringFormat={}{0:dd/MM/yyyy}}" FontWeight="Bold" VerticalAlignment="Top" Margin="0, 5, 0, 0" HorizontalAlignment="Left" FontSize="18"/>
                     <Label Content="-" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="18"/>
                     <Label Content="{Binding Path=SelectedReservation.EndDate, StringFormat={}{0:dd/MM/yyyy}}" FontWeight="Bold" Margin="0,5" VerticalAlignment="Top" FontSize="18"/>
-                    <Line X1="-395" Y1="50" X2="20" Y2="50" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Left"/>
+                    <Line X1="-390" Y1="50" X2="30" Y2="50" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Left"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <Label Content="Enter new date range:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
