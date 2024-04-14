@@ -75,7 +75,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
         {
             TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours());
             UpcomingTours = new ObservableCollection<Tour>(tourService.GetUpcomingTours());
-            var finishedLiveTours =liveTourRepository.GetFinishedTours().Where(t => t.IsLive == false).ToList();
+            var finishedLiveTours = liveTourRepository.GetFinishedTours();
             FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)));
         }
         public RelayCommand CreateTourClickCommand
