@@ -24,8 +24,7 @@ namespace BookingApp.Service
         public int  GetTouristsForTour(int tourId)
         {
             var tourists = tourReservationRepository.GetByTourId(tourId);
-            var temp= tourists.Where(t => t.JoinedKeyPoint != null && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name)).Count();
-            return temp;
+            return tourists.Where(t => t.JoinedKeyPoint != null && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name)).Count();
         }
 
         public bool IsUserOnTour(int userId, int tourId)

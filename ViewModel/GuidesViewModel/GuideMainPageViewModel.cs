@@ -116,7 +116,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
         }
         public RelayCommand CancelTourClickCommand
         {
-
             get { return cancelTourClickCommand; }
             set
             {
@@ -132,7 +131,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
             var createTourPage = new CreateTourPage();
             GuideMainWindow.MainFrame.Navigate(createTourPage);
         }
-
         private void ExecuteStartTourClick(object parameter)
         {
             if (parameter != null && parameter is int tourId)
@@ -156,7 +154,6 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 GuideMainWindow.MainFrame.Navigate(touristsReviewPage);
             }
         }
-
         private void ExecuteCancelTourClick(object parameter)
         {
             if (parameter != null && parameter is int tourId)
@@ -164,9 +161,7 @@ namespace BookingApp.ViewModel.GuidesViewModel
                 var tour = tourService.GetTourById(tourId);
                 var tourKeyPoints = keyPointService.GetTourKeyPoints(tourId);
                 var tourReservation = tourReservationService.GetByTourId(tourId);
-
                 tourCancellationService.CancelTour(tour, tourKeyPoints, tourReservation);
-
                 LoadTours();
             }
         }

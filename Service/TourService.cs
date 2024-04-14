@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.ViewModel.TouristViewModel;
 using System;
@@ -17,7 +17,6 @@ namespace BookingApp.Service
         private LiveTourRepository liveTourRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
-
         public TourService()
         {
             tourRepository = new TourRepository();
