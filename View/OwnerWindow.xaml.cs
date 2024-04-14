@@ -31,14 +31,15 @@ namespace BookingApp.View
         public PropertyReservationRepository _propertyReservationRepository { get; set; }
         public ReviewRepository _reviewRepository;
         private List<Notification> _notifications;
+        private OwnerService _ownerService;
         public OwnerRepository ownerRepository { get; set; }
         public OwnerWindow(User LoggedInUser)
         {
             InitializeComponent();
             this.LoggedInUser = LoggedInUser;
             _notifications = new List<Notification>();
-            ownerRepository = new OwnerRepository();
-            ownerRepository.UpdateOwnerPropertiesBasedOnReviews();
+            _ownerService = new OwnerService();
+            _ownerService.UpdateOwnerPropertiesBasedOnReviews();
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage(LoggedInUser));
             GuestReviewsFrame.Navigate(new GuestReviewsPage());
@@ -70,8 +71,13 @@ namespace BookingApp.View
              notificationsWindow.ShowDialog();
            
         }
-       
-       
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
+        }
 
     }
 }

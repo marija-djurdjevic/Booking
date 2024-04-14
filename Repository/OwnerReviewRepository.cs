@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Serializer;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BookingApp.Repository
@@ -15,6 +16,8 @@ namespace BookingApp.Repository
         private List<OwnerReview> _ownersreviews;
 
         public int id;
+        private readonly ReviewRepository _reviewRepository;
+        private readonly PropertyReservationRepository _reservationRepository;
 
         public OwnerReviewRepository()
         {
@@ -26,6 +29,8 @@ namespace BookingApp.Repository
             }
 
             _ownersreviews = _serializer.FromCSV(FilePath);
+            _reviewRepository = new ReviewRepository();
+            _reservationRepository = new PropertyReservationRepository();
         }
 
         public OwnerReview AddOwnerReview(OwnerReview ownerReview)
@@ -64,18 +69,9 @@ namespace BookingApp.Repository
         {
             return _ownersreviews.Where(review => review.OwnerId == ownerId).ToList();
         }
-        /*public double CalculateAverageRating(OwnerReviewRepository ownerReviewRepository)
-        {
-            List<OwnerReview> ownerReviews = ownerReviewRepository.GetReviewsByOwnerId(this.id);
-            if (ownerReviews.Count == 0)
-            {
-                return 0; 
-            }
-            double totalRating = ownerReviews.Sum(review => (review.Cleanliness + review.Correctness) / 2.0);
-            return totalRating / ownerReviews.Count;
-        }*/
+        
         public double CalculateAverageRating(int ownerId)
-    {
+        {
         List<OwnerReview> ownerReviews = GetReviewsByOwnerId(ownerId);
         if (ownerReviews.Count == 0)
         {
@@ -83,7 +79,31 @@ namespace BookingApp.Repository
         }
         double totalRating = ownerReviews.Sum(review => (review.Cleanliness + review.Correctness) / 2.0);
         return totalRating / ownerReviews.Count;
+        }
+        public ObservableCollection<KeyValuePair<OwnerReview, PropertyReservation>> LoadOwnerReviewsWithReservations()
+        {
+            var ownerReviews = GetAllReviews();
+            var guestReviews = _reviewRepository.GetAllReviews();
+            var guestReviewReservationIds = guestReviews.Select(review => review.ReservationId).ToList();
+
+            var ownerReviewsWithReservations = new ObservableCollection<KeyValuePair<OwnerReview, PropertyReservation>>();
+
+            foreach (var ownerReview in ownerReviews)
+            {
+                if (guestReviewReservationIds.Contains(ownerReview.ReservationId))
+                {
+                    var reservation = _reservationRepository.GetReservationById(ownerReview.ReservationId);
+
+                    if (reservation != null)
+                    {
+                        var reviewWithReservation = new KeyValuePair<OwnerReview, PropertyReservation>(ownerReview, reservation);
+                        ownerReviewsWithReservations.Add(reviewWithReservation);
+                    }
+                }
+            }
+
+            return ownerReviewsWithReservations;
+        }
     }
-}
 }
 

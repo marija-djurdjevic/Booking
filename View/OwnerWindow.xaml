@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" Content="Account" HorizontalAlignment="Right"/>
-                <Button Grid.Column="2" Content="LogOut" HorizontalAlignment="Right"/>
+                <Button Grid.Column="2" Click="LogOut_Click" Content="LogOut" HorizontalAlignment="Right"/>
                 <Button Grid.Column="3" Content="Back" HorizontalAlignment="Right"
                             Background="PeachPuff"
                             Click="BackButton_Click"
@@ -30,6 +30,7 @@
                             IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}"
                             ToolTip="Navigate Back"/>
                 <Button Grid.Column="0" Click="NotificationsButton_Click" Content="Notifications" HorizontalAlignment="Right"/>
+              
             </Grid>
         </ToolBar>
         <TabControl Margin="10,70,10,10">

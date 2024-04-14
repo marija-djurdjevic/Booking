@@ -25,5 +25,9 @@ namespace BookingApp.Service
         {
             _repository.UpdateChangeRequestStatus(requestId, newStatus);
         }
+        public void UpdateChangeRequestComment(int requestId, string comment)
+        {
+            _repository.UpdateChangeRequestComment(requestId, comment);
+        }
     }
 }
