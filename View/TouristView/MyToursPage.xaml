@@ -263,9 +263,18 @@
                                                         Margin="50,10,10,10"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Bottom"
+                                                        Content="{Binding Item3}"
+                                                        Focusable="False"
+                                                        IsEnabled="False"
+                                                        Style="{StaticResource ConfirmButton}" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Margin="50,10,10,10"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Bottom"
                                                         Click="RateButtonClick"
                                                         Style="{StaticResource ConfirmButton}"
-                                                        Tag="{Binding}"
+                                                        Tag="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                                         Visibility="{Binding Item2}">
                                                         <Button.Content>
                                                             <StackPanel Orientation="Horizontal">
@@ -273,7 +282,7 @@
                                                                     Height="40"
                                                                     Margin="5,0,5,0"
                                                                     Source="/Resources/Icons/TouristIcons/grade.png" />
-                                                                <TextBlock Margin="0,0,5,0" Text="Grade" />
+                                                                <TextBlock Margin="0,0,5,0" Text="Rate" />
                                                             </StackPanel>
                                                         </Button.Content>
                                                         <Button.BorderBrush>
@@ -564,6 +573,160 @@
                             FontWeight="Bold"
                             Text="Finished" />
                     </TabItem.Header>
+                    <DockPanel>
+                        <TextBlock
+                            Margin="20,20,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            FontWeight="Black"
+                            Text="You haven't finished reservation yet."
+                            Visibility="{Binding NoFinishedToursTextVisibility}" />
+
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                Focusable="True"
+                                ItemsSource="{Binding FinishedTours}"
+                                Style="{StaticResource CardView}">
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource HoverStilKartice}">
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="200" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="2"
+                                                    Grid.Column="0"
+                                                    Width="190"
+                                                    Height="150"
+                                                    Margin="10"
+                                                    VerticalAlignment="Center">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Setter Property="Source" Value="{Binding Item1.ImagesPaths[0], Converter={cvt:ImagePathConverter}}" />
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
+
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Orientation="Vertical">
+
+                                                    <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0,5,0"
+                                                            FontSize="20"
+                                                            Text="Location:" />
+                                                        <TextBlock
+                                                            FontSize="20"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Item1.LocationDto.City}" />
+                                                        <TextBlock
+                                                            FontSize="20"
+                                                            FontWeight="Bold"
+                                                            Text=", " />
+                                                        <TextBlock
+                                                            FontSize="20"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Item1.LocationDto.Country}" />
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0,5,0"
+                                                            FontSize="20"
+                                                            Text="Start date and time:" />
+                                                        <TextBlock
+                                                            FontSize="20"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Item1.StartDateTime, StringFormat='dd.MM.yyyy HH:mm'}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <Grid Grid.Row="1" Grid.Column="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Margin="5,0,5,0"
+                                                                FontSize="20"
+                                                                Text="Duration:" />
+                                                            <TextBlock
+                                                                FontSize="20"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding Item1.Duration}" />
+                                                            <TextBlock
+                                                                FontSize="20"
+                                                                FontWeight="Bold"
+                                                                Text="h" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Margin="5,0,5,0"
+                                                                FontSize="20"
+                                                                Text="Language:" />
+                                                            <TextBlock
+                                                                FontSize="20"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding Item1.Language}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Margin="50,10,10,10"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Bottom"
+                                                        Content="{Binding Item3}"
+                                                        Focusable="False"
+                                                        IsEnabled="False"
+                                                        Style="{StaticResource ConfirmButton}" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Margin="50,10,10,10"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Bottom"
+                                                        Click="RateButtonClick"
+                                                        Style="{StaticResource ConfirmButton}"
+                                                        Tag="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                        Visibility="{Binding Item2}">
+                                                        <Button.Content>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Image
+                                                                    Height="40"
+                                                                    Margin="5,0,5,0"
+                                                                    Source="/Resources/Icons/TouristIcons/grade.png" />
+                                                                <TextBlock Margin="0,0,5,0" Text="Rate" />
+                                                            </StackPanel>
+                                                        </Button.Content>
+                                                        <Button.BorderBrush>
+                                                            <SolidColorBrush Opacity="0" Color="White" />
+                                                        </Button.BorderBrush>
+
+                                                    </Button>
+                                                </Grid>
+
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
                 </TabItem>
             </TabControl>
 

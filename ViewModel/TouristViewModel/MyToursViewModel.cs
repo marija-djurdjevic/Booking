@@ -1,4 +1,4 @@
-﻿using BookingApp.DTO;
+using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.TouristView;
@@ -17,9 +17,8 @@ namespace BookingApp.ViewModel.TouristView
     public class MyToursViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private ObservableCollection<Tuple<TourDto, Visibility>> tours;
-        public ObservableCollection<Tuple<TourDto, Visibility>> Tours
+        private ObservableCollection<Tuple<TourDto, Visibility, string>> tours;
+        public ObservableCollection<Tuple<TourDto, Visibility, string>> Tours
         {
             get { return tours; }
             set
@@ -28,7 +27,16 @@ namespace BookingApp.ViewModel.TouristView
                 OnPropertyChanged();
             }
         }
-
+        private ObservableCollection<Tuple<TourDto, Visibility, string>> finishedTours;
+        public ObservableCollection<Tuple<TourDto, Visibility, string>> FinishedTours
+        {
+            get { return finishedTours; }
+            set
+            {
+                finishedTours = value;
+                OnPropertyChanged();
+            }
+        }
         private ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>> activeTours;
         public ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>> ActiveTours
         {
@@ -39,7 +47,6 @@ namespace BookingApp.ViewModel.TouristView
                 OnPropertyChanged();
             }
         }
-
         private Visibility noMyToursTextVisibility;
         public Visibility NoMyToursTextVisibility
         {
@@ -47,10 +54,19 @@ namespace BookingApp.ViewModel.TouristView
             set
             {
                 noMyToursTextVisibility = value;
-                OnPropertyChanged(nameof(noMyToursTextVisibility));
+                OnPropertyChanged(nameof(NoMyToursTextVisibility));
             }
         }
-        
+        private Visibility noFinishedToursTextVisibility;
+        public Visibility NoFinishedToursTextVisibility
+        {
+            get { return noFinishedToursTextVisibility; }
+            set
+            {
+                noFinishedToursTextVisibility = value;
+                OnPropertyChanged(nameof(NoFinishedToursTextVisibility));
+            }
+        }
         private Visibility noActiveToursTextVisibility;
         public Visibility NoActiveToursTextVisibility
         {
@@ -58,42 +74,51 @@ namespace BookingApp.ViewModel.TouristView
             set
             {
                 noActiveToursTextVisibility = value;
-                OnPropertyChanged(nameof(noActiveToursTextVisibility));
+                OnPropertyChanged(nameof(NoActiveToursTextVisibility));
             }
         }
-
         public User LoggedInUser { get; set; }
-        public TourDto SelectedTour { get; set; }
-
-        private readonly TourService tourService;
-
+        private Tuple<TourDto, Visibility, string> selectedTour;
+        public Tuple<TourDto, Visibility, string> SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged(nameof(SelectedTour));
+            }
+        }
+        private readonly MyToursService myToursService;
         public MyToursViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
-            SelectedTour = new TourDto();
-            Tours = new ObservableCollection<Tuple<TourDto, Visibility>>();
+            SelectedTour = new Tuple<TourDto, Visibility, string>(new TourDto(), Visibility.Visible, "");
+            Tours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
             ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
-
-            tourService = new TourService();
-
-            GetMyTours();
-            GetMyActiveTours();
+            FinishedTours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
+            myToursService = new MyToursService();
+            FillCollections();
         }
-
-        public void GetMyTours()
+        public void FillCollections()
         {
             Tours.Clear();
-            foreach (var tour in tourService.GetMyReserved(LoggedInUser.Id))
+            foreach (var tour in myToursService.GetMyReserved(LoggedInUser.Id))
             {
-                Tours.Add(new Tuple<TourDto, Visibility>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id)));
+                string tourStatusMessage = myToursService.GetTourStatusMessage(LoggedInUser.Id, tour.Id);
+                Tours.Add(new Tuple<TourDto, Visibility, string>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id), tourStatusMessage));
             }
             NoMyToursTextVisibility = Tours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public void GetMyActiveTours()
-        {
+            
+            FinishedTours.Clear();
+            foreach (var tour in myToursService.GetMyFinishedTours(LoggedInUser.Id))
+            {
+                string tourStatusMessage = myToursService.GetTourStatusMessage(LoggedInUser.Id, tour.Id);
+                FinishedTours.Add(new Tuple<TourDto, Visibility, string>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id), tourStatusMessage));
+            }
+            NoFinishedToursTextVisibility = FinishedTours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
+            
             ActiveTours.Clear();
-            foreach (Tour tour in tourService.GetMyActiveReserved(LoggedInUser.Id))
+            foreach (Tour tour in myToursService.GetMyActiveReserved(LoggedInUser.Id))
             {
                 TourDto tourDto = new TourDto(tour);
                 List<KeyPoint> keyPoints = tourDto.KeyPoints.Skip(1).Take(tourDto.KeyPoints.Count - 2).ToList();
@@ -102,31 +127,22 @@ namespace BookingApp.ViewModel.TouristView
             }
             NoActiveToursTextVisibility = ActiveTours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
         }
-
         private Visibility IsRateButtonVisible(int tourId, int userId)
         {
-            return tourService.CanTouristRateTour(userId, tourId) ? Visibility.Visible : Visibility.Collapsed;
+            return myToursService.CanTouristRateTour(userId, tourId) ? Visibility.Visible : Visibility.Collapsed;
         }
-
         public void OpenInbox()
         {
-            NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
-            notificationsWindow.ShowDialog();
+            new NotificationsWindow(LoggedInUser).ShowDialog();
         }
-
         public void RateTour(object sender)
         {
             Button rateButton = (Button)sender;
-            Tuple<TourDto, Visibility> tupl = (Tuple<TourDto, Visibility>)rateButton.DataContext;
-            SelectedTour = tupl.Item1;
-            RateTourWindow rateTourWindow = new RateTourWindow(SelectedTour, LoggedInUser);
-            rateTourWindow.ShowDialog();
-            GetMyTours();
+            Tuple<TourDto, Visibility, string> tupl = (Tuple<TourDto, Visibility, string>)rateButton.DataContext;
+            new RateTourWindow(tupl.Item1, LoggedInUser).ShowDialog();
+            FillCollections();
         }
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        {   PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));  }
     }
 }

@@ -14,8 +14,6 @@ namespace BookingApp.Service
     public class TourService
     {
         private TourRepository tourRepository;
-        private TouristExperienceRepository experienceRepository;
-        private TourReservationRepository tourReservationRepository;
         private LiveTourRepository liveTourRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
@@ -23,48 +21,9 @@ namespace BookingApp.Service
         public TourService()
         {
             tourRepository = new TourRepository();
-            tourReservationRepository = new TourReservationRepository();
-            experienceRepository = new TouristExperienceRepository();
             liveTourRepository = new LiveTourRepository();
             keyPointService = new KeyPointService();
             touristExperienceService = new TouristExperienceService();
-        }
-
-        public List<Tour> GetMyReserved(int userId)
-        {
-            List<Tour> myReservedTours = new List<Tour>();
-            foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
-            {
-                myReservedTours.Add(tourRepository.GetTourById(tourReservation.TourId));
-            }
-            return myReservedTours.DistinctBy(x => x.Id).ToList();
-        }
-
-        public bool CanTouristRateTour(int userId, int tourId)
-        {
-            List<TourReservation> reservationsAttendedByUser = tourReservationRepository.GetReservationsAttendedByUser(userId);
-            LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
-
-            if (liveTour != null)
-                return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceRepository.IsTourRatedByUser(tourId, userId);
-            return false;
-        }
-
-        public List<Tour> GetMyActiveReserved(int userId)
-        {
-            List<Tour> myActiveReservedTours = new List<Tour>();
-            foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
-            {
-                LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
-                if (liveTour != null && liveTour.IsLive)
-                {
-                    Tour activeTour = tourRepository.GetTourById(tourReservation.TourId);
-                    activeTour.KeyPoints = liveTour.KeyPoints;
-                    myActiveReservedTours.Add(activeTour);
-                }
-
-            }
-            return myActiveReservedTours.DistinctBy(x => x.Id).ToList();
         }
 
         public List<Tour> GetToursWithKeyPoints()
@@ -96,8 +55,6 @@ namespace BookingApp.Service
             var liveToursIds = liveTours.Where(t => !t.IsLive).Select(t => t.TourId).ToList();
             toursWithTodayDate.RemoveAll(t => liveToursIds.Contains(t.Id));
 
-
-
             return toursWithTodayDate;
         }
 
@@ -108,11 +65,13 @@ namespace BookingApp.Service
             List<Tour> upcomingTours = tours.Where(t => t.StartDateTime.Date > today).ToList();
             return upcomingTours;
         }
+
         public Tour GetTourById(int tourId)
         {
             var tours = tourRepository.GetAll();
             return tours.FirstOrDefault(t => t.Id == tourId);
         }
+
         public List<string> GetCitiesCountriesFromCSV(string filePath, int maxLines)
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -130,7 +89,6 @@ namespace BookingApp.Service
 
             return locations;
         }
-
 
     }
 }
