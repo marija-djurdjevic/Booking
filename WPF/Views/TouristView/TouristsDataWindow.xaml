@@ -1,0 +1,168 @@
+﻿<Window
+    x:Class="BookingApp.View.TouristView.TouristsDataWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:local="clr-namespace:BookingApp.View.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Booking app"
+    Width="700"
+    Height="650"
+    MinWidth="700"
+    MinHeight="450"
+    MaxWidth="800"
+    MaxHeight="700"
+    Background="{StaticResource PageColor}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <DockPanel Margin="40,10,40,10">
+        <DockPanel
+            Grid.ColumnSpan="2"
+            Height="50"
+            DockPanel.Dock="Top">
+
+            <TextBlock Style="{StaticResource NasloviProzoraTextBlock}" Text="{Binding TitleTxt}" />
+
+            <Button
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0"
+                VerticalAlignment="Top"
+                Background="{StaticResource SelectedCardColor}"
+                Click="HelpButtonClick"
+                Style="{StaticResource ConfirmButton}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="5,0,5,0"
+                            Source="/Resources/Icons/TouristIcons/help.png" />
+                        <TextBlock Margin="0,0,5,0" Text="Help" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="1"
+                    Click="ConfirmClick"
+                    Style="{StaticResource ConfirmButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/confirm.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Confirm" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.BorderBrush>
+                        <SolidColorBrush Opacity="0" Color="White" />
+                    </Button.BorderBrush>
+
+                </Button>
+
+                <Button
+                    Grid.Column="0"
+                    Click="CancelClick"
+                    Style="{StaticResource CancelButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Height="40"
+                                Margin="5,0,5,0"
+                                Source="/Resources/Icons/TouristIcons/cancel.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Cancel" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.BorderBrush>
+                        <SolidColorBrush Opacity="0" Color="White" />
+                    </Button.BorderBrush>
+
+                </Button>
+            </Grid>
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Left">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl
+                    x:Name="SearchResultList"
+                    Margin="0,0,20,20"
+                    ItemsSource="{Binding Tourists}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{StaticResource BackgroundColor}" BorderThickness="0,0,0,1">
+                                <Grid Margin="0,10,0,20">
+                                    <TextBlock
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Text="{Binding Item2}" />
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource TekstualnaPoljaTextBlock}"
+                                            Text="First name:" />
+                                        <TextBox
+                                            MinWidth="100"
+                                            HorizontalAlignment="Left"
+                                            FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
+                                            Text="{Binding Item1.TouristFirstName}" />
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource TekstualnaPoljaTextBlock}"
+                                            Text="Last name:" />
+                                        <TextBox
+                                            MinWidth="100"
+                                            HorizontalAlignment="Left"
+                                            FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
+                                            Text="{Binding Item1.TouristLastName}" />
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource TekstualnaPoljaTextBlock}"
+                                            Text="Age:" />
+                                        <extendedToolkit:IntegerUpDown
+                                            MinWidth="50"
+                                            HorizontalAlignment="Left"
+                                            FontSize="20"
+                                            IsReadOnly="{Binding Item3}"
+                                            Maximum="150"
+                                            Minimum="1"
+                                            TextAlignment="Left"
+                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+
+
+
+    </DockPanel>
+</Window>
