@@ -23,5 +23,7 @@
 9|4|Jovan|Jovanovic|40|Sarajevo|3|False|False
 9|4|Душко|Пилиповић|25|Leskovac|4|False|True
 9|4|Slaven|Zuza|75|Subotica|8|False|False
-6|15|Marko|Doderovic|33|Nis|1|False|False
-6|15|Marko|Markovic|57|Kraljevo|2|False|True
+10|4|Душко|Пилиповић|20|Beograd|3|False|True
+10|4|Ime 1|prez|20|Beograd|3|False|False
+10|4|ime 2|prez|30|Beograd|3|False|False
+10|4|ime 3|prez|50||0|False|False
