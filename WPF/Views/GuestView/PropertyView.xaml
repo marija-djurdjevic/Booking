@@ -1,0 +1,136 @@
+﻿<Page
+    x:Class="BookingApp.GuestView.PropertyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PropertyView"
+    Width="430"
+    Height="660"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+    <Grid
+        Width="430"
+        Height="750"
+        Background="#8FB9A8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250*" />
+            <RowDefinition Height="477*" />
+            <RowDefinition Height="23*" />
+        </Grid.RowDefinitions>
+
+        <Image Margin="18,0,360,187" Source="\Resources\Images\pin.png" />
+        <Label Margin="54,10,40,157" FontSize="28">Where to go?</Label>
+
+        <StackPanel
+            Grid.RowSpan="2"
+            Margin="15,64,30,477"
+            Background="BlanchedAlmond"
+            Orientation="Horizontal">
+            <StackPanel Width="125" Orientation="Vertical">
+                <Label
+                    Width="90"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Accomodation:" />
+                <TextBox
+                    x:Name="SearchByName"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left" />
+                <Label
+                    Width="90"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Location:" />
+                <TextBox
+                    x:Name="SearchByLocation"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <StackPanel Width="125" Orientation="Vertical">
+                <Label
+                    Width="108"
+                    Margin="10,10,0,0"
+                    Content="Number of guests:" />
+                <TextBox
+                    x:Name="SearchByGuests"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0" />
+                <Label
+                    Width="100"
+                    Margin="5,10,0,0"
+                    Content="Number of days:" />
+                <TextBox
+                    x:Name="SearchByDays"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0" />
+            </StackPanel>
+
+            <StackPanel Width="125" Orientation="Vertical">
+                <Label
+                    Width="90"
+                    Margin="10,10,0,0"
+                    Content="Type:" />
+                <TextBox
+                    x:Name="SearchByType"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0" />
+                <Button
+                    Width="100"
+                    Height="35"
+                    Margin="10,30,0,0"
+                    Click="Search_Click"
+                    Content="Search" />
+            </StackPanel>
+        </StackPanel>
+
+        <ListBox
+            x:Name="propertiesData"
+            Grid.Row="1"
+            Margin="15,15,30,15"
+            d:ItemsSource="{d:SampleData ItemCount=5}"
+            Background="#8FB9A8"
+            SelectionChanged="propertiesData_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Margin="5"
+                        Background="BurlyWood"
+                        BorderBrush="#8FB9A8"
+                        BorderThickness="2"
+                        CornerRadius="20">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="BlanchedAlmond">
+                                <Image
+                                    Grid.Column="1"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,10,5,5"
+                                    HorizontalAlignment="Right"
+                                    Source="{Binding OwnerId, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <TextBlock
+                                    Width="350"
+                                    Height="150"
+                                    FontWeight="Bold"
+                                    Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Location.Country}" />
+                                <TextBlock Text="{Binding Type}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>
