@@ -1,6 +1,8 @@
-﻿using BookingApp.Aplication.UseCases;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
@@ -37,13 +39,13 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private LiveTourRepository liveTourRepository;
         public GuideMainPageViewModel()
         {
-            tourService = new TourService();
-            keyPointService = new KeyPointService();
-            liveTourService = new LiveTourService();
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
             liveTourRepository = new LiveTourRepository();
-            tourReservationService = new TourReservationService();
-            voucherService = new VoucherService();
-            touristService = new TouristService();
+            tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
+            voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
             tourCancellationService = new TourCancellationService(liveTourService, tourReservationService, tourService, keyPointService, voucherService, touristService);
             createTourClickCommand = new RelayCommand(ExecuteCreateTourClick);
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);

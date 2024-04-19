@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class VoucherService
     {
 
-        private VoucherRepository voucherRepository;
+        private IVoucherRepository voucherRepository;
 
-
-        public VoucherService()
+        public VoucherService(IVoucherRepository voucherRepository)
         {
-            voucherRepository = new VoucherRepository();
+            this.voucherRepository = voucherRepository;
         }
 
         public void Save(Voucher voucher)
@@ -24,6 +24,24 @@ namespace BookingApp.Aplication.UseCases
             voucherRepository.Save(voucher);
         }
 
+        public bool UseVoucher(int voucherId, int touristId)
+        {
+            Voucher voucher = GetByToueristId(touristId).Find(t => t.Id == voucherId);
+            if (voucher != null)
+            {
+                voucher.IsUsed = true;
+                return voucherRepository.Update(voucher);
+            }
+            return false;
+        }
 
+        public List<Voucher> GetByToueristId(int Id)
+        {
+            var vouchers = voucherRepository.GetAll();
+            return vouchers.FindAll(t =>
+            t.TouristId == Id
+            && t.ExpirationDate >= System.DateTime.Now
+            && !t.IsUsed);
+        }
     }
 }

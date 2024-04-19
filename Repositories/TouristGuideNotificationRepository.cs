@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace BookingApp.Repositories
 {
-    public class TouristGuideNotificationRepository
+    public class TouristGuideNotificationRepository : ITouristGuideNotificationRepository
     {
         private const string FilePath = "../../../Resources/Data/touristGuideNotification.csv";
 
@@ -29,6 +30,25 @@ namespace BookingApp.Repositories
             touristGuideNotifications = _serializer.FromCSV(FilePath);
         }
 
+        public List<TouristGuideNotification> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+        public TouristGuideNotification GetById(int notificationId)
+        {
+            touristGuideNotifications = GetAll();
+            return touristGuideNotifications.FirstOrDefault(t => t.Id == notificationId);
+        }
+
+        public void Save(TouristGuideNotification touristGuideNotification)
+        {
+            touristGuideNotifications = GetAll();
+            touristGuideNotification.Id = NextId();
+            touristGuideNotifications.Add(touristGuideNotification);
+            _serializer.ToCSV(FilePath, touristGuideNotifications);
+        }
+
         public void Update(TouristGuideNotification updatedNotification)
         {
             touristGuideNotifications = GetAll();
@@ -41,33 +61,15 @@ namespace BookingApp.Repositories
             }
         }
 
-        public void Save(TouristGuideNotification touristGuideNotification)
+        public void Delete(int notificationId)
         {
             touristGuideNotifications = GetAll();
-            touristGuideNotification.Id = NextId();
-            touristGuideNotifications.Add(touristGuideNotification);
-            _serializer.ToCSV(FilePath, touristGuideNotifications);
-        }
-
-        public List<TouristGuideNotification> GetAll()
-        {
-            return _serializer.FromCSV(FilePath);
-        }
-
-        public void MarkAllUserMessagesAsRead(int userId)
-        {
-            var userNotifications = GetByUserId(userId);
-            foreach (var notification in userNotifications)
+            TouristGuideNotification existingNotification = touristGuideNotifications.FirstOrDefault(t => t.Id == notificationId);
+            if (existingNotification != null)
             {
-                notification.Seen = true;
-                Update(notification);
+                touristGuideNotifications.Remove(existingNotification);
+                _serializer.ToCSV(FilePath, touristGuideNotifications);
             }
-        }
-
-        public List<TouristGuideNotification> GetByUserId(int Id)
-        {
-            touristGuideNotifications = _serializer.FromCSV(FilePath);
-            return touristGuideNotifications.FindAll(t => t.TouristId == Id).OrderByDescending(x => x.Date).ToList();
         }
 
         public int NextId()
@@ -79,6 +81,5 @@ namespace BookingApp.Repositories
             }
             return touristGuideNotifications.Max(t => t.Id) + 1;
         }
-
     }
 }

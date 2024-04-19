@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
-    public interface ITourRepository
+    public interface ITouristExperienceRepository
     {
-        List<Tour> GetAll();
-        void Save(Tour tour);
+        List<TouristExperience> GetAll();
+        void Save(TouristExperience touristExperience);
         int NextId();
         void Delete(int id);
-        void Update(Tour updatedTour);
-        Tour GetById(int id);
+        void Update(TouristExperience updatedTouristExperience);
+        TouristExperience GetById(int id);
     }
 }

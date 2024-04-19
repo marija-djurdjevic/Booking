@@ -1,4 +1,7 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
 using System;
@@ -30,11 +33,11 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             }
         }
 
-        private readonly VoucherRepository repository;
+        private readonly VoucherService voucherService;
 
         public VoucherViewModel(User loggedInUser)
         {
-            repository = new VoucherRepository();
+            voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
@@ -46,7 +49,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             Vouchers.Clear();
             int number = 0;
-            List<Voucher> sortedVouchers = repository.GetByToueristId(LoggedInUser.Id).OrderBy(x => x.ExpirationDate).ToList();
+            List<Voucher> sortedVouchers = voucherService.GetByToueristId(LoggedInUser.Id).OrderBy(x => x.ExpirationDate).ToList();
             foreach (var voucher in sortedVouchers)
             {
                 var voucherName = "Voucher " + (++number).ToString();

@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repositories
 {
-    public class KeyPointRepository
+    public class KeyPointRepository : IKeyPointRepository
     {
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
         private readonly Serializer<KeyPoint> _serializer;
@@ -28,7 +29,18 @@ namespace BookingApp.Repositories
             keyPoints = _serializer.FromCSV(FilePath);
         }
 
-        public void AddKeyPoint(KeyPoint keyPoint)
+        public List<KeyPoint> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+        public KeyPoint GetById(int keyPointId)
+        {
+            keyPoints = GetAll();
+            return keyPoints.FirstOrDefault(t => t.Id == keyPointId);
+        }
+
+        public void Save(KeyPoint keyPoint)
         {
             int nextId = NextId();
             keyPoint.Id = nextId;
@@ -36,12 +48,6 @@ namespace BookingApp.Repositories
             keyPoints.Add(keyPoint);
             SaveChanges();
         }
-
-        public void SaveChanges()
-        {
-            _serializer.ToCSV(FilePath, keyPoints);
-        }
-
 
         public KeyPoint Update(KeyPoint keyPoint)
         {
@@ -52,10 +58,13 @@ namespace BookingApp.Repositories
             keyPoints.Insert(index, keyPoint);
             _serializer.ToCSV(FilePath, keyPoints);
             return keyPoint;
-
-
         }
 
+        public void Delete(int tourId)
+        {
+            keyPoints.RemoveAll(kp => kp.TourId == tourId);
+            SaveChanges();
+        }
 
         public int NextId()
         {
@@ -65,6 +74,11 @@ namespace BookingApp.Repositories
                 return 1;
             }
             return keyPoints.Max(t => t.Id) + 1;
+        }
+
+        public void SaveChanges()
+        {
+            _serializer.ToCSV(FilePath, keyPoints);
         }
 
         public List<KeyPoint> GetTourKeyPoints(int tourId)
@@ -79,13 +93,5 @@ namespace BookingApp.Repositories
             }
             return keyPointsForTour;
         }
-
-        public void DeleteKeyPoints(int tourId)
-        {
-            keyPoints.RemoveAll(kp => kp.TourId == tourId);
-            SaveChanges();
-        }
-
-
     }
 }

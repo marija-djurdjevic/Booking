@@ -1,14 +1,16 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.Repositories
 {
-    public class TourReservationRepository
+    public class TourReservationRepository : ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourReservation.csv";
 
@@ -27,45 +29,58 @@ namespace BookingApp.Repositories
 
             tourReservations = _serializer.FromCSV(FilePath);
         }
-
-        public void Save(TourReservation _reservationData)
-        {
-            tourReservations = GetAll();
-            tourReservations.Add(_reservationData);
-            _serializer.ToCSV(FilePath, tourReservations);
-
-        }
-
-
-        public void SaveChanges()
-        {
-            _serializer.ToCSV(FilePath, tourReservations);
-        }
-
         public List<TourReservation> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
-        public List<TourReservation> GetByTourId(int tourId)
+        public TourReservation GetById(int reservationId)
         {
             tourReservations = GetAll();
-            return tourReservations.FindAll(t => t.TourId == tourId);
+            return tourReservations.FirstOrDefault(t => t.Id == reservationId);
         }
 
-        public List<TourReservation> GetByUserId(int userId)
+        public void Save(TourReservation _reservationData)
         {
             tourReservations = GetAll();
-            return tourReservations.FindAll(t => t.UserId == userId);
+            _reservationData.Id = NextId();
+            tourReservations.Add(_reservationData);
+            _serializer.ToCSV(FilePath, tourReservations);
+
         }
 
-
-        public List<TourReservation> GetUncheckedByTourId(int tourId)
+        public void Update(TourReservation updatedReservation)
         {
-            var reservationData = _serializer.FromCSV(FilePath);
-            return reservationData.FindAll(t => t.TourId == tourId && t.IsOnTour == false);
+            tourReservations = GetAll();
+            TourReservation existingReservation = tourReservations.FirstOrDefault(t => t.Id == updatedReservation.Id);
+            if (existingReservation != null)
+            {
+                int index = tourReservations.IndexOf(existingReservation);
+                tourReservations[index] = updatedReservation;
+                _serializer.ToCSV(FilePath, tourReservations);
+            }
         }
 
+        public void Delete(int reservationId)
+        {
+            tourReservations = GetAll();
+            TourReservation existingReservation = tourReservations.FirstOrDefault(t => t.Id == reservationId);
+            if (existingReservation != null)
+            {
+                tourReservations.Remove(existingReservation);
+                _serializer.ToCSV(FilePath, tourReservations);
+            }
+        }
+
+        public int NextId()
+        {
+            tourReservations = _serializer.FromCSV(FilePath);
+            if (tourReservations.Count < 1)
+            {
+                return 1;
+            }
+            return tourReservations.Max(t => t.Id) + 1;
+        }
 
         public void UpdateReservation(TourReservation _reservationData)
         {
@@ -83,21 +98,10 @@ namespace BookingApp.Repositories
             _serializer.ToCSV(FilePath, tourReservations);
         }
 
-        public List<TourReservation> GetReservationsAttendedByUser(int userId)
-        {
-            tourReservations = GetByUserId(userId);
-            return tourReservations.FindAll(t => t.JoinedKeyPoint.OrdinalNumber > 0 && t.IsUser);
-        }
         public void DeleteByTourId(int tourId)
         {
             tourReservations.RemoveAll(tr => tr.TourId == tourId);
-            SaveChanges();
-        }
-
-        public bool IsUserOnTour(int userId, int tourId)
-        {
-            var userReservations = GetByUserId(userId);
-            return userReservations.Any(r => r.TourId == tourId && r.IsOnTour && r.IsUser);
+            _serializer.ToCSV(FilePath, tourReservations);
         }
     }
 }

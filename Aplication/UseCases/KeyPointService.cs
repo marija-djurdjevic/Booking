@@ -6,25 +6,25 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using BookingApp.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class KeyPointService
     {
-        private readonly KeyPointRepository keyPointRepository;
-        private readonly LiveTourRepository liveTourService;
-        public KeyPointService()
+        private readonly IKeyPointRepository keyPointRepository;
+        private readonly ILiveTourRepository liveTourService;
+        public KeyPointService(IKeyPointRepository keyPointRepository,ILiveTourRepository liveTourRepository)
         {
-            keyPointRepository = new KeyPointRepository();
-            liveTourService = new LiveTourRepository();
+            this.keyPointRepository = keyPointRepository;
+            this.liveTourService = liveTourRepository;
         }
 
         public KeyPoint Update(KeyPoint keyPoint)
         {
             return keyPointRepository.Update(keyPoint);
         }
-
 
         public List<KeyPoint> GetTourKeyPoints(int tourId)
         {
@@ -33,19 +33,13 @@ namespace BookingApp.Aplication.UseCases
 
         public void AddKeyPoint(KeyPoint keyPoint)
         {
-            keyPointRepository.AddKeyPoint(keyPoint);
+            keyPointRepository.Save(keyPoint);
         }
 
         public void DeleteKeyPoints(int tourId)
         {
-            keyPointRepository.DeleteKeyPoints(tourId);
+            keyPointRepository.Delete(tourId);
         }
-
-        public void SaveChanges()
-        {
-            keyPointRepository.SaveChanges();
-        }
-
 
         public KeyPoint GetLastActiveKeyPoint()
         {
@@ -60,7 +54,6 @@ namespace BookingApp.Aplication.UseCases
             }
             return null;
         }
-
 
         public bool SetKeyPoints(int tourId, ObservableCollection<string> keyPointNames)
         {
@@ -77,15 +70,10 @@ namespace BookingApp.Aplication.UseCases
                 int ordinalNumber = i + 1;
                 bool isChecked = false;
                 KeyPoint keyPoint = new KeyPoint(tourId, keyPointName, keyType, ordinalNumber, isChecked);
-                keyPointRepository.AddKeyPoint(keyPoint);
+                keyPointRepository.Save(keyPoint);
 
             }
             return true;
         }
-
-
-
-
-
     }
 }

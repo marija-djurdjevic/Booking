@@ -1,6 +1,8 @@
-﻿using BookingApp.Aplication.UseCases;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
@@ -25,9 +27,9 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         public TourReviewViewModel(int tourId)
         {
             this.tourId = tourId;
-            touristService = new TouristService();
-            touristExperienceService = new TouristExperienceService();
-            tourReservationService = new TourReservationService();
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
+            tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             reportReviewCommand = new RelayCommand(ExecuteReportReview);
             TouristExperiences = new ObservableCollection<TouristExperience>();

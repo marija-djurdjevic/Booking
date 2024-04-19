@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.Models.Enums;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -18,11 +21,11 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public static ObservableCollection<Tuple<TouristGuideNotification, string>> Notifications { get; set; }
         public User LoggedInUser { get; set; }
 
-        private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
+        private readonly TouristGuideNotificationService touristGuideNotificationService;
 
         public TouristNotificationsViewModel(User loggedInUser)
         {
-            touristGuideNotificationRepository = new TouristGuideNotificationRepository();
+            touristGuideNotificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             Notifications = new ObservableCollection<Tuple<TouristGuideNotification, string>>();
 
             LoggedInUser = loggedInUser;
@@ -32,7 +35,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public void GetMyNotifications()
         {
             Notifications.Clear();
-            foreach (var notification in touristGuideNotificationRepository.GetByUserId(LoggedInUser.Id))
+            foreach (var notification in touristGuideNotificationService.GetByUserId(LoggedInUser.Id))
             {
                 string showingText = "";
                 if (notification.Type == NotificationType.TouristJoined)
@@ -41,7 +44,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 }
                 Notifications.Add(new Tuple<TouristGuideNotification, string>(notification, showingText));
             }
-            touristGuideNotificationRepository.MarkAllUserMessagesAsRead(LoggedInUser.Id);
+            touristGuideNotificationService.MarkAllUserMessagesAsRead(LoggedInUser.Id);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

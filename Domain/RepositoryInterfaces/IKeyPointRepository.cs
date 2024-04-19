@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
-    public interface ITourRepository
+    public interface IKeyPointRepository
     {
-        List<Tour> GetAll();
-        void Save(Tour tour);
+        List<KeyPoint> GetAll();
+        void Save(KeyPoint keyPoint);
         int NextId();
         void Delete(int id);
-        void Update(Tour updatedTour);
-        Tour GetById(int id);
+        KeyPoint Update(KeyPoint updatedKeyPoint);
+        KeyPoint GetById(int id);
+        public List<KeyPoint> GetTourKeyPoints(int tourId);
     }
 }

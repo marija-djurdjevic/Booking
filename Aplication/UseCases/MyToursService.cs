@@ -4,54 +4,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BookingApp.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class MyToursService
     {
-        private TourRepository tourRepository;
-        private TouristExperienceRepository experienceRepository;
-        private TourReservationRepository tourReservationRepository;
-        private LiveTourRepository liveTourRepository;
+        private ITourRepository tourRepository;
+        private TouristExperienceService experienceService;
+        private ITourReservationRepository tourReservationRepository;
+        private TourReservationService tourReservationService;
+        private ILiveTourRepository liveTourRepository;
+        private ITouristExperienceRepository touristExperienceRepository;
 
-        public MyToursService()
+        public MyToursService(ITourRepository tourRepository,ITourReservationRepository tourReservationRepository,ILiveTourRepository liveTourRepository)
         {
-            tourRepository = new TourRepository();
-            tourReservationRepository = new TourReservationRepository();
-            experienceRepository = new TouristExperienceRepository();
-            liveTourRepository = new LiveTourRepository();
+            this.tourRepository = tourRepository;
+            this.tourReservationRepository = tourReservationRepository;
+            this.touristExperienceRepository = Injector.CreateInstance<ITouristExperienceRepository>();
+            experienceService = new TouristExperienceService(touristExperienceRepository);
+            this.liveTourRepository = liveTourRepository;
+            tourReservationService = new TourReservationService(tourReservationRepository);
         }
 
         public List<Tour> GetMyReserved(int userId)
         {
             List<Tour> myReservedTours = new List<Tour>();
-            foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
+            foreach (TourReservation tourReservation in tourReservationService.GetByUserId(userId))
             {
-                myReservedTours.Add(tourRepository.GetTourById(tourReservation.TourId));
+                myReservedTours.Add(tourRepository.GetById(tourReservation.TourId));
             }
             return myReservedTours.DistinctBy(x => x.Id).ToList();
         }
 
         public bool CanTouristRateTour(int userId, int tourId)
         {
-            List<TourReservation> reservationsAttendedByUser = tourReservationRepository.GetReservationsAttendedByUser(userId);
-            LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
+            List<TourReservation> reservationsAttendedByUser = tourReservationService.GetReservationsAttendedByUser(userId);
+            LiveTour liveTour = liveTourRepository.GetById(tourId);
 
             if (liveTour != null)
-                return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceRepository.IsTourRatedByUser(tourId, userId);
+                return reservationsAttendedByUser.Any(x => x.TourId == tourId) && !liveTour.IsLive && !experienceService.IsTourRatedByUser(tourId, userId);
             return false;
         }
 
         public List<Tour> GetMyActiveReserved(int userId)
         {
             List<Tour> myActiveReservedTours = new List<Tour>();
-            foreach (TourReservation tourReservation in tourReservationRepository.GetByUserId(userId))
+            foreach (TourReservation tourReservation in tourReservationService.GetByUserId(userId))
             {
-                LiveTour liveTour = liveTourRepository.GetLiveTourById(tourReservation.TourId);
+                LiveTour liveTour = liveTourRepository.GetById(tourReservation.TourId);
                 if (liveTour != null && liveTour.IsLive)
                 {
-                    Tour activeTour = tourRepository.GetTourById(tourReservation.TourId);
+                    Tour activeTour = tourRepository.GetById(tourReservation.TourId);
                     activeTour.KeyPoints = liveTour.KeyPoints;
                     myActiveReservedTours.Add(activeTour);
                 }
@@ -71,8 +76,8 @@ namespace BookingApp.Aplication.UseCases
 
         public string GetTourStatusMessage(int userId, int tourId)
         {
-            List<TourReservation> reservationsAttendedByUser = tourReservationRepository.GetReservationsAttendedByUser(userId);
-            LiveTour liveTour = liveTourRepository.GetLiveTourById(tourId);
+            List<TourReservation> reservationsAttendedByUser = tourReservationService.GetReservationsAttendedByUser(userId);
+            LiveTour liveTour = liveTourRepository.GetById(tourId);
             if (liveTour == null)
             {
                 return "Unstarted";
@@ -81,7 +86,7 @@ namespace BookingApp.Aplication.UseCases
             {
                 return "Unfinished";
             }
-            else if (experienceRepository.IsTourRatedByUser(tourId, userId))
+            else if (experienceService.IsTourRatedByUser(tourId, userId))
             {
                 return "Rated";
             }

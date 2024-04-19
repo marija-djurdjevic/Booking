@@ -10,6 +10,8 @@ using BookingApp.View;
 using BookingApp.Command;
 using System.Linq;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Aplication;
 
 
 namespace BookingApp.WPF.ViewModel.GuidesViewModel
@@ -29,9 +31,9 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         public TouristsNumberPageViewModel(int tourId)
         {
             this.tourId = tourId;
-            touristExperienceService = new TouristExperienceService();
-            touristService = new TouristService();
-            tourReservationService = new TourReservationService();
+            touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             CountTouristsByAge();

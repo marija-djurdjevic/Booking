@@ -1,7 +1,9 @@
+using BookingApp.Aplication;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.Models.Enums;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -32,12 +34,12 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         public LiveTourViewModel(int tourId)
         {
             this.tourId = tourId;
-            liveTourService = new LiveTourService();
+            liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
             touristGuideNotificationRepository = new TouristGuideNotificationRepository();
-            keyPointService = new KeyPointService();
-            tourService = new TourService();
+            keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             SelectedTour = tourService.GetTourById(tourId);
-            tourReservationService = new TourReservationService();
+            tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             liveTour = liveTourService.FindLiveTourById(tourId);
             Tourists = new ObservableCollection<TourReservation>(liveTourService.GetTouristsByTourId(tourId));
             KeyPoints = new ObservableCollection<KeyPoint>(liveTourService.GetTourKeyPoints(tourId));

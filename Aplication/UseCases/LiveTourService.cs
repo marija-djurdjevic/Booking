@@ -2,6 +2,7 @@
 using BookingApp.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using BookingApp.Domain.RepositoryInterfaces;
 using System.Security.Cryptography;
 using System.Windows.Controls;
 
@@ -9,21 +10,22 @@ namespace BookingApp.Aplication.UseCases
 {
     public class LiveTourService
     {
-        private readonly LiveTourRepository liveTourRepository;
+        private ILiveTourRepository liveTourRepository;
         private TourReservationService tourReservationService;
         private KeyPointService keyPointService;
-        private KeyPointRepository keyPointRepository;
-
-        public LiveTourService()
+        private IKeyPointRepository keyPointRepository;
+        private ITourReservationRepository tourReservationRepository;
+        public LiveTourService(ILiveTourRepository liveTourRepository,IKeyPointRepository keyPointRepository)
         {
-            liveTourRepository = new LiveTourRepository();
-            tourReservationService = new TourReservationService();
-            keyPointService = new KeyPointService();
-            keyPointRepository = new KeyPointRepository();
+            this.liveTourRepository = liveTourRepository;
+            tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
+            tourReservationService = new TourReservationService(tourReservationRepository);
+            keyPointService = new KeyPointService(keyPointRepository,liveTourRepository);
+            this.keyPointRepository = keyPointRepository;
         }
         public LiveTour GetLiveTourById(int tourId)
         {
-            return liveTourRepository.GetLiveTourById(tourId);
+            return liveTourRepository.GetById(tourId);
         }
 
         public List<TourReservation> GetTouristsByTourId(int tourId)
@@ -37,7 +39,7 @@ namespace BookingApp.Aplication.UseCases
         }
         public void RemoveLiveTour(int tourId)
         {
-            liveTourRepository.RemoveLiveTour(tourId);
+            liveTourRepository.Delete(tourId);
         }
 
         public List<LiveTour> GetAllLiveTours()
@@ -47,12 +49,17 @@ namespace BookingApp.Aplication.UseCases
 
         public void ActivateTour(int tourId)
         {
-            liveTourRepository.ActivateTour(tourId);
+            var liveTours = liveTourRepository.GetAll();
+            var liveTour = liveTours.FirstOrDefault(t => t.TourId == tourId && !t.IsLive);
+            if (liveTour != null)
+            {
+                liveTour.IsLive = true;
+                liveTourRepository.Update(liveTour);
+            }
         }
         public void SaveChanges()
         {
             liveTourRepository.SaveChanges();
-
         }
 
         public List<LiveTour> GetFinishedTours()
@@ -69,7 +76,7 @@ namespace BookingApp.Aplication.UseCases
                 keyPoints[0].IsChecked = true;
                 keyPointRepository.Update(keyPoint);
                 LiveTour liveTour = new LiveTour(tourId, keyPoints, true);
-                liveTourRepository.AddOrUpdateLiveTour(liveTour);
+                liveTourRepository.Save(liveTour);
             }
         }
 
@@ -79,12 +86,13 @@ namespace BookingApp.Aplication.UseCases
             int ordinalNumber = keyPoint.OrdinalNumber - 1;
             keyPoints[ordinalNumber].IsChecked = true;
             LiveTour liveTour = new LiveTour(tourId, keyPoints, true);
-            liveTourRepository.AddOrUpdateLiveTour(liveTour);
+            liveTourRepository.Save(liveTour);
 
         }
         public LiveTour FindLiveTourById(int tourId)
         {
-            return liveTourRepository.FindLiveTourById(tourId);
+            var liveTours = liveTourRepository.GetAll();
+            return liveTours.FirstOrDefault(t => t.TourId == tourId && t.IsLive);
         }
 
         public void FinishTourIfAllChecked(int tourId)

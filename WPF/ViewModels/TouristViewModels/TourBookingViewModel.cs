@@ -1,5 +1,8 @@
-﻿using BookingApp.Aplication.Dto;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.Dto;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
 using System;
@@ -15,9 +18,9 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
     public class TourBookingViewModel : INotifyPropertyChanged
     {
-        public static TourRepository TourRepository;
+        public static TourService TourService;
 
-        public static TouristRepository TouristRepository;
+        public static TouristService TouristService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -41,8 +44,8 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public TourBookingViewModel(TourDto selectedTour, int userId)
         {
-            TourRepository = new TourRepository();
-            TouristRepository = new TouristRepository();
+            TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
 
             SelectedTour = selectedTour;
             if (SelectedTour.KeyPoints.Count > 0)
@@ -54,7 +57,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             NumberOfReservations = 1;
             ImageIndex = -1;
-            LoggedInTourist = TouristRepository.GetByUserId(userId);
+            LoggedInTourist = TouristService.GetByUserId(userId);
             GetNextImage();
         }
 

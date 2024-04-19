@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BookingApp.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class TourRepository
+    public class TourRepository : ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
@@ -30,14 +31,29 @@ namespace BookingApp.Repositories
             tours = GetAll();
         }
 
-        public Tour Save(Tour tour)
+        public List<Tour> GetAll()
+        {
+            tours = _serializer.FromCSV(FilePath);
+            foreach (Tour tour in tours)
+            {
+                tour.KeyPoints = keyPoints.GetTourKeyPoints(tour.Id);
+            }
+            return tours;
+        }
+
+        public Tour GetById(int tourId)
+        {
+            tours = GetAll();
+            return tours.FirstOrDefault(t => t.Id == tourId);
+        }
+
+        public void Save(Tour tour)
         {
             tours = GetAll();
             int nextId = NextId();
             tour.Id = nextId;
             tours.Add(tour);
             _serializer.ToCSV(FilePath, tours);
-            return tour;
         }
 
         public void Update(Tour updatedTour)
@@ -63,41 +79,6 @@ namespace BookingApp.Repositories
             }
         }
 
-        public List<Tour> GetAll()
-        {
-            tours = _serializer.FromCSV(FilePath);
-            foreach (Tour tour in tours)
-            {
-                tour.KeyPoints = keyPoints.GetTourKeyPoints(tour.Id);
-            }
-            return tours;
-        }
-
-        public List<Tour> GetTodayTours()
-        {
-            tours = GetAll();
-            string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
-            List<Tour> toursWithTodayDate = tours.Where(t => t.StartDateTime.ToString("yyyy-MM-dd").StartsWith(todayDate)).ToList();
-            return toursWithTodayDate;
-        }
-
-        public List<Tour> GetUpcomingTours()
-        {
-            tours = GetAll();
-            DateTime today = DateTime.Today;
-            List<Tour> upcomingTours = tours.Where(t => t.StartDateTime.Date > today).ToList();
-            return upcomingTours;
-        }
-
-
-
-        public Tour GetTourById(int tourId)
-        {
-            tours = GetAll();
-            return tours.FirstOrDefault(t => t.Id == tourId);
-        }
-
-
         public int NextId()
         {
             tours = _serializer.FromCSV(FilePath);
@@ -106,15 +87,6 @@ namespace BookingApp.Repositories
                 return 1;
             }
             return tours.Max(t => t.Id) + 1;
-        }
-
-        public List<Tour> GetUnBookedToursInCity(string City)
-        {
-            List<Tour> unBookedToursInCity = GetAll()
-                .Where(t => t.Location.City.Equals(City, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-            unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
-            return unBookedToursInCity;
         }
     }
 }

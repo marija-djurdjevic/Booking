@@ -14,6 +14,8 @@ using System.Runtime.CompilerServices;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -71,13 +73,13 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 OnPropertyChanged(nameof(GuideKnowledge));
             }
         }
-        private TouristExperienceRepository touristExperienceRepository { get; set; }
+        private TouristExperienceService touristExperienceService { get; set; }
 
         public RateTourViewModel(TourDto selectedTour, User loggedInTourist)
         {
             TouristExperience = new TouristExperience();
             ImageService = new ImageService();
-            touristExperienceRepository = new TouristExperienceRepository();
+            touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             SelectedTour = selectedTour;
             LoggedInTourist = loggedInTourist;
             TouristExperience.TouristId = LoggedInTourist.Id;
@@ -92,7 +94,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public void Confirm()
         {
-            touristExperienceRepository.Save(TouristExperience);
+            touristExperienceService.Save(TouristExperience);
         }
 
         public void AddImage()

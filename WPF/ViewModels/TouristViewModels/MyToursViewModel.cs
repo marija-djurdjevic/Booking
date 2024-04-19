@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -96,7 +98,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             Tours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
             ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
             FinishedTours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
-            myToursService = new MyToursService();
+            myToursService = new MyToursService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ITourReservationRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             FillCollections();
         }
         public void FillCollections()

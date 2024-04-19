@@ -14,6 +14,8 @@ using System.Windows;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -23,15 +25,15 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
-        private readonly TourRepository repository;
+        private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
 
         private bool _isCancelSearchButtonVisible;
 
         public ShowAndSearchToursViewModel(User loggedInUser)
         {
-            repository = new TourRepository();
-            keyPointService = new KeyPointService();
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
@@ -64,7 +66,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public void GetAllTours()
         {
             Tours.Clear();
-            foreach (var tour in repository.GetAll().OrderBy(x => x.StartDateTime).ToList())
+            foreach (var tour in tourService.GetAll().OrderBy(x => x.StartDateTime).ToList())
             {
                 Tours.Add(new TourDto(tour));
             }
@@ -109,7 +111,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         private void ShowUnbookedToursInCity()
         {
-            List<Tour> unBookedToursInCity = repository.GetUnBookedToursInCity(SelectedTour.LocationDto.City);
+            List<Tour> unBookedToursInCity = tourService.GetUnBookedToursInCity(SelectedTour.LocationDto.City);
 
             if (unBookedToursInCity.Count > 0)
             {

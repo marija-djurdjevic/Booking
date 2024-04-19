@@ -30,8 +30,6 @@ namespace BookingApp.Domain.Models
             KeyPoints = new List<KeyPoint>();
         }
 
-
-
         public Tour(string name, string description, string language, int maxTouristsNumber, DateTime startDateTime, double duration, List<string> imagesPaths, Location location)
         {
             Name = name;

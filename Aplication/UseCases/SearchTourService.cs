@@ -6,16 +6,17 @@ using BookingApp.Repositories;
 using System.Threading.Tasks;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.Dto;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class SearchTourService
     {
-        private readonly TourRepository tourRepository;
+        private readonly ITourRepository tourRepository;
 
-        public SearchTourService()
+        public SearchTourService(ITourRepository tourRepository)
         {
-            tourRepository = new TourRepository();
+            this.tourRepository = tourRepository;
         }
 
         public List<Tour> GetMatchingTours(TourDto searchParams)
