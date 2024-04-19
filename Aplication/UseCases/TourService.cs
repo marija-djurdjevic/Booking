@@ -19,13 +19,13 @@ namespace BookingApp.Aplication.UseCases
         private ITouristExperienceRepository touristExperienceRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
-        public TourService(ITourRepository tourRepository,ILiveTourRepository liveTourRepository)
+        public TourService(ITourRepository tourRepository, ILiveTourRepository liveTourRepository)
         {
             this.tourRepository = tourRepository;
             this.liveTourRepository = liveTourRepository;
             this.keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
             this.touristExperienceRepository = Injector.CreateInstance<ITouristExperienceRepository>();
-            keyPointService = new KeyPointService(keyPointRepository,liveTourRepository);
+            keyPointService = new KeyPointService(keyPointRepository, liveTourRepository);
             touristExperienceService = new TouristExperienceService(touristExperienceRepository);
         }
 
@@ -43,6 +43,19 @@ namespace BookingApp.Aplication.UseCases
         {
             return tourRepository.GetAll();
         }
+
+        public List<Tour> GetAllSorted()
+        {
+            return  SortByDate(GetAll());
+        }
+
+        //futured tours sort by date and past show on end
+        public List<Tour> SortByDate(List<Tour> unsorted)
+        {
+            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            return sorted;
+        }
+
         public int GetNumberOfTouristsForTour(int tourId)
         {
             return touristExperienceService.GetNumberOfTouristsForTour(tourId);

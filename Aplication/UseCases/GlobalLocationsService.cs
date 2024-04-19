@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Aplication.UseCases
 {
-    public class GlobalLocationsService : IGlobalLocationsRepository
+    public class GlobalLocationsService
     {
         private IGlobalLocationsRepository globalLocationsRepository;
         public GlobalLocationsService(IGlobalLocationsRepository globalLocationsRepository) 

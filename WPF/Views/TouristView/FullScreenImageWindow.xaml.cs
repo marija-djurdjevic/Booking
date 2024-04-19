@@ -29,8 +29,6 @@ namespace BookingApp.View.TouristView
             viewModel = new FullScreenImageViewModel(imagePaths, showingIndex);
             DataContext= viewModel;
 
-            WindowState = WindowState.Maximized; // Postavljanje prozora na maksimalnu veličinu
-
             Slika.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-100;
         }
 

@@ -143,84 +143,10 @@
 
                     <ToggleButton
                         Grid.Row="0"
+                        Margin="0,10,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
-                        Background="{x:Null}"
-                        BorderBrush="White"
-                        BorderThickness="0"
-                        IsChecked="{Binding DataContext, ElementName=switch}">
-
-                        <ToggleButton.Content>
-                            <Border
-                                x:Name="switch"
-                                Width="60"
-                                Height="30"
-                                Padding="1"
-                                BorderThickness="2"
-                                CornerRadius="12">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding}" Value="True">
-                                                <Setter Property="BorderBrush" Value="Green" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="BorderBrush" Value="Red" />
-                                    </Style>
-                                </Border.Style>
-
-                                <Grid>
-                                    <Grid.Resources>
-                                        <Style TargetType="ToggleButton">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ToggleButton">
-                                                        <Grid Background="Transparent" />
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Grid.Resources>
-
-                                    <ToggleButton
-                                        Name="tbLeft"
-                                        Width="30"
-                                        Height="30"
-                                        HorizontalAlignment="Left"
-                                        IsChecked="{Binding IsChecked, ElementName=tbRight}" />
-
-                                    <ToggleButton
-                                        Name="tbRight"
-                                        Width="30"
-                                        Height="30"
-                                        HorizontalAlignment="Right"
-                                        IsChecked="{Binding DataContext, ElementName=switch}" />
-
-                                    <Canvas VerticalAlignment="Top">
-                                        <Ellipse
-                                            Name="EL"
-                                            Width="24"
-                                            Height="24">
-                                            <Ellipse.Style>
-                                                <Style TargetType="Ellipse">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                                            <Setter Property="Canvas.Left" Value="29" />
-                                                            <!--  40-14-7  -->
-                                                            <Setter Property="Fill" Value="Green" />
-
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                    <Setter Property="Fill" Value="Red" />
-                                                </Style>
-                                            </Ellipse.Style>
-                                        </Ellipse>
-                                    </Canvas>
-                                </Grid>
-                            </Border>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-
+                        Style="{StaticResource TogleStyle}" />
 
                 </Grid>
             </Grid>

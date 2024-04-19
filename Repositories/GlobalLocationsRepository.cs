@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class GlobalLocationsRepository
+    public class GlobalLocationsRepository: IGlobalLocationsRepository
     {
         private const string FilePath = "../../../Resources/Data/globalLocations.csv";
 

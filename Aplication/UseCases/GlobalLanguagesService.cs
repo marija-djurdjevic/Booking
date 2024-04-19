@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Aplication.UseCases
 {
-    public class GlobalLanguagesService : IGlobalLanguagesRepository
+    public class GlobalLanguagesService
     {
         private IGlobalLanguagesRepository languagesRepository;
         public GlobalLanguagesService(IGlobalLanguagesRepository globalLanguagesRepository)

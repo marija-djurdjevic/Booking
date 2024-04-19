@@ -6,6 +6,10 @@ using System.Linq;
 using System.Text;
 using BookingApp.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using BookingApp.Aplication.Dto;
+using System.Windows;
+using System.Windows.Input;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -35,7 +39,7 @@ namespace BookingApp.Aplication.UseCases
             {
                 myReservedTours.Add(tourRepository.GetById(tourReservation.TourId));
             }
-            return myReservedTours.DistinctBy(x => x.Id).ToList();
+            return SortByDate(myReservedTours.DistinctBy(x => x.Id).ToList());
         }
 
         public bool CanTouristRateTour(int userId, int tourId)
@@ -71,7 +75,42 @@ namespace BookingApp.Aplication.UseCases
             List<LiveTour> allFinishedTours = liveTourRepository.GetFinishedTours();
             // Filtriranje elemenata iz prve liste na osnovu id-a u drugoj listi
             List<Tour> filteredTours = myTours.Where(tour => allFinishedTours.Any(liveTour => liveTour.TourId == tour.Id)).ToList();
-            return filteredTours;
+            return SortByDate(filteredTours);
+        }
+
+        //futured tours sort by date and past show on end
+        public List<Tour> SortByDate(List<Tour> unsorted)
+        {
+            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            return sorted;
+        }
+
+        public ObservableCollection<Tuple<TourDto, Visibility, string>> SortTours(ObservableCollection<Tuple<TourDto,Visibility,string>> unsorted, string sortBy)
+        {
+            var sorted = new List<Tuple<TourDto, Visibility, string>>();
+            switch (sortBy)
+            {
+                case "System.Windows.Controls.ComboBoxItem: Date - Ascending":
+                    sorted = unsorted.OrderBy(t => t.Item1.StartDateTime).ThenBy(t => t.Item2).ToList();
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Date - Descending":
+                    sorted = unsorted.OrderByDescending(t => t.Item1.StartDateTime).ThenByDescending(t => t.Item2).ToList();
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Rate status - Ascending":
+                    sorted = unsorted.OrderBy(t => t.Item2).ThenBy(t => t.Item1.StartDateTime).ToList();
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Rate status - Descending":
+                    sorted = unsorted.OrderByDescending(t => t.Item2).ThenByDescending(t => t.Item1.StartDateTime).ToList();
+                    break;
+                default:
+                    return unsorted;
+            }
+            unsorted.Clear();
+            foreach (var sortedTour in sorted)
+            {
+                unsorted.Add(sortedTour);
+            }
+            return unsorted;
         }
 
         public string GetTourStatusMessage(int userId, int tourId)

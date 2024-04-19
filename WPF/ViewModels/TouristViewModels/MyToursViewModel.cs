@@ -79,6 +79,28 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 OnPropertyChanged(nameof(NoActiveToursTextVisibility));
             }
         }
+
+        private string allToursSelectedSort;
+        public string AllToursSelectedSort
+        {
+            get { return allToursSelectedSort; }
+            set
+            {
+                allToursSelectedSort = value;
+                OnPropertyChanged(nameof(AllToursSelectedSort));
+            }
+        }
+        private string finishedToursSelectedSort;
+        public string FinishedToursSelectedSort
+        {
+            get { return finishedToursSelectedSort; }
+            set
+            {
+                finishedToursSelectedSort = value;
+                OnPropertyChanged(nameof(FinishedToursSelectedSort));
+            }
+        }
+
         public User LoggedInUser { get; set; }
         private Tuple<TourDto, Visibility, string> selectedTour;
         public Tuple<TourDto, Visibility, string> SelectedTour
@@ -146,5 +168,15 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
+
+        public void SortingAllToursSelectionChanged()
+        {
+            myToursService.SortTours(Tours, AllToursSelectedSort);
+        }
+
+        public void SortingFinishedToursSelectionChanged()
+        {
+            myToursService.SortTours(FinishedTours, FinishedToursSelectedSort);
+        }
     }
 }

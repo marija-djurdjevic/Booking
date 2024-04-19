@@ -28,7 +28,14 @@ namespace BookingApp.Aplication.UseCases
             IsDurationMatch(t, searchParams) &&
             IsLanguageMatch(t, searchParams) &&
             IsMaxTouristNumberMatch(t, searchParams)).ToList();
-            return matchingTours;
+            return SortByDate(matchingTours);
+        }
+
+        //futured tours sort by date and past show on end
+        public List<Tour> SortByDate(List<Tour> unsorted)
+        {
+            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            return sorted;
         }
 
         public bool IsCityMatch(Tour t, TourDto searchParams)
