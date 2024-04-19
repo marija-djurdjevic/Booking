@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace BookingApp.Repositories
 {
-    public class PropertyReservationRepository
+    public class PropertyReservationRepository : IPropertyReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/propertyReservations.csv";
 

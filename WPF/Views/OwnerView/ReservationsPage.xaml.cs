@@ -125,7 +125,7 @@ namespace BookingApp.View
 
         private void Requests_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("View/RequestsPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("WPF/Views/OwnerView/RequestsPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

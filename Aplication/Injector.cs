@@ -13,6 +13,8 @@ namespace BookingApp.Aplication
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
         { typeof(ITourRepository), new TourRepository() },
+        { typeof(IPropertyRepository), new PropertyRepository() },
+        { typeof(IPropertyReservationRepository), new PropertyReservationRepository() },
         { typeof(ITouristRepository), new TouristRepository() },
         { typeof(IGlobalLanguagesRepository), new GlobalLanguagesRepository() },
         { typeof(IGlobalLocationsRepository), new GlobalLocationsRepository() },
