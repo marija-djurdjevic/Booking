@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repositories
 {
-    public class ReviewRepository
+    public class ReviewRepository : IReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/reviews.csv";
 
@@ -72,7 +73,7 @@ namespace BookingApp.Repositories
         }
 
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             _serializer.ToCSV(FilePath, _reviews);
         }

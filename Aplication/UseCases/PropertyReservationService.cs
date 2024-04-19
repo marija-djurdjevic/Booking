@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.GuestView;
 using BookingApp.Repositories;
 using System;
@@ -13,11 +14,15 @@ namespace BookingApp.Aplication.UseCases
     public class PropertyReservationService
     {
         public PropertyRepository PropertyRepository;
+        private readonly IPropertyRepository propertyRepository;
+        private readonly IPropertyReservationRepository propertyReservationRepository;
         public PropertyReservationRepository PropertyReservationRepository;
         public ReservedDateRepository ReservedDateRepository;
 
-        public PropertyReservationService()
+        public PropertyReservationService(IPropertyRepository propertyRepository, IPropertyReservationRepository propertyReservationRepository)
         {
+            this.propertyRepository = propertyRepository;
+            this.propertyReservationRepository = propertyReservationRepository;
             PropertyRepository = new PropertyRepository();
             ReservedDateRepository = new ReservedDateRepository();
             PropertyReservationRepository = new PropertyReservationRepository();
@@ -25,16 +30,16 @@ namespace BookingApp.Aplication.UseCases
 
         public ObservableCollection<PropertyReservation> GetGuestReservations(int guestId)
         {
-            return new ObservableCollection<PropertyReservation>(PropertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false));
+            return new ObservableCollection<PropertyReservation>(propertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false));
         }
 
         public List<PropertyReservation> UpdateGuestReservations(int guestId)
         {
-            return PropertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false);
+            return propertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false);
         }
         public bool CanCancelReservation(PropertyReservation SelectedReservation)
         {
-            Property SelectedProperty = PropertyRepository.GetPropertyById(SelectedReservation.PropertyId);
+            Property SelectedProperty = propertyRepository.GetPropertyById(SelectedReservation.PropertyId);
             if (DateTime.Now.AddDays(SelectedProperty.CancellationDeadline) <= SelectedReservation.StartDate)
             {
                 return true;
@@ -48,13 +53,13 @@ namespace BookingApp.Aplication.UseCases
         public void CancelReservation(PropertyReservation SelectedReservation)
         {
             SelectedReservation.Canceled = true;
-            PropertyReservationRepository.Update(SelectedReservation);
+            propertyReservationRepository.Update(SelectedReservation);
             ReservedDateRepository.Delete(SelectedReservation.Id);
         }
 
         public Property GetPropertyByReservation(PropertyReservation SelectedReservation)
         {
-            return PropertyRepository.GetPropertyById(SelectedReservation.PropertyId);
+            return propertyRepository.GetPropertyById(SelectedReservation.PropertyId);
         }
 
         public bool CanMakeReview(PropertyReservation SelectedReservation)
@@ -70,7 +75,7 @@ namespace BookingApp.Aplication.UseCases
         }
         public List<string> CheckAvailabilityForAllRequests(IEnumerable<ReservationChangeRequest> requests)
         {
-            var allReservations = PropertyReservationRepository.GetAll();
+            var allReservations = propertyReservationRepository.GetAll();
 
             List<string> availabilityStatus = new List<string>();
 
@@ -105,7 +110,7 @@ namespace BookingApp.Aplication.UseCases
         }
         public void UpdateReservation(ReservationChangeRequest request)
         {
-            var reservationsForProperty = PropertyReservationRepository.GetReservationDataById(request.ReservationId);
+            var reservationsForProperty = propertyReservationRepository.GetReservationDataById(request.ReservationId);
 
             if (reservationsForProperty != null && reservationsForProperty.Any())
             {
@@ -114,7 +119,7 @@ namespace BookingApp.Aplication.UseCases
                 updatedReservation.StartDate = request.NewStartDate;
                 updatedReservation.EndDate = request.NewEndDate;
 
-                PropertyReservationRepository.UpdatePropertyReservation(updatedReservation);
+                propertyReservationRepository.UpdatePropertyReservation(updatedReservation);
             }
             else
             {
