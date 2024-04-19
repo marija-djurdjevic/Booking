@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repositories
 {
-    public class OwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private const string FilePath = "../../../Resources/Data/owners.csv";
 

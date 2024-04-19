@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BookingApp.Repositories
 {
-    public class PropertyRepository
+    public class PropertyRepository : IPropertyRepository
     {
         private const string FilePath = "../../../Resources/Data/properties.csv";
 
@@ -71,7 +73,7 @@ namespace BookingApp.Repositories
         }
 
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             _serializer.ToCSV(FilePath, _properties);
         }
