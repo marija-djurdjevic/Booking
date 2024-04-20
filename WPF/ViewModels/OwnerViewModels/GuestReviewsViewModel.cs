@@ -6,9 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using BookingApp.Aplication;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 
 namespace BookingApp.WPF.ViewModel.OwnerViewModel
@@ -29,7 +31,7 @@ namespace BookingApp.WPF.ViewModel.OwnerViewModel
 
         public GuestReviewsViewModel()
         {
-            _reviewService = new OwnerReviewService();
+            _reviewService = new OwnerReviewService(Injector.CreateInstance<IOwnerReviewRepository>());
             ShowPreviousImageCommand = new RelayCommand(ShowPreviousImage);
             ShowNextImageCommand = new RelayCommand(ShowNextImage);
 

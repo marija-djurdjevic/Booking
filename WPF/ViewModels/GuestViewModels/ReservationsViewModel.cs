@@ -19,7 +19,7 @@ namespace BookingApp.WPF.ViewModel.GuestViewModel
         public ReservationsViewModel(Guest loggedInGuest)
         {
             LoggedInGuest = loggedInGuest;
-            propertyReservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>());
+            propertyReservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>(), Injector.CreateInstance<IReservedDateRepository>());
             SelectedReservation = new PropertyReservation();
             GuestsReservations = new ObservableCollection<PropertyReservation>();
             GuestsReservations = propertyReservationService.GetGuestReservations(loggedInGuest.Id);

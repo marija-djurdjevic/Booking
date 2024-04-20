@@ -13,19 +13,15 @@ namespace BookingApp.Aplication.UseCases
 {
     public class PropertyReservationService
     {
-        public PropertyRepository PropertyRepository;
         private readonly IPropertyRepository propertyRepository;
         private readonly IPropertyReservationRepository propertyReservationRepository;
-        public PropertyReservationRepository PropertyReservationRepository;
-        public ReservedDateRepository ReservedDateRepository;
+        private readonly IReservedDateRepository reservedDateRepository;
 
-        public PropertyReservationService(IPropertyRepository propertyRepository, IPropertyReservationRepository propertyReservationRepository)
+        public PropertyReservationService(IPropertyRepository propertyRepository, IPropertyReservationRepository propertyReservationRepository, IReservedDateRepository reservedDateRepository)
         {
             this.propertyRepository = propertyRepository;
             this.propertyReservationRepository = propertyReservationRepository;
-            PropertyRepository = new PropertyRepository();
-            ReservedDateRepository = new ReservedDateRepository();
-            PropertyReservationRepository = new PropertyReservationRepository();
+            this.reservedDateRepository = reservedDateRepository;
         }
 
         public ObservableCollection<PropertyReservation> GetGuestReservations(int guestId)
@@ -54,7 +50,7 @@ namespace BookingApp.Aplication.UseCases
         {
             SelectedReservation.Canceled = true;
             propertyReservationRepository.Update(SelectedReservation);
-            ReservedDateRepository.Delete(SelectedReservation.Id);
+            reservedDateRepository.Delete(SelectedReservation.Id);
         }
 
         public Property GetPropertyByReservation(PropertyReservation SelectedReservation)

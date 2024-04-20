@@ -25,6 +25,9 @@ namespace BookingApp.Aplication
         { typeof(ITourReservationRepository), new TourReservationRepository() },
         { typeof(IUserRepository), new UserRepository() },
         { typeof(IVoucherRepository), new VoucherRepository() },
+        { typeof(IOwnerReviewRepository), new OwnerReviewRepository() },
+        { typeof(IReservedDateRepository), new ReservedDateRepository() },
+        { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestsRepository() },
         // Add more implementations here
     };
 
