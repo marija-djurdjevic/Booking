@@ -10,6 +10,7 @@ namespace BookingApp.Domain.Models
 {
     public class TourReservation : ISerializable
     {
+        public int Id { get; set; }
         public int TourId { get; set; }
         public int UserId { get; set; }
         public string TouristFirstName { get; set; }
@@ -70,20 +71,21 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), UserId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(), JoinedKeyPoint.Name, JoinedKeyPoint.OrdinalNumber.ToString(), IsOnTour.ToString(), IsUser.ToString() };
+            string[] csvValues = {Id.ToString(), TourId.ToString(), UserId.ToString(), TouristFirstName, TouristLastName, TouristAge.ToString(), JoinedKeyPoint.Name, JoinedKeyPoint.OrdinalNumber.ToString(), IsOnTour.ToString(), IsUser.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            TourId = Convert.ToInt32(values[0]);
-            UserId = Convert.ToInt32(values[1]);
-            TouristFirstName = values[2];
-            TouristLastName = values[3];
-            TouristAge = Convert.ToInt32(values[4]);
-            JoinedKeyPoint = new KeyPoint { Name = values[5], OrdinalNumber = Convert.ToInt32(values[6]) };
-            IsOnTour = Convert.ToBoolean(values[7]);
-            IsUser = Convert.ToBoolean(values[8]);
+            Id = Convert.ToInt32(values[0]);
+            TourId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[2]);
+            TouristFirstName = values[3];
+            TouristLastName = values[4];
+            TouristAge = Convert.ToInt32(values[5]);
+            JoinedKeyPoint = new KeyPoint { Name = values[6], OrdinalNumber = Convert.ToInt32(values[7]) };
+            IsOnTour = Convert.ToBoolean(values[8]);
+            IsUser = Convert.ToBoolean(values[9]);
         }
     }
 }

@@ -4,10 +4,11 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repositories
 {
-    public class OwnerReviewRepository
+    public class OwnerReviewRepository : IOwnerReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/ownersreviews.csv";
 

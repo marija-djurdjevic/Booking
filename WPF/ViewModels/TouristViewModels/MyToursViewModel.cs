@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -77,6 +79,28 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 OnPropertyChanged(nameof(NoActiveToursTextVisibility));
             }
         }
+
+        private string allToursSelectedSort;
+        public string AllToursSelectedSort
+        {
+            get { return allToursSelectedSort; }
+            set
+            {
+                allToursSelectedSort = value;
+                OnPropertyChanged(nameof(AllToursSelectedSort));
+            }
+        }
+        private string finishedToursSelectedSort;
+        public string FinishedToursSelectedSort
+        {
+            get { return finishedToursSelectedSort; }
+            set
+            {
+                finishedToursSelectedSort = value;
+                OnPropertyChanged(nameof(FinishedToursSelectedSort));
+            }
+        }
+
         public User LoggedInUser { get; set; }
         private Tuple<TourDto, Visibility, string> selectedTour;
         public Tuple<TourDto, Visibility, string> SelectedTour
@@ -96,7 +120,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             Tours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
             ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
             FinishedTours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
-            myToursService = new MyToursService();
+            myToursService = new MyToursService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ITourReservationRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             FillCollections();
         }
         public void FillCollections()
@@ -144,5 +168,15 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
+
+        public void SortingAllToursSelectionChanged()
+        {
+            myToursService.SortTours(Tours, AllToursSelectedSort);
+        }
+
+        public void SortingFinishedToursSelectionChanged()
+        {
+            myToursService.SortTours(FinishedTours, FinishedToursSelectedSort);
+        }
     }
 }

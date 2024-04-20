@@ -1,14 +1,11 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class ReservedDateRepository
+    public class ReservedDateRepository : IReservedDateRepository
     {
         private const string FilePath = "../../../Resources/Data/reserveddates.csv";
 
@@ -52,7 +49,7 @@ namespace BookingApp.Repositories
         }
 
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             _serializer.ToCSV(FilePath, reservedDates);
         }

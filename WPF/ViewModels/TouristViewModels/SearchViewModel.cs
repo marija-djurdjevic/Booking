@@ -12,6 +12,8 @@ using System.Windows;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -26,10 +28,10 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         private List<string> cities;
 
-        private readonly TourRepository TourRepository;
-        private readonly GlobalLanguagesRepository GlobalLanguagesRepository;
+        private readonly TourService TourService;
+        private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly SearchTourService SearchTourService;
-        private readonly GlobalLocationsRepository GlobalLocationsRepository;
+        private readonly GlobalLocationsService GlobalLocationsService;
         public bool IsCancelSearchButtonVisible { get; set; }
 
         public List<string> Cities
@@ -59,14 +61,14 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             SearchParams = new TourDto();
             SelectedLocation = new LocationDto();
 
-            TourRepository = new TourRepository();
-            GlobalLanguagesRepository = new GlobalLanguagesRepository();
-            GlobalLocationsRepository = new GlobalLocationsRepository();
+            TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
+            GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
 
-            Countires = GlobalLocationsRepository.GetAllCountries();
-            Languages = GlobalLanguagesRepository.GetAll();
-            AllCities = GlobalLocationsRepository.GetAllCities();
-            SearchTourService = new SearchTourService();
+            Countires = GlobalLocationsService.GetAllCountries();
+            Languages = GlobalLanguagesService.GetAll();
+            AllCities = GlobalLocationsService.GetAllCities();
+            SearchTourService = new SearchTourService(Injector.CreateInstance<ITourRepository>());
 
             IsCancelSearchButtonVisible = false;
 
@@ -90,7 +92,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             else
             {
                 MessageBox.Show("There are no tours with that parameters");
-                UpdateCollection(TourRepository.GetAll());
+                UpdateCollection(TourService.GetAll());
             }
         }
 
@@ -107,7 +109,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             if (AllCities.Contains(SelectedLocation.City) && !string.Equals(SearchParams.LocationDto.City, SelectedLocation.City))
             {
-                SelectedLocation.Country = GlobalLocationsRepository.GetCountryForCity(SelectedLocation.City.ToString());
+                SelectedLocation.Country = GlobalLocationsService.GetCountryForCity(SelectedLocation.City.ToString());
             }
             SearchParams.LocationDto.City = SelectedLocation.City;
         }
@@ -118,7 +120,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             {
                 if (!string.IsNullOrEmpty(SelectedLocation.Country))
                 {
-                    List<string> citisInCountry = GlobalLocationsRepository.GetCitiesFromCountry(SelectedLocation.Country.ToString());
+                    List<string> citisInCountry = GlobalLocationsService.GetCitiesFromCountry(SelectedLocation.Country.ToString());
                     UpdateCitiesFromList(citisInCountry);
                 }
                 else if (string.IsNullOrEmpty(SelectedLocation.Country))

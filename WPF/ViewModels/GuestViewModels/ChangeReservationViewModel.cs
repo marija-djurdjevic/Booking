@@ -1,6 +1,8 @@
-﻿using BookingApp.Aplication.Dto;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.ObjectModel;
@@ -26,7 +28,7 @@ namespace BookingApp.WPF.ViewModel.GuestViewModel
             LoggedInGuest = guest;
             SelectedProperty = selectedProperty;
             ReservationChangeRequestsRepository = new ReservationChangeRequestsRepository();
-            changeRequestService = new ChangeRequestService();
+            changeRequestService = new ChangeRequestService(Injector.CreateInstance<IReservationChangeRequestRepository>());
             GuestsRequests = changeRequestService.GetAllGuestsRequests(LoggedInGuest.Id);
 
         }

@@ -7,22 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using BookingApp.Domain.Models;
-
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class TourService
     {
-        private TourRepository tourRepository;
-        private LiveTourRepository liveTourRepository;
+        private ITourRepository tourRepository;
+        private ILiveTourRepository liveTourRepository;
+        private IKeyPointRepository keyPointRepository;
+        private ITouristExperienceRepository touristExperienceRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
-        public TourService()
+        public TourService(ITourRepository tourRepository, ILiveTourRepository liveTourRepository)
         {
-            tourRepository = new TourRepository();
-            liveTourRepository = new LiveTourRepository();
-            keyPointService = new KeyPointService();
-            touristExperienceService = new TouristExperienceService();
+            this.tourRepository = tourRepository;
+            this.liveTourRepository = liveTourRepository;
+            this.keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
+            this.touristExperienceRepository = Injector.CreateInstance<ITouristExperienceRepository>();
+            keyPointService = new KeyPointService(keyPointRepository, liveTourRepository);
+            touristExperienceService = new TouristExperienceService(touristExperienceRepository);
         }
 
         public List<Tour> GetToursWithKeyPoints()
@@ -35,9 +39,31 @@ namespace BookingApp.Aplication.UseCases
             return tours;
         }
 
+        public List<Tour> GetAll()
+        {
+            return tourRepository.GetAll();
+        }
+
+        public List<Tour> GetAllSorted()
+        {
+            return  SortByDate(GetAll());
+        }
+
+        //futured tours sort by date and past show on end
+        public List<Tour> SortByDate(List<Tour> unsorted)
+        {
+            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            return sorted;
+        }
+
         public int GetNumberOfTouristsForTour(int tourId)
         {
             return touristExperienceService.GetNumberOfTouristsForTour(tourId);
+        }
+
+        public void Update(Tour tour)
+        {
+            tourRepository.Update(tour);
         }
 
         public void Delete(int tourId)
@@ -87,6 +113,14 @@ namespace BookingApp.Aplication.UseCases
             }
 
             return locations;
+        }
+        public List<Tour> GetUnBookedToursInCity(string City)
+        {
+            List<Tour> unBookedToursInCity = tourRepository.GetAll()
+                .Where(t => t.Location.City.Equals(City, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
+            return unBookedToursInCity;
         }
 
     }

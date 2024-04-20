@@ -5,10 +5,11 @@ using BookingApp.Serializer;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repositories
 {
-    public class TouristExperienceRepository
+    public class TouristExperienceRepository : ITouristExperienceRepository
     {
         private const string FilePath = "../../../Resources/Data/touristExperiences.csv";
 
@@ -28,14 +29,24 @@ namespace BookingApp.Repositories
             touristExperiences = GetAll();
         }
 
-        public TouristExperience Save(TouristExperience touristExperience)
+        public List<TouristExperience> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+        public TouristExperience GetById(int touristExperiencesId)
+        {
+            touristExperiences = GetAll();
+            return touristExperiences.FirstOrDefault(t => t.Id == touristExperiencesId);
+        }
+
+        public void Save(TouristExperience touristExperience)
         {
             touristExperiences = GetAll();
             int nextId = NextId();
             touristExperience.Id = nextId;
             touristExperiences.Add(touristExperience);
             _serializer.ToCSV(FilePath, touristExperiences);
-            return touristExperience;
         }
 
         public void Update(TouristExperience updatedTouristExperience)
@@ -61,42 +72,9 @@ namespace BookingApp.Repositories
             }
         }
 
-        public List<TouristExperience> GetAll()
-        {
-            return _serializer.FromCSV(FilePath);
-        }
-
-        private int NextId()
+        public int NextId()
         {
             return touristExperiences.Count > 0 ? touristExperiences.Max(t => t.Id) + 1 : 1;
-        }
-
-        public List<int> GetTouristIdsByTourId(int tourId)
-        {
-            touristExperiences = GetAll();
-
-
-            var touristIds = touristExperiences.Where(te => te.TourId == tourId).Select(te => te.TouristId).ToList();
-
-            return touristIds;
-        }
-
-        public int GetNumberOfTouristsForTour(int tourId)
-        {
-            touristExperiences = GetAll();
-            return touristExperiences.Count(t => t.TourId == tourId);
-        }
-
-        public List<TouristExperience> GetTouristExperiencesForTour(int tourId)
-        {
-            touristExperiences = GetAll();
-            return touristExperiences.Where(te => te.TourId == tourId).ToList();
-        }
-
-        public bool IsTourRatedByUser(int tourId, int userId)
-        {
-            touristExperiences = GetAll();
-            return touristExperiences.Any(t => t.TourId == tourId && t.TouristId == userId);
         }
     }
 }

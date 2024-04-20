@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Windows.Input;
 
 namespace BookingApp.Repositories
 {
-    public class LiveTourRepository
+    public class LiveTourRepository : ILiveTourRepository
     {
         private const string FilePath = "../../../Resources/Data/liveTour.csv";
         private readonly Serializer<LiveTour> _serializer;
@@ -25,7 +26,17 @@ namespace BookingApp.Repositories
             liveTours = _serializer.FromCSV(FilePath);
         }
 
-        public void AddOrUpdateLiveTour(LiveTour liveTour)
+        public List<LiveTour> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+
+        public LiveTour GetById(int tourId)
+        {
+            return liveTours.FirstOrDefault(t => t.TourId == tourId);
+        }
+
+        public void Save(LiveTour liveTour)
         {
             var existingTour = liveTours.FirstOrDefault(t => t.TourId == liveTour.TourId);
             if (existingTour != null)
@@ -38,17 +49,10 @@ namespace BookingApp.Repositories
             {
                 liveTours.Add(liveTour);
             }
-            SaveChanges();
+            _serializer.ToCSV(FilePath, liveTours);
         }
 
-
-        public List<LiveTour> GetAll()
-        {
-            return _serializer.FromCSV(FilePath);
-        }
-
-
-        public LiveTour Update(LiveTour liveTour)
+        public void Update(LiveTour liveTour)
         {
             liveTours = _serializer.FromCSV(FilePath);
             LiveTour current = liveTours.Find(c => c.TourId == liveTour.TourId);
@@ -56,15 +60,11 @@ namespace BookingApp.Repositories
             liveTours.Remove(current);
             liveTours.Insert(index, liveTour);
             _serializer.ToCSV(FilePath, liveTours);
-            return liveTour;
         }
-
-
-
-        public void RemoveLiveTour(int tourId)
+        public void Delete(int tourId)
         {
             liveTours.RemoveAll(t => t.TourId == tourId);
-            SaveChanges();
+            _serializer.ToCSV(FilePath, liveTours);
         }
 
         public void SaveChanges()
@@ -81,40 +81,6 @@ namespace BookingApp.Repositories
         public List<LiveTour> GetFinishedTours()
         {
             return liveTours.Where(t => !t.IsLive).ToList();
-        }
-
-        public List<int> GetFinishedTourIds()
-        {
-            return liveTours.Where(t => !t.IsLive).Select(t => t.TourId).ToList();
-        }
-
-
-
-        public LiveTour GetLiveTourById(int tourId)
-        {
-            return liveTours.FirstOrDefault(t => t.TourId == tourId);
-        }
-
-
-        public LiveTour FindLiveTourById(int tourId)
-        {
-            return liveTours.FirstOrDefault(t => t.TourId == tourId && t.IsLive);
-        }
-
-
-        public bool IsActiveTour()
-        {
-            return liveTours.Any(t => t.IsLive);
-        }
-
-        public void ActivateTour(int tourId)
-        {
-            var liveTour = liveTours.FirstOrDefault(t => t.TourId == tourId && !t.IsLive);
-            if (liveTour != null)
-            {
-                liveTour.IsLive = true;
-                Update(liveTour);
-            }
         }
     }
 }

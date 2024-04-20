@@ -1,4 +1,7 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,14 +20,14 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public static ObservableCollection<Tuple<Voucher, string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
-        private readonly VoucherRepository repository;
+        private readonly VoucherService voucherService;
 
         public bool WindowReturnValue;
         public Tuple<Voucher, string> SelectedVoucher { get; set; }
 
         public VouchersForReservationViewModel(User loggedInUser)
         {
-            repository = new VoucherRepository();
+            voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
@@ -36,7 +39,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             Vouchers.Clear();
             int number = 0;
-            List<Voucher> sortedVouchers = repository.GetByToueristId(LoggedInUser.Id).OrderBy(x => x.ExpirationDate).ToList();
+            List<Voucher> sortedVouchers = voucherService.GetByToueristId(LoggedInUser.Id).OrderBy(x => x.ExpirationDate).ToList();
             foreach (var voucher in sortedVouchers)
             {
                 var voucherName = "Voucher " + (++number).ToString();
@@ -46,15 +49,13 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public bool Confirm()
         {
-            VoucherRepository voucherRepository = new VoucherRepository();
-
             if (SelectedVoucher == null)
             {
                 MessageBox.Show("Please choose the voucher you want to use.", "Something went wrong");
                 return false;
             }
 
-            if (!voucherRepository.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
+            if (!voucherService.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
             {
                 MessageBox.Show("Unable to use voucher", "Something went wrong");
                 return true;

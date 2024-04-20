@@ -1,23 +1,24 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.Serializer;
 using System.Collections.Generic;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class TouristService
     {
-        private readonly TouristRepository touristRepository;
+        private readonly ITouristRepository touristRepository;
 
-        public TouristService()
+        public TouristService(ITouristRepository touristRepository)
         {
-            touristRepository = new TouristRepository();
+            this.touristRepository = touristRepository;
         }
-
-
 
         public Tourist GetByUserId(int Id)
         {
-            return touristRepository.GetByUserId(Id);
+            var tourists = touristRepository.GetAll();
+            return tourists.Find(t => t.Id == Id);
         }
 
         public int GetAgeById(int touristId)

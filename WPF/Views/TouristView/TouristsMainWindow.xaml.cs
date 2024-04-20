@@ -17,6 +17,9 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BookingApp.Domain.Models;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.View.TouristView
 {
@@ -28,7 +31,7 @@ namespace BookingApp.View.TouristView
         public User LoggedInUser { get; set; }
         public Tourist Tourist { get; set; }
 
-        private readonly TouristRepository _touristRepository = new TouristRepository();
+        private readonly TouristService _touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
 
         private string activeCard;
 
@@ -58,7 +61,7 @@ namespace BookingApp.View.TouristView
             DataContext = this;
             LoggedInUser = loggedInUser;
             ActiveCard = "ShowAndSearch";
-            Tourist = _touristRepository.GetByUserId(LoggedInUser.Id);
+            Tourist = _touristService.GetByUserId(LoggedInUser.Id);
             Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
         }
 

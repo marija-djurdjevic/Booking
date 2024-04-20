@@ -49,5 +49,17 @@ namespace BookingApp.View.TouristView
         {
             myToursViewModel.OpenInbox();
         }
+
+        private void SortingComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(myToursViewModel != null)
+                myToursViewModel.SortingAllToursSelectionChanged();
+        }
+
+        private void SortingFinishedToursSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (myToursViewModel != null)
+                myToursViewModel.SortingFinishedToursSelectionChanged();
+        }
     }
 }

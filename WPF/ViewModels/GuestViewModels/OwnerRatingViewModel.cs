@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.GuestViewModel
 {
@@ -63,7 +65,7 @@ namespace BookingApp.WPF.ViewModel.GuestViewModel
             ImagesPaths = new List<string>();
             AddedImages = new ObservableCollection<BitmapImage>();
             SelectedImage = new BitmapImage();
-            ownerReviewService = new OwnerReviewService();
+            ownerReviewService = new OwnerReviewService(Injector.CreateInstance<IOwnerReviewRepository>());
             LoggedInGuest = guest;
         }
 

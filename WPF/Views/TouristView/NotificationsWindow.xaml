@@ -13,6 +13,7 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <DockPanel Margin="10">
 
         <DockPanel
@@ -70,11 +71,12 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                 <ItemsControl
                     Width="650"
+                    Height="auto"
                     ItemsSource="{Binding Notifications}"
                     Style="{StaticResource CardView}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox Height="auto" MaxHeight="150">
+                            <GroupBox Height="auto">
                                 <GroupBox.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontSize="20" Text="Guide: " />

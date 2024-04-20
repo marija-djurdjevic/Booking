@@ -1,5 +1,7 @@
-﻿using BookingApp.Aplication.UseCases;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.GuestView;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -17,7 +19,7 @@ namespace BookingApp.WPF.ViewModel.GuestViewModel
         public ReservationsViewModel(Guest loggedInGuest)
         {
             LoggedInGuest = loggedInGuest;
-            propertyReservationService = new PropertyReservationService();
+            propertyReservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>(), Injector.CreateInstance<IReservedDateRepository>());
             SelectedReservation = new PropertyReservation();
             GuestsReservations = new ObservableCollection<PropertyReservation>();
             GuestsReservations = propertyReservationService.GetGuestReservations(loggedInGuest.Id);

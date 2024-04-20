@@ -1,29 +1,27 @@
-2|4|Душко|Пилиповић|20|Mitrovica|3|False|True
-2|4|Ognjen|Papovic|25|Beograd|4|False|False
-2|4|Marko|Jokanovic|30|Raca|5|False|False
-1|15|Marko|Markovic|57|Novi Sad|1|False|True
-4|4|Душко|Пилиповић|20|Batrovci|3|False|True
-8|4|Душко|Пилиповић|20|Beograd|6|False|True
-8|4|Marko|Markovi|57|Banja Luka|2|False|False
-8|4|Petar|Petrovic|30|Leskovac|4|False|False
-8|4|Ognjen|Papovic|20|Novi Sad|7|False|False
-8|4|Jana|Jankovic|20|Beograd|6|False|False
-8|4|Marija|Djurdjevic|20|Novi Sad|7|False|False
-8|4|Ana|Anic|40|Sarajevo|3|False|False
-8|15|Marko|Markovic|57|Novi Sad|7|False|True
-8|15|Stana|Stankovic|75|Novi Sad|7|False|False
-4|4|Душко|Пилиповић|20|Ruma|2|False|False
-4|4|Sandra|Snadric|40|Gradiska|4|False|False
-4|15|Marko|Markovic|57|Aleksandrovac|6|False|True
-4|15|Gojko|Gojkovic|75||7|False|False
-5|15|Slavko|Bovan|20|Ruma|2|False|False
-5|15|Predrag|Samardzija|40|Batrovic|3|False|False
-5|15|Rade|Gutic|25|Aleksandrovac|6|False|True
-5|4|Душко|Пилиповић|20|Nova Topola|5|False|False
-9|4|Jovan|Jovanovic|40|Sarajevo|3|False|False
-9|4|Душко|Пилиповић|25|Leskovac|4|False|True
-9|4|Slaven|Zuza|75|Subotica|8|False|False
-10|4|Душко|Пилиповић|20|Beograd|3|False|True
-10|4|Ime 1|prez|20|Beograd|3|False|False
-10|4|ime 2|prez|30|Beograd|3|False|False
-10|4|ime 3|prez|50||0|False|False
+1|2|4|Душко|Пилиповић|20|Mitrovica|3|False|True
+2|2|4|Ognjen|Papovic|25|Beograd|4|False|False
+3|2|4|Marko|Jokanovic|30|Raca|5|False|False
+4|1|15|Marko|Markovic|57|Novi Sad|1|False|True
+5|4|4|Душко|Пилиповић|20|Batrovci|3|False|True
+6|8|4|Душко|Пилиповић|20|Beograd|6|False|True
+7|8|4|Marko|Markovi|57|Banja Luka|2|False|False
+8|8|4|Petar|Petrovic|30|Leskovac|4|False|False
+9|8|4|Ognjen|Papovic|20|Novi Sad|7|False|False
+10|8|4|Jana|Jankovic|20|Beograd|6|False|False
+11|8|4|Marija|Djurdjevic|20|Novi Sad|7|False|False
+12|8|4|Ana|Anic|40|Sarajevo|3|False|False
+13|8|15|Marko|Markovic|57|Novi Sad|7|False|True
+14|8|15|Stana|Stankovic|75|Novi Sad|7|False|False
+15|4|4|Душко|Пилиповић|20|Ruma|2|False|False
+16|4|4|Sandra|Snadric|40|Gradiska|4|False|False
+17|4|15|Marko|Markovic|57|Aleksandrovac|6|False|True
+18|4|15|Gojko|Gojkovic|75||7|False|False
+19|5|15|Slavko|Bovan|20|Ruma|2|False|False
+20|5|15|Predrag|Samardzija|40|Batrovic|3|False|False
+21|5|15|Rade|Gutic|25|Aleksandrovac|6|False|True
+22|5|4|Душко|Пилиповић|20|Nova Topola|5|False|False
+23|9|4|Jovan|Jovanovic|40|Sarajevo|3|False|False
+24|9|4|Душко|Пилиповић|25|Leskovac|4|False|True
+25|9|4|Slaven|Zuza|75|Subotica|8|False|False
+26|6|15|Marko|Doderovic|33|Nis|1|False|False
+27|6|15|Marko|Markovic|57|Kraljevo|2|False|True

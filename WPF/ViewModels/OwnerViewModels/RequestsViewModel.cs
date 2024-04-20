@@ -1,5 +1,7 @@
-﻿using BookingApp.Aplication.UseCases;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
 using System;
@@ -20,8 +22,8 @@ namespace BookingApp.WPF.ViewModel.OwnerViewModel
 
         public RequestsViewModel()
         {
-            _requestsService = new ChangeRequestService();
-            _reservationService = new PropertyReservationService();
+            _requestsService = new ChangeRequestService(Injector.CreateInstance<IReservationChangeRequestRepository>());
+            _reservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>(), Injector.CreateInstance<IReservedDateRepository>());
 
 
             ReservationChangeRequests = new ObservableCollection<ReservationChangeRequest>();

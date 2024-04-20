@@ -11,6 +11,7 @@
     MinHeight="500"
     Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
+    WindowState="Maximized"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

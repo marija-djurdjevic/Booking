@@ -12,6 +12,8 @@ using System.Collections.ObjectModel;
 using BookingApp.View.GuideView;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.View
 {
@@ -29,8 +31,8 @@ namespace BookingApp.View
         public CreateTourPage()
         {
             InitializeComponent();
-            tourService = new TourService();
-            keyPointService = new KeyPointService();
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(),Injector.CreateInstance<ILiveTourRepository>());
+            keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             LoadCitiesCountriesFromCSV();
             LoadLanguagesFromCSV();
             tourDto = new TourDto();
@@ -98,7 +100,7 @@ namespace BookingApp.View
                 LocationDto locationDto = GetLocationDto();
                 string selectedLanguage = ComboBoxLanguage.SelectedItem as string;
                 TourDto newTourDto = CreateNewTourDto(locationDto, startDate, selectedLanguage);
-                CreateTourService createTourService = new CreateTourService();
+                CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
                 bool success = createTourService.CreateTour(newTourDto, keyPointNames, startDate);
                 if (!success)   { return; }
             }

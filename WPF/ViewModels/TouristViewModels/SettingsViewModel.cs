@@ -1,4 +1,7 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,7 +16,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
     public class SettingsViewModel : INotifyPropertyChanged
     {
         public Tourist Tourist { get; set; }
-        public TouristRepository TouristRepository { get; set; }
+        public TouristService TouristService { get; set; }
 
         private bool showTooltips;
 
@@ -29,8 +32,8 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public SettingsViewModel(User loggedInUser)
         {
-            TouristRepository = new TouristRepository();
-            Tourist = TouristRepository.GetByUserId(loggedInUser.Id);
+            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            Tourist = TouristService.GetByUserId(loggedInUser.Id);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

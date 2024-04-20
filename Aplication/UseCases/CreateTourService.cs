@@ -1,5 +1,6 @@
 ﻿using BookingApp.Aplication.Dto;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,17 @@ namespace BookingApp.Aplication.UseCases
 {
     public class CreateTourService
     {
-        private readonly TourRepository tourRepository;
+        private readonly ITourRepository tourRepository;
         private readonly KeyPointService keyPointService;
+        private IKeyPointRepository keyPointRepository;
+        private ILiveTourRepository liveTourRepository;
 
-
-        public CreateTourService()
+        public CreateTourService(ITourRepository tourRepository)
         {
-            tourRepository = new TourRepository();
-            keyPointService = new KeyPointService();
+            this.tourRepository = tourRepository;
+            keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
+            liveTourRepository = Injector.CreateInstance<ILiveTourRepository>();
+            keyPointService = new KeyPointService(keyPointRepository,liveTourRepository);
         }
 
         private int counter = 0;

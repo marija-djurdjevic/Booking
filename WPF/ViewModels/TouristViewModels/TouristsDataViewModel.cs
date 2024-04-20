@@ -7,10 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using BookingApp.Aplication.UseCases;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.TouristViewModel
 {
@@ -19,17 +22,23 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public ObservableCollection<Tuple<TourReservation, string, bool>> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
         public Tourist LoggedInTourist { get; set; }
-        public TourRepository TourRepository { get; set; }
+        public TourService TourService { get; set; }
+        private readonly TouristService touristService;
+        private VoucherService voucherService;
+        private TourReservationService reservationDataService;
+
         public string TitleTxt { get; set; }
 
         public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId)
         {
             Tourists = new ObservableCollection<Tuple<TourReservation, string, bool>>();
-            TouristRepository touristRepository = new TouristRepository();
-            TourRepository = new TourRepository();
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
+            reservationDataService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
+            TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
 
             SelectedTour = selectedTour;
-            LoggedInTourist = touristRepository.GetByUserId(userId);
+            LoggedInTourist = touristService.GetByUserId(userId);
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
@@ -44,10 +53,8 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public bool UseVouchers()
         {
-            TourReservationRepository reservationDataRepository = new TourReservationRepository();
-            VoucherRepository voucherRepository = new VoucherRepository();
 
-            if (voucherRepository.GetByToueristId(LoggedInTourist.Id).Count() > 0)
+            if (voucherService.GetByToueristId(LoggedInTourist.Id).Count() > 0)
             {
                 MessageBoxResult useVouchers = MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo);
                 if (useVouchers == MessageBoxResult.Yes)
@@ -64,11 +71,11 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             foreach (TourReservation data in Tourists.Select(t => t.Item1).ToList())
             {
-                reservationDataRepository.Save(data);
+                reservationDataService.Save(data);
             }
 
             SelectedTour.MaxTouristNumber -= Tourists.Count();
-            TourRepository.Update(SelectedTour.ToTour());
+            TourService.Update(SelectedTour.ToTour());
 
             MessageBoxResult successfullyBooked = MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK);
             return true;

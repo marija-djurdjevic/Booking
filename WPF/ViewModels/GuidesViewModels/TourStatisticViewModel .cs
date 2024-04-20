@@ -11,6 +11,8 @@ using BookingApp.View.GuideView;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModel.GuidesViewModel
 {
@@ -28,10 +30,10 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private RelayCommand navigateBackCommand;
         public TourStatisticViewModel()
         {
-            tourService = new TourService();
-            liveTourService = new LiveTourService();
-            tourReservationService = new TourReservationService();
-            touristExperienceService = new TouristExperienceService();
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
+            tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
+            touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             LoadData();

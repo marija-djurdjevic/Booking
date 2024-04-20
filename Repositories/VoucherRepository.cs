@@ -1,4 +1,5 @@
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace BookingApp.Repositories
 {
-    public class VoucherRepository
+    public class VoucherRepository : IVoucherRepository
     {
         private const string FilePath = "../../../Resources/Data/vouchers.csv";
 
@@ -29,6 +30,16 @@ namespace BookingApp.Repositories
             vouchers = _serializer.FromCSV(FilePath);
         }
 
+        public List<Voucher> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
+        public Voucher GetById(int voucherId)
+        {
+            vouchers = GetAll();
+            return vouchers.FirstOrDefault(t => t.Id == voucherId);
+        }
+
         public void Save(Voucher voucher)
         {
             vouchers = GetAll();
@@ -37,17 +48,6 @@ namespace BookingApp.Repositories
             vouchers.Add(voucher);
             _serializer.ToCSV(FilePath, vouchers);
         }
-
-        private int NextId()
-        {
-            vouchers = GetAll();
-            if (vouchers.Count < 1)
-            {
-                return 1;
-            }
-            return vouchers.Max(v => v.Id) + 1;
-        }
-
 
         public bool Update(Voucher updatedVoucher)
         {
@@ -63,29 +63,25 @@ namespace BookingApp.Repositories
             return false;
         }
 
-        public List<Voucher> GetAll()
-        {
-            return _serializer.FromCSV(FilePath);
-        }
-
-        public bool UseVoucher(int voucherId, int touristId)
-        {
-            Voucher voucher = GetByToueristId(touristId).Find(t => t.Id == voucherId);
-            if (voucher != null)
-            {
-                voucher.IsUsed = true;
-                return Update(voucher);
-            }
-            return false;
-        }
-
-        public List<Voucher> GetByToueristId(int Id)
+        public void Delete(int voucherId)
         {
             vouchers = GetAll();
-            return vouchers.FindAll(t =>
-            t.TouristId == Id
-            && t.ExpirationDate >= System.DateTime.Now
-            && !t.IsUsed);
+            Voucher existingVoucher = vouchers.FirstOrDefault(t => t.Id == voucherId);
+            if (existingVoucher != null)
+            {
+                vouchers.Remove(existingVoucher);
+                _serializer.ToCSV(FilePath, vouchers);
+            }
+        }
+
+        public int NextId()
+        {
+            vouchers = GetAll();
+            if (vouchers.Count < 1)
+            {
+                return 1;
+            }
+            return vouchers.Max(v => v.Id) + 1;
         }
     }
 }
