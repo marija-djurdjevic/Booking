@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\TouristIcons\add.png" />
     <None Remove="Resources\Icons\TouristIcons\arrived.png" />
     <None Remove="Resources\Icons\TouristIcons\cancel.png" />
     <None Remove="Resources\Icons\TouristIcons\close.png" />
@@ -99,6 +100,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\TouristIcons\add.png" />
     <Resource Include="Resources\Icons\TouristIcons\arrived.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
     <Resource Include="Resources\Icons\TouristIcons\cancel.png" />

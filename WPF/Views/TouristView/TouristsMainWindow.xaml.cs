@@ -20,13 +20,14 @@ using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.View.TouristView
 {
     /// <summary>
     /// Interaction logic for TouristsMainWindow.xaml
     /// </summary>
-    public partial class TouristsMainWindow : Window,INotifyPropertyChanged
+    public partial class TouristsMainWindow : Window, INotifyPropertyChanged
     {
         public User LoggedInUser { get; set; }
         public Tourist Tourist { get; set; }
@@ -75,6 +76,12 @@ namespace BookingApp.View.TouristView
         {
             Paige.Content = new MyToursPage(LoggedInUser);
             ActiveCard = "MyTours";
+        }
+
+        private void TourRequestsButtonClick(object sender, RoutedEventArgs e)
+        {
+            Paige.Content = new TourRequestsPage(LoggedInUser);
+            ActiveCard = "TourRequests";
         }
 
         private void VouchersButtonClick(object sender, RoutedEventArgs e)
