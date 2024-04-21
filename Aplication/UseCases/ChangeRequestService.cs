@@ -1,5 +1,6 @@
 ﻿using BookingApp.Aplication.Dto;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,43 +13,41 @@ namespace BookingApp.Aplication.UseCases
 {
     public class ChangeRequestService
     {
-        private readonly ReservationChangeRequestsRepository _repository;
-        private ReservationChangeRequestsRepository ReservationChangeRequestsRepository;
+        private readonly IReservationChangeRequestRepository reservationChangeRequestsRepository;
 
 
-        public ChangeRequestService()
+        public ChangeRequestService(IReservationChangeRequestRepository reservationChangeRequestsRepository)
         {
-            _repository = new ReservationChangeRequestsRepository();
-            ReservationChangeRequestsRepository = new ReservationChangeRequestsRepository();
+           this.reservationChangeRequestsRepository = reservationChangeRequestsRepository;
         }
 
         public List<ReservationChangeRequest> GetAllRequests()
         {
-            return _repository.GetAll();
+            return reservationChangeRequestsRepository.GetAll();
         }
         public void UpdateChangeRequestStatus(int requestId, RequestStatus newStatus)
         {
-            _repository.UpdateChangeRequestStatus(requestId, newStatus);
+            reservationChangeRequestsRepository.UpdateChangeRequestStatus(requestId, newStatus);
         }
 
         public ObservableCollection<ReservationChangeRequest> GetAllGuestsRequests(int GuestId)
         {
-            return new ObservableCollection<ReservationChangeRequest>(ReservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == GuestId));
+            return new ObservableCollection<ReservationChangeRequest>(reservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == GuestId));
         }
 
         public void SaveRequest(ReservationChangeRequestDto reservationChangeRequest)
         {
-            ReservationChangeRequestsRepository.AddReservationChangeRequest(reservationChangeRequest.ToReservationChangeRequest());
+            reservationChangeRequestsRepository.AddReservationChangeRequest(reservationChangeRequest.ToReservationChangeRequest());
         }
 
         public List<ReservationChangeRequest> UpdateGuestsRequests(int guestId)
         {
-            return ReservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == guestId);
+            return reservationChangeRequestsRepository.GetAll().FindAll(r => r.GuestId == guestId);
         }
 
         public void UpdateChangeRequestComment(int requestId, string comment)
         {
-            _repository.UpdateChangeRequestComment(requestId, comment);
+            reservationChangeRequestsRepository.UpdateChangeRequestComment(requestId, comment);
         }
 
     }

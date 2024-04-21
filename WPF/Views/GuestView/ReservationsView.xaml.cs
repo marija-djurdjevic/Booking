@@ -22,9 +22,14 @@ namespace BookingApp.GuestView
 
         private void Cancel_Button(object sender, RoutedEventArgs e)
         {
-            if(viewModel.Cancel(sender) == false)
+            MessageBoxResult result = MessageBox.Show("Are You sure?", "Cancel reservation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                MessageBox.Show("The cancellation deadline for this reservation has passed.");
+                if (viewModel.Cancel(sender) == false)
+                {
+                    MessageBox.Show("The cancellation deadline for this reservation has passed.");
+                }
             }
         }
 

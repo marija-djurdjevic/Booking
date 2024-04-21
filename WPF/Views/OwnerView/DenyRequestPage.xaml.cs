@@ -1,5 +1,7 @@
-﻿using BookingApp.Aplication.UseCases;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -35,7 +37,7 @@ namespace BookingApp.View
             InitializeComponent();
             requestId = request.Id;
             this.request = request;
-            changeRequestService = new ChangeRequestService();
+            changeRequestService = new ChangeRequestService(Injector.CreateInstance<IReservationChangeRequestRepository>());
             reservationChangeRequestsRepository = new ReservationChangeRequestsRepository();
             ReservationChangeRequests = new ObservableCollection<ReservationChangeRequest>();
 

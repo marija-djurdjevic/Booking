@@ -42,5 +42,11 @@
 50|9|Beograd|Middle|6|False
 51|9|Novi Sad|Middle|7|False
 52|9|Subotica|End|8|False
-53|6|Nis|Begining|1|False
-54|6|Kraljevo|End|2|False
+53|10|Vienna|Begining|1|False
+54|10|Banja Luka|Middle|2|False
+55|10|Beograd|Middle|3|False
+56|10|Novi Sad|End|4|False
+57|11|Vienna|Begining|1|False
+58|11|Banja Luka|Middle|2|False
+59|11|Beograd|Middle|3|False
+60|11|Novi Sad|End|4|False

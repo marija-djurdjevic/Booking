@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -26,6 +26,9 @@ namespace BookingApp.Aplication
         { typeof(IUserRepository), new UserRepository() },
         { typeof(IVoucherRepository), new VoucherRepository() },
         { typeof(ITourRequestRepository), new TourRequestRepository() },
+        { typeof(IOwnerReviewRepository), new OwnerReviewRepository() },
+        { typeof(IReservedDateRepository), new ReservedDateRepository() },
+        { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestsRepository() },
         // Add more implementations here
     };
 
