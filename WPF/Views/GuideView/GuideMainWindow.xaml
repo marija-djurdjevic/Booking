@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="GuideMainWindow" Height="768" Width="1024">
-
+        Title="GuideMainWindow" Height="768" Width="1024"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden"/>

@@ -18,8 +18,17 @@
 
 
     <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="71"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+
         <!--  Navigaciona traka  -->
-        <Grid
+        <Grid Grid.Row="0"
             Height="71"
             VerticalAlignment="Top"
             Background="LightGray">
@@ -38,55 +47,44 @@
                 Stretch="Uniform" />
         </Grid>
 
+        <Button
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,10,10,0"
+                Content="Generate Tour Stats PDF"
+                Command="{Binding GenerateTourStatsPdfCommand}"
+                FontSize="16"
+                Padding="10"/>
+
+
         <ListBox
             x:Name="tourListBox"
-            Grid.Column="0"
-            Margin="0,76,0,76"
+            Grid.Row="2"
             ItemsSource="{Binding SortedTours}"
-            SelectedItem="{Binding SelectedTour, Mode=TwoWay}">
+            SelectedItem="{Binding SelectedTour, Mode=TwoWay}" d:ItemsSource="{d:SampleData ItemCount=5}">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid
-                        Width="1020"
-                        Height="260"
-                        Margin="5">
+                    <Grid Width="1000" Height="250" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="250" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!--  Slika ture  -->
-                        <Image
-                            Grid.Column="0"
-                            Width="150"
-                            Height="230"
-                            Margin="0,7,10,38"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
-                            Stretch="Fill">
-                            <Image.Source>
-                                <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
-                            </Image.Source>
-                        </Image>
-
                         <!--  Most visited tour  -->
-                        <TextBlock
-                            x:Name="MostVisitedLabel"
-                            Grid.Column="1"
-                            Margin="0"
-                            FontSize="32"
-                            Text="Most visited tour"
-                            Visibility="Collapsed" />
+                        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"
+                                x:Name="MostVisitedLabel"
+                                Grid.Column="0"
+                                FontSize="32"
+                                Text="Most visited tour"
+                                Visibility="Collapsed" />
 
                         <!--  Informacije o turi  -->
                         <StackPanel Grid.Column="1" Margin="10,50,0,0">
                             <TextBlock>
                                 <Run FontSize="24" Text="Location: " />
-                                <Run
-                                    FontSize="24"
-                                    FontWeight="Bold"
-                                    Text="{Binding Location.City}" />
+                                <Run FontSize="24" FontWeight="Bold" Text="{Binding Location.City}" />
                             </TextBlock>
 
                             <TextBlock Margin="0,10,0,0">
@@ -100,27 +98,40 @@
                             </TextBlock>
                         </StackPanel>
 
+                        <!--  Slika ture  -->
+                        <Image
+                                Grid.Column="0"
+                                Width="150"
+                                Height="150"
+                                Margin="48,62,0,38"
+                                HorizontalAlignment="Left"
+                                Stretch="Fill">
+                            <Image.Source>
+                                <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
+                            </Image.Source>
+                        </Image>
+
                         <!--  Period label  -->
                         <TextBlock
-                            x:Name="PeriodLabel"
-                            Grid.Column="1"
-                            Margin="0,0,213,0"
-                            HorizontalAlignment="Right"
-                            FontSize="32"
-                            Text="Period"
-                            Visibility="Collapsed" />
+                                x:Name="PeriodLabel"
+                                Grid.Column="1"
+                                Margin="500,13,0,10"
+                                HorizontalAlignment="Left"
+                                FontSize="32"
+                                Text="Period"
+                                Visibility="Collapsed" />
 
                         <!--  ComboBox  -->
                         <ComboBox
-                            x:Name="firstTourComboBox"
-                            Grid.Column="1"
-                            Width="200"
-                            Height="30"
-                            Margin="540,0,0,100"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Text="{Binding Path=DataContext.SelectedYear, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                            Visibility="Collapsed">
+                                x:Name="firstTourComboBox"
+                                Grid.Column="1"
+                                Width="130"
+                                Height="50"
+                                Margin="540,10,19,100"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Text="{Binding Path=DataContext.SelectedYear, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                Visibility="Collapsed">
                             <ComboBoxItem>General</ComboBoxItem>
                             <ComboBoxItem>2024</ComboBoxItem>
                             <ComboBoxItem>2023</ComboBoxItem>
@@ -129,21 +140,19 @@
                             <ComboBoxItem>2020</ComboBoxItem>
                         </ComboBox>
 
-
                         <!--  Button  -->
                         <Button
-                            Grid.Column="1"
-                            Width="294"
-                            Height="36"
-                            Margin="0,10,0,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                            CommandParameter="{Binding Id}"
-                            Content="TOURISTS ON TOUR"
-                            FontSize="28" />
-
-
+                                Grid.Column="1"
+                                Width="294"
+                                Height="36"
+                                Margin="0,0,40,8"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                CommandParameter="{Binding Id}"
+                                Content="TOURISTS ON TOUR"
+                                FontSize="28"
+                                />
                     </Grid>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">
@@ -153,12 +162,13 @@
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
+
             </ListBox.ItemTemplate>
         </ListBox>
 
 
         <!--  Donja navigaciona traka  -->
-        <Grid
+        <Grid Grid.Row="3"
             Height="71"
             VerticalAlignment="Bottom"
             Background="LightGray">
