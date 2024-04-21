@@ -85,7 +85,7 @@ namespace BookingApp.Aplication.UseCases
             return sorted;
         }
 
-        public ObservableCollection<Tuple<TourDto, Visibility, string>> SortTours(ObservableCollection<Tuple<TourDto,Visibility,string>> unsorted, string sortBy)
+        public void SortTours(ObservableCollection<Tuple<TourDto,Visibility,string>> unsorted, string sortBy)
         {
             var sorted = new List<Tuple<TourDto, Visibility, string>>();
             switch (sortBy)
@@ -103,14 +103,14 @@ namespace BookingApp.Aplication.UseCases
                     sorted = unsorted.OrderByDescending(t => t.Item2).ThenByDescending(t => t.Item1.StartDateTime).ToList();
                     break;
                 default:
-                    return unsorted;
+                    return;
             }
             unsorted.Clear();
             foreach (var sortedTour in sorted)
             {
                 unsorted.Add(sortedTour);
             }
-            return unsorted;
+            return;
         }
 
         public string GetTourStatusMessage(int userId, int tourId)

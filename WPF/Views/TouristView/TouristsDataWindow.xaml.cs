@@ -26,16 +26,16 @@ namespace BookingApp.View.TouristView
     public partial class TouristsDataWindow : Window
     {
         private TouristsDataViewModel touristsDataViewModel;
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequest tourRequest)
         {
             InitializeComponent();
-            touristsDataViewModel = new TouristsDataViewModel(touristNumber, selectedTour, userId);
+            touristsDataViewModel = new TouristsDataViewModel(touristNumber, selectedTour, userId,isRequest,tourRequest);
             DataContext = touristsDataViewModel;
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            if (touristsDataViewModel.UseVouchers())
+            if (touristsDataViewModel.Confirm())
             {
                 Close();
             }

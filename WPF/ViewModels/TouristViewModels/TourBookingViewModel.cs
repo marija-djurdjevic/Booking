@@ -66,7 +66,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             if (NumberOfReservations > 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
             {
-                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id);
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id,false,new TourRequest());
                 touristsDataWindow.ShowDialog();
                 return true;
             }
