@@ -9,7 +9,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="CreateTourPage"
     Width="1024"
-    Height="768"
+    Height="3000"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -49,11 +49,11 @@
                         Content="Name:"
                         FontSize="28" />
                     <Label
-                        Margin="25,178,20,1192"
+                        Margin="25,178,20,1235"
                         Content="Language:"
                         FontSize="28" />
                     <Label
-                        Margin="25,259,20,1115"
+                        Margin="25,263,20,1155"
                         Content="Description:"
                         FontSize="28" />
 
@@ -67,36 +67,37 @@
                     <TextBox
                         Grid.Row="0"
                         Height="42"
-                        Margin="215,108,629,1290"
+                        Margin="215,115,629,1337"
                         Text="{Binding Name, Mode=TwoWay}" />
                     <ComboBox
-                        x:Name="ComboBoxLanguage"
-                        Grid.Row="0"
-                        Width="163"
-                        Height="42"
-                        Margin="215,191,629,1207" />
+                    x:Name="ComboBoxLangugage"
+                    Grid.Row="0"
+                    Height="42"
+                    Margin="216,184,629,1268"
+                    ItemsSource="{Binding Langugages}"
+                    SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
 
                     <TextBox
                         Grid.Row="0"
                         Height="42"
-                        Margin="215,259,173,1139"
+                        Margin="215,272,40,1180"
                         Text="{Binding Description, Mode=TwoWay}" />
 
 
                     <Label
-                        Margin="15,339,20,976"
+                        Margin="15,349,20,1087"
                         Content="Tour details:"
                         FontSize="32" />
                     <Label
-                        Margin="25,490,100,886"
+                        Margin="25,492,100,917"
                         Content="Location:"
                         FontSize="28" />
                     <Label
-                        Margin="25,402,20,976"
+                        Margin="25,408,20,998"
                         Content="Duration:"
                         FontSize="28" />
                     <Label
-                        Margin="25,580,20,807"
+                        Margin="25,582,20,829"
                         Content="Max tourists numbmer:"
                         FontSize="28" />
 
@@ -108,9 +109,8 @@
 
                     <xctk:IntegerUpDown
                         Grid.Row="0"
-                        Width="163"
                         Height="42"
-                        Margin="356,409,488,989"
+                        Margin="356,416,489,1036"
                         Increment="1"
                         Minimum="0"
                         RenderTransformOrigin="-0.113,-7.205"
@@ -120,56 +120,34 @@
                         x:Name="ComboBoxLocation"
                         Grid.Row="0"
                         Height="42"
-                        Margin="360,493,482,905" />
+                        Margin="356,500,489,952"
+                        ItemsSource="{Binding CitiesCountries}"
+                        SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
 
                     <xctk:IntegerUpDown
                         Grid.Row="0"
                         Height="42"
-                        Margin="354,584,488,814"
+                        Margin="354,591,488,861"
                         Increment="1"
                         Minimum="0"
                         Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
 
 
-                    <Label
-                        Margin="18,676,17,704"
-                        Content="Key Point:"
-                        FontSize="32" />
-                    <TextBox
-                        x:Name="KeyPointsTextBox"
-                        Width="242"
-                        Height="46"
-                        Margin="204,682,561,712"
-                        Text="{Binding KeyPoints, Mode=TwoWay}" />
-                    <Button
-                        Width="128"
-                        Height="48"
-                        Margin="503,682,376,710"
-                        Click="AddKeyPointButtonClick"
-                        Content="ADD"
-                        FontSize="20" />
+                    <Label Margin="24,700,11,680" Content="Key Point:" FontSize="32" />
+                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="204,682,561,712" Text="{Binding KeyPoints, Mode=TwoWay}" />
+                    <Button Width="128" Height="48" Margin="503,682,376,710" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
 
-
-
-                    <ListBox
-                        x:Name="ListBoxKeyPoints"
-                        Height="100"
-                        Margin="204,740,561,654"
-                        ItemsSource="{Binding KeyPoints}">
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="212,785,570,609" ItemsSource="{Binding KeyPointNames}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock VerticalAlignment="Center" Text="{Binding}" />
-                                    <Button
-                                        Width="20"
-                                        Height="20"
-                                        Margin="5"
-                                        Click="RemoveKeyPointButtonClick"
-                                        Content="X" />
+                                    <Button Width="20" Height="20" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+
 
 
                     <Border
@@ -182,9 +160,9 @@
                     <Button
                         Width="184"
                         Margin="700,1220,140,158"
-                        Click="UploadButtonClick"
+                        Command="{Binding UploadImageCommand}"
                         Content="UPLOAD"
-                        FontSize="40" />
+                        FontSize="40"/>
 
                     <Grid>
                         <Image
@@ -192,39 +170,25 @@
                             Grid.Column="0"
                             Width="150"
                             Height="230"
-                            Margin="424,1146,0,0"
+                            Margin="286,1146,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Stretch="Fill">
-                            <Image.Source>
-                                <Binding Converter="{StaticResource ImagePathToBitmapConverter}" Path="ImagesPaths[currentImageIndex]" />
-                            </Image.Source>
-                        </Image>
+                            Stretch="Fill"
+                            Source="{Binding CurrentImage}" />
 
-                        <StackPanel
-                            Width="273"
-                            Margin="28,1260,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
-                            <Button
-                                Width="80"
-                                Height="30"
-                                Margin="5"
-                                Click="PreviousImageButtonClick"
-                                Content="Previous" />
-                            <Button
-                                Width="80"
-                                Height="32"
-                                Click="NextImageButtonClick"
-                                Content="Next" />
-                            <Button
-                                Width="80"
-                                Height="30"
-                                Margin="5"
-                                Click="DeleteImageButtonClick"
-                                Content="Delete" />
-                        </StackPanel>
+
+                        <Grid Margin="28,1260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding NextImageCommand}" Content="Next" Margin="460,0,-420,0"/>
+                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding PreviousImageCommand}" Content="Previous" Margin="136,0,-96,0"/>
+                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="288,127,-248,-125"/>
+                        </Grid>
+
                     </Grid>
 
 
@@ -245,7 +209,8 @@
                     <Button
                         Width="184"
                         Margin="700,1480,140,-102"
-                        Click="AddDateAndTimeButtonClick"
+                        Command="{Binding AddDateCommand}"
+                        CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
                         Content="ADD"
                         FontSize="40" />
 
@@ -264,17 +229,18 @@
                         x:Name="ListBoxDates"
                         Height="100"
                         Margin="315,1609,450,-215"
-                        ItemsSource="{Binding StartDateTime}">
+                        ItemsSource="{Binding TourDates}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" />
                                     <Button
                                         Width="20"
                                         Height="20"
                                         Margin="5"
-                                        Click="RemoveDateButtonClick"
+                                        Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                         Content="X"
+                                        CommandParameter="{Binding}"
                                         DataContext="{Binding Path=.}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -287,7 +253,7 @@
                     <Button
                         Width="184"
                         Margin="392,2026,448,-648"
-                        Click="CreateTourButtonClick"
+                         Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         Content="CONFRIM"
                         FontSize="40" />
 
