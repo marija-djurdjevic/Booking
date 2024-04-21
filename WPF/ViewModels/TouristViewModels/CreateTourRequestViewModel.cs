@@ -1,39 +1,32 @@
-﻿using BookingApp.Repositories;
+﻿using BookingApp.Aplication;
+using BookingApp.Aplication.Dto;
+using BookingApp.Aplication.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.View.TouristView;
+using BookingApp.WPF.ViewModel.TouristViewModel;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows;
-using BookingApp.Domain.Models;
-using BookingApp.Aplication.UseCases;
-using BookingApp.Aplication.Dto;
-using BookingApp.Aplication;
-using BookingApp.Domain.RepositoryInterfaces;
+using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class SearchViewModel : INotifyPropertyChanged
+    public class CreateTourRequestViewModel: INotifyPropertyChanged
     {
-        public TourDto SearchParams { get; set; }
-        public static ObservableCollection<TourDto> Tours { get; set; }
+        private readonly GlobalLanguagesService GlobalLanguagesService;
+        private readonly GlobalLocationsService GlobalLocationsService;
+
         public static List<string> Countires { get; set; }
         public static List<string> AllCities { get; set; }
         public static List<string> Languages { get; set; }
-        public LocationDto SelectedLocation { get; set; }
 
         private List<string> cities;
-
-        private readonly TourService TourService;
-        private readonly GlobalLanguagesService GlobalLanguagesService;
-        private readonly SearchTourService SearchTourService;
-        private readonly GlobalLocationsService GlobalLocationsService;
-        public bool IsCancelSearchButtonVisible { get; set; }
-
         public List<string> Cities
         {
             get => cities;
@@ -46,6 +39,21 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 }
             }
         }
+        public LocationDto SelectedLocation { get; set; }
+        public User LoggedInUser { get; set; }
+        private TourRequest tourRequest { get; set; }
+        public TourRequest TourRequest
+        {
+            get => tourRequest;
+            set
+            {
+                if (value != tourRequest)
+                {
+                    tourRequest = value;
+                    OnPropertyChanged(nameof(tourRequest));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,23 +62,19 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        public SearchViewModel(ObservableCollection<TourDto> tours)
+        public CreateTourRequestViewModel(User loggedInUser)
         {
-            Tours = tours;
-            SearchParams = new TourDto();
+            LoggedInUser = loggedInUser;
+            TourRequest = new TourRequest();
+            TourRequest.TouristId = LoggedInUser.Id;
             SelectedLocation = new LocationDto();
 
-            TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
 
             Countires = GlobalLocationsService.GetAllCountries();
             Languages = GlobalLanguagesService.GetAll();
             AllCities = GlobalLocationsService.GetAllCities();
-            SearchTourService = new SearchTourService(Injector.CreateInstance<ITourRepository>());
-
-            IsCancelSearchButtonVisible = false;
 
             UpdateCitiesFromList(AllCities);
         }
@@ -82,41 +86,23 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public void Confirm()
         {
-            List<Tour> matchingTours = SearchTourService.GetMatchingTours(SearchParams);
-
-            if (matchingTours.Count > 0)
-            {
-                UpdateCollection(matchingTours);
-                IsCancelSearchButtonVisible = true;
-            }
-            else
-            {
-                MessageBox.Show("There are no tours with that parameters");
-                UpdateCollection(TourService.GetAll());
-            }
+            new TouristsDataWindow(TourRequest.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequest).ShowDialog();
         }
 
-        private void UpdateCollection(List<Tour> tours)
-        {
-            Tours.Clear();
-            foreach (var tour in tours)
-            {
-                Tours.Add(new TourDto(tour));
-            }
-        }
+        
 
         public void CityComboBoxLostFocus()
         {
-            if (AllCities.Contains(SelectedLocation.City) && !string.Equals(SearchParams.LocationDto.City, SelectedLocation.City))
+            if (AllCities.Contains(SelectedLocation.City) && !string.Equals(TourRequest.Location.City, SelectedLocation.City))
             {
                 SelectedLocation.Country = GlobalLocationsService.GetCountryForCity(SelectedLocation.City.ToString());
             }
-            SearchParams.LocationDto.City = SelectedLocation.City;
+            TourRequest.Location.City = SelectedLocation.City;
         }
 
         public void CountryComboBoxChanged()
         {
-            if (!string.Equals(SearchParams.LocationDto.Country, SelectedLocation.Country))
+            if (!string.Equals(TourRequest.Location.Country, SelectedLocation.Country))
             {
                 if (!string.IsNullOrEmpty(SelectedLocation.Country))
                 {
@@ -125,7 +111,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 }
                 else if (string.IsNullOrEmpty(SelectedLocation.Country))
                     UpdateCitiesFromList(AllCities);
-                SearchParams.LocationDto.Country = SelectedLocation.Country;
+                TourRequest.Location.Country = SelectedLocation.Country;
 
             }
         }

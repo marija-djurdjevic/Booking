@@ -203,7 +203,8 @@
                         </Button.Style>
 
                     </Button>
-                    <Button Click="ShowAndSearchToursButtonClick">
+
+                    <Button Click="TourRequestsButtonClick">
                         <Border>
 
                             <TextBlock
@@ -215,7 +216,7 @@
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                            <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="TourRequests">
                                                 <Setter Property="FontWeight" Value="Bold" />
                                                 <Setter Property="FontSize" Value="28" />
                                             </DataTrigger>
@@ -227,7 +228,7 @@
                             <Border.Style>
                                 <Style BasedOn="{StaticResource OkvirKarticeMeni}" TargetType="Border">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                        <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="TourRequests">
                                             <Setter Property="Height" Value="100" />
                                             <Setter Property="CornerRadius" Value="30" />
                                             <Setter Property="Background" Value="{StaticResource SelectedCardColor}" />
@@ -239,7 +240,7 @@
                         <Button.Style>
                             <Style BasedOn="{StaticResource MainCardTabs}" TargetType="Button">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="Request">
+                                    <DataTrigger Binding="{Binding ActiveCard, UpdateSourceTrigger=PropertyChanged}" Value="TourRequests">
                                         <Setter Property="FontWeight" Value="Bold" />
                                         <Setter Property="Height" Value="105" />
                                     </DataTrigger>
@@ -248,6 +249,7 @@
                         </Button.Style>
 
                     </Button>
+
                     <Button Click="ShowAndSearchToursButtonClick">
                         <Border>
 

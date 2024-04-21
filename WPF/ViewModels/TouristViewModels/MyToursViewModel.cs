@@ -49,36 +49,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 OnPropertyChanged();
             }
         }
-        private Visibility noMyToursTextVisibility;
-        public Visibility NoMyToursTextVisibility
-        {
-            get { return noMyToursTextVisibility; }
-            set
-            {
-                noMyToursTextVisibility = value;
-                OnPropertyChanged(nameof(NoMyToursTextVisibility));
-            }
-        }
-        private Visibility noFinishedToursTextVisibility;
-        public Visibility NoFinishedToursTextVisibility
-        {
-            get { return noFinishedToursTextVisibility; }
-            set
-            {
-                noFinishedToursTextVisibility = value;
-                OnPropertyChanged(nameof(NoFinishedToursTextVisibility));
-            }
-        }
-        private Visibility noActiveToursTextVisibility;
-        public Visibility NoActiveToursTextVisibility
-        {
-            get { return noActiveToursTextVisibility; }
-            set
-            {
-                noActiveToursTextVisibility = value;
-                OnPropertyChanged(nameof(NoActiveToursTextVisibility));
-            }
-        }
 
         private string allToursSelectedSort;
         public string AllToursSelectedSort
@@ -131,7 +101,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 string tourStatusMessage = myToursService.GetTourStatusMessage(LoggedInUser.Id, tour.Id);
                 Tours.Add(new Tuple<TourDto, Visibility, string>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id), tourStatusMessage));
             }
-            NoMyToursTextVisibility = Tours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
 
             FinishedTours.Clear();
             foreach (var tour in myToursService.GetMyFinishedTours(LoggedInUser.Id))
@@ -139,7 +108,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 string tourStatusMessage = myToursService.GetTourStatusMessage(LoggedInUser.Id, tour.Id);
                 FinishedTours.Add(new Tuple<TourDto, Visibility, string>(new TourDto(tour), IsRateButtonVisible(tour.Id, LoggedInUser.Id), tourStatusMessage));
             }
-            NoFinishedToursTextVisibility = FinishedTours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
 
             ActiveTours.Clear();
             foreach (Tour tour in myToursService.GetMyActiveReserved(LoggedInUser.Id))
@@ -149,7 +117,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 KeyPoint endPoint = tour.KeyPoints.Last();
                 ActiveTours.Add(new Tuple<TourDto, List<KeyPoint>, KeyPoint>(tourDto, keyPoints, endPoint));
             }
-            NoActiveToursTextVisibility = ActiveTours.Count() < 1 ? Visibility.Visible : Visibility.Collapsed;
         }
         private Visibility IsRateButtonVisible(int tourId, int userId)
         {

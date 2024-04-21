@@ -87,56 +87,112 @@
                                     </StackPanel>
                                 </GroupBox.Header>
                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <WrapPanel
-                                        Grid.Row="0"
-                                        Margin="10"
-                                        Orientation="Horizontal">
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Text="Persons: "
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            FontWeight="Bold"
-                                            Text="{Binding Item2}"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Text=" have been added to the tour: "
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            FontWeight="Bold"
-                                            Text="{Binding Item1.TourName}"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Text=" KeyPoint: "
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            FontWeight="Bold"
-                                            Text="{Binding Item1.ActiveKeyPoint}"
-                                            TextWrapping="Wrap" />
-                                    </WrapPanel>
+                                    <Grid Visibility="{Binding Item1.Type, ConverterParameter=joined, Converter={cvt:TouristNotificationConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <WrapPanel
+                                            Grid.Row="0"
+                                            Margin="10"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                Text="Persons: "
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item2}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                Text=" have been added to the tour: "
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.TourName}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                Text=" KeyPoint: "
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.ActiveKeyPoint}"
+                                                TextWrapping="Wrap" />
+                                        </WrapPanel>
 
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Margin="10"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
-                                        FontWeight="Bold"
-                                        Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            FontWeight="Bold"
+                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </Grid>
+                                    <Grid Visibility="{Binding Item1.Type, ConverterParameter=accepted, Converter={cvt:TouristNotificationConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Vertical">
+                                            <WrapPanel
+                                                Grid.Row="0"
+                                                Margin="10"
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Text="Request: "
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.RequestId}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Text=" accepted."
+                                                    TextWrapping="Wrap" />
+                                            </WrapPanel>
+
+                                            <WrapPanel
+                                                Grid.Row="0"
+                                                Margin="10"
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Text="Tour start time: "
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Item1.AcceptedTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}"
+                                                    TextWrapping="Wrap" />
+                                            </WrapPanel>
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            FontWeight="Bold"
+                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </Grid>
                                 </Grid>
                                 <GroupBox.Style>
                                     <Style BasedOn="{StaticResource GroupVauceri}" TargetType="GroupBox">
