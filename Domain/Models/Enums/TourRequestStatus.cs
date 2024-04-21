@@ -8,8 +8,8 @@ namespace BookingApp.Domain.Models.Enums
 {
     public enum TourRequestStatus
     {
-        Pending,
         Accepted,
+        Pending,
         Invalid
     }
 }

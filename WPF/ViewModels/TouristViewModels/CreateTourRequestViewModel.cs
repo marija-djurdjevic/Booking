@@ -3,6 +3,8 @@ using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.View.TouristView;
+using BookingApp.WPF.ViewModel.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,6 +66,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             LoggedInUser = loggedInUser;
             TourRequest = new TourRequest();
+            TourRequest.TouristId = LoggedInUser.Id;
             SelectedLocation = new LocationDto();
 
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
@@ -83,7 +86,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            
+            new TouristsDataWindow(TourRequest.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequest).ShowDialog();
         }
 
         

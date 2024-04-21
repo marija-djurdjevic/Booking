@@ -184,7 +184,7 @@
                                 FontSize="20"
                                 FontWeight="Black"
                                 Text="You haven't created any reservation yet."
-                                Visibility="{Binding NoMyToursTextVisibility}" />
+                                Visibility="{Binding Tours.Count, Converter={cvt:StatusMessageConverter}}" />
 
                             <ScrollViewer
                                 Grid.Row="1"
@@ -353,7 +353,7 @@
                             FontSize="20"
                             FontWeight="Black"
                             Text="No active tours available at the moment."
-                            Visibility="{Binding NoActiveToursTextVisibility}" />
+                            Visibility="{Binding ActiveTours.Count, Converter={cvt:StatusMessageConverter}}" />
 
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
@@ -649,7 +649,7 @@
                                 FontSize="20"
                                 FontWeight="Black"
                                 Text="You haven't finished reservation yet."
-                                Visibility="{Binding NoFinishedToursTextVisibility}" />
+                                Visibility="{Binding FinishedTours.Count, Converter={cvt:StatusMessageConverter}}" />
 
                             <ScrollViewer
                                 Grid.Row="1"

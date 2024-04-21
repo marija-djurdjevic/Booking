@@ -397,6 +397,16 @@
             </Style.Triggers>
         </Style>
 
+        <!--  Kalendari  -->
+        <Style x:Key="IncreasedDayStyle" TargetType="CalendarDayButton">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="DatePickerCalendarStyle" TargetType="{x:Type Calendar}">
+            <Setter Property="CalendarDayButtonStyle" Value="{StaticResource IncreasedDayStyle}" />
+        </Style>
+
+
 
         <!--  .  -->
     </Application.Resources>

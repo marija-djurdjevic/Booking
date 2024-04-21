@@ -62,7 +62,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             string title = "Request ";
             foreach (var request in tourRequestService.GetByTouristId(LoggedInUser.Id))
             {
-                TourRequests.Add(new Tuple<TourRequest, string>(request,title+i));
+                TourRequests.Add(new Tuple<TourRequest, string>(request,title + ++i));
             }
         }
 
@@ -73,7 +73,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void SortingSelectionChanged()
         {
-            //tourRequestService.SortTours(TourRequests, RequestsSelectedSort);
+            tourRequestService.SortTours(TourRequests, RequestsSelectedSort);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -82,6 +82,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public void CreateTourRequest()
         {
             new CreateTourRequestWindow(LoggedInUser).ShowDialog();
+            GetMyRequests();
         }
     }
 }

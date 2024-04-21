@@ -20,17 +20,18 @@ namespace BookingApp.Domain.Models
         public int TouristNumber { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<Tuple<string,string,int>> Persons { get; set; }
+        public List<Tuple<string, string, int>> Persons { get; set; }
         public TourRequestStatus Status { get; set; }
         public DateTime AcceptedDate { get; set; }
 
-        public TourRequest() 
-        { 
+        public TourRequest()
+        {
             Location = new Location();
             Persons = new List<Tuple<string, string, int>>();
+            Status = TourRequestStatus.Pending;
         }
 
-        public TourRequest(int id,int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate)
+        public TourRequest(int id, int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate)
         {
             Id = id;
             TouristId = touristId;
@@ -42,7 +43,7 @@ namespace BookingApp.Domain.Models
             EndDate = endDate;
             Status = TourRequestStatus.Pending;
         }
-        
+
         public string[] ToCSV()
         {
             string persons = "";
@@ -50,7 +51,7 @@ namespace BookingApp.Domain.Models
             {
                 persons += person.Item1 + "," + person.Item2 + "," + person.Item3 + ",";
             }
-            string[] csvValues = { Id.ToString(),TouristId.ToString(),GuideId.ToString(), Location.City,Location.Country, Description, Language, TouristNumber.ToString(),StartDate.ToString("dd.MM.yyyy HH:mm:ss"),EndDate.ToString("dd.MM.yyyy HH:mm:ss"),Status.ToString(),AcceptedDate.ToString("dd.MM.yyyy HH:mm:ss"),persons };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), Location.City, Location.Country, Description, Language, TouristNumber.ToString(), StartDate.ToString("dd.MM.yyyy HH:mm:ss"), EndDate.ToString("dd.MM.yyyy HH:mm:ss"), Status.ToString(), AcceptedDate.ToString("dd.MM.yyyy HH:mm:ss"), persons };
             return csvValues;
         }
 
@@ -66,11 +67,11 @@ namespace BookingApp.Domain.Models
             TouristNumber = Convert.ToInt32(values[7]);
             StartDate = DateTime.ParseExact(values[8], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
             EndDate = DateTime.ParseExact(values[9], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
-            Status = (TourRequestStatus)Enum.Parse(typeof(TourRequestStatus),values[10]);
+            Status = (TourRequestStatus)Enum.Parse(typeof(TourRequestStatus), values[10]);
             AcceptedDate = DateTime.ParseExact(values[11], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
             for (int i = 12; i < values.Length; i++)
             {
-                var osoba= values[i].Split(',');
+                var osoba = values[i].Split(',');
                 Tuple<string, string, int> osobaTuple = new Tuple<string, string, int>(osoba[0], osoba[1], Convert.ToInt32(osoba[2]));
                 Persons.Add(osobaTuple);
             }
