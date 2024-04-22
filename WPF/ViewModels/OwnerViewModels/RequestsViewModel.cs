@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 
-namespace BookingApp.WPF.ViewModel.OwnerViewModel
+namespace BookingApp.WPF.ViewModels.OwnerViewModel
 {
     public class RequestsViewModel
     {

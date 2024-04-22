@@ -15,9 +15,9 @@ using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class SearchViewModel : INotifyPropertyChanged
+    public class SearchViewModel : BindableBase
     {
         public TourDto SearchParams { get; set; }
         public static ObservableCollection<TourDto> Tours { get; set; }
@@ -42,19 +42,10 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 if (value != cities)
                 {
                     cities = value;
-                    OnPropertyChanged(nameof(cities));
+                    OnPropertyChanged(nameof(Cities));
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
         public SearchViewModel(ObservableCollection<TourDto> tours)
         {
             Tours = tours;

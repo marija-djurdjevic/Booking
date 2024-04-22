@@ -14,22 +14,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class VoucherViewModel : INotifyPropertyChanged
+    public class VoucherViewModel : BindableBase
     {
         public static ObservableCollection<Tuple<Voucher, string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
 
+        private int unreadNotificationCount;
+        public int UnreadNotificationCount
+        {
+            get { return unreadNotificationCount; }
+            set
+            {
+                unreadNotificationCount = value;
+                OnPropertyChanged(nameof(UnreadNotificationCount));
+            }
+        }
+
         private readonly VoucherService voucherService;
+        private readonly TouristGuideNotificationService notificationService;
 
         public VoucherViewModel(User loggedInUser)
         {
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
             GetMyVouchers();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         public void GetMyVouchers()
@@ -48,13 +62,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
             notificationsWindow.ShowDialog();
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
     }
 }

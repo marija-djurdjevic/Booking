@@ -17,9 +17,9 @@ using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class RateTourViewModel : INotifyPropertyChanged
+    public class RateTourViewModel : BindableBase
     {
         private string showingImage;
         public string ShowingImage
@@ -86,10 +86,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             TouristExperience.TourId = SelectedTour.Id;
 
             ImageIndex = -1;
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void Confirm()

@@ -13,11 +13,10 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class TouristNotificationsViewModel : INotifyPropertyChanged
+    public class TouristNotificationsViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Tuple<TouristGuideNotification, string>> Notifications { get; set; }
         public User LoggedInUser { get; set; }
 
@@ -45,11 +44,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                 Notifications.Add(new Tuple<TouristGuideNotification, string>(notification, showingText));
             }
             touristGuideNotificationService.MarkAllUserMessagesAsRead(LoggedInUser.Id);
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

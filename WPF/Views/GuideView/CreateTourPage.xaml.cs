@@ -4,7 +4,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.GuideView;
-using BookingApp.WPF.ViewModel.GuidesViewModel;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 using BookingApp.WPF.ViewModels;
 using Microsoft.Win32;
 using System;

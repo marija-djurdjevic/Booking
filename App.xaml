@@ -152,6 +152,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border
+                            Padding="3"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -183,6 +184,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border
+                            Padding="3"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"

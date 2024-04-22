@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class LiveTourViewModel : BaseViewModel
     {

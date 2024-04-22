@@ -14,16 +14,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class TourBookingViewModel : INotifyPropertyChanged
+    public class TourBookingViewModel : BindableBase
     {
         public static TourService TourService;
 
         public static TouristService TouristService;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public TourDto SelectedTour { get; set; }
         public int NumberOfReservations { get; set; }
         public Tourist LoggedInTourist { get; set; }
@@ -101,10 +98,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             FullScreenImageWindow fullScreenImageWindow = new FullScreenImageWindow(SelectedTour.ImagesPaths, ImageIndex);
             fullScreenImageWindow.Show();
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

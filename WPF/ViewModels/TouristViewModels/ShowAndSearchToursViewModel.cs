@@ -17,16 +17,28 @@ using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class ShowAndSearchToursViewModel : INotifyPropertyChanged
+    public class ShowAndSearchToursViewModel : BindableBase
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
+        private int unreadNotificationCount;
+        public int UnreadNotificationCount
+        {
+            get { return unreadNotificationCount; }
+            set
+            {
+                unreadNotificationCount = value;
+                OnPropertyChanged(nameof(UnreadNotificationCount));
+            }
+        }
+
         private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
+        private readonly TouristGuideNotificationService notificationService;
 
         private bool _isCancelSearchButtonVisible;
 
@@ -34,13 +46,14 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
             IsCancelSearchButtonVisible = false;
             LoggedInUser = loggedInUser;
             GetAllTours();
-
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         public bool IsCancelSearchButtonVisible
@@ -54,13 +67,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
                     OnPropertyChanged("IsCancelSearchButtonVisible");
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void GetAllTours()
@@ -101,6 +107,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
             notificationsWindow.ShowDialog();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         public void ShowAllTours()

@@ -14,7 +14,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Aplication;
 
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     internal class TouristsNumberPageViewModel : BaseViewModel
     {

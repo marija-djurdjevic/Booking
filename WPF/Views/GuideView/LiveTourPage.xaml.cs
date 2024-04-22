@@ -2,7 +2,7 @@
 using BookingApp.Domain.Models.Enums;
 using BookingApp.Repositories;
 using BookingApp.View.GuideView;
-using BookingApp.WPF.ViewModel.GuidesViewModel;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

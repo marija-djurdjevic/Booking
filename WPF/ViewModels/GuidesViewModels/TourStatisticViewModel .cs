@@ -14,7 +14,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class TourStatisticViewModel : BaseViewModel
     {

@@ -13,9 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class VouchersForReservationViewModel : INotifyPropertyChanged
+    public class VouchersForReservationViewModel : BindableBase
     {
         public static ObservableCollection<Tuple<Voucher, string>> Vouchers { get; set; }
         public User LoggedInUser { get; set; }
@@ -63,14 +63,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             WindowReturnValue = true;
             return true;
-        }
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

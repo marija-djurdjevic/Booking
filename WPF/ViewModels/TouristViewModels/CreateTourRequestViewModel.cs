@@ -4,7 +4,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class CreateTourRequestViewModel: INotifyPropertyChanged
+    public class CreateTourRequestViewModel: BindableBase
     {
         private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly GlobalLocationsService GlobalLocationsService;
@@ -35,7 +35,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 if (value != cities)
                 {
                     cities = value;
-                    OnPropertyChanged(nameof(cities));
+                    OnPropertyChanged(nameof(Cities));
                 }
             }
         }
@@ -50,16 +50,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 if (value != tourRequest)
                 {
                     tourRequest = value;
-                    OnPropertyChanged(nameof(tourRequest));
+                    OnPropertyChanged(nameof(TourRequest));
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public CreateTourRequestViewModel(User loggedInUser)

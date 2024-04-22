@@ -18,10 +18,8 @@ using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class TourRequestsViewModel : INotifyPropertyChanged
+    public class TourRequestsViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private readonly TourRequestService tourRequestService;
 
         private ObservableCollection<Tuple<TourRequest, string>> tourRequests;
@@ -44,15 +42,29 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 OnPropertyChanged(nameof(RequestsSelectedSort));
             }
         }
+
+        private int unreadNotificationCount;
+        public int UnreadNotificationCount
+        {
+            get { return unreadNotificationCount; }
+            set
+            {
+                unreadNotificationCount = value;
+                OnPropertyChanged(nameof(UnreadNotificationCount));
+            }
+        }
         public User LoggedInUser { get; set; }
+        private readonly TouristGuideNotificationService notificationService;
 
         public TourRequestsViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
             TourRequests = new ObservableCollection<Tuple<TourRequest, string>>();
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
 
             GetMyRequests();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         private void GetMyRequests()
@@ -69,16 +81,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public void OpenInbox()
         {
             new NotificationsWindow(LoggedInUser).ShowDialog();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         public void SortingSelectionChanged()
         {
             tourRequestService.SortTours(TourRequests, RequestsSelectedSort);
         }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
-
         public void CreateTourRequest()
         {
             new CreateTourRequestWindow(LoggedInUser).ShowDialog();

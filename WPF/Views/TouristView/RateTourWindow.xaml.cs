@@ -18,7 +18,7 @@ using System.Windows.Controls.Primitives;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
 
 namespace BookingApp.View.TouristView

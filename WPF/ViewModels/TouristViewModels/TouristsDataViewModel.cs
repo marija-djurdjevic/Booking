@@ -15,9 +15,9 @@ using System.Windows;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class TouristsDataViewModel : INotifyPropertyChanged
+    public class TouristsDataViewModel : BindableBase
     {
         public ObservableCollection<Tuple<TourReservation, string, bool>> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
@@ -103,13 +103,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             MessageBoxResult successfullyBooked = MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK);
             return true;
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

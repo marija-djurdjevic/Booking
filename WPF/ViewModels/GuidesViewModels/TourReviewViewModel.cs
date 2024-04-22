@@ -12,7 +12,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class TourReviewViewModel : BaseViewModel
     {

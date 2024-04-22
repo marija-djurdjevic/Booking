@@ -13,8 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.View;
-using BookingApp.WPF.ViewModel;
-using BookingApp.WPF.ViewModel.GuidesViewModel;
+using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 
 namespace BookingApp.View.GuideView
 {

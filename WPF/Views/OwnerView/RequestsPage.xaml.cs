@@ -16,9 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Repositories;
 using BookingApp.Serializer;
-using BookingApp.WPF.ViewModel;
+using BookingApp.WPF.ViewModels;
 using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.OwnerViewModel;
+using BookingApp.WPF.ViewModels.OwnerViewModel;
 
 namespace BookingApp.View
 {

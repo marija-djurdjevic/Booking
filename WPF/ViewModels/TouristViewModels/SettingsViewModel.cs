@@ -11,9 +11,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class SettingsViewModel : INotifyPropertyChanged
+    public class SettingsViewModel : BindableBase
     {
         public Tourist Tourist { get; set; }
         public TouristService TouristService { get; set; }
@@ -34,13 +34,6 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         {
             TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
             Tourist = TouristService.GetByUserId(loggedInUser.Id);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
