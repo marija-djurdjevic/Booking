@@ -35,7 +35,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             set
             {
                 showingImage = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowingImage)));
+                OnPropertyChanged(nameof(ShowingImage));
             }
         }
 
