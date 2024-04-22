@@ -9,7 +9,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="CreateTourPage"
     Width="1024"
-    Height="3000"
+    Height="768"
     mc:Ignorable="d">
 
     <Page.Resources>
