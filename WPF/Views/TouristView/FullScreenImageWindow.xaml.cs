@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,29 +23,20 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class FullScreenImageWindow : Window
     {
-        private FullScreenImageViewModel viewModel;
         public FullScreenImageWindow(List<string> imagePaths, int showingIndex)
         {
             InitializeComponent();
-            viewModel = new FullScreenImageViewModel(imagePaths, showingIndex);
-            DataContext= viewModel;
-
+            DataContext= new FullScreenImageViewModel(imagePaths, showingIndex);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
             Slika.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-100;
         }
 
-        private void NextImageButtonClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            viewModel.GetNextImage();
-        }
-
-        private void PreviousImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            viewModel.GetPreviousImage();
-        }
-
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
+            if (message.Notification == "FullScreenImageWindowMessage")
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -55,6 +58,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
         }
 
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand CityComboBoxCommand { get; set; }
+        public RelayCommand CountryComboBoxCommand { get; set; }
+        public RelayCommand<object> OpenDropDownCommand { get; set; }
+
         public CreateTourRequestViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -70,6 +80,21 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             AllCities = GlobalLocationsService.GetAllCities();
 
             UpdateCitiesFromList(AllCities);
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+            CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
+            CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
+            OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
+        }
+
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning,style);
+            if(result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }
 
         private void UpdateCitiesFromList(List<string> cities)
@@ -82,9 +107,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             new TouristsDataWindow(TourRequest.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequest).ShowDialog();
         }
 
-        
+        private void Help()
+        { }
 
-        public void CityComboBoxLostFocus()
+        public void CityComboBoxLostFocus(object parameter)
         {
             if (AllCities.Contains(SelectedLocation.City) && !string.Equals(TourRequest.Location.City, SelectedLocation.City))
             {
@@ -112,7 +138,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public void OpenDropDownClick(object sender)
         {
             var comboBox = sender as ComboBox;
-            comboBox.IsDropDownOpen = Cities.Count() > 500 ? false : true;
+            if (comboBox != null)
+                comboBox.IsDropDownOpen = Cities.Count() > 500 ? false : true;
         }
     }
 }

@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvmLight="http://www.galasoft.ch/mvvmlight"
     xmlns:rh="http://schemas.rollinghours.com/wpf"
     Title="Booking app"
     Width="554"
@@ -14,6 +16,7 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
     <DockPanel Margin="20,10,20,10">
         <DockPanel
             Grid.ColumnSpan="2"
@@ -32,7 +35,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -75,26 +78,39 @@
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Countires}"
-                    LostFocus="CountryComboBoxChanged"
                     SelectedItem="{Binding SelectedLocation.Country}"
                     Text="{Binding SelectedLocation.Country}"
-                    TextSearch.TextPath="." />
+                    TextSearch.TextPath=".">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding CountryComboBoxCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
                 <ComboBox
+                    x:Name="myComboBox"
                     Width="300"
                     Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     AllowDrop="False"
-                    DropDownOpened="OpenDropDownClick"
                     FontSize="20"
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Cities}"
-                    LostFocus="CityComboBoxLostFocus"
                     SelectedItem="{Binding SelectedLocation.City}"
                     Text="{Binding SelectedLocation.City}"
-                    TextSearch.TextPath="." />
+                    TextSearch.TextPath=".">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding CityComboBoxCommand}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="DropDownOpened">
+                            <i:InvokeCommandAction Command="{Binding OpenDropDownCommand}" CommandParameter="{Binding ElementName=myComboBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
 
                 <Grid
                     Width="300"
@@ -205,7 +221,7 @@
 
             <Button
                 Grid.Column="1"
-                Click="ConfirmClick"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -224,7 +240,7 @@
 
             <Button
                 Grid.Column="0"
-                Click="CancelClick"
+                Command="{Binding CancelCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">

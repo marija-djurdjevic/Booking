@@ -34,7 +34,7 @@
                 Width="350"
                 Height="70"
                 Background="{StaticResource PageColor}"
-                Click="PreviousImageButtonClick">
+                Command="{Binding PreviousImageCommand}">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
@@ -47,7 +47,7 @@
                 Width="350"
                 Height="70"
                 Background="{StaticResource PageColor}"
-                Click="NextImageButtonClick">
+                Command="{Binding NextImageCommand}">
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
@@ -61,7 +61,7 @@
             Grid.Row="1"
             Padding="10,0"
             HorizontalAlignment="Center"
-            Click="CloseButtonClick"
+            Command="{Binding CloseWindowCommand}"
             FontSize="50"
             Style="{StaticResource CancelButton}">
             <Button.Content>
