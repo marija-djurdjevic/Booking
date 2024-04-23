@@ -4,6 +4,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.View;
+using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 using Microsoft.Win32;
 using System;
@@ -48,6 +50,7 @@ namespace BookingApp.WPF.ViewModels
         private RelayCommand deleteImageCommand;
         private RelayCommand addDateCommand;
         private RelayCommand removeDateCommand;
+        private RelayCommand sideMenuCommand;
         public ObservableCollection<string> KeyPointNames { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> Langugages { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> CitiesCountries { get; set; } = new ObservableCollection<string>();
@@ -71,7 +74,7 @@ namespace BookingApp.WPF.ViewModels
             deleteImageCommand = new RelayCommand(DeleteImage);
             addDateCommand = new RelayCommand(AddDate);
             removeDateCommand = new RelayCommand(RemoveDate);
-
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             TourDto = new TourDto();
             LoadLanguages();
             LoadCitiesCountries();
@@ -300,6 +303,34 @@ namespace BookingApp.WPF.ViewModels
         }
 
 
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+
+
+
+
+
+
         private void RemoveKeyPoint(object parameter)
         {
             string keyPointName = parameter.ToString();
@@ -353,6 +384,7 @@ namespace BookingApp.WPF.ViewModels
             string keyPointName = parameter.ToString();
             KeyPointNames.Add(keyPointName);
            
+
         }
 
 

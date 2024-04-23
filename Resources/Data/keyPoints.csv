@@ -50,3 +50,20 @@
 58|11|Banja Luka|Middle|2|False
 59|11|Beograd|Middle|3|False
 60|11|Novi Sad|End|4|False
+61|12|adfadf|Begining|1|False
+62|12|adfadfadf|End|2|False
+63|13|sdsD|Begining|1|False
+64|13|sdsDsdSD|End|2|False
+65|14|aaaaa|Begining|1|False
+66|14|ssssss|Middle|2|False
+67|14|ddddd|Middle|3|False
+68|14|fffffff|End|4|False
+69|15|aaaaa|Begining|1|False
+70|15|ssssss|Middle|2|False
+71|15|ddddd|Middle|3|False
+72|15|fffffff|End|4|False
+73|16|jedan|Begining|1|True
+74|16|dva|Middle|2|True
+75|16|tri|Middle|3|False
+76|16|cetiri|Middle|4|False
+77|16|pet|End|5|False

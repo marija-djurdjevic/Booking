@@ -27,6 +27,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private readonly TouristExperienceService touristExperienceService;
         private RelayCommand navigateHomeCommand;
         private RelayCommand navigateBackCommand;
+        private RelayCommand sideMenuCommand;
 
         public TouristsNumberPageViewModel(int tourId)
         {
@@ -36,6 +37,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             CountTouristsByAge();
         }
 
@@ -128,7 +130,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
         private void ExecuteNavigateHome()
         {
-            var mainPage = new GuideMainPage1();
+            var mainPage = new GuideMainPage();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
@@ -138,5 +140,30 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             var tourStatisticPage = new TourStatistic();
             GuideMainWindow.MainFrame.Navigate(tourStatisticPage);
         }
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+
     }
 }

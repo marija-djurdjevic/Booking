@@ -19,12 +19,12 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-            <Grid Background="White">
+            <Grid Background="White" Height="2162">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" MinHeight="835" />
-                    <RowDefinition Height="Auto" MinHeight="0" />
+                    <RowDefinition Height="Auto" MinHeight="550" />
+                    <RowDefinition Height="Auto" MinHeight="285" />
 
                 </Grid.RowDefinitions>
 
@@ -39,7 +39,7 @@
 
 
                     <Label
-                        Height="794"
+                        Height="357"
                         Margin="15,44,20,0"
                         VerticalAlignment="Top"
                         Content="Basic informations:"
@@ -60,7 +60,7 @@
 
                     <Border
                         Height="2"
-                        Margin="0,330,0,1108"
+                        Margin="0,404,0,1106"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,1" />
 
@@ -79,38 +79,38 @@
 
                     <TextBox
                         Grid.Row="0"
-                        Height="42"
-                        Margin="215,272,40,1180"
+                        Margin="215,277,40,1119"
+                        TextWrapping="Wrap"
                         Text="{Binding Description, Mode=TwoWay}" />
 
 
                     <Label
-                        Margin="15,349,20,1087"
+                        Margin="15,409,20,1027"
                         Content="Tour details:"
                         FontSize="32" />
                     <Label
-                        Margin="25,492,100,917"
+                        Margin="25,561,100,863"
                         Content="Location:"
                         FontSize="28" />
                     <Label
-                        Margin="25,408,20,998"
+                        Margin="25,466,20,956"
                         Content="Duration:"
                         FontSize="28" />
                     <Label
-                        Margin="25,582,20,829"
+                        Margin="24,656,21,779"
                         Content="Max tourists numbmer:"
                         FontSize="28" />
 
                     <Border
                         Height="2"
-                        Margin="0,641,0,797"
+                        Margin="0,728,0,764"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,1" />
 
                     <xctk:IntegerUpDown
                         Grid.Row="0"
                         Height="42"
-                        Margin="356,416,489,1036"
+                        Margin="356,474,489,996"
                         Increment="1"
                         Minimum="0"
                         RenderTransformOrigin="-0.113,-7.205"
@@ -120,29 +120,29 @@
                         x:Name="ComboBoxLocation"
                         Grid.Row="0"
                         Height="42"
-                        Margin="356,500,489,952"
+                        Margin="356,571,489,899"
                         ItemsSource="{Binding CitiesCountries}"
                         SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
 
                     <xctk:IntegerUpDown
                         Grid.Row="0"
                         Height="42"
-                        Margin="354,591,488,861"
+                        Margin="354,661,488,809"
                         Increment="1"
                         Minimum="0"
                         Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
 
 
-                    <Label Margin="24,700,11,680" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="204,682,561,712" Text="{Binding KeyPoints, Mode=TwoWay}" />
-                    <Button Width="128" Height="48" Margin="503,682,376,710" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+                    <Label Margin="24,776,11,604" Content="Key Point:" FontSize="32" />
+                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="210,786,555,675" Text="{Binding KeyPoints, Mode=TwoWay}" />
+                    <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
 
-                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="212,785,570,609" ItemsSource="{Binding KeyPointNames}">
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,862,550,550" ItemsSource="{Binding KeyPointNames}" FontSize="20">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
-                                    <Button Width="20" Height="20" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}"  FontSize="20" />
+                                    <Button Width="30" Height="30" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X"  FontSize="20" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -157,20 +157,25 @@
                         BorderThickness="0,0,0,1" />
 
 
-                    <Button
-                        Width="184"
-                        Margin="700,1220,140,158"
-                        Command="{Binding UploadImageCommand}"
-                        Content="UPLOAD"
-                        FontSize="40"/>
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="661,1204,79,154">
+                        <Button
+                                Height="58"
+                                Padding="-2"
+                                Command="{Binding UploadImageCommand}"
+                                Content="UPLOAD"
+                                FontSize="40" Margin="48,47,41,42"/>
+                    </Border>
+
 
                     <Grid>
+                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,594,325" />
+
                         <Image
                             x:Name="ImagePreview"
                             Grid.Column="0"
-                            Width="150"
-                            Height="230"
-                            Margin="286,1146,0,0"
+                            Width="187"
+                            Height="157"
+                            Margin="268,1189,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Stretch="Fill"
@@ -186,7 +191,7 @@
 
                             <Button Grid.Column="2" Width="80" Height="32" Command="{Binding NextImageCommand}" Content="Next" Margin="460,0,-420,0"/>
                             <Button Grid.Column="2" Width="80" Height="32" Command="{Binding PreviousImageCommand}" Content="Previous" Margin="136,0,-96,0"/>
-                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="288,127,-248,-125"/>
+                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="298,127,-258,-125"/>
                         </Grid>
 
                     </Grid>
@@ -202,41 +207,37 @@
                         BorderThickness="0,0,0,1" />
 
 
-                    <TextBox
-                        x:Name="NewDateTextBox"
-                        Grid.Row="0"
-                        Margin="356,1488,486,-89" />
+
                     <Button
-                        Width="184"
-                        Margin="700,1480,140,-102"
+                        Height="60"
+                        Margin="697,1540,132,-93"
                         Command="{Binding AddDateCommand}"
                         CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
                         Content="ADD"
                         FontSize="40" />
 
                     <Label
-                        Margin="18,1488,384,-130"
+                        Margin="18,1536,384,-178"
                         Content="Start Date and Time:"
                         FontSize="28" />
                     <xctk:DateTimePicker
                         x:Name="StartDateTimePicker"
                         Grid.Row="0"
-                        Margin="356,1488,486,-89" />
+                        Margin="356,1536,424,-94" />
 
 
 
                     <ListBox
                         x:Name="ListBoxDates"
-                        Height="100"
-                        Margin="315,1609,450,-215"
+                        Margin="357,1643,390,-316"
                         ItemsSource="{Binding TourDates}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" FontSize="20" />
                                     <Button
-                                        Width="20"
-                                        Height="20"
+                                        Width="30"
+                                        Height="30"
                                         Margin="5"
                                         Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                         Content="X"
@@ -251,8 +252,8 @@
 
 
                     <Button
-                        Width="184"
-                        Margin="392,2026,448,-648"
+                        Height="65"
+                        Margin="356,1858,424,-416"
                          Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         Content="CONFRIM"
                         FontSize="40" />
@@ -269,9 +270,14 @@
             </Grid>
         </ScrollViewer>
 
+        
+        
+        
+        
+        
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -290,53 +296,20 @@
                 </Grid.ColumnDefinitions>
 
                 <!--  Slika u prvoj koloni  -->
-                <Image
-                    Grid.Column="0"
-                    Width="71"
-                    Height="71"
-                    MouseLeftButtonUp="NavigateToSideMenuPage"
-                    Source="/Resources/Images/menu5.png"
-                    Stretch="Uniform" />
+                <Button Grid.Column="0"
+                    Command="{Binding SideManuCommand}"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+                        Stretch="Uniform"
+                        Width="71"
+                        Height="71" />
+                </Button>
 
-
-
-            </Grid>
-
-
-
-            <!--  Donja navigaciona traka  -->
-            <Grid
-                Grid.Row="1"
-                Margin="0,288,0,0"
-                VerticalAlignment="Top"
-                Background="LightGray">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <!--  Prva kolona za sliku u levom cosku  -->
-                    <ColumnDefinition Width="*" />
-                    <!--  Druga kolona za sredinu  -->
-
-                </Grid.ColumnDefinitions>
-
-                <!--  Prva slika u levom cosku  -->
-                <Image
-                    Grid.Column="0"
-                    Width="59"
-                    Height="59"
-                    MouseLeftButtonUp="NavigateToMainPage"
-                    Source="/Resources/Images/back.png"
-                    Stretch="Uniform" />
-
-                <!--  Druga slika u sredini  -->
-                <Image
-                    Grid.Column="1"
-                    Width="59"
-                    Height="59"
-                    MouseLeftButtonUp="NavigateToMainPage"
-                    Source="/Resources/Images/home4.png"
-                    Stretch="Uniform" />
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE TOUR"/>
 
             </Grid>
+
         </Grid>
 
 

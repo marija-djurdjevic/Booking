@@ -44,7 +44,7 @@ namespace BookingApp.View
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage1 guideMainPage = new GuideMainPage1();
+            GuideMainPage guideMainPage = new GuideMainPage();
             this.NavigationService.Navigate(guideMainPage);
         }
 

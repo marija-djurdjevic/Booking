@@ -22,6 +22,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private int tourId;
         private RelayCommand navigateBackCommand;
         private RelayCommand reportReviewCommand;
+        private RelayCommand sideMenuCommand;
         private ObservableCollection<TouristExperience> touristExperiences;
 
         public TourReviewViewModel(int tourId)
@@ -32,6 +33,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             reportReviewCommand = new RelayCommand(ExecuteReportReview);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             TouristExperiences = new ObservableCollection<TouristExperience>();
             LoadTouristExperiences();
         }
@@ -78,7 +80,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
         private void ExecuteNavigateBack()
         {
-            var mainPage = new GuideMainPage1();
+            var mainPage = new GuideMainPage();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
@@ -105,6 +107,31 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 LoadTouristExperiences();
             }
         }
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+
 
         public ObservableCollection<TouristExperience> TouristExperiences
         {

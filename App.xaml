@@ -408,6 +408,21 @@
             <Setter Property="CalendarDayButtonStyle" Value="{StaticResource IncreasedDayStyle}" />
         </Style>
 
+        
+        <!--GUIDE-->
+        
+        
+        
+        
+        
+        
+        <!-- Stilovi za vodiča -->
+        <SolidColorBrush x:Key="VodicBackgroundColor" Color="DodgerBlue" />
+        <SolidColorBrush x:Key="VodicCardColor" Color="#E6F4F1" />
+        <SolidColorBrush x:Key="VodicPageColor" Color="#EEE8AA" />
+    
+        <!-- Dodajte ostale stilove za vodiča prema potrebi -->
+
 
 
         <!--  .  -->
