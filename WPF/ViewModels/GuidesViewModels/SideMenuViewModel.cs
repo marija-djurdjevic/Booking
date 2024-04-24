@@ -1,7 +1,9 @@
 ﻿using BookingApp.Command;
+using BookingApp.Domain.Models;
 using BookingApp.View;
 using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
+using BookingApp.WPF.Views.GuideView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +16,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
     {
         private RelayCommand sideMenuCommand;
         private RelayCommand tourStatisticCommand;
+        private RelayCommand tourRequestCommand;
+        private RelayCommand tourSuggestedCommand;
+        private RelayCommand tourRequestStatisticCommand;
 
         public SideMenuViewModel()
         {
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             tourStatisticCommand = new RelayCommand(TourStatisticCommand);
-            
+            tourRequestCommand = new RelayCommand(TourRequestCommand);
+            tourSuggestedCommand = new RelayCommand(ExecuteSuggestedTourCommand);
+            tourRequestStatisticCommand = new RelayCommand(ExecuteTourRequestStatisticCpmmand);
         }
 
+        
 
         public RelayCommand SideManuCommand
         {
@@ -36,7 +44,45 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
+        
 
+
+        public RelayCommand NavigateToSuggestedTourCommand
+        {
+            get { return tourSuggestedCommand; }
+            set
+            {
+                if (tourSuggestedCommand != value)
+                {
+                    tourSuggestedCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+
+
+        public RelayCommand NavigateToTourRequestsStatisticCommand
+        {
+            get { return tourRequestStatisticCommand; }
+            set
+            {
+                if (tourRequestStatisticCommand != value)
+                {
+                    tourRequestStatisticCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSuggestedTourCommand()
+        {
+            var suggestedTour= new CreateSuggestedTour();
+            GuideMainWindow.MainFrame.Navigate(suggestedTour);
+
+        }
 
         public RelayCommand NavigateToTourStatisticCommand
         {
@@ -46,6 +92,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 if (tourStatisticCommand != value)
                 {
                     tourStatisticCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public RelayCommand NavigateToTourRequestCommand
+        {
+            get { return tourRequestCommand; }
+            set
+            {
+                if (tourRequestCommand != value)
+                {
+                    tourRequestCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -69,6 +129,22 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             var tourStatistic = new TourStatistic();
             GuideMainWindow.MainFrame.Navigate(tourStatistic);
         }
+
+
+
+        private void TourRequestCommand()
+        {
+            var tourRequests = new TourRequests();
+            GuideMainWindow.MainFrame.Navigate(tourRequests);
+        }
+
+        private void ExecuteTourRequestStatisticCpmmand()
+        {
+            var tourRequestStatistics = new TourRequestsStatistic();
+            GuideMainWindow.MainFrame.Navigate(tourRequestStatistics);
+
+        }
+
 
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using Xceed.Wpf.AvalonDock.Properties;
 
-namespace BookingApp.WPF.Views.GuideView
+namespace BookingApp.WPF.Converters
 {
-    public class BoolToVisibilityConverter : IValueConverter
+    public class BoolToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

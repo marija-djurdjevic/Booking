@@ -1,0 +1,342 @@
+﻿<Page x:Class="BookingApp.WPF.Views.GuideView.CreateSuggestedTour"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="CreateSuggestedTour"
+    Width="1024"
+    Height="768"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:ImagePathConverter x:Key="ImagePathToBitmapConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <Grid Background="White" Height="2162">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="550" />
+                    <RowDefinition Height="Auto" MinHeight="285" />
+
+                </Grid.RowDefinitions>
+
+
+                <!--  Gornja navigaciona traka  -->
+
+
+                <!--  Glavni sadržaj ispod gornje navigacione trake  -->
+
+
+                <Grid Margin="0,30,0,0">
+
+
+                    <Label
+                        Height="357"
+                        Margin="15,44,20,0"
+                        VerticalAlignment="Top"
+                        Content="Basic informations:"
+                        FontSize="32" />
+                    <Label
+                        Margin="25,108,20,1261"
+                        Content="Name:"
+                        FontSize="28" />
+                    <Label
+                        Margin="25,178,20,1235"
+                        Content="Language:"
+                        FontSize="28" />
+                    <Label
+                        Margin="25,263,20,1155"
+                        Content="Description:"
+                        FontSize="28" />
+
+
+                    <Border
+                        Height="2"
+                        Margin="0,404,0,1106"
+                        BorderBrush="Black"
+                        BorderThickness="0,0,0,1" />
+
+                    <TextBox
+                        Grid.Row="0"
+                        Height="42"
+                        Margin="215,115,629,1337"
+                        Text="{Binding Name, Mode=TwoWay}" />
+                    <ComboBox
+                    x:Name="ComboBoxLangugage"
+                    Grid.Row="0"
+                    Height="42"
+                    Margin="216,184,629,1268"
+                    ItemsSource="{Binding Langugages}"
+                    SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
+
+                    <TextBox
+                        Grid.Row="0"
+                        Margin="215,277,40,1119"
+                        TextWrapping="Wrap"
+                        Text="{Binding Description, Mode=TwoWay}" />
+
+
+                    <Label
+                        Margin="15,409,20,1027"
+                        Content="Tour details:"
+                        FontSize="32" />
+                    <Label
+                        Margin="25,561,442,863"
+                        Content="Location:"
+                        FontSize="28" />
+                    <Label
+                        Margin="25,466,20,956"
+                        Content="Duration:"
+                        FontSize="28" />
+                    <Label
+                        Margin="24,656,21,779"
+                        Content="Max tourists numbmer:"
+                        FontSize="28" />
+
+                    <Border
+                        Height="2"
+                        Margin="0,728,0,764"
+                        BorderBrush="Black"
+                        BorderThickness="0,0,0,1" />
+
+                    <xctk:IntegerUpDown
+                        Grid.Row="0"
+                        Height="42"
+                        Margin="356,474,489,996"
+                        Increment="1"
+                        Minimum="0"
+                        RenderTransformOrigin="-0.113,-7.205"
+                        Value="{Binding Duration, Mode=TwoWay}" />
+
+                    <ComboBox
+                        x:Name="ComboBoxLocation"
+                        Grid.Row="0"
+                        Height="42"
+                        Margin="356,571,489,899"
+                        ItemsSource="{Binding CitiesCountries}"
+                        SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
+
+                    <xctk:IntegerUpDown
+                        Grid.Row="0"
+                        Height="42"
+                        Margin="354,661,488,809"
+                        Increment="1"
+                        Minimum="0"
+                        Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
+
+
+                    <Label Margin="24,776,11,604" Content="Key Point:" FontSize="32" />
+                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="210,786,555,675" Text="{Binding KeyPoints, Mode=TwoWay}" />
+                    <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,862,550,550" ItemsSource="{Binding KeyPointNames}" FontSize="20">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}"  FontSize="20" />
+                                    <Button Width="30" Height="30" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X"  FontSize="20" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+
+                    <Border
+                        Height="2"
+                        Margin="0,1058,0,380"
+                        BorderBrush="Black"
+                        BorderThickness="0,0,0,1" />
+
+
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="661,1204,79,154">
+                        <Button
+                                Height="58"
+                                Padding="-2"
+                                Command="{Binding UploadImageCommand}"
+                                Content="UPLOAD"
+                                FontSize="40" Margin="48,47,41,42"/>
+                    </Border>
+
+
+                    <Grid>
+                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,594,325" />
+
+                        <Image
+                            x:Name="ImagePreview"
+                            Grid.Column="0"
+                            Width="187"
+                            Height="157"
+                            Margin="268,1189,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Stretch="Fill"
+                            Source="{Binding CurrentImage}" />
+
+
+                        <Grid Margin="28,1260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding NextImageCommand}" Content="Next" Margin="460,0,-420,0"/>
+                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding PreviousImageCommand}" Content="Previous" Margin="136,0,-96,0"/>
+                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="298,127,-258,-125"/>
+                        </Grid>
+
+                    </Grid>
+
+
+
+
+
+                    <Border
+                        Height="2"
+                        Margin="0,1420,0,18"
+                        BorderBrush="Black"
+                        BorderThickness="0,0,0,1" />
+
+
+
+                    <Button
+                        Height="60"
+                        Margin="697,1540,132,-93"
+                        Command="{Binding AddDateCommand}"
+                        CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
+                        Content="ADD"
+                        FontSize="40" />
+
+                    <Label
+                        Margin="18,1536,384,-178"
+                        Content="Start Date and Time:"
+                        FontSize="28" />
+                    <xctk:DateTimePicker
+                        x:Name="StartDateTimePicker"
+                        Grid.Row="0"
+                        Margin="356,1536,424,-94" />
+
+
+
+                    <ListBox
+                        x:Name="ListBoxDates"
+                        Margin="357,1643,390,-316"
+                        ItemsSource="{Binding TourDates}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" FontSize="20" />
+                                    <Button
+                                        Width="30"
+                                        Height="30"
+                                        Margin="5"
+                                        Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                        Content="X"
+                                        CommandParameter="{Binding}"
+                                        DataContext="{Binding Path=.}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+
+
+                    <Button
+                        Height="65"
+                        Margin="356,1858,424,-416"
+                         Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                        Content="CONFRIM"
+                        FontSize="40" />
+                    <Label
+                        Margin="203,413,481,1051"
+                        Content="(Most requested location:"
+                        FontSize="28" />
+                    <Label
+                        Margin="310,48,354,1407"
+                        Content="(Most reqested langugage:"
+                        FontSize="28" />
+
+                    <Label Margin="531,409,20,1050"
+                        FontSize="28">
+                        <TextBlock>
+                            <Run Text="{Binding MostRequestedLocation}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </Label>
+
+                    <Label Margin="653,48,7,1407"
+                        FontSize="28">
+                        <TextBlock>
+                            <Run Text="{Binding MostRequestedLanguage}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </Label>
+
+
+
+
+                </Grid>
+
+
+
+
+
+                <!--  Glavni sadržaj iznad donje navigacione trake  -->
+
+            </Grid>
+        </ScrollViewer>
+
+
+
+
+
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <!--  Gornja navigaciona traka  -->
+            <Grid
+                Grid.Row="0"
+                Height="71"
+                VerticalAlignment="Top"
+                Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71" />
+                    <!--  Prva kolona za sliku  -->
+                    <ColumnDefinition Width="*" />
+                    <!--  Druga kolona za ostatak navigacione trake  -->
+                </Grid.ColumnDefinitions>
+
+                <!--  Slika u prvoj koloni  -->
+                <Button Grid.Column="0"
+                    Command="{Binding SideManuCommand}"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+                        Stretch="Uniform"
+                        Width="71"
+                        Height="71" />
+                </Button>
+
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE SUGGESTED TOUR"/>
+
+            </Grid>
+
+        </Grid>
+
+
+    </Grid>
+
+</Page>

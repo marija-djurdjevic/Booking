@@ -48,6 +48,75 @@ namespace BookingApp.Aplication.UseCases
             }
         }
 
+        public List<TourRequest> GetAllRequests()
+        {
+            return tourRequestRepository.GetAll();
+        }
+
+
+        public List<string> GetLocations()
+        {
+            List<string> locations = new List<string>();
+            foreach (var request in tourRequestRepository.GetAll())
+            {
+                string location = $"{request.Location.City}, {request.Location.Country}";
+                locations.Add(location);
+            }
+            return locations;
+        }
+
+
+
+        public List<string> GetLanguages()
+        {
+            List<string> languages = new List<string>();
+            foreach (var request in tourRequestRepository.GetAll())
+            {
+                string language = request.Language;
+                if (!languages.Contains(language))
+                {
+                    languages.Add(language);
+                }
+            }
+            return languages;
+        }
+
+
+        public string GetMostRequestedLanguage()
+        {
+            var allRequests = tourRequestRepository.GetAll();
+            var languageCounts = allRequests.GroupBy(r => r.Language)
+                                             .Select(g => new { Language = g.Key, Count = g.Count() })
+                                             .OrderByDescending(x => x.Count);
+
+            if (languageCounts.Any())
+            {
+                return languageCounts.First().Language;
+            }
+
+            return string.Empty;
+        }
+
+
+        public string GetMostRequestedLocation()
+        {
+            var allRequests = tourRequestRepository.GetAll();
+            var locationCounts = allRequests.GroupBy(r => $"{r.Location.City}, {r.Location.Country}")
+                                            .Select(g => new { Location = g.Key, Count = g.Count() })
+                                            .OrderByDescending(x => x.Count);
+
+            if (locationCounts.Any())
+            {
+                return locationCounts.First().Location;
+            }
+
+            return string.Empty;
+        }
+
+
+
+
+
         public void SortTours(ObservableCollection<Tuple<TourRequest, string>> unsorted, string sortBy)
         {
             var sorted = new List<Tuple<TourRequest, string>>();
