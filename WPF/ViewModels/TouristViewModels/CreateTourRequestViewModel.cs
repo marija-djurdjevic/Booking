@@ -92,7 +92,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
             Style style = Application.Current.FindResource("MessageStyle") as Style;
-            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning,style);
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning,style);
             if(result == MessageBoxResult.Yes)
                 Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }

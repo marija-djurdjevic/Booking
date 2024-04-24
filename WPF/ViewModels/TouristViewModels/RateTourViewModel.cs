@@ -16,6 +16,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -28,7 +30,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             set
             {
                 showingImage = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowingImage)));
+                OnPropertyChanged(nameof(ShowingImage));
             }
         }
 
@@ -74,6 +76,14 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
         }
         private TouristExperienceService touristExperienceService { get; set; }
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand AddImageCommand { get; set; }
+        public RelayCommand ShowImageCommand { get; set; }
+        public RelayCommand NextImageCommand { get; set; }
+        public RelayCommand PreviousImageCommand { get; set; }
+        public RelayCommand RemoveImageCommand { get; set; }
 
         public RateTourViewModel(TourDto selectedTour, User loggedInTourist)
         {
@@ -86,11 +96,36 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             TouristExperience.TourId = SelectedTour.Id;
 
             ImageIndex = -1;
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+            AddImageCommand = new RelayCommand(AddImage);
+            ShowImageCommand = new RelayCommand(ShowImage);
+            RemoveImageCommand = new RelayCommand(RemoveImage);
+            NextImageCommand = new RelayCommand(GetNextImage);
+            PreviousImageCommand = new RelayCommand(GetPreviousImage);
         }
 
         public void Confirm()
         {
             touristExperienceService.Save(TouristExperience);
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("You have successfully rated the tour!", "Rate", MessageBoxButton.OK, MessageBoxImage.Information, style);
+            Messenger.Default.Send(new NotificationMessage("CloseRateTourWindowMessage"));
+        }
+
+        private void Help()
+        {
+
+        }
+
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseRateTourWindowMessage"));
         }
 
         public void AddImage()
@@ -143,8 +178,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             if (TouristExperience.ImagesPaths.Count > 0)
             {
-                FullScreenImageWindow fullScreenImageWindow = new FullScreenImageWindow(TouristExperience.ImagesPaths, ImageIndex);
-                fullScreenImageWindow.Show();
+                new FullScreenImageWindow(TouristExperience.ImagesPaths, ImageIndex).ShowDialog();
             }
         }
     }

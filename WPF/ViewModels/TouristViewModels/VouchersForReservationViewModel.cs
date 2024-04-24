@@ -1,8 +1,10 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,8 +24,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private readonly VoucherService voucherService;
 
-        public bool WindowReturnValue;
         public Tuple<Voucher, string> SelectedVoucher { get; set; }
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
 
         public VouchersForReservationViewModel(User loggedInUser)
         {
@@ -31,10 +35,24 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Vouchers = new ObservableCollection<Tuple<Voucher, string>>();
 
             LoggedInUser = loggedInUser;
-            WindowReturnValue = false;
             GetMyVouchers();
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+        }
+        private void Help()
+        {
+
         }
 
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseVouchersForReservationWindowMessage"));
+        }
         public void GetMyVouchers()
         {
             Vouchers.Clear();
@@ -47,22 +65,25 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
         }
 
-        public bool Confirm()
+        public void Confirm()
         {
             if (SelectedVoucher == null)
             {
-                MessageBox.Show("Please choose the voucher you want to use.", "Something went wrong");
-                return false;
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Please choose the voucher you want to use!", "Something went wrong", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                return;
             }
 
             if (!voucherService.UseVoucher(SelectedVoucher.Item1.Id, LoggedInUser.Id))
             {
-                MessageBox.Show("Unable to use voucher", "Something went wrong");
-                return true;
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Unable to use voucher!", "Something went wrong", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                Messenger.Default.Send(new NotificationMessage("CloseVouchersForReservationWindowMessage"));
+                return;
             }
 
-            WindowReturnValue = true;
-            return true;
+            Messenger.Default.Send(new NotificationMessage("CloseVouchersForReservationWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("SaveReservations"));
         }
     }
 }

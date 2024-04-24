@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
@@ -101,7 +102,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -119,7 +120,7 @@
                     Margin="0"
                     VerticalAlignment="Bottom"
                     Background="{StaticResource BackgroundColor}"
-                    Click="InboxButtonClick"
+                    Command="{Binding InboxCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <Grid>
@@ -190,12 +191,16 @@
                                     FontSize="20"
                                     SelectedItem="{Binding AllToursSelectedSort}"
                                     SelectedValuePath="Content"
-                                    SelectionChanged="SortingComboBoxSelectionChanged"
                                     Text="Sort By">
                                     <ComboBoxItem Content="Date - Ascending" IsSelected="True" />
                                     <ComboBoxItem Content="Date - Descending" />
                                     <ComboBoxItem Content="Rate status - Ascending" />
                                     <ComboBoxItem Content="Rate status - Descending" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding AllToursSortingCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </ComboBox>
                             </StackPanel>
 
@@ -331,7 +336,6 @@
                                                             Margin="50,10,10,10"
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Bottom"
-                                                            Click="RateButtonClick"
                                                             Style="{StaticResource ConfirmButton}"
                                                             Tag="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                                             Visibility="{Binding Item2}">
@@ -347,8 +351,13 @@
                                                             <Button.BorderBrush>
                                                                 <SolidColorBrush Opacity="0" Color="White" />
                                                             </Button.BorderBrush>
-
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Click">
+                                                                    <i:InvokeCommandAction Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
                                                         </Button>
+
                                                     </Grid>
 
                                                 </Grid>
@@ -656,12 +665,16 @@
                                     FontSize="20"
                                     SelectedItem="{Binding FinishedToursSelectedSort}"
                                     SelectedValuePath="Content"
-                                    SelectionChanged="SortingFinishedToursSelectionChanged"
                                     Text="Sort By">
                                     <ComboBoxItem Content="Date - Ascending" IsSelected="True" />
                                     <ComboBoxItem Content="Date - Descending" />
                                     <ComboBoxItem Content="Rate status - Ascending" />
                                     <ComboBoxItem Content="Rate status - Descending" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding FinishedToursSortingCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </ComboBox>
                             </StackPanel>
 
@@ -795,7 +808,6 @@
                                                             Margin="50,10,10,10"
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Bottom"
-                                                            Click="RateButtonClick"
                                                             Style="{StaticResource ConfirmButton}"
                                                             Tag="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                                             Visibility="{Binding Item2}">
@@ -811,7 +823,11 @@
                                                             <Button.BorderBrush>
                                                                 <SolidColorBrush Opacity="0" Color="White" />
                                                             </Button.BorderBrush>
-
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="Click">
+                                                                    <i:InvokeCommandAction Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
                                                         </Button>
                                                     </Grid>
 

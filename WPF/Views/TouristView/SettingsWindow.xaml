@@ -31,7 +31,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}"
                     Visibility="Collapsed">
                     <Button.Content>
@@ -55,7 +55,7 @@
                     Margin="15,15"
                     Padding="10,0"
                     HorizontalAlignment="Center"
-                    Click="CloseButtonCLick"
+                    Command="{Binding CloseCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">

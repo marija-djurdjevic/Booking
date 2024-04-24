@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -31,6 +33,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private TourRequestService requestService;
 
         public string TitleTxt { get; set; }
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
 
         public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequest tourRequest)
         {
@@ -54,9 +59,36 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId, false), "Tourist " + a, false));
             }
             IsRequest = isRequest;
+
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+            Messenger.Default.Register<NotificationMessage>(this, SaveReservation);
         }
 
-        public bool Confirm()
+        private void SaveReservation(NotificationMessage message)
+        {
+            if (message.Notification == "SaveReservations")
+            {
+                this.SaveReservation();
+            }
+        }
+
+        private void Help()
+        {
+
+        }
+
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+        }
+
+        public void Confirm()
         {
             if(IsRequest)
             {
@@ -66,32 +98,44 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     TourRequest.Persons.Add(person);
                 }
                 requestService.CreateRequest(TourRequest);
-                MessageBoxResult successfullyCreated = MessageBox.Show("Tour request successfully created?", "Request", MessageBoxButton.OK);
-                return true;
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+                Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
             }
             else
             {
-                return UseVouchers();
+                UseVouchers();
             }
         }
 
-        public bool UseVouchers()
+        public void UseVouchers()
         {
 
             if (voucherService.GetByToueristId(LoggedInTourist.Id).Count() > 0)
             {
-                MessageBoxResult useVouchers = MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo);
-                if (useVouchers == MessageBoxResult.Yes)
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Would you like to use vouchers for booking this tour?", "Vouchers", MessageBoxButton.YesNo, MessageBoxImage.Information, style);
+                if (result == MessageBoxResult.Yes)
                 {
-                    VouchersForReservationWindow vouchersForReservationWindow = new VouchersForReservationWindow(LoggedInTourist);
-                    vouchersForReservationWindow.ShowDialog();
-                    if (!vouchersForReservationWindow.VouchersForReservationViewModel.WindowReturnValue)
-                    {
-                        return false;
-                    }
+                    new VouchersForReservationWindow(LoggedInTourist).ShowDialog();
+                }
+                else
+                {
+                    SaveReservation();
                 }
 
             }
+            else
+            {
+                SaveReservation();
+            }
+        }
+
+        private void SaveReservation()
+        {
+            Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("CloseTourBookingWindowMessage"));
 
             foreach (TourReservation data in Tourists.Select(t => t.Item1).ToList())
             {
@@ -100,9 +144,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
             SelectedTour.MaxTouristNumber -= Tourists.Count();
             TourService.Update(SelectedTour.ToTour());
-
-            MessageBoxResult successfullyBooked = MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK);
-            return true;
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK, MessageBoxImage.Information, style);
         }
     }
 }

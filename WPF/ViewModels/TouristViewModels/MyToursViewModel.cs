@@ -13,6 +13,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Command;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -94,6 +95,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private readonly MyToursService myToursService;
         private readonly TouristGuideNotificationService notificationService;
+
+        public RelayCommand<object> RateCommand { get; set; }
+        public RelayCommand InboxCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand AllToursSortingCommand { get; set; }
+        public RelayCommand FinishedToursSortingCommand { get; set; }
         public MyToursViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -106,7 +113,18 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
             UnreadNotificationCount= notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
             FillCollections();
+            HelpCommand = new RelayCommand(Help);
+            InboxCommand = new RelayCommand(OpenInbox);
+            RateCommand = new RelayCommand<object>(RateTour);
+            AllToursSortingCommand = new RelayCommand(SortingAllToursSelectionChanged);
+            FinishedToursSortingCommand = new RelayCommand(SortingFinishedToursSelectionChanged);
         }
+
+        private void Help()
+        {
+            
+        }
+
         public void FillCollections()
         {
             Tours.Clear();
@@ -143,8 +161,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         public void RateTour(object sender)
         {
-            Button rateButton = (Button)sender;
-            Tuple<TourDto, Visibility, string> tupl = (Tuple<TourDto, Visibility, string>)rateButton.DataContext;
+            Tuple<TourDto, Visibility, string> tupl = (Tuple<TourDto, Visibility, string>)sender;
             new RateTourWindow(tupl.Item1, LoggedInUser).ShowDialog();
             FillCollections();
         }

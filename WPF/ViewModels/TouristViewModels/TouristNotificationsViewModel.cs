@@ -12,6 +12,11 @@ using BookingApp.Domain.Models.Enums;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using System.Windows;
+using BookingApp.View.TouristView;
+using BookingApp.Aplication.Dto;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -21,14 +26,41 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public User LoggedInUser { get; set; }
 
         private readonly TouristGuideNotificationService touristGuideNotificationService;
+        private readonly TourService tourService; 
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
+        public RelayCommand<object> ShowDetailsCommand { get; set; }
 
         public TouristNotificationsViewModel(User loggedInUser)
         {
             touristGuideNotificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(),Injector.CreateInstance<ILiveTourRepository>());
             Notifications = new ObservableCollection<Tuple<TouristGuideNotification, string>>();
+
+            HelpCommand = new RelayCommand(Help);
+            CloseCommand = new RelayCommand(CloseWindow);
+            ShowDetailsCommand = new RelayCommand<object>(ShowTourDetails);
 
             LoggedInUser = loggedInUser;
             GetMyNotifications();
+        }
+
+        private void ShowTourDetails(object parametar)
+        {
+            Tuple<TouristGuideNotification, string> touristGuideNotification = (Tuple<TouristGuideNotification, string>)parametar;
+            Tour createdTour = tourService.GetTourById(touristGuideNotification.Item1.TourId);
+            if(createdTour!=null)
+                new TourBookingWindow(new TourDto(createdTour), LoggedInUser.Id).ShowDialog();
+        }
+
+        private void CloseWindow()
+        {
+            Messenger.Default.Send(new NotificationMessage("CloseNotificationsWindowMessage"));
+        }
+
+        private void Help()
+        {
+
         }
 
         public void GetMyNotifications()

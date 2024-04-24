@@ -32,7 +32,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -56,7 +56,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Click="ConfirmClick"
+                    Command="{Binding ConfirmCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -75,7 +75,7 @@
 
                 <Button
                     Grid.Column="0"
-                    Click="CancelClick"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">

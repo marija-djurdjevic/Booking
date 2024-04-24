@@ -27,21 +27,10 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class VoucherPage : Page
     {
-        private VoucherViewModel voucherViewModel;
         public VoucherPage(User loggedInUser)
         {
             InitializeComponent();
-            voucherViewModel = new VoucherViewModel(loggedInUser);
-            DataContext = voucherViewModel;
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            voucherViewModel.OpenInbox();
+            DataContext = new VoucherViewModel(loggedInUser);
         }
     }
 }

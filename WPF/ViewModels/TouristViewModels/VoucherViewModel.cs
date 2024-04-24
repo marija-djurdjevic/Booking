@@ -4,6 +4,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,6 +36,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private readonly VoucherService voucherService;
         private readonly TouristGuideNotificationService notificationService;
 
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand InboxCommand { get; set; }
+         
         public VoucherViewModel(User loggedInUser)
         {
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
@@ -44,6 +48,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             LoggedInUser = loggedInUser;
             GetMyVouchers();
             UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
+            HelpCommand = new RelayCommand(Help);
+            InboxCommand = new RelayCommand(OpenInbox);
+        }
+
+        private void Help()
+        {
+
         }
 
         public void GetMyVouchers()

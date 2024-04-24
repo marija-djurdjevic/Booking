@@ -14,6 +14,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -32,7 +34,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly SearchTourService SearchTourService;
         private readonly GlobalLocationsService GlobalLocationsService;
-        public bool IsCancelSearchButtonVisible { get; set; }
 
         public List<string> Cities
         {
@@ -46,6 +47,14 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             }
         }
+
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand CityComboBoxCommand { get; set; }
+        public RelayCommand CountryComboBoxCommand { get; set; }
+        public RelayCommand<object> OpenDropDownCommand { get; set; }
+
         public SearchViewModel(ObservableCollection<TourDto> tours)
         {
             Tours = tours;
@@ -61,11 +70,26 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             AllCities = GlobalLocationsService.GetAllCities();
             SearchTourService = new SearchTourService(Injector.CreateInstance<ITourRepository>());
 
-            IsCancelSearchButtonVisible = false;
-
             UpdateCitiesFromList(AllCities);
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+            CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
+            CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
+            OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
         }
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseSearchWindowMessage"));
+        }
+        private void Help()
+        {
 
+        }
         private void UpdateCitiesFromList(List<string> cities)
         {
             Cities = cities;
@@ -78,13 +102,15 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             if (matchingTours.Count > 0)
             {
                 UpdateCollection(matchingTours);
-                IsCancelSearchButtonVisible = true;
+                Messenger.Default.Send(new NotificationMessage("ShowAllButtonMessage"));
             }
             else
             {
-                MessageBox.Show("There are no tours with that parameters");
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours with that parameters!", "Search", MessageBoxButton.OK, MessageBoxImage.Information, style);
                 UpdateCollection(TourService.GetAll());
             }
+            Messenger.Default.Send(new NotificationMessage("CloseSearchWindowMessage"));
         }
 
         private void UpdateCollection(List<Tour> tours)

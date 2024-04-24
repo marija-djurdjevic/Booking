@@ -12,13 +12,75 @@
 
         <!--  STilovi za turistu  -->
 
-
-
         <SolidColorBrush x:Key="BackgroundColor" Color="#00896F" />
         <SolidColorBrush x:Key="CardColor" Color="#E6F4F1" />
         <SolidColorBrush x:Key="PageColor" Color="#EEE8AA" />
         <SolidColorBrush x:Key="SelectedCardColor" Color="#F59432" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
+
+        <Style x:Key="ResizeButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Padding="3"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <!--  Dodato CornerRadius za zaobljeni ugao  -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                To="1.15"
+                                Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                To="1.15"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                To="1"
+                                Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                To="1"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
 
         <Style x:Key="CancelButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -108,13 +170,33 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="FontSize" Value="26" />
                                 <Setter Property="FontWeight" Value="Bold" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform CenterX="1" CenterY="1" ScaleX="1.1" ScaleY="1.1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform CenterX="1" CenterY="1" ScaleX="1" ScaleY="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="CloseButton" TargetType="Button">
@@ -176,31 +258,52 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="FontSize" Value="26" />
                                 <Setter Property="FontWeight" Value="Bold" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform CenterX="1" CenterY="1" ScaleX="1.1" ScaleY="1.1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform CenterX="1" CenterY="1" ScaleX="1" ScaleY="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="MessageStyle" TargetType="{x:Type xctk:MessageBox}">
             <Setter Property="Background" Value="{StaticResource PageColor}" />
             <Setter Property="BorderBrush" Value="{StaticResource ValidationMessageColor}" />
+            <Setter Property="CaptionFontSize" Value="24" />
             <Setter Property="CaptionForeground" Value="Black" />
-            <Setter Property="CaptionFontSize" Value="26" />
-            <Setter Property="CaptionForeground" Value="Wheat" />
-            <Setter Property="WindowBorderBrush" Value="Orange" />
-            <Setter Property="WindowBorderThickness" Value="2" />
+            <Setter Property="WindowBorderBrush" Value="{StaticResource ValidationMessageColor}" />
+            <Setter Property="WindowBorderThickness" Value="1.5" />
             <Setter Property="WindowBackground" Value="{StaticResource BackgroundColor}" />
             <Setter Property="WindowOpacity" Value="1" />
 
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="YesButtonStyle" Value="{StaticResource YesButton}" />
             <Setter Property="NoButtonStyle" Value="{StaticResource NoButton}" />
             <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButton}" />
+            <Setter Property="OkButtonStyle" Value="{StaticResource YesButton}" />
 
         </Style>
 

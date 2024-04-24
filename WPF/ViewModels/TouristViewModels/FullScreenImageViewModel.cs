@@ -57,7 +57,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
 
-            Messenger.Default.Send(new NotificationMessage("FullScreenImageWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("CloseFullScreenImageWindowMessage"));
         }
 
         public void GetNextImage()

@@ -33,7 +33,7 @@ namespace BookingApp.View.TouristView
 
         private void CloseWindow(NotificationMessage message)
         {
-            if (message.Notification == "FullScreenImageWindowMessage")
+            if (message.Notification == "CloseFullScreenImageWindowMessage")
             {
                 this.Close();
             }

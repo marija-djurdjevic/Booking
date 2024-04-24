@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
@@ -101,7 +102,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -119,7 +120,7 @@
                     Margin="0"
                     VerticalAlignment="Bottom"
                     Background="{StaticResource BackgroundColor}"
-                    Click="InboxButtonClick"
+                    Command="{Binding InboxCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <Grid>
@@ -171,15 +172,15 @@
                     <DockPanel>
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="70" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Button
-                                Margin="85,10,10,0"
+                                Margin="85,0,10,0"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom"
+                                VerticalAlignment="Center"
                                 Background="{StaticResource BackgroundColor}"
-                                Click="CreateButtonClick"
+                                Command="{Binding CreateCommand}"
                                 Style="{StaticResource ConfirmButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -212,12 +213,16 @@
                                     FontSize="20"
                                     SelectedItem="{Binding RequestsSelectedSort}"
                                     SelectedValuePath="Content"
-                                    SelectionChanged="SortingComboBoxSelectionChanged"
                                     Text="Sort By">
                                     <ComboBoxItem Content="Date - Ascending" IsSelected="True" />
                                     <ComboBoxItem Content="Date - Descending" />
                                     <ComboBoxItem Content="Status - Ascending" />
                                     <ComboBoxItem Content="Status - Descending" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SortingRequeststCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </ComboBox>
                             </StackPanel>
 
@@ -233,7 +238,8 @@
 
                             <ScrollViewer
                                 Grid.Row="1"
-                                Margin="0,20,0,0"
+                                Margin="0,10,0,0"
+                                CanContentScroll="True"
                                 HorizontalScrollBarVisibility="Auto"
                                 VerticalScrollBarVisibility="Visible">
                                 <ItemsControl

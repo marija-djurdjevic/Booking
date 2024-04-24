@@ -1,10 +1,12 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +41,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
         }
 
+        public RelayCommand CloseCommand { get; set; }
+        public RelayCommand ReserveCommand { get; set; }
+        public RelayCommand NextImageCommand { get; set; }
+        public RelayCommand PreviousImageCommand { get; set; }
+        public RelayCommand ShowImageCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+
         public TourBookingViewModel(TourDto selectedTour, int userId)
         {
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
@@ -56,23 +65,42 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             ImageIndex = -1;
             LoggedInTourist = TouristService.GetByUserId(userId);
             GetNextImage();
+
+            CloseCommand = new RelayCommand(CloseWindow);
+            ReserveCommand = new RelayCommand(Confirm);
+            HelpCommand = new RelayCommand(Help);
+            ShowImageCommand = new RelayCommand(ShowImage);
+            NextImageCommand = new RelayCommand(GetNextImage);
+            PreviousImageCommand = new RelayCommand(GetPreviousImage);
         }
 
-        public bool Confirm()
+        private void Help()
+        {
+
+        }
+
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseTourBookingWindowMessage"));
+        }
+
+        public void Confirm()
         {
 
             if (NumberOfReservations > 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
             {
                 TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id,false,new TourRequest());
                 touristsDataWindow.ShowDialog();
-                return true;
             }
             else if (NumberOfReservations > SelectedTour.MaxTouristNumber)
             {
-                MessageBox.Show("On the tour, there are only spots left for" + SelectedTour.MaxTouristNumber.ToString() + " tourists.");
-                return false;
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("On the tour, there are only spots left for" + SelectedTour.MaxTouristNumber.ToString() + " tourists.!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
             }
-            return true;
         }
 
         public void GetNextImage()

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
@@ -56,6 +57,11 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public User LoggedInUser { get; set; }
         private readonly TouristGuideNotificationService notificationService;
 
+        public RelayCommand InboxCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand SortingRequeststCommand { get; set; }
+        public RelayCommand CreateCommand { get; set; }
+
         public TourRequestsViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -65,8 +71,17 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
             GetMyRequests();
             UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
+
+            InboxCommand = new RelayCommand(OpenInbox);
+            CreateCommand = new RelayCommand(CreateTourRequest);
+            HelpCommand = new RelayCommand(Help);
+            SortingRequeststCommand = new RelayCommand(SortingSelectionChanged);
         }
 
+        private void Help()
+        {
+
+        }
         private void GetMyRequests()
         {
             TourRequests.Clear();
