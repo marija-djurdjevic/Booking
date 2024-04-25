@@ -17,10 +17,12 @@ namespace BookingApp.Aplication.UseCases
     public class TourRequestService
     {
         private readonly ITourRequestRepository tourRequestRepository;
-
-        public TourRequestService(ITourRequestRepository tourRequestRepository)
+        private readonly ITourRepository tourRepository;
+        
+        public TourRequestService(ITourRequestRepository tourRequestRepository, ITourRepository tourRepository)
         {
             this.tourRequestRepository = tourRequestRepository;
+            this.tourRepository = tourRepository;
         }
 
         public void CreateRequest(TourRequest tourRequest)
@@ -52,6 +54,9 @@ namespace BookingApp.Aplication.UseCases
         {
             return tourRequestRepository.GetAll();
         }
+
+        
+      
 
 
         public List<string> GetLocations()
@@ -114,6 +119,19 @@ namespace BookingApp.Aplication.UseCases
         }
 
 
+        public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates()
+        {
+            var upcomingTours = tourRepository.GetAll().Where(t => t.StartDateTime >= DateTime.Today).ToList();
+            var tourDates = upcomingTours.Select(t => (t.StartDateTime, t.StartDateTime.AddHours(t.Duration))).ToList();
+
+            return tourDates;
+        }
+
+        public (DateTime StartDate, DateTime EndDate) GetDateSlotById(int requestId)
+        {
+            var request = tourRequestRepository.GetById(requestId);
+            return (request.StartDate, request.EndDate);
+        }
 
 
 
@@ -143,6 +161,48 @@ namespace BookingApp.Aplication.UseCases
                 unsorted.Add(sortedTour);
             }
             return;
+        }
+
+
+
+        public List<(DateTime, DateTime)> CalculateFreeDates(List<(DateTime, DateTime)> bookedDates, (DateTime, DateTime) touristsDates)
+        {
+            var freeDates = new List<(DateTime, DateTime)>();
+
+            // Sortiraj bookedDates po početnom datumu
+            var sortedBookedDates = bookedDates.OrderBy(d => d.Item1).ToList();
+
+            // Početni slobodni datum je početak turističkog perioda
+            DateTime startFreeDate = touristsDates.Item1;
+
+            foreach (var bookedDate in sortedBookedDates)
+            {
+                // Ako je početak zauzetog datuma nakon početnog slobodnog datuma, dodaj slobodni opseg
+                if (bookedDate.Item1 > startFreeDate)
+                {
+                    freeDates.Add((startFreeDate, bookedDate.Item1));
+                }
+
+                // Ažuriraj početni slobodni datum ako je kraj zauzetog datuma veći od početnog slobodnog datuma
+                if (bookedDate.Item2 > startFreeDate)
+                {
+                    startFreeDate = bookedDate.Item2;
+                }
+
+                // Ako je početni slobodni datum veći ili jednak završnom datumu turističkog perioda, prekini petlju
+                if (startFreeDate >= touristsDates.Item2)
+                {
+                    break;
+                }
+            }
+
+            // Dodaj poslednji slobodni opseg ako je kraj zauzetog datuma manji od završnog datuma turističkog perioda
+            if (startFreeDate < touristsDates.Item2)
+            {
+                freeDates.Add((startFreeDate, touristsDates.Item2));
+            }
+
+            return freeDates;
         }
     }
 }

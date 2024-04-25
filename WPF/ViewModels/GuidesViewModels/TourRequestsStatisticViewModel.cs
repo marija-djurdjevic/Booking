@@ -10,6 +10,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Navigation;
+using BookingApp.WPF.Views.GuideView;
+using BookingApp.GuestView;
+using BookingApp.View;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -22,17 +28,22 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private string language;
         private string location;
         private int requestsNumber;
-        private int selectedYear;
+        //private int selectedYear;
         private RelayCommand searchCommand;
+        private RelayCommand generalStatisticsCommand;
+        private RelayCommand monthStatisticsCommand;
 
         public TourRequestsStatisticViewModel()
         {
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests());
             Locations = new ObservableCollection<string>(tourRequestService.GetLocations());
             Languages = new ObservableCollection<string>(tourRequestService.GetLanguages());
-
+            IsYear = false;
+            IsGeneral = false;
             searchCommand = new RelayCommand(ExecuteSearchCommand);
+            generalStatisticsCommand = new RelayCommand(ExecuteGeneralStatisticsCommand);
+            monthStatisticsCommand = new RelayCommand(ExecuteMonthStatisticsCommand);
         }
 
         public ObservableCollection<TourRequest> TourRequests
@@ -71,10 +82,18 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { requestsNumber = value; OnPropertyChanged(); }
         }
 
-        public int SelectedYear
+        private ComboBoxItem selectedYear;
+
+
+        public ComboBoxItem SelectedYear
         {
             get { return selectedYear; }
-            set { selectedYear = value; OnPropertyChanged(); }
+            set
+            {
+                selectedYear = value;
+                
+                OnPropertyChanged();
+            }
         }
 
         public RelayCommand SearchCommand
@@ -90,25 +109,107 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-        private void ExecuteSearchCommand()
+
+        public RelayCommand GeneralStatisticsCommand
         {
-            var filteredRequests = tourRequests.Where(request =>
-                (string.IsNullOrEmpty(Language) || request.Language == Language) &&
-                (string.IsNullOrEmpty(Location) || request.Location.City == Location.Split(',')[0]) &&
-                (SelectedYear.ToString() == "General" || request.StartDate.Year.ToString() == SelectedYear.ToString() ||
-                    (SelectedYear.ToString() == DateTime.Now.Year.ToString() &&
-                    request.StartDate.Month <= DateTime.Now.Month)));
-
-            if (SelectedYear.ToString() != "General" )
+            get { return generalStatisticsCommand; }
+            set
             {
-                filteredRequests = filteredRequests.Where(request =>
-                    request.StartDate.Year == SelectedYear);
+                if (generalStatisticsCommand != value)
+                {
+                    generalStatisticsCommand = value;
+                    OnPropertyChanged();
+                }
             }
-
-            RequestsNumber = filteredRequests.Count();
-           
         }
 
 
+
+        public RelayCommand MonthStatisticsCommand
+        {
+            get { return monthStatisticsCommand; }
+            set
+            {
+                if (monthStatisticsCommand != value)
+                {
+                    monthStatisticsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteGeneralStatisticsCommand()
+        {
+
+            var generalStat = new GeneralStatistics(Language, Location);
+            GuideMainWindow.MainFrame.Navigate(generalStat);
+
+            
+        }
+
+
+
+        private void ExecuteMonthStatisticsCommand(object parameter)
+        {
+            if (parameter is ComboBoxItem selectedYearItem)
+            {
+                string year = selectedYearItem.Content.ToString();
+                var montStat = new MonthStatistics(year, Language, Location);
+                GuideMainWindow.MainFrame.Navigate(montStat);
+                
+            }
+        }
+
+
+
+        private void ExecuteSearchCommand()
+        {
+            if (SelectedYear == null)
+            {
+                MessageBox.Show("nisi izabrao period");
+                return;
+            }
+
+            var filteredRequests = tourRequests.Where(request =>
+                (string.IsNullOrEmpty(Language) || request.Language == Language) &&
+                (string.IsNullOrEmpty(Location) || request.Location.City == Location.Split(',')[0]));
+
+            if (SelectedYear.Content.ToString() != "General")
+            {
+                
+                filteredRequests = filteredRequests.Where(request =>
+                    request.StartDate.Year.ToString() == SelectedYear.Content.ToString());
+            }
+
+            
+            RequestsNumber = filteredRequests.Count();
+
+           
+            IsYear = SelectedYear.Content.ToString() != "General";
+            IsGeneral = SelectedYear.Content.ToString() == "General";
+        }
+
+
+
+
+
+        private bool isYear;
+
+        public bool IsYear
+        {
+            get { return isYear; }
+            set { isYear = value; OnPropertyChanged(); }
+        }
+
+
+        private bool isGeneral;
+
+
+        public bool IsGeneral
+        {
+            get { return isGeneral; }
+            set { isGeneral = value; OnPropertyChanged(); }
+        }
     }
 }

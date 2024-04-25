@@ -39,7 +39,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             reservationDataService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            requestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
+            requestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
 
             SelectedTour = selectedTour;
             TourRequest = tourRequest;

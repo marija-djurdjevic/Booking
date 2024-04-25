@@ -9,6 +9,7 @@
       Title="TourRequestsStatistic" Height="768" Width="1024">
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter" />
+        <local:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter" />
     </Page.Resources>
 
     <Grid Background="White">
@@ -131,6 +132,19 @@
 
 
                 <Label FontSize="32" Content="{Binding RequestsNumber}" Margin="817,551,10,90"/>
+
+
+
+                <Button Content="General stat"
+        Visibility="{Binding IsGeneral, Converter={StaticResource ButtonVisibilityConverter}}"
+        Command="{Binding GeneralStatisticsCommand}" Margin="407,335,495,294" />
+
+
+                <Button Content="Month Statistics"
+        Visibility="{Binding IsYear, Converter={StaticResource ButtonVisibilityConverter}}"
+        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="685,344,190,294" />
+
+
 
             </Grid>
 

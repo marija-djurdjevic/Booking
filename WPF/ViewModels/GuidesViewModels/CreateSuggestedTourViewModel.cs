@@ -61,8 +61,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             tourRepository = new TourRepository();
             keyPointRepository = new KeyPointRepository();
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
-            MostRequestedLanguage=tourRequestService.GetMostRequestedLanguage();
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            MostRequestedLanguage =tourRequestService.GetMostRequestedLanguage();
             MostRequestedLocation=tourRequestService.GetMostRequestedLocation();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());

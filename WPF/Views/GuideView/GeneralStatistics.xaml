@@ -1,0 +1,87 @@
+﻿<Page x:Class="BookingApp.WPF.Views.GuideView.GeneralStatistics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.GuideView"
+      mc:Ignorable="d" 
+      Title="GeneralStatistics"  Height="768" Width="1024">
+
+    <Grid Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <!-- Gornja navigaciona traka -->
+        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="71"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Slika u prvoj koloni -->
+            <Button Grid.Column="0"
+             Command="{Binding SideManuCommand}"
+             Background="Transparent"
+             BorderThickness="0">
+                <Image Source="/Resources/Images/menu5.png"
+          Stretch="Uniform"
+          Width="71"
+          Height="71" />
+            </Button>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTICS PER MONTHS"/>
+        </Grid>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Labels za imena godina -->
+            <Grid Grid.Column="0" Margin="0,74,651,162" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Labels za imena godina -->
+                <TextBlock Grid.Row="0" Text="2020"/>
+                <TextBlock Grid.Row="1" Text="2021"/>
+                <TextBlock Grid.Row="2" Text="2022"/>
+                <TextBlock Grid.Row="3" Text="2023"/>
+                <TextBlock Grid.Row="4" Text="2024"/>
+            </Grid>
+
+            <!-- Labels za bindovanje vrijednosti godina -->
+            <Grid Grid.Column="1" Margin="450,86,474,599" Width="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Labels za bindovanje vrijednosti godina -->
+                <TextBlock Grid.Row="0" Text="{Binding RequestsPerYear[2020]}"/>
+                <TextBlock Grid.Row="1" Text="{Binding RequestsPerYear[2021]}"/>
+                <TextBlock Grid.Row="2" Text="{Binding RequestsPerYear[2022]}"/>
+                <TextBlock Grid.Row="3" Text="{Binding RequestsPerYear[2023]}"/>
+                <TextBlock Grid.Row="4" Text="{Binding RequestsPerYear[2024]}"/>
+            </Grid>
+
+        </Grid>
+
+
+
+
+    </Grid>
+</Page>
