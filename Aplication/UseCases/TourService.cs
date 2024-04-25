@@ -52,7 +52,7 @@ namespace BookingApp.Aplication.UseCases
         //futured tours sort by date and past show on end
         public List<Tour> SortByDate(List<Tour> unsorted)
         {
-            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenByDescending(t => t.StartDateTime).ToList();
             return sorted;
         }
 

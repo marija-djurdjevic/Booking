@@ -31,6 +31,22 @@ namespace BookingApp.Domain.Models
             Status = TourRequestStatus.Pending;
         }
 
+        public TourRequest(int id, int guideId, int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate, List<Tuple<string, string, int>> persons, TourRequestStatus status, DateTime acceptedDate)
+        {
+            Id = id;
+            GuideId = guideId;
+            TouristId = touristId;
+            Location = location;
+            Description = description;
+            Language = language;
+            TouristNumber = touristNumber;
+            StartDate = startDate;
+            EndDate = endDate;
+            Persons = persons;
+            Status = status;
+            AcceptedDate = acceptedDate;
+        }
+
         public TourRequest(int id, int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate)
         {
             Id = id;

@@ -45,6 +45,19 @@ namespace BookingApp.Domain.Models
             IsUser = false;
         }
 
+        public TourReservation(int id, int tourId, int userId, string touristFirstName, string touristLastName, int touristAge, KeyPoint joinedKeyPoint, bool isOnTour, bool isUser)
+        {
+            Id = id;
+            TourId = tourId;
+            UserId = userId;
+            TouristFirstName = touristFirstName;
+            TouristLastName = touristLastName;
+            TouristAge = touristAge;
+            JoinedKeyPoint = joinedKeyPoint;
+            IsOnTour = isOnTour;
+            IsUser = isUser;
+        }
+
         public TourReservation(int tourId, int userId, string touristFirstName, string touristLastName, int touristAge, KeyPoint joinedKeyPoint) : this(tourId, userId, touristFirstName, touristLastName, touristAge)
         {
             JoinedKeyPoint = joinedKeyPoint;

@@ -6,6 +6,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
+using BookingApp.WPF.Validations;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -15,21 +16,36 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class TourBookingViewModel : BindableBase
+    public class TourBookingViewModel : BindableBase, IDataErrorInfo
     {
         public static TourService TourService;
 
         public static TouristService TouristService;
         public TourDto SelectedTour { get; set; }
-        public int NumberOfReservations { get; set; }
+
+        private int numberOfReservations;
+        public int NumberOfReservations
+        {
+            get => numberOfReservations;
+            set
+            {
+                if (value != numberOfReservations)
+                {
+                    numberOfReservations = value;
+                    OnPropertyChanged(nameof(NumberOfReservations));
+                }
+            }
+        }
         public Tourist LoggedInTourist { get; set; }
         private string showingImage { get; set; }
         public int ImageIndex { get; set; }
         public KeyPoint StartPoint { get; set; }
         public KeyPoint EndPoint { get; set; }
+        public string Error => null;
 
         public string ShowingImage
         {
@@ -74,6 +90,41 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             PreviousImageCommand = new RelayCommand(GetPreviousImage);
         }
 
+        //Verification
+        public Verifications verifications = new Verifications();
+        public string this[string columnName]
+        {
+            get
+            {
+
+                if (columnName == "NumberOfReservations")
+                {
+                    if (NumberOfReservations < 1)
+                        return "Please enter positive number!";
+                    else if (NumberOfReservations > SelectedTour.MaxTouristNumber)
+                        return "On the tour, there are only spots left for " + SelectedTour.MaxTouristNumber.ToString() + " tourists.";
+
+                }
+                return null;
+            }
+        }
+        
+        private readonly string[] _validatedProperties = { "NumberOfReservations" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+        //Verification
         private void Help()
         {
 
@@ -90,16 +141,16 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-
-            if (NumberOfReservations > 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
-            {
-                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id,false,new TourRequest());
-                touristsDataWindow.ShowDialog();
-            }
-            else if (NumberOfReservations > SelectedTour.MaxTouristNumber)
+            if (!IsValid)
             {
                 Style style = Application.Current.FindResource("MessageStyle") as Style;
-                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("On the tour, there are only spots left for" + SelectedTour.MaxTouristNumber.ToString() + " tourists.!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Field must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
+                return;
+            }
+            if (NumberOfReservations > 0 && NumberOfReservations <= SelectedTour.MaxTouristNumber)
+            {
+                TouristsDataWindow touristsDataWindow = new TouristsDataWindow(NumberOfReservations, SelectedTour, LoggedInTourist.Id,false,new TourRequestViewModel());
+                touristsDataWindow.ShowDialog();
             }
         }
 

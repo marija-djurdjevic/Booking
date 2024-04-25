@@ -18,6 +18,64 @@
         <SolidColorBrush x:Key="SelectedCardColor" Color="#F59432" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
+
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!--  Placeholder for the TextBox itself  -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock
+                    FontSize="14"
+                    Foreground="{StaticResource ValidationMessageColor}"
+                    Text="{Binding [0].ErrorContent}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="AgeValidationTemplate">
+            <StackPanel>
+                <!--  Placeholder for the TextBox itself  -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock
+                    Height="auto"
+                    MaxWidth="120"
+                    Margin="-40,1,0,0"
+                    FontSize="14"
+                    Foreground="{StaticResource ValidationMessageColor}"
+                    Text="{Binding [0].ErrorContent}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="DateValidationTemplate">
+            <StackPanel>
+                <!--  Placeholder for the TextBox itself  -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock
+                    Height="auto"
+                    MaxWidth="140"
+                    Margin="-30,-8,0,0"
+                    FontSize="14"
+                    Foreground="{StaticResource ValidationMessageColor}"
+                    Text="{Binding [0].ErrorContent}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BookingValidationTemplate">
+            <StackPanel>
+                <!--  Placeholder for the TextBox itself  -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock
+                    Height="auto"
+                    Margin="-50,1,0,0"
+                    FontSize="14"
+                    Foreground="{StaticResource ValidationMessageColor}"
+                    Text="{Binding [0].ErrorContent}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ControlTemplate>
+
         <Style x:Key="ResizeButtonStyle" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />

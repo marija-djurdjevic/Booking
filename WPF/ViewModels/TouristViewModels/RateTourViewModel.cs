@@ -40,41 +40,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public int ImageIndex { get; set; }
         public TourDto SelectedTour { get; set; }
         public User LoggedInTourist { get; set; }
-        public TouristExperience TouristExperience { get; set; }
+        public TouristExperienceViewModel TouristExperienceViewModel { get; set; }
 
-        private int tourInterestingness;
-        public int TourInterestingness
-        {
-            get { return tourInterestingness; }
-            set
-            {
-                tourInterestingness = value;
-                TouristExperience.TourInterestingesRating = value;
-                OnPropertyChanged(nameof(TourInterestingness));
-            }
-        }
-        private int guideLanguage;
-        public int GuideLanguage
-        {
-            get { return guideLanguage; }
-            set
-            {
-                guideLanguage = value;
-                TouristExperience.GuideLanguageRating = value;
-                OnPropertyChanged(nameof(GuideLanguage));
-            }
-        }
-        private int guideKnowledge;
-        public int GuideKnowledge
-        {
-            get { return guideKnowledge; }
-            set
-            {
-                guideKnowledge = value;
-                TouristExperience.GuideKnowledgeRating = value;
-                OnPropertyChanged(nameof(GuideKnowledge));
-            }
-        }
         private TouristExperienceService touristExperienceService { get; set; }
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -87,13 +54,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public RateTourViewModel(TourDto selectedTour, User loggedInTourist)
         {
-            TouristExperience = new TouristExperience();
+            TouristExperienceViewModel = new TouristExperienceViewModel();
             ImageService = new ImageService();
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             SelectedTour = selectedTour;
             LoggedInTourist = loggedInTourist;
-            TouristExperience.TouristId = LoggedInTourist.Id;
-            TouristExperience.TourId = SelectedTour.Id;
+            TouristExperienceViewModel.TouristId = LoggedInTourist.Id;
+            TouristExperienceViewModel.TourId = SelectedTour.Id;
 
             ImageIndex = -1;
             ConfirmCommand = new RelayCommand(Confirm);
@@ -108,8 +75,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            touristExperienceService.Save(TouristExperience);
             Style style = Application.Current.FindResource("MessageStyle") as Style;
+            if (!TouristExperienceViewModel.IsValid)
+            {
+                MessageBoxResult errorResult = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
+                return;
+            }
+            touristExperienceService.Save(TouristExperienceViewModel.ToTouristExperience());
             MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("You have successfully rated the tour!", "Rate", MessageBoxButton.OK, MessageBoxImage.Information, style);
             Messenger.Default.Send(new NotificationMessage("CloseRateTourWindowMessage"));
         }
@@ -140,29 +112,29 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 string[] selectedImages = openFileDialog.FileNames;
                 string relativPath = "Resources\\Images\\TouristExperienceImages";
 
-                TouristExperience.ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativPath));
+                TouristExperienceViewModel.ImagesPaths.AddRange(ImageService.SaveImages(selectedImages, relativPath));
 
-                ShowingImage = TouristExperience.ImagesPaths.Last();
-                ImageIndex = TouristExperience.ImagesPaths.Count - 1;
+                ShowingImage = TouristExperienceViewModel.ImagesPaths.Last();
+                ImageIndex = TouristExperienceViewModel.ImagesPaths.Count - 1;
             }
 
         }
 
         public void RemoveImage()
         {
-            if (TouristExperience.ImagesPaths.Count > 0)
+            if (TouristExperienceViewModel.ImagesPaths.Count > 0)
             {
-                TouristExperience.ImagesPaths.RemoveAt(ImageIndex);
-                ImageIndex = TouristExperience.ImagesPaths.Count - 1;
-                ShowingImage = TouristExperience.ImagesPaths.LastOrDefault();
+                TouristExperienceViewModel.ImagesPaths.RemoveAt(ImageIndex);
+                ImageIndex = TouristExperienceViewModel.ImagesPaths.Count - 1;
+                ShowingImage = TouristExperienceViewModel.ImagesPaths.LastOrDefault();
             }
         }
 
         public void GetNextImage()
         {
-            if (ImageIndex < TouristExperience.ImagesPaths.Count - 1)
+            if (ImageIndex < TouristExperienceViewModel.ImagesPaths.Count - 1)
             {
-                ShowingImage = TouristExperience.ImagesPaths[++ImageIndex];
+                ShowingImage = TouristExperienceViewModel.ImagesPaths[++ImageIndex];
             }
         }
 
@@ -170,15 +142,15 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             if (ImageIndex > 0)
             {
-                ShowingImage = TouristExperience.ImagesPaths[--ImageIndex];
+                ShowingImage = TouristExperienceViewModel.ImagesPaths[--ImageIndex];
             }
         }
 
         public void ShowImage()
         {
-            if (TouristExperience.ImagesPaths.Count > 0)
+            if (TouristExperienceViewModel.ImagesPaths.Count > 0)
             {
-                new FullScreenImageWindow(TouristExperience.ImagesPaths, ImageIndex).ShowDialog();
+                new FullScreenImageWindow(TouristExperienceViewModel.ImagesPaths, ImageIndex).ShowDialog();
             }
         }
     }

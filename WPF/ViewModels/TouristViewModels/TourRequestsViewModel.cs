@@ -23,8 +23,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
     {
         private readonly TourRequestService tourRequestService;
 
-        private ObservableCollection<Tuple<TourRequest, string>> tourRequests;
-        public ObservableCollection<Tuple<TourRequest, string>> TourRequests
+        private ObservableCollection<Tuple<TourRequestViewModel, string>> tourRequests;
+        public ObservableCollection<Tuple<TourRequestViewModel, string>> TourRequests
         {
             get { return tourRequests; }
             set
@@ -65,7 +65,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public TourRequestsViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
-            TourRequests = new ObservableCollection<Tuple<TourRequest, string>>();
+            TourRequests = new ObservableCollection<Tuple<TourRequestViewModel, string>>();
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
 
@@ -89,7 +89,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             string title = "Request ";
             foreach (var request in tourRequestService.GetByTouristId(LoggedInUser.Id))
             {
-                TourRequests.Add(new Tuple<TourRequest, string>(request,title + ++i));
+                TourRequests.Add(new Tuple<TourRequestViewModel, string>(new TourRequestViewModel(request),title + ++i));
             }
         }
 

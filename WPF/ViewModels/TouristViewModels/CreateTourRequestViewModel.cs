@@ -20,7 +20,7 @@ using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class CreateTourRequestViewModel: BindableBase
+    public class CreateTourRequestViewModel : BindableBase
     {
         private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly GlobalLocationsService GlobalLocationsService;
@@ -28,6 +28,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public static List<string> Countires { get; set; }
         public static List<string> AllCities { get; set; }
         public static List<string> Languages { get; set; }
+        private string oldCity;
 
         private List<string> cities;
         public List<string> Cities
@@ -42,18 +43,17 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             }
         }
-        public LocationDto SelectedLocation { get; set; }
         public User LoggedInUser { get; set; }
-        private TourRequest tourRequest { get; set; }
-        public TourRequest TourRequest
+        private TourRequestViewModel tourRequestViewModel { get; set; }
+        public TourRequestViewModel TourRequestViewModel
         {
-            get => tourRequest;
+            get => tourRequestViewModel;
             set
             {
-                if (value != tourRequest)
+                if (value != tourRequestViewModel)
                 {
-                    tourRequest = value;
-                    OnPropertyChanged(nameof(TourRequest));
+                    tourRequestViewModel = value;
+                    OnPropertyChanged(nameof(TourRequestViewModel));
                 }
             }
         }
@@ -68,9 +68,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public CreateTourRequestViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
-            TourRequest = new TourRequest();
-            TourRequest.TouristId = LoggedInUser.Id;
-            SelectedLocation = new LocationDto();
+            TourRequestViewModel = new TourRequestViewModel();
+            TourRequestViewModel.TouristId = LoggedInUser.Id;
 
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -78,6 +77,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Countires = GlobalLocationsService.GetAllCountries();
             Languages = GlobalLanguagesService.GetAll();
             AllCities = GlobalLocationsService.GetAllCities();
+            oldCity = "";
 
             UpdateCitiesFromList(AllCities);
             ConfirmCommand = new RelayCommand(Confirm);
@@ -92,8 +92,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
             Style style = Application.Current.FindResource("MessageStyle") as Style;
-            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning,style);
-            if(result == MessageBoxResult.Yes)
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
                 Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }
 
@@ -104,7 +104,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            new TouristsDataWindow(TourRequest.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequest).ShowDialog();
+            if (!TourRequestViewModel.IsValid)
+            {
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
+                return;
+            }
+            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel).ShowDialog();
         }
 
         private void Help()
@@ -112,27 +118,22 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void CityComboBoxLostFocus(object parameter)
         {
-            if (AllCities.Contains(SelectedLocation.City) && !string.Equals(TourRequest.Location.City, SelectedLocation.City))
+            if (AllCities.Contains(TourRequestViewModel.City) && !string.Equals(TourRequestViewModel.City, oldCity))
             {
-                SelectedLocation.Country = GlobalLocationsService.GetCountryForCity(SelectedLocation.City.ToString());
+                TourRequestViewModel.Country = GlobalLocationsService.GetCountryForCity(TourRequestViewModel.City.ToString());
+                oldCity = TourRequestViewModel.City;
             }
-            TourRequest.Location.City = SelectedLocation.City;
         }
 
         public void CountryComboBoxChanged()
         {
-            if (!string.Equals(TourRequest.Location.Country, SelectedLocation.Country))
+            if (!string.IsNullOrEmpty(TourRequestViewModel.Country))
             {
-                if (!string.IsNullOrEmpty(SelectedLocation.Country))
-                {
-                    List<string> citisInCountry = GlobalLocationsService.GetCitiesFromCountry(SelectedLocation.Country.ToString());
-                    UpdateCitiesFromList(citisInCountry);
-                }
-                else if (string.IsNullOrEmpty(SelectedLocation.Country))
-                    UpdateCitiesFromList(AllCities);
-                TourRequest.Location.Country = SelectedLocation.Country;
-
+                List<string> citisInCountry = GlobalLocationsService.GetCitiesFromCountry(TourRequestViewModel.Country.ToString());
+                UpdateCitiesFromList(citisInCountry);
             }
+            else if (string.IsNullOrEmpty(TourRequestViewModel.Country))
+                UpdateCitiesFromList(AllCities);
         }
 
         public void OpenDropDownClick(object sender)

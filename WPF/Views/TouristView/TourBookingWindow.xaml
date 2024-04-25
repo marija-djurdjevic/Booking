@@ -88,8 +88,9 @@
                         FontWeight="Bold"
                         Foreground="Red"
                         Minimum="1"
-                        TextAlignment="Center"
-                        Value="{Binding Path=NumberOfReservations, UpdateSourceTrigger=PropertyChanged}" />
+                        TextAlignment="Left"
+                        Validation.ErrorTemplate="{StaticResource BookingValidationTemplate}"
+                        Value="{Binding Path=NumberOfReservations, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
                 </StackPanel>
 

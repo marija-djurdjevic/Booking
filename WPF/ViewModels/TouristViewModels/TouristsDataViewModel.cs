@@ -21,9 +21,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
     public class TouristsDataViewModel : BindableBase
     {
-        public ObservableCollection<Tuple<TourReservation, string, bool>> Tourists { get; set; }
+        public ObservableCollection<Tuple<TourReservationViewModel, string, bool>> Tourists { get; set; }
         public TourDto SelectedTour { get; set; }
-        public TourRequest TourRequest { get; set; }
+        public TourRequestViewModel TourRequestViewModel { get; set; }
         public bool IsRequest { get; set; }
         public Tourist LoggedInTourist { get; set; }
         public TourService TourService { get; set; }
@@ -36,10 +36,11 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        private bool AreDataSaved;
 
-        public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequest tourRequest)
+        public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest)
         {
-            Tourists = new ObservableCollection<Tuple<TourReservation, string, bool>>();
+            Tourists = new ObservableCollection<Tuple<TourReservationViewModel, string, bool>>();
             touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             reservationDataService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
@@ -47,16 +48,17 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             requestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
 
             SelectedTour = selectedTour;
-            TourRequest = tourRequest;
+            TourRequestViewModel = tourRequest;
             LoggedInTourist = touristService.GetByUserId(userId);
+            AreDataSaved = false;
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
-            Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, LoggedInTourist, true), "Tourist 1", true));
+            Tourists.Add(new Tuple<TourReservationViewModel, string, bool>(new TourReservationViewModel(new TourReservation(SelectedTour.Id, LoggedInTourist, true)), "Tourist 1", true));
             for (int i = 0; i < touristNumber - 1; i++)
             {
                 int a = i + 2;
-                Tourists.Add(new Tuple<TourReservation, string, bool>(new TourReservation(SelectedTour.Id, userId, false), "Tourist " + a, false));
+                Tourists.Add(new Tuple<TourReservationViewModel, string, bool>(new TourReservationViewModel(new TourReservation(SelectedTour.Id, userId, false)), "Tourist " + a, false));
             }
             IsRequest = isRequest;
 
@@ -90,14 +92,23 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            if(IsRequest)
+            foreach(Tuple<TourReservationViewModel, string, bool> data in Tourists)
             {
-                foreach (Tuple<TourReservation, string, bool> data in Tourists)
+                if (!data.Item1.IsValid)
                 {
-                    Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName,data.Item1.TouristLastName,data.Item1.TouristAge);
-                    TourRequest.Persons.Add(person);
+                    Style style = Application.Current.FindResource("MessageStyle") as Style;
+                    MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
+                    return;
                 }
-                requestService.CreateRequest(TourRequest);
+            }
+            if (IsRequest)
+            {
+                foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
+                {
+                    Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
+                    TourRequestViewModel.Persons.Add(person);
+                }
+                requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
                 Style style = Application.Current.FindResource("MessageStyle") as Style;
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
                 Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
@@ -134,18 +145,20 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void SaveReservation()
         {
-            Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
-            Messenger.Default.Send(new NotificationMessage("CloseTourBookingWindowMessage"));
-
-            foreach (TourReservation data in Tourists.Select(t => t.Item1).ToList())
+            if (AreDataSaved)
+                return;
+            foreach (TourReservationViewModel data in Tourists.Select(t => t.Item1).ToList())
             {
-                reservationDataService.Save(data);
+                reservationDataService.Save(data.ToTourReservation());
             }
 
             SelectedTour.MaxTouristNumber -= Tourists.Count();
             TourService.Update(SelectedTour.ToTour());
+            AreDataSaved = true;
             Style style = Application.Current.FindResource("MessageStyle") as Style;
-            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Reservation successfully created?", "Reservation", MessageBoxButton.OK, MessageBoxImage.Information, style);
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Reservation successfully created!", "Reservation", MessageBoxButton.OK, MessageBoxImage.Information, style);
+            Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("CloseTourBookingWindowMessage"));
         }
     }
 }

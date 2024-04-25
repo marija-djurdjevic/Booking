@@ -26,7 +26,7 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequest tourRequest)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequestViewModel tourRequest)
         {
             InitializeComponent();
             DataContext = new TouristsDataViewModel(touristNumber, selectedTour, userId, isRequest, tourRequest);
