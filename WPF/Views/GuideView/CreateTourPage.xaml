@@ -17,7 +17,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,14,0">
 
             <Grid Background="White" Height="2162">
                 <Grid.RowDefinitions>
@@ -134,7 +134,7 @@
 
 
                     <Label Margin="24,776,11,604" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="210,786,555,675" Text="{Binding KeyPoints, Mode=TwoWay}" />
+                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,788,550,678" Text="{Binding KeyPoints, Mode=TwoWay}" />
                     <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
 
                     <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,862,550,550" ItemsSource="{Binding KeyPointNames}" FontSize="20">
@@ -168,7 +168,7 @@
 
 
                     <Grid>
-                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,594,325" />
+                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,580,325" />
 
                         <Image
                             x:Name="ImagePreview"
@@ -270,11 +270,11 @@
             </Grid>
         </ScrollViewer>
 
-        
-        
-        
-        
-        
+
+
+
+
+
 
         <Grid>
             <Grid.RowDefinitions>

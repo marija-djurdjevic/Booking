@@ -83,12 +83,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void CountTouristsByAge()
         {
 
-            var users = tourReservationService.GetByTourId(tourId).Where(t => t.IsUser && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name));
+            var tourists = tourReservationService.GetByTourId(tourId).Where(t => !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name));
 
-            foreach (var user in users)
+            foreach (var tourist in tourists)
             {
-                int touristId = user.UserId;
-                int age = touristService.GetAgeById(touristId);
+
+                int age = tourist.TouristAge;
                 if (age < 18)
                 {
                     Under18Count++;
