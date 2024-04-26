@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vmdl="clr-namespace:BookingApp.WPF.ViewModels.TouristViewModels"
@@ -30,7 +31,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -51,7 +52,7 @@
                 Margin="15,15"
                 Padding="10,0"
                 HorizontalAlignment="Right"
-                Click="CloseButtonClick"
+                Command="{Binding CloseCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -227,8 +228,8 @@
                                                     Margin="0"
                                                     HorizontalAlignment="Right"
                                                     Background="{StaticResource BackgroundColor}"
-                                                    Click="CloseButtonClick"
-                                                    Style="{StaticResource CancelButton}">
+                                                    Style="{StaticResource ResizeButtonStyle}">
+
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image
@@ -241,7 +242,11 @@
                                                     <Button.BorderBrush>
                                                         <SolidColorBrush Opacity="0" Color="White" />
                                                     </Button.BorderBrush>
-
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                 </Button>
                                             </WrapPanel>
                                         </StackPanel>

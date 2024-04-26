@@ -27,39 +27,10 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class MyToursPage : Page
     {
-        private MyToursViewModel myToursViewModel;
         public MyToursPage(User loggedInUser)
         {
             InitializeComponent();
-            myToursViewModel = new MyToursViewModel(loggedInUser);
-            DataContext = myToursViewModel;
-        }
-        
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RateButtonClick(object sender, RoutedEventArgs e)
-        {
-            myToursViewModel.RateTour(sender);
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            myToursViewModel.OpenInbox();
-        }
-
-        private void SortingComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(myToursViewModel != null)
-                myToursViewModel.SortingAllToursSelectionChanged();
-        }
-
-        private void SortingFinishedToursSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (myToursViewModel != null)
-                myToursViewModel.SortingFinishedToursSelectionChanged();
+            DataContext = new MyToursViewModel(loggedInUser);
         }
     }
 }

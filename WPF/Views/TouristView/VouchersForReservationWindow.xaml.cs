@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,29 +24,19 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class VouchersForReservationWindow : Window
     {
-        public VouchersForReservationViewModel VouchersForReservationViewModel { get; set; }
         public VouchersForReservationWindow(User loggedInUser)
         {
             InitializeComponent();
-            VouchersForReservationViewModel = new VouchersForReservationViewModel(loggedInUser);
-            DataContext = VouchersForReservationViewModel;
-        }
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
+            DataContext = new VouchersForReservationViewModel(loggedInUser);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            if(VouchersForReservationViewModel.Confirm())
+            if (message.Notification == "CloseVouchersForReservationWindowMessage")
             {
-                Close();
+                this.Close();
             }
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
-using BookingApp.WPF.ViewModels.TouristViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,33 +22,10 @@ namespace BookingApp.WPF.Views.TouristView
     /// </summary>
     public partial class TourRequestsPage : Page
     {
-        private TourRequestsViewModel tourRequestsViewModel;
         public TourRequestsPage(User loggedInUser)
         {
             InitializeComponent();
-            tourRequestsViewModel = new TourRequestsViewModel(loggedInUser);
-            DataContext = tourRequestsViewModel;
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            tourRequestsViewModel.OpenInbox();
-        }
-
-        private void CreateButtonClick(object sender, RoutedEventArgs e)
-        {
-            tourRequestsViewModel.CreateTourRequest();
-        }
-
-        private void SortingComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(tourRequestsViewModel != null)
-                tourRequestsViewModel.SortingSelectionChanged();
+            DataContext = new TourRequestsViewModel(loggedInUser);
         }
     }
 }

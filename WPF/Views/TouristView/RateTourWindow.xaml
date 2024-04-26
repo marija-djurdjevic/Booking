@@ -77,7 +77,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -134,35 +134,36 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 1}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 2}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 4}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 5}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
@@ -177,35 +178,36 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 1}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 2}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 4}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 5}}"
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
@@ -220,35 +222,36 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 1}}"
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 1}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 2}}"
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 2}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 4}}"
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 4}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 5}}"
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 5}}"
                         Style="{StaticResource LargeRadioButtonStyle}" />
 
                 </UniformGrid>
@@ -258,7 +261,7 @@
                     Margin="0,30,0,0"
                     FontSize="18"
                     MaxLength="200"
-                    Text="{Binding TouristExperience.Comment}"
+                    Text="{Binding TouristExperienceViewModel.Comment}"
                     TextWrapping="Wrap" />
 
                 <Grid Margin="0,30">
@@ -285,7 +288,7 @@
                             VerticalAlignment="Center"
                             Background="{StaticResource PageColor}"
                             BorderBrush="White"
-                            Click="PreviousImageButtonClick">
+                            Command="{Binding PreviousImageCommand}">
                             <Image
                                 Width="30"
                                 Height="30"
@@ -298,7 +301,7 @@
                             VerticalAlignment="Center"
                             Background="{StaticResource PageColor}"
                             BorderBrush="White"
-                            Click="NextImageButtonClick">
+                            Command="{Binding NextImageCommand}">
                             <Image
                                 Width="30"
                                 Height="30"
@@ -312,10 +315,25 @@
                         Grid.Column="0"
                         Height="150"
                         Background="White"
-                        Click="ImageButtonClick">
+                        Command="{Binding ShowImageCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border
+                                                BorderBrush="Black"
+                                                BorderThickness="1"
+                                                CornerRadius="10">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
                         <Button.Content>
                             <Image Source="{Binding ShowingImage, UpdateSourceTrigger=PropertyChanged, Converter={cvt:ImagePathConverter}}" />
-
                         </Button.Content>
                     </Button>
                     <Button
@@ -327,7 +345,7 @@
                         VerticalAlignment="Top"
                         Background="{StaticResource PageColor}"
                         BorderBrush="Red"
-                        Click="RemoveImageButtonClick">
+                        Command="{Binding RemoveImageCommand}">
                         <Button.Content>
                             <Image
                                 Width="35"
@@ -345,7 +363,7 @@
                         VerticalAlignment="Center"
                         Background="{StaticResource PageColor}"
                         BorderBrush="White"
-                        Click="AddImageButtonClick">
+                        Command="{Binding AddImageCommand}">
                         <Button.Content>
                             <Image
                                 Width="75"
@@ -362,7 +380,7 @@
             </StackPanel>
             <Button
                 Grid.Column="1"
-                Click="ConfirmClick"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -381,7 +399,7 @@
 
             <Button
                 Grid.Column="0"
-                Click="CancelClick"
+                Command="{Binding CancelCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">

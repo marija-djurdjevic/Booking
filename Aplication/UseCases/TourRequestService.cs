@@ -11,6 +11,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.Domain.Models.Enums;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -48,9 +49,9 @@ namespace BookingApp.Aplication.UseCases
             }
         }
 
-        public void SortTours(ObservableCollection<Tuple<TourRequest, string>> unsorted, string sortBy)
+        public void SortTours(ObservableCollection<Tuple<TourRequestViewModel, string>> unsorted, string sortBy)
         {
-            var sorted = new List<Tuple<TourRequest, string>>();
+            var sorted = new List<Tuple<TourRequestViewModel, string>>();
             switch (sortBy)
             {
                 case "System.Windows.Controls.ComboBoxItem: Date - Ascending":

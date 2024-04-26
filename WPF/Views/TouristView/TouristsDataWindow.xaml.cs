@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -25,30 +26,19 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        private TouristsDataViewModel touristsDataViewModel;
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequest tourRequest)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequestViewModel tourRequest)
         {
             InitializeComponent();
-            touristsDataViewModel = new TouristsDataViewModel(touristNumber, selectedTour, userId,isRequest,tourRequest);
-            DataContext = touristsDataViewModel;
+            DataContext = new TouristsDataViewModel(touristNumber, selectedTour, userId, isRequest, tourRequest);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            if (touristsDataViewModel.Confirm())
+            if (message.Notification == "CloseTouristsDataWindowMessage")
             {
-                Close();
+                this.Close();
             }
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-         
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -27,35 +27,10 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class ShowAndSearchToursPage : Page
     {
-        private ShowAndSearchToursViewModel showAndSearchToursViewModel;
         public ShowAndSearchToursPage(User loggedInUser)
         {
             InitializeComponent();
-            showAndSearchToursViewModel = new ShowAndSearchToursViewModel(loggedInUser);
-            DataContext = showAndSearchToursViewModel;
-        }
-        private void SelectedTourCard(object sender, MouseButtonEventArgs e)
-        {
-            showAndSearchToursViewModel.SelectedTourCard(sender);
-        }
-
-        private void SearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.Search();
-        }
-
-        private void ShowAllToursButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.ShowAllTours();
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.OpenInbox();
+            DataContext = new ShowAndSearchToursViewModel(loggedInUser);
         }
     }
 

@@ -26,7 +26,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -44,7 +44,7 @@
                     Margin="0"
                     VerticalAlignment="Bottom"
                     Background="{StaticResource BackgroundColor}"
-                    Click="InboxButtonClick"
+                    Command="{Binding InboxCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <Grid>

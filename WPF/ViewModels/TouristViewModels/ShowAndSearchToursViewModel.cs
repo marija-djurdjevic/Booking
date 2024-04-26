@@ -16,6 +16,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using GalaSoft.MvvmLight.Messaging;
+using BookingApp.Command;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -40,7 +42,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private readonly KeyPointService keyPointService;
         private readonly TouristGuideNotificationService notificationService;
 
-        private bool _isCancelSearchButtonVisible;
+        private bool _isShowAllButtonVisible;
+
+        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand ShowAllCommand { get; set; }
+        public RelayCommand InboxCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand<object> SelectedCardCommand { get; set; }
 
         public ShowAndSearchToursViewModel(User loggedInUser)
         {
@@ -50,23 +58,34 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
-            IsCancelSearchButtonVisible = false;
+            IsShowAllButtonVisible = false;
             LoggedInUser = loggedInUser;
             GetAllTours();
             UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
+            Messenger.Default.Register<NotificationMessage>(this, ShowAllButton);
+
+            SearchCommand = new RelayCommand(Search);
+            ShowAllCommand = new RelayCommand(ShowAllTours);
+            InboxCommand = new RelayCommand(OpenInbox);
+            HelpCommand = new RelayCommand(Help);
+            SelectedCardCommand = new RelayCommand<object>(SelectedTourCard);
         }
 
-        public bool IsCancelSearchButtonVisible
+        public bool IsShowAllButtonVisible
         {
-            get => _isCancelSearchButtonVisible;
+            get => _isShowAllButtonVisible;
             set
             {
-                if (value != _isCancelSearchButtonVisible)
+                if (value != _isShowAllButtonVisible)
                 {
-                    _isCancelSearchButtonVisible = value;
-                    OnPropertyChanged("IsCancelSearchButtonVisible");
+                    _isShowAllButtonVisible = value;
+                    OnPropertyChanged("IsShowAllButtonVisible");
                 }
             }
+        }
+        private void Help()
+        {
+
         }
 
         public void GetAllTours()
@@ -80,8 +99,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void SelectedTourCard(object sender)
         {
-            Border border = (Border)sender;
-            SelectedTour = (TourDto)border.DataContext;
+            SelectedTour = (TourDto)sender;
             SelectedTour.KeyPoints = keyPointService.GetTourKeyPoints(SelectedTour.Id);
             if (SelectedTour.MaxTouristNumber > 0)
             {
@@ -90,17 +108,23 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
             else
             {
-                MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city.");
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
                 ShowUnbookedToursInCity();
+            }
+        }
+
+        private void ShowAllButton(NotificationMessage message)
+        {
+            if (message.Notification == "ShowAllButtonMessage")
+            {
+                IsShowAllButtonVisible=true;
             }
         }
 
         public void Search()
         {
-            SearchWindow searchWindow = new SearchWindow(Tours);
-            searchWindow.ShowDialog();
-
-            IsCancelSearchButtonVisible = searchWindow.searchViewModel.IsCancelSearchButtonVisible;
+            new SearchWindow(Tours).ShowDialog();
         }
 
         public void OpenInbox()
@@ -112,7 +136,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void ShowAllTours()
         {
-            IsCancelSearchButtonVisible = false;
+            IsShowAllButtonVisible = false;
             GetAllTours();
         }
 
@@ -122,7 +146,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
             if (unBookedToursInCity.Count > 0)
             {
-                IsCancelSearchButtonVisible = true;
+                IsShowAllButtonVisible = true;
                 Tours.Clear();
                 foreach (var tour in unBookedToursInCity)
                 {
@@ -131,7 +155,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
             else
             {
-                MessageBox.Show("There are no tours from that city");
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours from that city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
             }
         }
 

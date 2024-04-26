@@ -7,6 +7,7 @@
     xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:val="clr-namespace:BookingApp.WPF.Validations"
     Title="Booking app"
     Width="700"
     Height="650"
@@ -32,7 +33,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -56,7 +57,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Click="ConfirmClick"
+                    Command="{Binding ConfirmCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -75,7 +76,7 @@
 
                 <Button
                     Grid.Column="0"
-                    Click="CancelClick"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -124,7 +125,9 @@
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             IsReadOnly="{Binding Item3}"
-                                            Text="{Binding Item1.TouristFirstName}" />
+                                            Text="{Binding Item1.TouristFirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                         <TextBlock
@@ -136,7 +139,8 @@
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             IsReadOnly="{Binding Item3}"
-                                            Text="{Binding Item1.TouristLastName}" />
+                                            Text="{Binding Item1.TouristLastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
                                         <TextBlock
@@ -151,7 +155,8 @@
                                             Maximum="150"
                                             Minimum="1"
                                             TextAlignment="Left"
-                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged}" />
+                                            Validation.ErrorTemplate="{StaticResource AgeValidationTemplate}"
+                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
                                     </StackPanel>
                                 </Grid>

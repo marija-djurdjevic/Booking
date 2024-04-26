@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
@@ -34,7 +35,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -52,7 +53,7 @@
                     Margin="0"
                     VerticalAlignment="Bottom"
                     Background="{StaticResource BackgroundColor}"
-                    Click="InboxButtonClick"
+                    Command="{Binding InboxCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <Grid>
@@ -95,11 +96,11 @@
                     Padding="5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Click="ShowAllToursButtonClick">
+                    Command="{Binding ShowAllCommand}">
                     <Button.Style>
                         <Style BasedOn="{StaticResource ConfirmButton}" TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsCancelSearchButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                <DataTrigger Binding="{Binding IsShowAllButtonVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -122,7 +123,7 @@
                     Margin="0"
                     HorizontalAlignment="Center"
                     Background="{StaticResource BackgroundColor}"
-                    Click="SearchButtonClick"
+                    Command="{Binding SearchCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -148,8 +149,12 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border MouseLeftButtonDown="SelectedTourCard" Style="{StaticResource HoverStilKartice}">
-
+                            <Border Style="{StaticResource HoverStilKartice}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectedCardCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
