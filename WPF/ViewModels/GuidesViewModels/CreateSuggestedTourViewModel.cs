@@ -1,32 +1,30 @@
-﻿using BookingApp.Aplication;
-using BookingApp.Aplication.Dto;
+﻿using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Aplication;
 using BookingApp.Command;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
-using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Input;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
-    internal class CreateTourViewModel : BaseViewModel 
+    
+     internal class CreateSuggestedTourViewModel : BaseViewModel
     {
         private string name;
         private string description;
         private int duration;
         private string city;
-        private string country; 
+        private string country;
         private int maxTouristNumber;
         private TourDto tourDto;
         private BitmapImage currentImage;
@@ -35,6 +33,7 @@ namespace BookingApp.WPF.ViewModels
         private readonly TourRepository tourRepository;
         private readonly KeyPointRepository keyPointRepository;
         private readonly ImageService imageService;
+        private TourRequestService tourRequestService;
         private GlobalLanguagesService globalLanguagesService;
         private GlobalLocationsService globalLocationsService;
         private int currentImageIndex = 0;
@@ -56,15 +55,18 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<string> CitiesCountries { get; set; } = new ObservableCollection<string>();
 
 
-        public CreateTourViewModel()
+        public CreateSuggestedTourViewModel()
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             tourRepository = new TourRepository();
             keyPointRepository = new KeyPointRepository();
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            MostRequestedLanguage =tourRequestService.GetMostRequestedLanguage();
+            MostRequestedLocation=tourRequestService.GetMostRequestedLocation();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
-            globalLocationsService=new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
+            globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
             uploadImageCommand = new RelayCommand(UploadImage);
             removeKeyPointCommand = new RelayCommand(RemoveKeyPoint);
             addKeyPointCommand = new RelayCommand(AddKeyPoint);
@@ -76,13 +78,15 @@ namespace BookingApp.WPF.ViewModels
             removeDateCommand = new RelayCommand(RemoveDate);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             TourDto = new TourDto();
+            SelectedLanguage = MostRequestedLanguage;
+            SelectedLocation = MostRequestedLocation;
             LoadLanguages();
             LoadCitiesCountries();
         }
 
 
 
-       
+
         public string Name
         {
             get { return name; }
@@ -122,9 +126,6 @@ namespace BookingApp.WPF.ViewModels
 
 
 
-
-
-
         public TourDto TourDto
         {
             get { return tourDto; }
@@ -152,23 +153,34 @@ namespace BookingApp.WPF.ViewModels
 
         private void LoadLanguages()
         {
-           List<string>langugages=globalLanguagesService.GetAll();
+            List<string> languages = globalLanguagesService.GetAll();
 
-            foreach (var langugage in langugages)
+            if (!languages.Contains(MostRequestedLanguage))
             {
-                Langugages.Add(langugage);
+                languages.Add(MostRequestedLanguage);
             }
 
+            foreach (var language in languages)
+            {
+                Langugages.Add(language);
+            }
         }
 
         private void LoadCitiesCountries()
         {
-            List<string> randomCitiesAndCountries = globalLocationsService.GetRandomCitiesAndCountries();
-            foreach (var cityAndCountry in randomCitiesAndCountries)
+            List<string> citiesAndCountries = globalLocationsService.GetRandomCitiesAndCountries();
+
+            if (!citiesAndCountries.Contains(MostRequestedLocation))
+            {
+                citiesAndCountries.Add(MostRequestedLocation);
+            }
+
+            foreach (var cityAndCountry in citiesAndCountries)
             {
                 CitiesCountries.Add(cityAndCountry);
             }
         }
+
 
 
         public BitmapImage CurrentImage
@@ -355,11 +367,11 @@ namespace BookingApp.WPF.ViewModels
                     tourDto.ImagesPaths.Add(relativeImagePath);
                 }
                 currentImageIndex = tourDto.ImagesPaths.Count - 1;
-               UpdateImage();
+                UpdateImage();
             }
         }
 
-        
+
 
         private void UpdateImage()
         {
@@ -383,7 +395,7 @@ namespace BookingApp.WPF.ViewModels
         {
             string keyPointName = parameter.ToString();
             KeyPointNames.Add(keyPointName);
-           
+
 
         }
 
@@ -428,39 +440,55 @@ namespace BookingApp.WPF.ViewModels
             if (parameter is DateTime dateToRemove)
             {
                 TourDates.Remove(dateToRemove);
-               
+
             }
         }
 
 
         private void CreateTour()
         {
-             foreach (var startDate in TourDates)
-             {
+            foreach (var startDate in TourDates)
+            {
                 LocationDto newLocationDto = GetLocationDto();
-                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
-                 CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
-                 bool success = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
-                 if (!success)  
-                 {
-                     return; 
-                 }
-             }
+                TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
+                CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
+                bool success = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
+                if (!success)
+                {
+                    return;
+                }
+            }
         }
 
         private LocationDto GetLocationDto()
-        {  
-             string[] locationParts = selectedLocation.Split(',');
-             string city = locationParts[0].Trim();
-             string country = locationParts[1].Trim();
-             return new LocationDto { City = city, Country = country };
+        {
+            string[] locationParts = selectedLocation.Split(',');
+            string city = locationParts[0].Trim();
+            string country = locationParts[1].Trim();
+            return new LocationDto { City = city, Country = country };
         }
-         
+
         private TourDto CreateNewTourDto(LocationDto locationDto, DateTime startDate, string selectedLanguage)
         {
-            return new TourDto(Name, Description, selectedLanguage, MaxTouristNumber, startDate,Duration, locationDto, tourDto.ImagesPaths);
+            return new TourDto(Name, Description, selectedLanguage, MaxTouristNumber, startDate, Duration, locationDto, tourDto.ImagesPaths);
         }
-       
+
+
+        private string mostRequestedLocation;
+        public string MostRequestedLocation
+        {
+            get { return mostRequestedLocation; }
+            set { mostRequestedLocation = value; OnPropertyChanged(); }
+        }
+
+        private string mostRequestedLanguage;
+        public string MostRequestedLanguage
+        {
+            get { return mostRequestedLanguage; }
+            set { mostRequestedLanguage = value; OnPropertyChanged(); }
+        }
+
+
 
     }
 }

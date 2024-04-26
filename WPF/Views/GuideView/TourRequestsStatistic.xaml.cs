@@ -1,5 +1,4 @@
-﻿using BookingApp.View.GuideView;
-using BookingApp.WPF.ViewModels.GuidesViewModels;
+﻿using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View
+namespace BookingApp.WPF.Views.GuideView
 {
     /// <summary>
-    /// Interaction logic for SideMenuPage.xaml
+    /// Interaction logic for TourRequestsStatistic.xaml
     /// </summary>
-    public partial class SideMenuPage : Page
+    public partial class TourRequestsStatistic : Page
     {
-        public SideMenuPage()
+        public TourRequestsStatistic()
         {
             InitializeComponent();
-            DataContext = new SideMenuViewModel();
-        }
-
-        private void NavigateBack(object sender, MouseButtonEventArgs e)
-        {
-
+            DataContext = new TourRequestsStatisticViewModel();
         }
     }
 }

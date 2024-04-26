@@ -21,9 +21,9 @@ namespace BookingApp.View.GuideView
     /// <summary>
     /// Interaction logic for GuideMainPage1.xaml
     /// </summary>
-    public partial class GuideMainPage1 : Page
+    public partial class GuideMainPage : Page
     {
-        public GuideMainPage1()
+        public GuideMainPage()
         {
             InitializeComponent();
             DataContext = new GuideMainPageViewModel();

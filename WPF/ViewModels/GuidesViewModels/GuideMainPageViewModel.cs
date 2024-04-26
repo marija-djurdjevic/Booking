@@ -37,6 +37,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand reviewTourClickCommand;
         private RelayCommand cancelTourClickCommand;
         private LiveTourRepository liveTourRepository;
+        private RelayCommand sideMenuCommand;
         public GuideMainPageViewModel()
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
@@ -51,6 +52,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             LoadTours();
         }
         public ObservableCollection<Tour> TodayTours
@@ -128,6 +130,32 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 }
             }
         }
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideManuPage=new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideManuPage);
+
+        }
+
+        
+
+
         private void ExecuteCreateTourClick()
         {
             var createTourPage = new CreateTourPage();

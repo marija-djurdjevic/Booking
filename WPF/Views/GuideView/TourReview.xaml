@@ -17,8 +17,17 @@
             </Grid.ColumnDefinitions>
 
             <!-- Slika u prvoj koloni -->
-            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
-               Stretch="Uniform" Width="71" Height="71" MouseLeftButtonUp="NavigateToSideMenuPage"/>
+            <Button VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Command="{Binding SideManuCommand}"
+                Background="Transparent"
+                BorderThickness="0">
+                <Image Source="/Resources/Images/menu5.png"
+                    Stretch="Uniform"
+                    Width="71"
+                    Height="71" />
+            </Button>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURISTS REVIEWS"/>
         </Grid>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="768" Margin="0,71,0,0">
@@ -111,27 +120,6 @@
             </Grid>
         </ScrollViewer>
 
-
-
-        <!-- Donja navigaciona traka -->
-        <Grid VerticalAlignment="Bottom" Background="LightGray" Height="71" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Prva slika u levom cosku -->
-            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}"
-                Background="Transparent" BorderBrush="Transparent">
-                <Image Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" />
-            </Button>
-
-
-            <Button Grid.Column="1" Command="{Binding NavigateBackCommand}"
-                Background="Transparent" BorderBrush="Transparent">
-                <Image Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59" />
-            </Button>
-        </Grid>
 
     </Grid>
 </Page>

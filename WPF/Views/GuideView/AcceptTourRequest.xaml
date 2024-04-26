@@ -1,11 +1,13 @@
-﻿<Page x:Class="BookingApp.View.GuideView.TouristsNumber"
+﻿<Page x:Class="BookingApp.WPF.Views.GuideView.AcceptTourRequest"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View.GuideView"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.GuideView"
       mc:Ignorable="d" 
-      Title="TouristsNumberPage1"  Height="Auto" Width="1024">
+      
+      Title="AcceptTourRequest" Height="768" Width="1024">
 
     <Grid>
         <!-- Navigaciona traka -->
@@ -29,25 +31,39 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" MinWidth="320.387"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!-- Tekst -->
-            <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="20,40,580,0" Height="566" Grid.ColumnSpan="2">
-                <TextBlock FontSize="32" Height="220">
-                    <Run Text="1. Under 18 years: "/>
-                    <Run Text="{Binding Under18Count}"/>
-                </TextBlock>
-                <TextBlock FontSize="32" Height="220">
-                    <Run Text="2. Between 18 and 50 years: "/>
-                    <Run Text="{Binding Between18And50Count}"/>
-                </TextBlock>
-                <TextBlock FontSize="32" Height="100">
-                    <Run Text="3. Over 50 years: "/>
-                    <Run Text="{Binding Over50Count}"/>
-                </TextBlock>
-            </StackPanel>
+
+            <TextBlock FontSize="32" Margin="24,60,680,522" Grid.ColumnSpan="2">
+                    <Run Text="Date ranges provided: "/>
+            </TextBlock>
+
+
+
+            <TextBlock FontSize="32" Margin="24,338,680,239" Grid.ColumnSpan="2">
+         <Run Text="Start Date and Time: "/>
+            </TextBlock>
+
         </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,12,0,-12">
+            <ListBox
+                x:Name="ListBoxDates"
+                Margin="367,122,322,451"
+                ItemsSource="{Binding FreeDates}">
+            </ListBox>
+        </ScrollViewer>
+
+
+        <xctk:DateTimePicker
+     x:Name="StartDateTimePicker"
+     Grid.Row="0"
+     Margin="364,405,319,291" />
+
+        <Button Margin="364,564,319,137" Content="Confrim" FontSize="32"></Button>
+
 
     </Grid>
 </Page>

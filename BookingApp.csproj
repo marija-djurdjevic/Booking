@@ -46,6 +46,8 @@
     <None Remove="Resources\Images\bell.png" />
     <None Remove="Resources\Images\booking.png" />
     <None Remove="Resources\Images\chat.png" />
+    <None Remove="Resources\Images\checkbox-unchecked.svg" />
+    <None Remove="Resources\Images\checked-checkbox-icon-checkbox-ico-115632629493xkxpf63d8.png" />
     <None Remove="Resources\Images\contract.png" />
     <None Remove="Resources\Images\correct.png" />
     <None Remove="Resources\Images\decline.png" />
@@ -65,6 +67,7 @@
     <None Remove="Resources\Images\question.png" />
     <None Remove="Resources\Images\star %281%29.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\unchecked.jpg" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
     <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
@@ -149,6 +152,8 @@
     <Resource Include="Resources\Images\bell.png" />
     <Resource Include="Resources\Images\booking.png" />
     <Resource Include="Resources\Images\chat.png" />
+    <Resource Include="Resources\Images\checkbox-unchecked.svg" />
+    <Resource Include="Resources\Images\checked-checkbox-icon-checkbox-ico-115632629493xkxpf63d8.png" />
     <Resource Include="Resources\Images\contract.png" />
     <Resource Include="Resources\Images\correct.png" />
     <Resource Include="Resources\Images\decline.png" />
@@ -165,6 +170,7 @@
     <Resource Include="Resources\Images\star (1).png" />
     <Resource Include="Resources\Images\star (2).png" />
     <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\unchecked.jpg" />
   </ItemGroup>
 
   <ItemGroup>

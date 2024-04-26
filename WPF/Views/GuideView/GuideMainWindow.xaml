@@ -9,6 +9,60 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid>
+
+
+        <DockPanel DockPanel.Dock="Top">
+            <Grid
+                Height="71"
+                VerticalAlignment="Top"
+                Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+
+                <Image
+                    Grid.Column="0"
+                    Width="71"
+                    Height="71"
+                    Source="/Resources/Images/menu5.png"
+                    Stretch="Uniform" />
+            </Grid>
+        </DockPanel>
+
         <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden"/>
+
+        <DockPanel DockPanel.Dock="Bottom"  Height="60"
+                   Background="LightGray"
+                   VerticalAlignment="Bottom">
+            <!--  Donja navigaciona traka  -->
+
+          
+
+            <!--  Prva slika u levom cosku  -->
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                BorderBrush="Transparent"
+                Command="{Binding GoBackCommand}">
+                <Image
+                    Width="59"
+                    Height="59"
+                    Source="/Resources/Images/back.png"/>
+            </Button>
+
+            <!--  Druga slika u sredini  -->
+            <Button
+                Command="{Binding GoHomeCommand}"
+                Background="Transparent"
+                BorderThickness="0" Width="82">
+                <Image
+                        Width="59"
+                        Height="59"
+                        Source="/Resources/Images/home4.png"/>
+            </Button>
+
+        </DockPanel>
     </Grid>
 </Window>

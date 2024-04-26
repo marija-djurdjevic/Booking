@@ -1,4 +1,4 @@
-﻿using BookingApp.Aplication;
+using BookingApp.Aplication;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
@@ -66,7 +66,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             LoggedInUser = loggedInUser;
             TourRequests = new ObservableCollection<Tuple<TourRequestViewModel, string>>();
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
 
             GetMyRequests();
@@ -108,5 +108,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             new CreateTourRequestWindow(LoggedInUser).ShowDialog();
             GetMyRequests();
         }
+
+
+       
+
+
     }
 }

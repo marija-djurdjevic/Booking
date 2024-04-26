@@ -5,6 +5,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.Models.Enums;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +32,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand addTouristClickCommand;
         private RelayCommand checkCommand;
         private LiveTour liveTour;
+        private RelayCommand sideMenuCommand;
         public LiveTourViewModel(int tourId)
         {
             this.tourId = tourId;
@@ -46,6 +48,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             finishTourClickCommand = new RelayCommand(ExecuteFinishTourClick);
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
             checkCommand = new RelayCommand(Check);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
         }
         public ObservableCollection<TourReservation> Tourists
         {
@@ -103,6 +106,33 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 }
             }
         }
+
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+
+
         private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints)
         {
             int checkedKeyPointsCount = keyPoints.Count(kp => kp.IsChecked);
@@ -114,7 +144,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             keyPoint.IsChecked = true;
             keyPointService.Update(keyPoint);
             liveTourService.CheckKeyPoint(tourId, keyPoint);
+
             var keypoints = keyPointService.GetTourKeyPoints(tourId);
+            KeyPoints = new ObservableCollection<KeyPoint>(keypoints);
+
+            
             if (AreAllKeyPointsChecked(keypoints))
             {
                 ExecuteFinishTourClick();

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TourStatisticPage1"
     Width="1024"
-    Height="768"
+    Height="auto"
     mc:Ignorable="d">
 
 
@@ -38,172 +38,149 @@
             </Grid.ColumnDefinitions>
 
             <!--  Slika u prvoj koloni  -->
-            <Image
-                Grid.Column="0"
-                Width="71"
-                Height="71"
-                MouseLeftButtonUp="NavigateToSideMenuPage"
-                Source="/Resources/Images/menu5.png"
-                Stretch="Uniform" />
+            <Button Grid.Column="0"
+                Command="{Binding SideManuCommand}"
+                Background="Transparent"
+                BorderThickness="0">
+                <Image Source="/Resources/Images/menu5.png"
+                    Stretch="Uniform"
+                    Width="71"
+                    Height="71" />
+            </Button>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURS STATISTICS"/>
         </Grid>
 
         <Button
                 Grid.Row="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="0,10,10,0"
+                Margin="100,4,40,0"
                 Content="Generate Tour Stats PDF"
                 Command="{Binding GenerateTourStatsPdfCommand}"
                 FontSize="16"
                 Padding="10"/>
 
 
-        <ListBox
-            x:Name="tourListBox"
-            Grid.Row="2"
-            ItemsSource="{Binding SortedTours}"
-            SelectedItem="{Binding SelectedTour, Mode=TwoWay}" d:ItemsSource="{d:SampleData ItemCount=5}">
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Width="1000" Height="250" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--  Most visited tour  -->
-                        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"
-                                x:Name="MostVisitedLabel"
-                                Grid.Column="0"
-                                FontSize="32"
-                                Text="Most visited tour"
-                                Visibility="Collapsed" />
-
-                        <!--  Informacije o turi  -->
-                        <StackPanel Grid.Column="1" Margin="10,50,0,0">
-                            <TextBlock>
-                                <Run FontSize="24" Text="Location: " />
-                                <Run FontSize="24" FontWeight="Bold" Text="{Binding Location.City}" />
-                            </TextBlock>
-
-                            <TextBlock Margin="0,10,0,0">
-                                <Run FontSize="24" Text="Language: " />
-                                <Run FontSize="24" Text="{Binding Language}" />
-                            </TextBlock>
-
-                            <TextBlock Margin="0,10,50,0">
-                                <Run FontSize="24" Text="Start Date and Time: " />
-                                <Run FontSize="24" Text="{Binding StartDateTime}" />
-                            </TextBlock>
-                        </StackPanel>
-
-                        <!--  Slika ture  -->
-                        <Image
-                                Grid.Column="0"
-                                Width="150"
-                                Height="150"
-                                Margin="48,62,0,38"
-                                HorizontalAlignment="Left"
-                                Stretch="Fill">
-                            <Image.Source>
-                                <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
-                            </Image.Source>
-                        </Image>
-
-                        <!--  Period label  -->
-                        <TextBlock
-                                x:Name="PeriodLabel"
-                                Grid.Column="1"
-                                Margin="500,13,0,10"
-                                HorizontalAlignment="Left"
-                                FontSize="32"
-                                Text="Period"
-                                Visibility="Collapsed" />
-
-                        <!--  ComboBox  -->
-                        <ComboBox
-                                x:Name="firstTourComboBox"
-                                Grid.Column="1"
-                                Width="130"
-                                Height="50"
-                                Margin="540,10,19,100"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Text="{Binding Path=DataContext.SelectedYear, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                Visibility="Collapsed">
-                            <ComboBoxItem>General</ComboBoxItem>
-                            <ComboBoxItem>2024</ComboBoxItem>
-                            <ComboBoxItem>2023</ComboBoxItem>
-                            <ComboBoxItem>2022</ComboBoxItem>
-                            <ComboBoxItem>2021</ComboBoxItem>
-                            <ComboBoxItem>2020</ComboBoxItem>
-                        </ComboBox>
-
-                        <!--  Button  -->
-                        <Button
-                                Grid.Column="1"
-                                Width="294"
-                                Height="36"
-                                Margin="0,0,40,8"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                CommandParameter="{Binding Id}"
-                                Content="TOURISTS ON TOUR"
-                                FontSize="28"
-                                />
-                    </Grid>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">
-                            <Setter TargetName="firstTourComboBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="MostVisitedLabel" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="PeriodLabel" Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-
-            </ListBox.ItemTemplate>
-        </ListBox>
 
 
-        <!--  Donja navigaciona traka  -->
-        <Grid Grid.Row="3"
-            Height="71"
-            VerticalAlignment="Bottom"
-            Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <!--  Prva slika u levom cosku  -->
-            <Button
-                Grid.Column="0"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Command="{Binding NavigateBackCommand}">
-                <Image
-                    Width="59"
-                    Height="59"
-                    Source="/Resources/Images/back.png"
-                    Stretch="Uniform" />
-            </Button>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994">
+            <ListBox x:Name="tourListBox"
+         
+         Grid.Row="2"
+         ItemsSource="{Binding SortedTours}"
+         SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
+         d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="993" Height="250">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
 
-            <Button
-                Grid.Column="1"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Command="{Binding NavigateBackCommand}">
-                <Image
-                    Width="59"
-                    Height="59"
-                    Source="/Resources/Images/home4.png"
-                    Stretch="Uniform" />
-            </Button>
+                            <!-- Red za Most visited tour i Period -->
+                            <TextBlock x:Name="MostVisitedLabel"
+                           Grid.Row="0"
+                           Margin="20,6,0,0"
+                           FontSize="32"
+                           Text="Most visited tour"
+                           Visibility="Collapsed" />
 
-        </Grid>
+                            <TextBlock x:Name="PeriodLabel"
+                           Grid.Row="0"
+                           
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           FontSize="32"
+                           Text="Period"
+                           Visibility="Collapsed" Margin="30,5,170,0" />
+
+                            <ComboBox x:Name="firstTourComboBox"
+                          Grid.Row="0"
+                          
+                          Width="130"
+                          Height="45"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Margin="50,6,30,0"
+                          Text="{Binding Path=DataContext.SelectedYear, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                          Visibility="Collapsed">
+                                <ComboBoxItem>General</ComboBoxItem>
+                                <ComboBoxItem>2024</ComboBoxItem>
+                                <ComboBoxItem>2023</ComboBoxItem>
+                                <ComboBoxItem>2022</ComboBoxItem>
+                                <ComboBoxItem>2021</ComboBoxItem>
+                                <ComboBoxItem>2020</ComboBoxItem>
+                            </ComboBox>
+
+                            <!-- Red za sliku i informacije o turi -->
+                            <Image
+                       
+                       Height="150"
+                       Margin="13,59,812,113"
+                       Stretch="Fill" Grid.RowSpan="2">
+                                <Image.Source>
+                                    <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
+                                </Image.Source>
+                            </Image>
+
+                            <Grid Grid.Row="1" Margin="193,13,0,67">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Location -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" Text="Location: " Margin="0,-16,0,48" Grid.RowSpan="2" />
+                                <TextBlock Grid.Row="0" FontSize="24" Grid.RowSpan="2" Margin="130,-15,37,34" Grid.Column="1">
+                                    <Run Text="{Binding Location.City}" />
+                                    <Run Text=", " />
+                                    <Run Text="{Binding Location.Country}" />
+                                </TextBlock>
+
+
+                                <!-- Language -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="24" Text="Language: " Margin="0,18,0,14" Grid.RowSpan="2" />
+                                <TextBlock Grid.Row="1" FontSize="24" Text="{Binding Language}" Margin="130,19,10,13" Grid.RowSpan="2" Grid.Column="1" />
+
+                                <!-- Start Date and Time -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="24" Text="Start Date and Time: " Grid.ColumnSpan="2" Margin="0,26,511,-26" />
+                                <TextBlock Grid.Row="2" FontSize="24" Text="{Binding StartDateTime}" Margin="126,26,309,-26" Grid.Column="1" />
+                            </Grid>
+
+
+                            <!-- Button -->
+                            <Button 
+                        Width="270"
+                        Height="39"
+                        Margin="690,141,33,82"
+                        Padding="1"
+                        Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                        CommandParameter="{Binding Id}"
+                        Content="TOURISTS STATISTICS"
+                        FontSize="28" Grid.Row="1" />
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">
+                                <Setter TargetName="firstTourComboBox" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="MostVisitedLabel" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="PeriodLabel" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+
+
 
     </Grid>
 </Page>
