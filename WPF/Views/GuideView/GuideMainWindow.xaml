@@ -33,7 +33,7 @@
 
         <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden"/>
 
-        <DockPanel DockPanel.Dock="Bottom"  Height="60"
+        <DockPanel DockPanel.Dock="Bottom"  Height="71"
                    Background="LightGray"
                    VerticalAlignment="Bottom">
             <!--  Donja navigaciona traka  -->

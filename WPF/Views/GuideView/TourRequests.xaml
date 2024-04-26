@@ -12,44 +12,12 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="71"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-        </Grid>
-
-        <!-- Gornja navigaciona traka -->
-        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="71"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Slika u prvoj koloni -->
-            <Button Grid.Column="0"
-                    Command="{Binding SideManuCommand}"
-                    Background="Transparent"
-                    BorderThickness="0">
-                <Image Source="/Resources/Images/menu5.png"
-                 Stretch="Uniform"
-                 Width="71"
-                 Height="71" />
-            </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
-        </Grid>
-
-
-
-
-
-
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="71"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="400"/>
             </Grid.RowDefinitions>
 
             <!-- Gornja navigaciona traka -->
@@ -71,47 +39,50 @@
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
             </Grid>
 
+
+
+
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="516"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose location:" FontSize="24" Margin="10,16,810,78" Grid.RowSpan="2"/>
-                <ComboBox  Grid.Column="0" Width="200" Margin="285,16,565,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
+                <TextBlock Grid.Column="0" Text="Choose location:" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                <ComboBox  Grid.Column="0" Margin="251,16,105,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
 
                 <!-- Tourists number -->
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Tourists number:" FontSize="24" Margin="10,18,810,135" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Tourists number:" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0"/>
                 <xctk:IntegerUpDown
                     Grid.Row="1"
                     Height="42"
                     Increment="1"
                     Minimum="0"
                     RenderTransformOrigin="-0.113,-7.205"
-                    Value="{Binding TouristsNumber, Mode=TwoWay}" Margin="285,22,565,6" />
+                    Value="{Binding TouristsNumber, Mode=TwoWay}" Margin="251,16,105,12" />
 
                 <!-- Choose language -->
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Choose language:" FontSize="24" Margin="12,42,808,20"/>
-                <ComboBox Grid.Row="2" Grid.Column="0" Width="200"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Top" Margin="285,36,565,0" Height="41"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Choose language:" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0"/>
+                <ComboBox Grid.Row="2" Grid.Column="0"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Center" Margin="251,0,105,0" Height="42"/>
 
                 <!-- Start datetime -->
-                <TextBlock Text="Start datetime:" FontSize="24" Margin="632,16,251,2"/>
-                <xctk:DateTimePicker Grid.Row="1" Margin="816,26,69,10" Value="{Binding StartDateTime, Mode=TwoWay}" />
+                <TextBlock Grid.Column="1" Text="Start datetime:" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="28,21,0,0" />
+                <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"  Value="{Binding StartDateTime, Mode=TwoWay}" Margin="234,16,0,0" Height="42" Width="195" />
 
 
 
                 <!-- End datetime -->
-                <TextBlock Grid.Row="1" Text="End datetime:" FontSize="24" Margin="636,37,268,22"/>
-                <xctk:DateTimePicker Margin="816,12,69,2"  Value="{Binding EndDateTime, Mode=TwoWay}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="End datetime:" FontSize="24" Margin="28,0,0,0" />
+                <xctk:DateTimePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"  Value="{Binding EndDateTime, Mode=TwoWay}" Margin="234,0,0,0" Height="42" Width="195" />
 
 
-                <Button Grid.Row="2" Content="Search" Margin="816,32,69,17" Command="{Binding SearchCommand}" 
+                <Button Grid.Row="2" Grid.Column="1" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding SearchCommand}" Height="50" Width="153" Margin="256,0,0,0" 
                      />
 
 
@@ -125,26 +96,21 @@
 
 
 
-
-
-
-
-            <ScrollViewer Grid.Row="2"  VerticalScrollBarVisibility="Auto">
-                <ListBox Grid.Row="2"  ItemsSource="{Binding TourRequests}"  Height="379"
+            <ListBox Grid.Row="2" VerticalAlignment="Top"  ItemsSource="{Binding TourRequests}"  Height="360"
                 x:Name="tourListBox"
                  Margin="10"
                 SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
                 SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Height="195" Margin="5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="195" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                                        <!--  Slika ture  -->
-                                        <Image
+                            <!--  Slika ture  -->
+                            <Image
                                             Grid.Column="0"
                                             Width="150"
                                             Height="230"
@@ -152,15 +118,15 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Top"
                                             Stretch="Fill">
-                                            <Image.Source>
-                                                <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
-                                            </Image.Source>
-                                        </Image>
+                                <Image.Source>
+                                    <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
+                                </Image.Source>
+                            </Image>
 
-                                        <!--  Informacije o turi  -->
-                                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                            <!--  Informacije o turi  -->
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
 
-                                            <TextBlock Margin="0,0,0,20" >
+                                <TextBlock Margin="0,0,0,20" >
                             <Run Text="Location: " />
                             <TextBlock Margin="140,0,0,0">
                             <Run FontSize="24" Text="{Binding Location.City}" />
@@ -169,19 +135,19 @@
                             </TextBlock>
                         </TextBlock>
 
-                                            <TextBlock Margin="0,0,0,20" >
+                                <TextBlock Margin="0,0,0,20" >
                             <Run Text="Language: " />
                             <TextBlock Margin="125,0,0,0">
                                 <Run FontSize="24" Text="{Binding Language}" />
                             </TextBlock>
                         </TextBlock>
 
-                                            <TextBlock  >
+                                <TextBlock  >
                             <Run Text="Tourist sign-ups number: " />
                             <Run FontSize="24" Text="{Binding TouristNumber}" />
-                                            </TextBlock>
+                                </TextBlock>
 
-                                            <Button
+                                <Button
                             Width="138"
                             Height="36"
                             Margin="630,0,0,0"
@@ -190,25 +156,11 @@
                             CommandParameter="{Binding Id}"
                             Content="ACCEPT"
                             FontSize="28" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </ScrollViewer>
-
-
-
-
-
-
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
-
-
-
-
-
-
-
     </Grid>
 </Page>
