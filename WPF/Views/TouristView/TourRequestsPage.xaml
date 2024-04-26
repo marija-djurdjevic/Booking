@@ -322,6 +322,7 @@
                                                             Margin="20,10,10,10"
                                                             VerticalAlignment="Center"
                                                             Text="Request status: " />
+
                                                         <Button
                                                             Margin="0"
                                                             VerticalAlignment="Center"
@@ -331,10 +332,16 @@
                                                             FontWeight="Bold"
                                                             Style="{StaticResource ConfirmButton}">
                                                             <Button.Content>
-                                                                <TextBlock
-                                                                    Margin="5"
-                                                                    FontSize="20"
-                                                                    Text="{Binding Item1.Status}" />
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image
+                                                                        Height="40"
+                                                                        Margin="5,0,5,0"
+                                                                        Source="{Binding Item1.Status, ConverterParameter=icon, Converter={cvt:RequestStatusConverter}}" />
+                                                                    <TextBlock
+                                                                        Margin="5"
+                                                                        FontSize="20"
+                                                                        Text="{Binding Item1.Status}" />
+                                                                </StackPanel>
                                                             </Button.Content>
                                                         </Button>
                                                     </StackPanel>

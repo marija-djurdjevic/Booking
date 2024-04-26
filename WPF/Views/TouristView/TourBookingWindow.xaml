@@ -122,9 +122,10 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image
+                                Width="40"
                                 Height="40"
                                 Margin="5,0,5,0"
-                                Source="/Resources/Icons/TouristIcons/confirm.png" />
+                                Source="/Resources/Icons/TouristIcons/reserved.png" />
                             <TextBlock Margin="0,0,5,0" Text="Reserve" />
                         </StackPanel>
                     </Button.Content>

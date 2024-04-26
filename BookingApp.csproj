@@ -15,18 +15,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\TouristIcons\accepted.png" />
     <None Remove="Resources\Icons\TouristIcons\add.png" />
     <None Remove="Resources\Icons\TouristIcons\arrived.png" />
+    <None Remove="Resources\Icons\TouristIcons\booking.png" />
     <None Remove="Resources\Icons\TouristIcons\cancel.png" />
     <None Remove="Resources\Icons\TouristIcons\close.png" />
     <None Remove="Resources\Icons\TouristIcons\confirm.png" />
     <None Remove="Resources\Icons\TouristIcons\end.png" />
+    <None Remove="Resources\Icons\TouristIcons\expired.png" />
     <None Remove="Resources\Icons\TouristIcons\grade.png" />
     <None Remove="Resources\Icons\TouristIcons\help.png" />
     <None Remove="Resources\Icons\TouristIcons\image.png" />
     <None Remove="Resources\Icons\TouristIcons\inbox.png" />
+    <None Remove="Resources\Icons\TouristIcons\invalid.png" />
     <None Remove="Resources\Icons\TouristIcons\middle.png" />
     <None Remove="Resources\Icons\TouristIcons\pdf.png" />
+    <None Remove="Resources\Icons\TouristIcons\pending.png" />
+    <None Remove="Resources\Icons\TouristIcons\reserve.png" />
+    <None Remove="Resources\Icons\TouristIcons\reserved.png" />
     <None Remove="Resources\Icons\TouristIcons\show.png" />
     <None Remove="Resources\Icons\TouristIcons\showall.png" />
     <None Remove="Resources\Icons\TouristIcons\start.png" />
@@ -104,23 +111,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\TouristIcons\accepted.png" />
     <Resource Include="Resources\Icons\TouristIcons\add.png" />
     <Resource Include="Resources\Icons\TouristIcons\arrived.png" />
+    <Resource Include="Resources\Icons\TouristIcons\booking.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
     <Resource Include="Resources\Icons\TouristIcons\cancel.png" />
     <Resource Include="Resources\Icons\TouristIcons\close.png" />
     <Resource Include="Resources\Icons\TouristIcons\confirm.png" />
     <Resource Include="Resources\Icons\TouristIcons\end.png" />
+    <Resource Include="Resources\Icons\TouristIcons\expired.png" />
     <Resource Include="Resources\Icons\TouristIcons\grade.png" />
     <Resource Include="Resources\Icons\TouristIcons\help.png" />
     <Resource Include="Resources\Icons\TouristIcons\image.png" />
     <Resource Include="Resources\Icons\TouristIcons\inbox.png" />
+    <Resource Include="Resources\Icons\TouristIcons\Invalid.png" />
     <Resource Include="Resources\Icons\TouristIcons\logout.png" />
     <Resource Include="Resources\Icons\TouristIcons\middle.png" />
     <Resource Include="Resources\Icons\TouristIcons\next.png" />
     <Resource Include="Resources\Icons\TouristIcons\pdf.png" />
+    <Resource Include="Resources\Icons\TouristIcons\Pending.png" />
     <Resource Include="Resources\Icons\TouristIcons\photo.png" />
     <Resource Include="Resources\Icons\TouristIcons\previous.png" />
+    <Resource Include="Resources\Icons\TouristIcons\reserve.png" />
+    <Resource Include="Resources\Icons\TouristIcons\reserved.png" />
     <Resource Include="Resources\Icons\TouristIcons\settings.png" />
     <Resource Include="Resources\Icons\TouristIcons\show.png" />
     <Resource Include="Resources\Icons\TouristIcons\showall.png" />
