@@ -15,7 +15,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,14,0">
 
             <Grid Background="White" Height="2162">
                 <Grid.RowDefinitions>
@@ -132,7 +132,7 @@
 
 
                     <Label Margin="24,776,11,604" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="210,786,555,675" Text="{Binding KeyPoints, Mode=TwoWay}" />
+                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="211,788,550,678" Text="{Binding KeyPoints, Mode=TwoWay}" />
                     <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
 
                     <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,862,550,550" ItemsSource="{Binding KeyPointNames}" FontSize="20">
@@ -166,7 +166,7 @@
 
 
                     <Grid>
-                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,594,325" />
+                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,580,325" />
 
                         <Image
                             x:Name="ImagePreview"
@@ -256,15 +256,15 @@
                         Content="CONFRIM"
                         FontSize="40" />
                     <Label
-                        Margin="203,413,481,1051"
+                        Margin="203,411,467,1053"
                         Content="(Most requested location:"
                         FontSize="28" />
                     <Label
-                        Margin="310,48,354,1407"
+                        Margin="310,46,343,1409"
                         Content="(Most reqested langugage:"
                         FontSize="28" />
 
-                    <Label Margin="531,409,20,1050"
+                    <Label Margin="531,411.5,20,1050"
                         FontSize="28">
                         <TextBlock>
                             <Run Text="{Binding MostRequestedLocation}" />
@@ -272,7 +272,7 @@
                         </TextBlock>
                     </Label>
 
-                    <Label Margin="653,48,7,1407"
+                    <Label Margin="650,46,7,1407"
                         FontSize="28">
                         <TextBlock>
                             <Run Text="{Binding MostRequestedLanguage}" />

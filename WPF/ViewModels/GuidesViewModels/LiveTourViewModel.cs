@@ -43,7 +43,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             SelectedTour = tourService.GetTourById(tourId);
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             liveTour = liveTourService.FindLiveTourById(tourId);
-            Tourists = new ObservableCollection<TourReservation>(liveTourService.GetTouristsByTourId(tourId));
+            var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
+            Tourists = new ObservableCollection<TourReservation>(tourists);
             KeyPoints = new ObservableCollection<KeyPoint>(liveTourService.GetTourKeyPoints(tourId));
             finishTourClickCommand = new RelayCommand(ExecuteFinishTourClick);
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
@@ -165,7 +166,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             var keyPoints = keyPointService.GetTourKeyPoints(tourId);
             foreach (var keyPoint in keyPoints)
             {
-                keyPoint.IsChecked = false;
+                keyPoint.IsChecked = true;
                 keyPointService.Update(keyPoint);
             }
             liveTourService.FinishTour(tourId);
@@ -188,7 +189,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
                 touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
             }
-            Tourists.Remove(selectedTourist);
+            var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
+            Tourists = new ObservableCollection<TourReservation>(tourists);
         }
     }
 }

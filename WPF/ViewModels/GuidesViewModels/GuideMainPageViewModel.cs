@@ -166,13 +166,22 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             if (parameter != null && parameter is int tourId)
             {
                 var tour = tourService.GetTourById(tourId);
-                if (tour != null)
+                if (tour != null && liveTourService.HasLiveTour())
                 {
                     liveTourService.ActivateTour(tourId);
                     liveTourService.CheckFirstKeyPoint(tourId);
                     liveTourService.SaveChanges();
                     LiveTourPage liveTourPage = new LiveTourPage(tourId);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
+                }
+
+                else
+                {
+                    MessageBox.Show("Zavrsi zapocetu turu");
+                    int id=liveTourService.GetLiveTourId();
+                    LiveTourPage liveTourPage = new LiveTourPage(id);
+                    GuideMainWindow.MainFrame.Navigate(liveTourPage);
+
                 }
             }
         }

@@ -10,9 +10,10 @@
     <Grid Background="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="71"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
         </Grid>
 
@@ -43,45 +44,45 @@
             </Grid.ColumnDefinitions>
 
             <!-- Labels za imena godina -->
-            <Grid Grid.Column="0" Margin="0,74,651,162" Grid.ColumnSpan="2">
+            <Grid Grid.Column="0" Margin="30,74,651,162" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
 
                 <!-- Labels za imena godina -->
-                <TextBlock Grid.Row="0" Text="2020"/>
-                <TextBlock Grid.Row="1" Text="2021"/>
-                <TextBlock Grid.Row="2" Text="2022"/>
-                <TextBlock Grid.Row="3" Text="2023"/>
-                <TextBlock Grid.Row="4" Text="2024"/>
+                <TextBlock Grid.Row="0" Text="2020" FontSize="28"  />
+                <TextBlock Grid.Row="1" Text="2021" FontSize="28"/>
+                <TextBlock Grid.Row="2" Text="2022" FontSize="28"/>
+                <TextBlock Grid.Row="3" Text="2023" FontSize="28"/>
+                <TextBlock Grid.Row="4" Text="2024" FontSize="28"/>
             </Grid>
 
             <!-- Labels za bindovanje vrijednosti godina -->
-            <Grid Grid.Column="1" Margin="450,86,474,599" Width="100">
+            <Grid Grid.Column="1" VerticalAlignment="Top"  Width="100" Margin="462,73,462,0" Height="498">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
 
                 <!-- Labels za bindovanje vrijednosti godina -->
-                <TextBlock Grid.Row="0" Text="{Binding RequestsPerYear[2020]}"/>
-                <TextBlock Grid.Row="1" Text="{Binding RequestsPerYear[2021]}"/>
-                <TextBlock Grid.Row="2" Text="{Binding RequestsPerYear[2022]}"/>
-                <TextBlock Grid.Row="3" Text="{Binding RequestsPerYear[2023]}"/>
-                <TextBlock Grid.Row="4" Text="{Binding RequestsPerYear[2024]}"/>
+                <TextBlock  Grid.Row="0" Text="{Binding RequestsPerYear[2020]}" FontSize="28"  />
+                <TextBlock Grid.Row="1" Text="{Binding RequestsPerYear[2021]}" FontSize="28"/>
+                <TextBlock Grid.Row="2" Text="{Binding RequestsPerYear[2022]}" FontSize="28"/>
+                <TextBlock Grid.Row="3" Text="{Binding RequestsPerYear[2023]}" FontSize="28"/>
+                <TextBlock Grid.Row="4" Text="{Binding RequestsPerYear[2024]}" FontSize="28"/>
             </Grid>
 
         </Grid>
 
 
-
+       
 
     </Grid>
 </Page>
