@@ -133,8 +133,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 (string.IsNullOrEmpty(Language) || request.Language == Language) &&
                 (string.IsNullOrEmpty(Location) || request.Location.City == Location.Split(',')[0]) &&
                 (TouristsNumber == 0 || request.TouristNumber == TouristsNumber) &&
-                (!StartDateTime.HasValue || request.StartDate <= StartDateTime) &&
-                (!EndDateTime.HasValue || request.EndDate >= EndDateTime));
+                (!StartDateTime.HasValue || request.StartDate.Date >= StartDateTime.Value.Date) &&
+                (!EndDateTime.HasValue || request.EndDate.Date <= EndDateTime.Value.Date));
 
             TourRequests = new ObservableCollection<TourRequest>(filteredRequests);
         }
