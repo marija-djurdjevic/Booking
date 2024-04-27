@@ -65,8 +65,9 @@ namespace BookingApp.Domain.Models
             string persons = "";
             foreach (var person in Persons)
             {
-                persons += person.Item1 + "," + person.Item2 + "," + person.Item3 + ",";
+                persons += person.Item1 + "," + person.Item2 + "," + person.Item3 + "|";
             }
+            persons=persons.Remove(persons.Length - 1);
             string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), Location.City, Location.Country, Description, Language, TouristNumber.ToString(), StartDate.ToString("dd.MM.yyyy HH:mm:ss"), EndDate.ToString("dd.MM.yyyy HH:mm:ss"), Status.ToString(), AcceptedDate.ToString("dd.MM.yyyy HH:mm:ss"), persons };
             return csvValues;
         }
