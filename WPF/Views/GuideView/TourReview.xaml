@@ -10,7 +10,7 @@
 
     <Grid>
         <!-- Gornja navigaciona traka -->
-        <Grid Height="71" VerticalAlignment="Top" Background="LightGray">
+        <Grid x:Name="grid1" Height="71" VerticalAlignment="Top" Background="LightGray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="71"/>
                 <ColumnDefinition Width="*"/>
@@ -30,92 +30,103 @@
             <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURISTS REVIEWS"/>
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="768" Margin="0,71,0,0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" MaxWidth="994" Margin="0,71,0,0">
             <Grid Background="White">
-                <ItemsControl  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146">
+             
+                    <ItemsControl d:ItemsSource="{d:SampleData ItemCount=3}"  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox Width="950" FontSize="32" Margin="0,56,0,10">
-                                <GroupBox.Header>
-                                    <Label>
-                                        <TextBlock>
+                            
+                                <GroupBox Width="950" FontSize="32" Margin="0,56,0,10">
+
+                                    <GroupBox.Header>
+
+                                        <Label>
+                                            <TextBlock>
                                             <Run Text="{Binding Tourist.FirstName}" />
                                             <Run Text=" " />
                                             <Run Text="{Binding Tourist.LastName}" />
-                                        </TextBlock>
-                                    </Label>
-                                </GroupBox.Header>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                            </TextBlock>
+                                        </Label>
 
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Guide's knowledge: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding GuideKnowledgeRating}" />
-                                    </Grid>
+                                    </GroupBox.Header>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,10">
+                                    <Grid>
+                                     
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Guide's language: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding GuideLanguageRating}" />
-                                    </Grid>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="283.593" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Guide's knowledge: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding GuideKnowledgeRating}" />
+                                        </Grid>
 
-                                    <Grid Grid.Row="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Tour attractions: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding TourInterestingesRating}" />
-                                    </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="283.593" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Guide's language: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding GuideLanguageRating}" />
+                                        </Grid>
 
-                                    <Grid Grid.Row="3">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Arrival key point: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding ArrivalKeyPoint.Name}" />
-                                    </Grid>
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="283.593" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Tour attractions: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding TourInterestingesRating}" />
+                                        </Grid>
 
-                                    <Grid Grid.Row="4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Review status: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding CommentStatus}" />
-                                    </Grid>
+                                        <Grid Grid.Row="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="283.593" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Arrival key point: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding ArrivalKeyPoint.Name}" />
+                                        </Grid>
 
-                                    <Grid Grid.Row="5" Margin="0,0,0,60">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Review: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding Comment}" TextWrapping="Wrap" />
-                                    </Grid>
-                                    <Button Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" FontSize="28" Content="REPORT REVIEW"
-  Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" />
+                                        <Grid Grid.Row="4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="283.593" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Review status: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding CommentStatus}" />
+                                        </Grid>
 
+                                        <Grid Grid.Row="5" Margin="0,0,0,60">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Review: " />
+                                            <TextBlock Grid.Column="1" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,0,329,0" />
+                                        </Grid>
+                                        <Button  Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" Margin="0,0,8,12" FontSize="28" Content="REPORT REVIEW"
+                                    Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" />
 
-                                </Grid>
+                                   
+                                 </Grid>
+                                </Border>
                             </GroupBox>
+                            
                         </DataTemplate>
+                       
                     </ItemsControl.ItemTemplate>
+                         
                 </ItemsControl>
             </Grid>
         </ScrollViewer>

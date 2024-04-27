@@ -95,6 +95,23 @@ namespace BookingApp.Aplication.UseCases
             return liveTours.FirstOrDefault(t => t.TourId == tourId && t.IsLive);
         }
 
+        public int GetLiveTourId()
+        {
+            var liveTours = liveTourRepository.GetAll();
+            return liveTours.FirstOrDefault(t => t.IsLive).TourId;
+        }
+
+
+        public bool HasLiveTour()
+        {
+            var liveTours = liveTourRepository.GetAll();
+            if (liveTours.FirstOrDefault(t => t.IsLive) != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void FinishTourIfAllChecked(int tourId)
         {
             var keyPoints = GetTourKeyPoints(tourId);
@@ -109,10 +126,11 @@ namespace BookingApp.Aplication.UseCases
             if (activeTour != null)
             {
                 activeTour.IsLive = false;
+                liveTourRepository.Update(activeTour);
                 var keyPoint = activeTour.KeyPoints;
                 for (int i = 0; i < activeTour.KeyPoints.Count; i++)
                 {
-                    keyPoint[i].IsChecked = false;
+                    keyPoint[i].IsChecked = true;
 
                     liveTourRepository.Update(activeTour);
                 }

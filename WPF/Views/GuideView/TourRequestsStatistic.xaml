@@ -6,55 +6,24 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:BookingApp.WPF.Converters"
       mc:Ignorable="d" 
-      Title="TourRequestsStatistic" Height="768" Width="1024">
+      Title="TourRequestsStatistic" Height="768" MaxWidth="1024">
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter" />
         <local:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter" />
     </Page.Resources>
 
     <Grid Background="White">
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="71"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-        </Grid>
-
-        <!-- Gornja navigaciona traka -->
-        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="71"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Slika u prvoj koloni -->
-            <Button Grid.Column="0"
-                    Command="{Binding SideManuCommand}"
-                    Background="Transparent"
-                    BorderThickness="0">
-                <Image Source="/Resources/Images/menu5.png"
-                 Stretch="Uniform"
-                 Width="71"
-                 Height="71" />
-            </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
-        </Grid>
-
-
-
-
-
-
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="71"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
 
             <!-- Gornja navigaciona traka -->
-            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+            <Grid Grid.Row="0"  VerticalAlignment="Top" Background="LightGray">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <ColumnDefinition Width="*"/>
@@ -72,7 +41,7 @@
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
             </Grid>
 
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="0,0,0,469">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70"/>
@@ -88,12 +57,12 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose location:" FontSize="24" Margin="10,16,810,78" Grid.RowSpan="2"/>
                     <ComboBox  Grid.Column="0" Width="200" Margin="285,16,565,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
 
-                   
+
                     <!-- Choose language -->
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Choose language:" FontSize="24" Margin="11,20,809,7"/>
                     <ComboBox Grid.Row="1" Grid.Column="0" Width="200"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Top" Margin="285,18,565,0" Height="41"/>
 
-                   
+
 
                     <Button Grid.Row="1" Content="Search" Margin="788,16,76,13" Command="{Binding SearchCommand}" />
 
@@ -110,62 +79,32 @@
             </Border>
 
 
+            <Grid Grid.Row="2">
+                <Label  Content="Searched requests" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="99,81,0,0"/>
+                <Rectangle Fill="LightGray" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="41,68,0,0" />
 
-
-
-            <Grid Grid.Row="1">
-
-
-                <Grid  HorizontalAlignment="left" VerticalAlignment="Center">
-                    <Rectangle Fill="LightGray" Width="50" Height="50" Margin="27,78,-27,-78" />
-                </Grid>
-
-                <Label  Content="Searched requests" Height="27" Margin="99,316,809,354"/>
-
-                <Grid  HorizontalAlignment="left" VerticalAlignment="Center" RenderTransformOrigin="1.824,0.062">
-                    <Rectangle Fill="DarkGray" Width="50" Height="50" Margin="26,-22,-26,22" />
-                </Grid>
-                <Label  Content="All requests" Width="100" Height="27" Margin="99,415,825,255"/>
-                
-                
-                <Label FontSize="32" Content="The number of requests for the searched parameters is:" Margin="17,551,190,74"/>
-
-
-                <Label FontSize="32" Content="{Binding RequestsNumber}" Margin="817,551,10,90"/>
-
-
-
-                <Button Content="General stat"
-        Visibility="{Binding IsGeneral, Converter={StaticResource ButtonVisibilityConverter}}"
-        Command="{Binding GeneralStatisticsCommand}" Margin="407,335,495,294" />
-
-
-                <Button Content="Month Statistics"
-        Visibility="{Binding IsYear, Converter={StaticResource ButtonVisibilityConverter}}"
-        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="685,344,190,294" />
-
-
-
+                <Label  Content="All requests" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="102,164,0,0"/>
+                <Rectangle Fill="DarkGray" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="41,152,0,0" />
             </Grid>
 
+            <Grid Grid.Row="3">
+                <Label  FontSize="32" Content="The number of requests for the searched parameters is: " HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,22" />
+
+
+                <Label FontSize="32" Content="{Binding RequestsNumber}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="60" Width="52" Margin="793,0,0,14" />
 
 
 
+                <Button Content="General stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="42" Width="100"
+                        Visibility="{Binding IsGeneral, Converter={StaticResource ButtonVisibilityConverter}}"
+                        Command="{Binding GeneralStatisticsCommand}" Margin="0,0,64,23"  />
 
 
+                <Button Content="Month Statistics" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="42" Width="100"
+                        Visibility="{Binding IsYear, Converter={StaticResource ButtonVisibilityConverter}}"
+                        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="0,184,65,0" />
 
-
-
-
-
-
+            </Grid>
         </Grid>
-
-
-
-
-
-
-
     </Grid>
 </Page>

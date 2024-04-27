@@ -11,9 +11,9 @@
     <Grid Background="White">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="71"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
         </Grid>
 
@@ -44,72 +44,73 @@
             </Grid.ColumnDefinitions>
 
             <!-- Labels za imena mjeseci -->
-            <Grid Grid.Column="0" Margin="0,74,651,162" Grid.ColumnSpan="2">
+            
+            <Grid Grid.Column="0" Margin="30,74,651,78" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <!-- Labels za imena mjeseci -->
-                <TextBlock Grid.Row="0" Text="January"/>
-                <TextBlock Grid.Row="1" Text="February"/>
-                <TextBlock Grid.Row="2" Text="March"/>
-                <TextBlock Grid.Row="3" Text="April"/>
-                <TextBlock Grid.Row="4" Text="May"/>
-                <TextBlock Grid.Row="5" Text="June"/>
-                <TextBlock Grid.Row="6" Text="July"/>
-                <TextBlock Grid.Row="7" Text="August"/>
-                <TextBlock Grid.Row="8" Text="September"/>
-                <TextBlock Grid.Row="9" Text="October"/>
-                <TextBlock Grid.Row="10" Text="November"/>
-                <TextBlock Grid.Row="11" Text="December"/>
+                <TextBlock Grid.Row="0" Text="January" FontSize="28"/>
+                <TextBlock Grid.Row="1" Text="February" FontSize="28"/>
+                <TextBlock Grid.Row="2" Text="March"  FontSize="28"/>
+                <TextBlock Grid.Row="3" Text="April"  FontSize="28"/>
+                <TextBlock Grid.Row="4" Text="May"  FontSize="28"/>
+                <TextBlock Grid.Row="5" Text="June"  FontSize="28"/>
+                <TextBlock Grid.Row="6" Text="July"  FontSize="28"/>
+                <TextBlock Grid.Row="7" Text="August"  FontSize="28"/>
+                <TextBlock Grid.Row="8" Text="September"  FontSize="28"/>
+                <TextBlock Grid.Row="9" Text="October"  FontSize="28"/>
+                <TextBlock Grid.Row="10" Text="November"  FontSize="28"/>
+                <TextBlock Grid.Row="11" Text="December"  FontSize="28"/>
             </Grid>
 
             <!-- Labels za bindovanje vrijednosti mjeseci -->
-            <Grid Grid.Column="1" Margin="338,72,362,188" Width="100">
+            <Grid Grid.Column="1" Margin="450,72,474,78" Width="100">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <!-- Labels za bindovanje vrijednosti mjeseci -->
-                <TextBlock Grid.Row="0" Text="{Binding RequestsPerMonth[1]}"/>
-                <TextBlock Grid.Row="1" Text="{Binding RequestsPerMonth[2]}"/>
-                <TextBlock Grid.Row="2" Text="{Binding RequestsPerMonth[3]}"/>
-                <TextBlock Grid.Row="3" Text="{Binding RequestsPerMonth[4]}"/>
-                <TextBlock Grid.Row="4" Text="{Binding RequestsPerMonth[5]}"/>
-                <TextBlock Grid.Row="5" Text="{Binding RequestsPerMonth[6]}"/>
-                <TextBlock Grid.Row="6" Text="{Binding RequestsPerMonth[7]}"/>
-                <TextBlock Grid.Row="7" Text="{Binding RequestsPerMonth[8]}"/>
-                <TextBlock Grid.Row="8" Text="{Binding RequestsPerMonth[9]}"/>
-                <TextBlock Grid.Row="9" Text="{Binding RequestsPerMonth[10]}"/>
-                <TextBlock Grid.Row="10" Text="{Binding RequestsPerMonth[11]}"/>
-                <TextBlock Grid.Row="11" Text="{Binding RequestsPerMonth[12]}"/>
+                <TextBlock Grid.Row="0" Text="{Binding RequestsPerMonth[1]}" FontSize="28"/>
+                <TextBlock Grid.Row="1" Text="{Binding RequestsPerMonth[2]}" FontSize="28"/>
+                <TextBlock Grid.Row="2" Text="{Binding RequestsPerMonth[3]}" FontSize="28"/>
+                <TextBlock Grid.Row="3" Text="{Binding RequestsPerMonth[4]}" FontSize="28"/>
+                <TextBlock Grid.Row="4" Text="{Binding RequestsPerMonth[5]}" FontSize="28"/>
+                <TextBlock Grid.Row="5" Text="{Binding RequestsPerMonth[6]}" FontSize="28"/>
+                <TextBlock Grid.Row="6" Text="{Binding RequestsPerMonth[7]}" FontSize="28"/>
+                <TextBlock Grid.Row="7" Text="{Binding RequestsPerMonth[8]}" FontSize="28"/>
+                <TextBlock Grid.Row="8" Text="{Binding RequestsPerMonth[9]}" FontSize="28"/>
+                <TextBlock Grid.Row="9" Text="{Binding RequestsPerMonth[10]}" FontSize="28"/>
+                <TextBlock Grid.Row="10" Text="{Binding RequestsPerMonth[11]}" FontSize="28"/>
+                <TextBlock Grid.Row="11" Text="{Binding RequestsPerMonth[12]}" FontSize="28"/>
             </Grid>
 
         </Grid>
 
        
-     
+
     </Grid>
 </Page>
