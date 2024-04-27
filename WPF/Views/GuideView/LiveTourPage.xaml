@@ -12,7 +12,7 @@
         <local:ImagePathConverter x:Key="ImagePathConverter" />
     </Page.Resources>
 
-   
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
 
-            <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="0,84,10,225">
+            <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="0,0,10,309">
                 <StackPanel Grid.Column="0" Margin="10,0,0,0">
                     <TextBlock Text="About tour:" FontSize="32" Margin="0,0,0,0"/>
 
@@ -95,9 +95,9 @@
 
 
             <!-- Lista turista -->
-            <StackPanel Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,53,0,0" >
-                <TextBlock Text="Tourists list:" FontSize="32" Margin="0,20,0,10"/>
-                <ListBox x:Name="touristsListBox" ItemsSource="{Binding Tourists}" SelectedItem="{Binding SelectedTourist}" >
+            <StackPanel Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Width="244" Margin="0,-23,-36,0" Height="466" >
+                <TextBlock Text="    Tourists list:" FontSize="32" Margin="0,20,0,10"/>
+                <ListBox x:Name="touristsListBox" ItemsSource="{Binding Tourists}" SelectedItem="{Binding SelectedTourist}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,24,0,0" >
                     <!-- Stil za ListBoxItems -->
 
                     <!-- Template za prikaz turista -->
@@ -114,14 +114,14 @@
                 <Button Content="ADD" Width="Auto" Height="40" Command="{Binding Path=DataContext.AddTouristClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" >
+            <Grid Grid.Column="1" VerticalAlignment="Center" Width="auto" HorizontalAlignment="Center" Height="677" >
                 <Grid Margin="0,70,0,0" Height="437" Width="390">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="22,-98,-22,168" >
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="22,-167,52,289" >
                         <StackPanel>
                             <!-- Prikaz teksta "Key points:" -->
-                            <TextBlock FontSize="40" Text="Key points:" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                            <TextBlock FontSize="32" Text="Key points:" HorizontalAlignment="Center" Margin="0,0,0,20" Height="57"/>
                             <!-- Lista ključnih tačaka -->
-                            <ListBox x:Name="keyPointsListBox" MinWidth="200"  Height="200" ItemsSource="{Binding KeyPoints}" SelectedItem="{Binding SelectedTour}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                            <ListBox x:Name="keyPointsListBox" MinWidth="200"  Height="200" ItemsSource="{Binding KeyPoints}" SelectedItem="{Binding SelectedTour}" d:ItemsSource="{d:SampleData ItemCount=5}" Width="316" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <!-- Stil za ListBoxItems -->
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
@@ -135,7 +135,7 @@
                                         CommandParameter="{Binding}" 
                                         HorizontalContentAlignment="Stretch" 
                                         VerticalContentAlignment="Stretch"
-                                        Background="Transparent">
+                                        Background="Transparent" Width="290">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{Binding IsChecked, Converter={StaticResource BoolToImageConverter}}" Width="40" Height="40"/>
                                                 <TextBlock VerticalAlignment="Center" FontSize="28">
@@ -154,8 +154,8 @@
                     </ScrollViewer>
                 </Grid>
 
-            </StackPanel>
-            <Button Content="Finish Tour" Width="232" Height="59" Margin="86,463,92,175" FontSize="28" Command="{Binding Path=DataContext.FinishTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Grid.Column="1"/>
+            </Grid>
+            <Button Content="Finish Tour" Width="232" Height="59" Margin="76,335,102,303" FontSize="28" Command="{Binding Path=DataContext.FinishTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Grid.Column="1"/>
 
         </Grid>
 

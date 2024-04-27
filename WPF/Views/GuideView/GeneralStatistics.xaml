@@ -11,78 +11,63 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="71"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="500"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        </Grid>
 
-        <!-- Gornja navigaciona traka -->
-        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="71"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Slika u prvoj koloni -->
-            <Button Grid.Column="0"
+
+            <!-- Gornja navigaciona traka -->
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Slika u prvoj koloni -->
+                <Button Grid.Column="0"
              Command="{Binding SideManuCommand}"
              Background="Transparent"
              BorderThickness="0">
-                <Image Source="/Resources/Images/menu5.png"
+                    <Image Source="/Resources/Images/menu5.png"
           Stretch="Uniform"
           Width="71"
           Height="71" />
-            </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTICS PER MONTHS"/>
-        </Grid>
-
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Labels za imena godina -->
-            <Grid Grid.Column="0" Margin="30,74,651,162" Grid.ColumnSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
-
-                <!-- Labels za imena godina -->
-                <TextBlock Grid.Row="0" Text="2020" FontSize="28"  />
-                <TextBlock Grid.Row="1" Text="2021" FontSize="28"/>
-                <TextBlock Grid.Row="2" Text="2022" FontSize="28"/>
-                <TextBlock Grid.Row="3" Text="2023" FontSize="28"/>
-                <TextBlock Grid.Row="4" Text="2024" FontSize="28"/>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTICS PER MONTHS"/>
             </Grid>
 
-            <!-- Labels za bindovanje vrijednosti godina -->
-            <Grid Grid.Column="1" VerticalAlignment="Top"  Width="100" Margin="462,73,462,0" Height="498">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
 
-                <!-- Labels za bindovanje vrijednosti godina -->
-                <TextBlock  Grid.Row="0" Text="{Binding RequestsPerYear[2020]}" FontSize="28"  />
-                <TextBlock Grid.Row="1" Text="{Binding RequestsPerYear[2021]}" FontSize="28"/>
-                <TextBlock Grid.Row="2" Text="{Binding RequestsPerYear[2022]}" FontSize="28"/>
-                <TextBlock Grid.Row="3" Text="{Binding RequestsPerYear[2023]}" FontSize="28"/>
-                <TextBlock Grid.Row="4" Text="{Binding RequestsPerYear[2024]}" FontSize="28"/>
-            </Grid>
+            <DataGrid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding RequestsPerYear}" AutoGenerateColumns="False" FontSize="20" >
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Year" Binding="{Binding Key}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Requests Number" Binding="{Binding Value}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
+
 
         </Grid>
-
-
-       
-
     </Grid>
 </Page>

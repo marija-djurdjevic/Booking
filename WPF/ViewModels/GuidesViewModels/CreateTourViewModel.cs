@@ -86,7 +86,7 @@ namespace BookingApp.WPF.ViewModels
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged(); }
+            set { name = value; OnPropertyChanged();  }
         }
 
         public string Description
@@ -460,7 +460,12 @@ namespace BookingApp.WPF.ViewModels
         {
             return new TourDto(Name, Description, selectedLanguage, MaxTouristNumber, startDate,Duration, locationDto, tourDto.ImagesPaths);
         }
-       
+
+
+
+
+
+
 
     }
 }

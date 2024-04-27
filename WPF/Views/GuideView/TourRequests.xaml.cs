@@ -26,5 +26,12 @@ namespace BookingApp.WPF.Views.GuideView
             InitializeComponent();
             DataContext = new TourRequestViewModel();
         }
+
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }

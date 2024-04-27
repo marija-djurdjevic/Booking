@@ -31,11 +31,13 @@ namespace BookingApp.View.GuideView
             DataContext = new TourStatisticViewModel();
         }
 
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
+       
+
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
-
-        
     }
 }

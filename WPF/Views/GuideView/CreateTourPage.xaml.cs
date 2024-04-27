@@ -33,8 +33,7 @@ namespace BookingApp.View
             
         }
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e){         }
-        
-        
-        
+
+       
     }
 }

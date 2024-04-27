@@ -1,5 +1,6 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 using BookingApp.WPF.Views.GuideView;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -20,8 +22,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private  ObservableCollection<(DateTime, DateTime)> bookedDates;
         private (DateTime, DateTime) touristsDates;
         public ObservableCollection<(DateTime, DateTime)> BookedDates { get; set; }
-
         public (DateTime, DateTime) TouristsDates { get; set; }
+
+        private RelayCommand acceptTourCommand;
         public AcceptTourViewModel(int id)
         {
             this.id = id;
@@ -29,6 +32,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             LoadBookedDates();
             TouristsDates=tourRequestService.GetDateSlotById(id);
             FreeDates = new ObservableCollection<(DateTime, DateTime)>(tourRequestService.CalculateFreeDates(BookedDates.ToList(), TouristsDates));
+            acceptTourCommand = new RelayCommand(ExecuteAcceptTourCommand);
 
         }
 
@@ -49,7 +53,51 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             BookedDates = new ObservableCollection<(DateTime, DateTime)>(tourRequestService.GetUpcomingToursDates());
 
         }
-       
+
+
+        public RelayCommand AcceptTourCommand
+        {
+            get { return acceptTourCommand; }
+            set
+            {
+                if (acceptTourCommand != value)
+                {
+                    acceptTourCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private DateTime selectedDateTime;
+        public DateTime SelectedDateTime
+        {
+            get { return selectedDateTime; }
+            set
+            {
+                selectedDateTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private void ExecuteAcceptTourCommand()
+        {
+            if (FreeDates.Any(dateRange => SelectedDateTime >= dateRange.Item1 && SelectedDateTime <= dateRange.Item2))
+            {
+                // SelectedDateTime je u opsegu FreeDates
+                // Implementirajte logiku za prihvatanje ture ovde
+            }
+            else
+            {
+                // SelectedDateTime nije u opsegu FreeDates
+                // Prikazati poruku o grešci ili izvršiti odgovarajuću akciju
+                MessageBox.Show("Selected date is not available for booking.");
+            }
+        }
+
+
+
 
     }
 }

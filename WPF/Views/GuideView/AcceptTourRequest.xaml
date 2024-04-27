@@ -58,11 +58,15 @@
 
 
         <xctk:DateTimePicker
-     x:Name="StartDateTimePicker"
-     Grid.Row="0"
-     Margin="364,405,319,291" />
+            x:Name="StartDateTimePicker"
+            Grid.Row="0"
+            Margin="364,405,319,291"
+            Value="{Binding SelectedDateTime, Mode=TwoWay}" />
 
-        <Button Margin="364,564,319,137" Content="Confrim" FontSize="32"></Button>
+
+
+        <Button Margin="364,564,319,137" Content="Confirm" FontSize="32" Command="{Binding AcceptTourCommand}"></Button>
+
 
 
     </Grid>
