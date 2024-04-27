@@ -64,19 +64,19 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
                 if (columnName == "StartDate")
                 {
-                    if (StartDate.Date < DateTime.Now.Date)
-                        return "Start date is less than the today date.";
+                    if (StartDate.Date < DateTime.Now.AddHours(48).Date)
+                        return "Start date must be 2 days from now.";
 
                 }
                 if (columnName == "EndDate")
                 {
-                    if (EndDate.Date < DateTime.Now.Date)
-                        return "End date is less than the today date.";
+                    if (EndDate.Date < DateTime.Now.AddHours(48).Date)
+                        return "End date must be 2 days from now.";
 
                 }
                 if (columnName == "DateMessage")
                 {
-                    if (EndDate.Date < StartDate.Date && StartDate.Date >= DateTime.Now.Date && EndDate.Date > DateTime.Now.Date)
+                    if (EndDate.Date < StartDate.Date && StartDate.Date >= DateTime.Now.AddHours(48).Date && EndDate.Date > DateTime.Now.AddHours(48).Date)
                         return "End date is less than the start date.";
 
                 }

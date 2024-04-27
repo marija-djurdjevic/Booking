@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="BookingApp.WPF.Views.TouristView.TourRequestsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Style="{StaticResource PageSetup}"
@@ -389,7 +390,230 @@
                             FontWeight="Bold"
                             Text="Statistics" />
                     </TabItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <Grid Margin="50,20,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
+                            <Grid Grid.Row="0" Margin="0,0,0,30">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel
+                                        Height="50"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Top"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Height="auto"
+                                            VerticalAlignment="Bottom"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Please enter the year for statistics:" />
+                                        <ComboBox
+                                            MinWidth="50"
+                                            MinHeight="20"
+                                            Margin="10,0,0,-2"
+                                            VerticalAlignment="Bottom"
+                                            BorderBrush="{StaticResource BackgroundColor}"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Foreground="{StaticResource ValidationMessageColor}"
+                                            ItemsSource="{Binding Years}"
+                                            SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectionChanged">
+                                                    <i:InvokeCommandAction Command="{Binding SelectedStatisticYearCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Background="{StaticResource CardColor}"
+                                            Orientation="Vertical">
+                                            <StackPanel Margin="0,0,0,30" Orientation="Horizontal">
+                                                <TextBlock
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Text="Acceptance of requests for: " />
+                                                <TextBlock
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding SelectedYear}" />
+
+                                            </StackPanel>
+                                            <lvc:PieChart
+                                                Width="300"
+                                                Height="300"
+                                                VerticalAlignment="Bottom"
+                                                FontSize="20"
+                                                Series="{Binding SeriesCollection}">
+                                                <lvc:PieChart.LegendLocation>
+                                                    Bottom
+                                                </lvc:PieChart.LegendLocation>
+                                            </lvc:PieChart>
+                                        </StackPanel>
+                                        <Grid
+                                            Grid.Column="1"
+                                            Width="250"
+                                            VerticalAlignment="Center">
+                                            <TextBlock
+                                                Margin="0,0,0,30"
+                                                VerticalAlignment="Top"
+                                                FontSize="20"
+                                                TextWrapping="Wrap">
+                                                <Run Text="The average number of people in accepted requests for " />
+                                                <Run FontWeight="Bold" Text="{Binding SelectedYear, Mode=TwoWay}" />
+                                                <Run Text=": " />
+                                                <Run
+                                                    FontWeight="Bold"
+                                                    Foreground="{StaticResource ValidationMessageColor}"
+                                                    Text="{Binding AveragePeopleNumber, StringFormat={}{0:F2}}" />
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                            <Border
+                                Grid.Row="0"
+                                Height="4"
+                                Margin="-50,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Background="{StaticResource BackgroundColor}" />
+                            <Border
+                                Grid.Row="0"
+                                Height="4"
+                                Margin="-50,0,0,0"
+                                VerticalAlignment="Top"
+                                Background="{StaticResource BackgroundColor}" />
+                            <Grid Grid.Row="1">
+                                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                                    <TextBlock
+                                        Height="auto"
+                                        Padding="8"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Background="{StaticResource CardColor}"
+                                        FontSize="20">
+                                        <Run Text="The number of  requests per " />
+                                        <Run FontWeight="Bold" Text="language." />
+                                    </TextBlock>
+
+                                    <lvc:CartesianChart
+                                        Height="470"
+                                        Margin="0,20,0,20"
+                                        LegendLocation="Top"
+                                        Series="{Binding SeriesCollectionLanguageChart}">
+                                        <lvc:CartesianChart.AxisX>
+                                            <lvc:Axis
+                                                Title="Languages"
+                                                AllowDrop="True"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Foreground="Red"
+                                                Labels="{Binding LanguagesLabels}"
+                                                LabelsRotation="25"
+                                                ShowLabels="True" />
+                                        </lvc:CartesianChart.AxisX>
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis
+                                                Title="Number of requests"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Foreground="{StaticResource BackgroundColor}"
+                                                LabelFormatter="{Binding LanguageFormatter}" />
+                                        </lvc:CartesianChart.AxisY>
+                                    </lvc:CartesianChart>
+                                </StackPanel>
+                            </Grid>
+                            <Border
+                                Grid.Row="1"
+                                Height="4"
+                                Margin="-50,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Background="{StaticResource BackgroundColor}" />
+                            <Grid Grid.Row="2">
+                                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                                    <TextBlock
+                                        Height="auto"
+                                        Padding="8"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Background="{StaticResource CardColor}"
+                                        FontSize="20">
+                                        <Run Text="The number of  requests per " />
+                                        <Run FontWeight="Bold" Text="location." />
+                                    </TextBlock>
+
+                                    <lvc:CartesianChart
+                                        Height="470"
+                                        Margin="0,20,0,20"
+                                        LegendLocation="Top"
+                                        Series="{Binding SeriesCollectionLocationChart}">
+                                        <lvc:CartesianChart.AxisX>
+                                            <lvc:Axis
+                                                Title="Locations"
+                                                AllowDrop="True"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Foreground="Red"
+                                                Labels="{Binding LocationLabels}"
+                                                LabelsRotation="25"
+                                                ShowLabels="True" />
+                                        </lvc:CartesianChart.AxisX>
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis
+                                                Title="Number of requests"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Foreground="{StaticResource BackgroundColor}"
+                                                LabelFormatter="{Binding LanguageFormatter}" />
+                                        </lvc:CartesianChart.AxisY>
+                                    </lvc:CartesianChart>
+                                </StackPanel>
+                            </Grid>
+                            <Border
+                                Grid.Row="2"
+                                Height="4"
+                                Margin="-50,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Background="{StaticResource BackgroundColor}" />
+                            <Grid Grid.Row="3" Margin="0,50">
+                                <Button
+                                    Margin="85,0,50,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="{StaticResource SelectedCardColor}"
+                                    Command="{Binding CreateCommand}"
+                                    Style="{StaticResource ConfirmButton}">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Height="40"
+                                                Margin="5,0,5,0"
+                                                Source="/Resources/Icons/TouristIcons/pdf.png" />
+                                            <TextBlock Margin="0,0,5,0" Text="Export" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                    <Button.BorderBrush>
+                                        <SolidColorBrush Opacity="0" Color="White" />
+                                    </Button.BorderBrush>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
 
                 </TabItem>
             </TabControl>
