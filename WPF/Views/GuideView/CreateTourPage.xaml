@@ -19,7 +19,7 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,14,0">
 
-            <Grid Background="White" Height="2162">
+            <Grid Background="{StaticResource pozadina}" Height="2162">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="Auto" />

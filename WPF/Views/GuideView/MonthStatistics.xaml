@@ -3,114 +3,82 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.WPF.Views.GuideView"
+      xmlns:local="clr-namespace:BookingApp.WPF.Converters"
       mc:Ignorable="d" 
       
       Title="MonthStatistics" Height="768" Width="1024">
+    <Page.Resources>
+        <local:MonthConverter x:Key="MonthConverter" />
+    </Page.Resources>
+
 
     <Grid Background="White">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="71"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="540"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        </Grid>
 
-        <!-- Gornja navigaciona traka -->
-        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="71"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Slika u prvoj koloni -->
-            <Button Grid.Column="0"
+
+            <!-- Gornja navigaciona traka -->
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Slika u prvoj koloni -->
+                <Button Grid.Column="0"
                 Command="{Binding SideManuCommand}"
                 Background="Transparent"
                 BorderThickness="0">
-                <Image Source="/Resources/Images/menu5.png"
+                    <Image Source="/Resources/Images/menu5.png"
              Stretch="Uniform"
              Width="71"
              Height="71" />
-            </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTICS PER MONTHS"/>
-        </Grid>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="{Binding SelectedYear, StringFormat='STATISTICS PER MONTHS IN {0} YEAR'}"/>
 
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Labels za imena mjeseci -->
-            
-            <Grid Grid.Column="0" Margin="30,74,651,78" Grid.ColumnSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-
-                <!-- Labels za imena mjeseci -->
-                <TextBlock Grid.Row="0" Text="January" FontSize="28"/>
-                <TextBlock Grid.Row="1" Text="February" FontSize="28"/>
-                <TextBlock Grid.Row="2" Text="March"  FontSize="28"/>
-                <TextBlock Grid.Row="3" Text="April"  FontSize="28"/>
-                <TextBlock Grid.Row="4" Text="May"  FontSize="28"/>
-                <TextBlock Grid.Row="5" Text="June"  FontSize="28"/>
-                <TextBlock Grid.Row="6" Text="July"  FontSize="28"/>
-                <TextBlock Grid.Row="7" Text="August"  FontSize="28"/>
-                <TextBlock Grid.Row="8" Text="September"  FontSize="28"/>
-                <TextBlock Grid.Row="9" Text="October"  FontSize="28"/>
-                <TextBlock Grid.Row="10" Text="November"  FontSize="28"/>
-                <TextBlock Grid.Row="11" Text="December"  FontSize="28"/>
             </Grid>
 
-            <!-- Labels za bindovanje vrijednosti mjeseci -->
-            <Grid Grid.Column="1" Margin="450,72,474,78" Width="100">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
 
-                <!-- Labels za bindovanje vrijednosti mjeseci -->
-                <TextBlock Grid.Row="0" Text="{Binding RequestsPerMonth[1]}" FontSize="28"/>
-                <TextBlock Grid.Row="1" Text="{Binding RequestsPerMonth[2]}" FontSize="28"/>
-                <TextBlock Grid.Row="2" Text="{Binding RequestsPerMonth[3]}" FontSize="28"/>
-                <TextBlock Grid.Row="3" Text="{Binding RequestsPerMonth[4]}" FontSize="28"/>
-                <TextBlock Grid.Row="4" Text="{Binding RequestsPerMonth[5]}" FontSize="28"/>
-                <TextBlock Grid.Row="5" Text="{Binding RequestsPerMonth[6]}" FontSize="28"/>
-                <TextBlock Grid.Row="6" Text="{Binding RequestsPerMonth[7]}" FontSize="28"/>
-                <TextBlock Grid.Row="7" Text="{Binding RequestsPerMonth[8]}" FontSize="28"/>
-                <TextBlock Grid.Row="8" Text="{Binding RequestsPerMonth[9]}" FontSize="28"/>
-                <TextBlock Grid.Row="9" Text="{Binding RequestsPerMonth[10]}" FontSize="28"/>
-                <TextBlock Grid.Row="10" Text="{Binding RequestsPerMonth[11]}" FontSize="28"/>
-                <TextBlock Grid.Row="11" Text="{Binding RequestsPerMonth[12]}" FontSize="28"/>
-            </Grid>
+            <DataGrid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding RequestsPerMonth}" AutoGenerateColumns="False" FontSize="20">
+                <DataGrid.Resources>
+                    <local:MonthConverter x:Key="MonthConverter" />
+                </DataGrid.Resources>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Month" Binding="{Binding Key, Converter={StaticResource MonthConverter}}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                               
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Requests Number" Binding="{Binding Value}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
 
         </Grid>
-
-       
-
     </Grid>
 </Page>

@@ -94,7 +94,7 @@
 
 
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Margin="0,0,16,30">
+            <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" VerticalScrollBarVisibility="Auto" Grid.Row="2" Margin="0,0,16,30">
                 <ListBox Grid.Row="2" VerticalAlignment="Top"  ItemsSource="{Binding TourRequests}"  
                 x:Name="tourListBox"
                  Margin="10"

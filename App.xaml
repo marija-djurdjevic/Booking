@@ -417,13 +417,41 @@
         
         
         <!-- Stilovi za vodiča -->
-        <SolidColorBrush x:Key="VodicBackgroundColor" Color="DodgerBlue" />
+        <SolidColorBrush x:Key="pozadina" Color="#55DFE0" />
         <SolidColorBrush x:Key="VodicCardColor" Color="#E6F4F1" />
         <SolidColorBrush x:Key="VodicPageColor" Color="#EEE8AA" />
-    
-        <!-- Dodajte ostale stilove za vodiča prema potrebi -->
+
+        
+
+        <!--BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE-->
+        <SolidColorBrush x:Key="MouseOverColor" Color="#7BD8DC"/>
+        <SolidColorBrush x:Key="DefaultColor" Color="White"/>
 
 
+        <!--BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE-->
+        <SolidColorBrush x:Key="MouseOverButtonColor" Color="LightGoldenrodYellow" />
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource MouseOverButtonColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        
+       
 
         <!--  .  -->
     </Application.Resources>

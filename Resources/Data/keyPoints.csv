@@ -86,5 +86,9 @@
 94|19|AAAASSSSDDDDFFFFGGGGHHHH|End|6|False
 95|20|afadfadf|Begining|1|True
 96|20|afadfadfafadf|End|2|False
-97|21|AFAFADF|Begining|1|False
-98|21|AFAFADFADF|End|2|False
+97|21|AFAFADF|Begining|1|True
+98|21|AFAFADFADF|Middle|2|True
+99|21|AFAFADFADF|Middle|3|True
+100|21|AFAFADFADF|Middle|4|False
+101|21|AFAFADFADF|Middle|5|False
+102|21|AFAFADFADF|End|6|False

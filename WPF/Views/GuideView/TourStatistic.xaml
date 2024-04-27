@@ -64,7 +64,7 @@
 
 
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994">
+        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994">
             <ListBox x:Name="tourListBox"
          Grid.Row="2"
          ItemsSource="{Binding SortedTours}"
@@ -72,7 +72,7 @@
          d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="993" Height="250">
+                        <Grid Width="960" Height="250">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" />
                                 <RowDefinition Height="Auto" />
@@ -116,10 +116,9 @@
 
                             <!-- Red za sliku i informacije o turi -->
                             <Image
-                       
-                       Height="150"
-                       Margin="13,59,812,113"
-                       Stretch="Fill" Grid.RowSpan="2">
+                                Height="150"
+                                Margin="13,59,812,113"
+                                Stretch="Fill" Grid.RowSpan="2">
                                 <Image.Source>
                                     <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
                                 </Image.Source>
@@ -151,19 +150,19 @@
 
                                 <!-- Start Date and Time -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" FontSize="24" Text="Start Date and Time: " Grid.ColumnSpan="2" Margin="0,26,511,-26" />
-                                <TextBlock Grid.Row="2" FontSize="24" Text="{Binding StartDateTime}" Margin="126,26,309,-26" Grid.Column="1" />
+                                <TextBlock Grid.Row="2" FontSize="24" Text="{Binding StartDateTime}" Margin="126,26,250,-26" Grid.Column="1" />
                             </Grid>
 
 
                             <!-- Button -->
                             <Button 
-                        Width="270"
+                        Width="220"
                         Height="39"
-                        Margin="690,141,33,82"
+                        Margin="720,141,0,82"
                         Padding="1"
                         Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         CommandParameter="{Binding Id}"
-                        Content="TOURISTS STATISTICS"
+                        Content="TOURISTS STATS"
                         FontSize="28" Grid.Row="1" />
                         </Grid>
                         <DataTemplate.Triggers>
