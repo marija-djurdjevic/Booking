@@ -53,6 +53,7 @@ namespace BookingApp.Domain.Models
             Type = type;
             Seen = false;
             GuideName = guideName;
+            AddedPersons = new List<string>();
         }
         public TouristGuideNotification(int touristId, int guideId, int requestId, DateTime date, NotificationType type, string guideName, DateTime acceptedDate)
         {
@@ -64,6 +65,7 @@ namespace BookingApp.Domain.Models
             Seen = false;
             GuideName = guideName;
             AcceptedTime = acceptedDate;
+            AddedPersons = new List<string>();
         }
 
         public virtual string[] ToCSV()

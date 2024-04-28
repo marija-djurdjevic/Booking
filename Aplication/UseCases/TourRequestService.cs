@@ -26,6 +26,25 @@ namespace BookingApp.Aplication.UseCases
             CheckStatus();
         }
 
+        public List<TourRequest> GetNotAcceptedRequests()
+        {
+            CheckStatus();
+            return GetAllRequests().FindAll(t => t.Status != TourRequestStatus.Accepted);
+        }
+
+        public HashSet<int> GetTouristIdsInterestedForTour(string language,string location)
+        {
+            HashSet<int> touristIds = new HashSet<int>();
+            foreach(var request in GetNotAcceptedRequests())
+            {
+                if(request.Language.ToLower() == language.ToLower() || request.Location.City.ToLower() == location.ToLower())
+                {
+                    touristIds.Add(request.TouristId);
+                }
+            }
+            return touristIds;
+        }
+
         public List<TourRequest> GetByTouristId(int touristId)
         {
             CheckStatus();

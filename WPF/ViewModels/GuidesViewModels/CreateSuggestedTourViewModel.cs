@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Linq.Expressions;
+using BookingApp.Domain.Models;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -35,6 +37,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private readonly ImageService imageService;
         private TourRequestService tourRequestService;
         private GlobalLanguagesService globalLanguagesService;
+        private TouristGuideNotificationService notificationService;
         private GlobalLocationsService globalLocationsService;
         private int currentImageIndex = 0;
         private ObservableCollection<DateTime> tourDates = new ObservableCollection<DateTime>();
@@ -67,6 +70,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             uploadImageCommand = new RelayCommand(UploadImage);
             removeKeyPointCommand = new RelayCommand(RemoveKeyPoint);
             addKeyPointCommand = new RelayCommand(AddKeyPoint);
@@ -452,10 +456,15 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 LocationDto newLocationDto = GetLocationDto();
                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
                 CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
-                bool success = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
+                (bool success,int tourId) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
                 if (!success)
                 {
                     return;
+                }
+                foreach(var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
+                {
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,2,tourId,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,"Ognjen");
+                    notificationService.Save(touristGuideNotification);
                 }
             }
         }
