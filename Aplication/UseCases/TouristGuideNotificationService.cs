@@ -39,5 +39,10 @@ namespace BookingApp.Aplication.UseCases
         {
             return (int)GetByUserId(id).FindAll(t=>!t.Seen).Count();
         }
+
+        internal void Save(TouristGuideNotification touristGuideNotification)
+        {
+            notificationRepository.Save(touristGuideNotification);
+        }
     }
 }

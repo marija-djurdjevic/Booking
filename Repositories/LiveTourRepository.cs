@@ -33,11 +33,13 @@ namespace BookingApp.Repositories
 
         public LiveTour GetById(int tourId)
         {
+            liveTours = GetAll();
             return liveTours.FirstOrDefault(t => t.TourId == tourId);
         }
 
         public void Save(LiveTour liveTour)
         {
+            liveTours = GetAll();
             var existingTour = liveTours.FirstOrDefault(t => t.TourId == liveTour.TourId);
             if (existingTour != null)
             {
@@ -63,6 +65,7 @@ namespace BookingApp.Repositories
         }
         public void Delete(int tourId)
         {
+            liveTours = GetAll();
             liveTours.RemoveAll(t => t.TourId == tourId);
             _serializer.ToCSV(FilePath, liveTours);
         }

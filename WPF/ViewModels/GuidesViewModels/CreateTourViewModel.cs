@@ -440,7 +440,7 @@ namespace BookingApp.WPF.ViewModels
                 LocationDto newLocationDto = GetLocationDto();
                  TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
                  CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
-                 bool success = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
+                 (bool success,int id) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
                  if (!success)  
                  {
                      return; 

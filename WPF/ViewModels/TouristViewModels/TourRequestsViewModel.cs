@@ -222,7 +222,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             };
             LanguagesLabels = languageCounts.Keys.ToArray();
-            LanguageFormatter = value => value.ToString("N1");
+            LanguageFormatter = value => value.ToString("N");
         }
 
         private void FillLocationChart()
@@ -238,7 +238,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             };
             LocationLabels = locationsCounts.Keys.ToArray();
-            LanguageFormatter = value => value.ToString("N1");
+            LanguageFormatter = value => value.ToString("N");
         }
 
         private void SelectedStatisticYear()
