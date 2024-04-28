@@ -24,6 +24,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
     {
         public static TourService TourService;
 
+        public static KeyPointService KeyPointService;
+
         public static TouristService TouristService;
         public TourDto SelectedTour { get; set; }
 
@@ -68,8 +70,11 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            KeyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(),Injector.CreateInstance<ILiveTourRepository>());
 
             SelectedTour = selectedTour;
+            SelectedTour.KeyPoints = KeyPointService.GetTourKeyPoints(SelectedTour.Id);
+
             if (SelectedTour.KeyPoints.Count > 0)
             {
                 StartPoint = SelectedTour.KeyPoints[0];
