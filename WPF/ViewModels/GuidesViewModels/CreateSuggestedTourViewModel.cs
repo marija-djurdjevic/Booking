@@ -36,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private readonly KeyPointRepository keyPointRepository;
         private readonly ImageService imageService;
         private TourRequestService tourRequestService;
+        private RequestStatisticService requestStatisticService;
         private GlobalLanguagesService globalLanguagesService;
         private TouristGuideNotificationService notificationService;
         private GlobalLocationsService globalLocationsService;
@@ -65,8 +66,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             tourRepository = new TourRepository();
             keyPointRepository = new KeyPointRepository();
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            MostRequestedLanguage =tourRequestService.GetMostRequestedLanguage();
-            MostRequestedLocation=tourRequestService.GetMostRequestedLocation();
+            requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            MostRequestedLanguage = requestStatisticService.GetMostRequestedLanguage();
+            MostRequestedLocation= requestStatisticService.GetMostRequestedLocation();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -340,13 +342,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         }
 
-
-
-
-
-
-
-
         private void RemoveKeyPoint(object parameter)
         {
             string keyPointName = parameter.ToString();
@@ -447,7 +442,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
             }
         }
-
 
         private void CreateTour()
         {

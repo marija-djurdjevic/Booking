@@ -74,10 +74,10 @@ namespace BookingApp.Aplication.UseCases
             return allRequests.FindAll(r => r.StartDate.Year == parsedYear);
         }
 
-        public List<string> GetRequestsYears()
+        public List<string> GetRequestsYears(int id)
         {
             var requestsYears = new HashSet<string>();
-            var allRequests = GetAllRequests();
+            var allRequests = GetByTouristId(id);
             foreach (var request in allRequests)
             {
                 string year = request.StartDate.Year.ToString();

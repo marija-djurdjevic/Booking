@@ -2,6 +2,7 @@
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.View;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 using BookingApp.WPF.Views.GuideView;
 using System;
@@ -19,8 +20,10 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private int id;
         private  ObservableCollection<(DateTime, DateTime)> freeDates = new ObservableCollection<(DateTime, DateTime)>();
         private  readonly TourRequestService tourRequestService;
+        private RequestStatisticService requestStatisticService;
         private  ObservableCollection<(DateTime, DateTime)> bookedDates;
         private (DateTime, DateTime) touristsDates;
+        private RelayCommand sideMenuCommand;
         public ObservableCollection<(DateTime, DateTime)> BookedDates { get; set; }
         public (DateTime, DateTime) TouristsDates { get; set; }
 
@@ -29,12 +32,37 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             this.id = id;
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
+            requestStatisticService=new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             LoadBookedDates();
             TouristsDates=tourRequestService.GetDateSlotById(id);
-            FreeDates = new ObservableCollection<(DateTime, DateTime)>(tourRequestService.CalculateFreeDates(BookedDates.ToList(), TouristsDates));
+            FreeDates = new ObservableCollection<(DateTime, DateTime)>(requestStatisticService.CalculateFreeDates(BookedDates.ToList(), TouristsDates));
             acceptTourCommand = new RelayCommand(ExecuteAcceptTourCommand);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
 
         }
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
 
         public ObservableCollection<(DateTime, DateTime)> FreeDates
         { 

@@ -17,9 +17,10 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,14,0">
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,69,14,108">
 
-            <Grid Background="{StaticResource pozadina}" Height="2162">
+            <Grid Background="{StaticResource pozadina}" Height="1950">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="Auto" />
@@ -35,7 +36,7 @@
                 <!--  Glavni sadržaj ispod gornje navigacione trake  -->
 
 
-                <Grid Margin="0,30,0,0">
+                <Grid Margin="0,-30,0,0">
 
 
                     <Label
@@ -68,7 +69,8 @@
                         Grid.Row="0"
                         Height="42"
                         Margin="215,115,629,1337"
-                        Text="{Binding Name, Mode=TwoWay}" />
+                        Text="{Binding Name, Mode=TwoWay}"
+                        />
                     <ComboBox
                     x:Name="ComboBoxLangugage"
                     Grid.Row="0"
@@ -226,10 +228,11 @@
                         Margin="356,1536,424,-94" />
 
 
-
+                    
                     <ListBox
                         x:Name="ListBoxDates"
-                        Margin="357,1643,390,-316"
+                        Margin="357,1643,390,-250"
+                        Height="120"
                         ItemsSource="{Binding TourDates}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -287,7 +290,7 @@
                 Grid.Row="0"
                 Height="71"
                 VerticalAlignment="Top"
-                Background="LightGray">
+                Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71" />
                     <!--  Prva kolona za sliku  -->

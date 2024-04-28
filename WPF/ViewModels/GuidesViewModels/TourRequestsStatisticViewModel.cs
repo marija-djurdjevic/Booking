@@ -23,6 +23,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
     {
         private ObservableCollection<TourRequest> tourRequests;
         private TourRequestService tourRequestService;
+        private RequestStatisticService requestStatisticService;
         private ObservableCollection<string> locations;
         private ObservableCollection<string> languages;
         private string language;
@@ -32,18 +33,21 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand searchCommand;
         private RelayCommand generalStatisticsCommand;
         private RelayCommand monthStatisticsCommand;
+        private RelayCommand sideMenuCommand;
 
         public TourRequestsStatisticViewModel()
         {
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
+            requestStatisticService= new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests());
-            Locations = new ObservableCollection<string>(tourRequestService.GetLocations());
-            Languages = new ObservableCollection<string>(tourRequestService.GetLanguages());
+            Locations = new ObservableCollection<string>(requestStatisticService.GetLocations());
+            Languages = new ObservableCollection<string>(requestStatisticService.GetLanguages());
             IsYear = false;
             IsGeneral = false;
             searchCommand = new RelayCommand(ExecuteSearchCommand);
             generalStatisticsCommand = new RelayCommand(ExecuteGeneralStatisticsCommand);
             monthStatisticsCommand = new RelayCommand(ExecuteMonthStatisticsCommand);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
         }
 
         public ObservableCollection<TourRequest> TourRequests
@@ -189,6 +193,32 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             IsYear = SelectedYear.Content.ToString() != "General";
             IsGeneral = SelectedYear.Content.ToString() == "General";
         }
+
+
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
 
 
 

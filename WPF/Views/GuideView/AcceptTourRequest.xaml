@@ -10,23 +10,35 @@
       Title="AcceptTourRequest" Height="768" Width="1024">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
         <!-- Navigaciona traka -->
-        <Grid VerticalAlignment="Top" Height="71" Background="LightGray">
+        <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="71"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <!-- Slika u prvoj koloni -->
-            <Button VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                Command="{Binding SideManuCommand}"
+            <Button Grid.Column="0"
+            Command="{Binding SideManuCommand}"
                 Background="Transparent"
                 BorderThickness="0">
                 <Image Source="/Resources/Images/menu5.png"
-                    Stretch="Uniform"
-                    Width="71"
-                    Height="71" />
+                Stretch="Uniform"
+                Width="71"
+                Height="71" />
             </Button>
-            <TextBlock VerticalAlignment="Center" FontSize="32" Text="TOURISTS NUMBER" Margin="72,0,86,0"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOUR REQUEST"/>
+
         </Grid>
+
+
+
         <!-- Grid za sadržaj -->
-        <Grid Background="White" Margin="0,76,0,0">
+        <Grid Background="{StaticResource pozadina}" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -48,24 +60,27 @@
 
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,12,0,-12">
+        
             <ListBox
                 x:Name="ListBoxDates"
-                Margin="367,122,322,451"
-                ItemsSource="{Binding FreeDates}">
+                Margin="20,0,0,360"
+                Width="300"
+                Height="140"
+                Grid.Row="1"
+                ItemsSource="{Binding FreeDates}" >
             </ListBox>
-        </ScrollViewer>
+        
 
 
         <xctk:DateTimePicker
             x:Name="StartDateTimePicker"
-            Grid.Row="0"
-            Margin="364,405,319,291"
+            Grid.Row="1"
+            Margin="364,338,352,248"
             Value="{Binding SelectedDateTime, Mode=TwoWay}" />
 
 
 
-        <Button Margin="364,564,319,137" Content="Confirm" FontSize="32" Command="{Binding AcceptTourCommand}"></Button>
+        <Button Style="{StaticResource CustomButtonStyle}" Margin="364,493,352,97" Height="56" Content="Confirm" FontSize="32" Command="{Binding AcceptTourCommand}" Grid.Row="1"></Button>
 
 
 

@@ -194,7 +194,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             Years.Clear();
             Years.Add("All years");
-            foreach (var year in tourRequestService.GetRequestsYears().OrderBy(t => t))
+            foreach (var year in tourRequestService.GetRequestsYears(LoggedInUser.Id).OrderBy(t => t))
             {
                 Years.Add(year);
             }

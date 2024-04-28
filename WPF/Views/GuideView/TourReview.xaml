@@ -9,8 +9,9 @@
 
 
     <Grid>
+        
         <!-- Gornja navigaciona traka -->
-        <Grid x:Name="grid1" Height="71" VerticalAlignment="Top" Background="LightGray">
+        <Grid x:Name="grid1" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="71"/>
                 <ColumnDefinition Width="*"/>
@@ -30,14 +31,14 @@
             <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURISTS REVIEWS"/>
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" MaxWidth="994" Margin="0,71,0,0">
-            <Grid Background="White">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"  Margin="0,71,0,109" Width="1009">
+            <Grid Background="{StaticResource pozadina}">
              
-                    <ItemsControl d:ItemsSource="{d:SampleData ItemCount=3}"  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146" >
+                    <ItemsControl d:ItemsSource="{d:SampleData ItemCount=2}"  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            
-                                <GroupBox Width="950" FontSize="32" Margin="0,56,0,10">
+
+                            <GroupBox Background="{StaticResource gropuBox }" BorderBrush="Black" BorderThickness="2"  Width="950" FontSize="32" Margin="0,56,0,10">
 
                                     <GroupBox.Header>
 
@@ -50,10 +51,9 @@
                                         </Label>
 
                                     </GroupBox.Header>
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,10">
-                                    <Grid>
-                                     
-                                        <Grid.RowDefinitions>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
@@ -115,12 +115,12 @@
                                             <TextBlock Grid.Column="0" Text="Review: " />
                                             <TextBlock Grid.Column="1" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,0,329,0" />
                                         </Grid>
-                                        <Button  Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" Margin="0,0,8,12" FontSize="28" Content="REPORT REVIEW"
+                                    <Button Style="{StaticResource CustomButtonStyle}"  Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" Margin="0,0,8,12" FontSize="28" Content="REPORT REVIEW"
                                     Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" />
 
                                    
                                  </Grid>
-                                </Border>
+                               
                             </GroupBox>
                             
                         </DataTemplate>
