@@ -700,13 +700,13 @@
         
         <!-- Stilovi za vodiča -->
         <SolidColorBrush x:Key="pozadina" Color="#55DFE0" />
-        <SolidColorBrush x:Key="VodicCardColor" Color="#E6F4F1" />
-        <SolidColorBrush x:Key="VodicPageColor" Color="#EEE8AA" />
+        <SolidColorBrush x:Key="gropuBox" Color="LightGreen" />
+        <SolidColorBrush x:Key="nagivation" Color="WhiteSmoke" />
 
-        
 
         <!--BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE-->
-        <SolidColorBrush x:Key="MouseOverColor" Color="#7BD8DC"/>
+        <SolidColorBrush x:Key="MouseOverColor" Color="#7BD8"/>
+
         <SolidColorBrush x:Key="DefaultColor" Color="White"/>
 
 
@@ -730,10 +730,83 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
-        
-       
+
+
+
+
+
+        <Style x:Key="SideManuuttonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource MouseOverButtonColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style x:Key="AcceptButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource MouseOverButtonColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TourStatListBox" TargetType="ListBoxItem">
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style x:Key="SelectedTab" TargetType="TabItem">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+
+
+
 
         <!--  .  -->
     </Application.Resources>

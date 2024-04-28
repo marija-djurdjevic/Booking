@@ -1,7 +1,9 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.View;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 using BookingApp.WPF.Views.GuideView;
 using System;
@@ -19,12 +21,14 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private List<TourRequest> tourRequests;
         private TourRequestService tourRequestService;
+        private RelayCommand sideMenuCommand;
         public Dictionary<string, int> RequestsPerMonth { get; }
         public string Language { get; }
         public string Location { get; }
 
         public MonthStatisticsViewModel(string selectedYear,string language, string location)
         {
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             tourRequests = new List<TourRequest>(tourRequestService.GetAllRequests());
             SelectedYear = selectedYear;
@@ -38,6 +42,29 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
             UpdateRequestsForYear();
         }
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
 
         private void UpdateRequestsForYear()
         {

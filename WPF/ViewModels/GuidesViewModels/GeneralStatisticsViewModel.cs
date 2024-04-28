@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Command;
+using BookingApp.View;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -16,6 +18,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
        
         private List<TourRequest> tourRequests;
         private TourRequestService tourRequestService;
+        private RelayCommand sideMenuCommand;
         public Dictionary<string, int> RequestsPerYear { get; }
         public string Language { get; }
         public string Location { get; }
@@ -34,7 +37,31 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
 
             UpdateRequestsForYear();
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
         }
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
 
         private void UpdateRequestsForYear()
         {

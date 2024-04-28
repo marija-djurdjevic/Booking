@@ -17,12 +17,12 @@
 
 
 
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="mainGrid" Background="{StaticResource pozadina}">
         <Grid.RowDefinitions>
             <RowDefinition Height="71"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="71"></RowDefinition>
+
         </Grid.RowDefinitions>
 
 
@@ -31,7 +31,7 @@
         <Grid Grid.Row="0"
             Height="71"
             VerticalAlignment="Top"
-            Background="LightGray">
+            Background="{StaticResource nagivation}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="71" />
                 <ColumnDefinition Width="*" />
@@ -47,20 +47,21 @@
                     Width="71"
                     Height="71" />
             </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURS STATISTICS"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURS STATISTIC"/>
         </Grid>
 
-        <Button
-                Grid.Row="1"
+        <Grid Grid.Row="1">
+            <Button
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Margin="801,0,0,0"
+                Margin="771,0,0,0"
                 Content="Generate Tour Stats PDF"
                 Command="{Binding GenerateTourStatsPdfCommand}"
-                FontSize="16"
-                Padding="10"/>
+                FontSize="20"
+                Padding="10"
+                Style="{StaticResource CustomButtonStyle}" Height="40" Width="224"/>
 
-
+        </Grid>
 
 
 
@@ -69,10 +70,26 @@
          Grid.Row="2"
          ItemsSource="{Binding SortedTours}"
          SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
-         d:ItemsSource="{d:SampleData ItemCount=5}">
+         d:ItemsSource="{d:SampleData ItemCount=2}">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="1" BorderBrush="Black">
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="960" Height="250">
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" />
                                 <RowDefinition Height="Auto" />
@@ -163,7 +180,8 @@
                         Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         CommandParameter="{Binding Id}"
                         Content="TOURISTS STATS"
-                        FontSize="28" Grid.Row="1" />
+                        FontSize="28" Grid.Row="1"
+                                Style="{StaticResource CustomButtonStyle}"/>
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">

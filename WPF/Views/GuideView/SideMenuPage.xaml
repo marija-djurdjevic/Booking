@@ -12,7 +12,7 @@
 
 
 
-        <Grid Background="White">
+        <Grid Background="{StaticResource pozadina}">
             <!--sredina-->
             <Grid Margin="10,100,0,0">
                 <Grid.ColumnDefinitions>
@@ -30,13 +30,13 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Button Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="0" Margin="-9,-29,0,0" Grid.ColumnSpan="3"/>
-                <Button Content="Tour Requests" FontSize="28" Command="{Binding NavigateToTourRequestCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="6" Margin="-9,347,0,-386" Grid.ColumnSpan="3"/>
-                <Button Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="6" Margin="-9,261,0,-300" Grid.ColumnSpan="3"/>
-                <Button Content="Tour Request Statistics" FontSize="28" Command="{Binding NavigateToTourRequestsStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="6" Margin="-9,89,0,-128" Grid.ColumnSpan="3"/>
-                <Button Content="Create Suggested Tour" FontSize="28" Command="{Binding NavigateToSuggestedTourCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="6" Margin="-9,3,0,-42" Grid.ColumnSpan="3" Click="Button_Click"/>
-                <Button Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="6" Margin="-9,174,0,-213" Grid.ColumnSpan="3"/>
-                <Button Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="86" Grid.Row="6" Margin="-9,432,0,-471" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="0" Margin="-9,-29,0,0" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tour Requests" FontSize="28" Command="{Binding NavigateToTourRequestCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,349,0,-385" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,258,0,-302" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tour Request Statistics" FontSize="28" Command="{Binding NavigateToTourRequestsStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,87,0,-126" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Create Suggested Tour" FontSize="28" Command="{Binding NavigateToSuggestedTourCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,0,0,-40" Grid.ColumnSpan="3" Click="Button_Click"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,173,0,-211" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="86" Grid.Row="6" Margin="-9,432,0,-471" Grid.ColumnSpan="3"/>
 
 
             </Grid>
@@ -53,7 +53,7 @@
 
 
             <!-- Gornja navigaciona traka -->
-            <Grid Height="71" VerticalAlignment="Top" Grid.Row="0" Background="LightGray">
+            <Grid Height="71" VerticalAlignment="Top" Grid.Row="0" Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <!-- Prva kolona za sliku -->

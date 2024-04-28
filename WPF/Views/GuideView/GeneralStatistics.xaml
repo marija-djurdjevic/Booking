@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       Title="GeneralStatistics"  Height="768" Width="1024">
 
-    <Grid Background="White">
+    <Grid Background="{StaticResource pozadina}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="71"/>
@@ -17,7 +17,7 @@
 
 
             <!-- Gornja navigaciona traka -->
-            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="LightGray">
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <ColumnDefinition Width="*"/>
@@ -32,7 +32,7 @@
           Width="71"
           Height="71" />
                 </Button>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTICS PER MONTHS"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="STATISTIC PER YEARS" Margin="6,0,37,0"/>
             </Grid>
 
 

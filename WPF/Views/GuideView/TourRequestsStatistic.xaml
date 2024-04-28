@@ -3,6 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    
+
 
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:BookingApp.WPF.Converters"
@@ -13,7 +15,7 @@
         <local:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter" />
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="{StaticResource pozadina}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -24,7 +26,7 @@
             </Grid.RowDefinitions>
 
             <!-- Gornja navigaciona traka -->
-            <Grid Grid.Row="0"  VerticalAlignment="Top" Background="LightGray">
+            <Grid Grid.Row="0"  VerticalAlignment="Top" Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <ColumnDefinition Width="*"/>
@@ -39,13 +41,13 @@
                  Width="71"
                  Height="71" />
                 </Button>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOUR REQUEST STATISTICS" Margin="10,0,-10,0"/>
             </Grid>
 
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="71"/>
                         <RowDefinition Height="70"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
@@ -65,7 +67,7 @@
 
 
 
-                    <Button Grid.Row="1" Content="Search" Margin="788,16,76,13" Command="{Binding SearchCommand}" />
+                    <Button Grid.Row="1" Content="Search" FontSize="24"   Margin="783,16,69,13" Command="{Binding SearchCommand}" Style="{StaticResource CustomButtonStyle}" />
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose year:" FontSize="24" Margin="577,16,277,8"/>
                     <ComboBox Grid.Column="0" Width="200" Margin="781,14,69,14" SelectedItem="{Binding SelectedYear}">
@@ -87,9 +89,8 @@
                 <Label  Content="All requests" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="102,164,0,0"/>
                 <Rectangle Fill="DarkGray" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="41,152,0,0" />
 
-       
 
-
+               
 
             </Grid>
 
@@ -101,14 +102,14 @@
 
 
 
-                <Button Content="General stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="42" Width="100"
+                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="General stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="42" Width="135"
                         Visibility="{Binding IsGeneral, Converter={StaticResource ButtonVisibilityConverter}}"
-                        Command="{Binding GeneralStatisticsCommand}" Margin="0,0,64,23"  />
+                        Command="{Binding GeneralStatisticsCommand}" Margin="0,0,29,23"  />
 
 
-                <Button Content="Month Statistics" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="42" Width="100"
+                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="Months Stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="42" Width="136"
                         Visibility="{Binding IsYear, Converter={StaticResource ButtonVisibilityConverter}}"
-                        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="0,184,65,0" />
+                        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="0,184,29,0" />
 
             </Grid>
         </Grid>

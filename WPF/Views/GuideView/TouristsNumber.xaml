@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView"
       mc:Ignorable="d" 
-      Title="TouristsNumberPage1"  Height="Auto" Width="1024">
+      Title="TouristsNumberPage1"  Height="768" Width="1024">
 
     <Grid>
         <!-- Navigaciona traka -->
-        <Grid VerticalAlignment="Top" Height="71" Background="LightGray">
+        <Grid VerticalAlignment="Top" Height="71" Background="{StaticResource nagivation}">
             <!-- Slika u prvoj koloni -->
             <Button VerticalAlignment="Top"
                 HorizontalAlignment="Left"
@@ -24,7 +24,7 @@
             <TextBlock VerticalAlignment="Center" FontSize="32" Text="TOURISTS NUMBER" Margin="72,0,86,0"/>
         </Grid>
         <!-- Grid za sadržaj -->
-        <Grid Background="White" Margin="0,76,0,0">
+        <Grid Background="{StaticResource pozadina}" Margin="0,71,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>

@@ -37,7 +37,7 @@
         <DockPanel
             Height="71"
             VerticalAlignment="Bottom"
-            Background="LightGray"
+            Background="{StaticResource nagivation}"
             DockPanel.Dock="Bottom">
             <!--  Donja navigaciona traka  -->
 
@@ -45,6 +45,7 @@
 
             <!--  Prva slika u levom cosku  -->
             <Button
+                Width="82"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
