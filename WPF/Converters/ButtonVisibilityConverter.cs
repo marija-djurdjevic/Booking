@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
 using BookingApp.WPF.ViewModels.GuidesViewModels;
+using System.Windows.Markup;
 
 namespace BookingApp.WPF.Converters
 {
 
-    public class ButtonVisibilityConverter : IValueConverter
+    public class ButtonVisibilityConverter : MarkupExtension, IValueConverter
     {
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is bool))

@@ -26,14 +26,29 @@ namespace BookingApp.View.TouristView
         {
             InitializeComponent();
             DataContext = new TouristNotificationsViewModel(loggedInUser);
-            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
-        }
-        private void CloseWindow(NotificationMessage message)
-        {
-            if (message.Notification == "CloseNotificationsWindowMessage")
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
-                this.Close();
-            }
+                switch (message.Notification)
+                {
+                    case "ScrollToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                    case "CloseNotificationsWindowMessage":
+                        this.Close();
+                        break;
+                }
+            });
         }
     }
 }

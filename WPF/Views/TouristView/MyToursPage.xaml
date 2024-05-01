@@ -10,7 +10,35 @@
     Title="Booking app"
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
+    <Page.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="I"
+            Command="{Binding InboxCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+        <KeyBinding
+            Key="Right"
+            Command="{Binding ChangeTabRightCommand}"
+            Modifiers="Alt" />
+        <KeyBinding
+            Key="Left"
+            Command="{Binding ChangeTabLeftCommand}"
+            Modifiers="Alt" />
 
+    </Page.InputBindings>
     <Page.Resources>
         <Style x:Key="dash" TargetType="Border">
             <Setter Property="CornerRadius" Value="2" />
@@ -113,6 +141,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Help" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Open help window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+H)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
@@ -152,16 +190,28 @@
                                 <TextBlock Margin="0,0,5,0" Text="Inbox" />
                             </StackPanel>
                         </Grid>
-
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Show my notifications<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+I)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
 
         </DockPanel>
 
         <Grid Margin="15,25,15,15">
-            <TabControl Background="{StaticResource PageColor}" BorderBrush="{StaticResource BackgroundColor}">
-                <TabItem Style="{StaticResource TabStyle}">
+            <TabControl
+                x:Name="TabControla"
+                Background="{StaticResource PageColor}"
+                BorderBrush="{StaticResource BackgroundColor}">
+                <TabItem x:Name="All" Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
                             FontSize="22"
@@ -215,6 +265,7 @@
                                 Visibility="{Binding Tours.Count, Converter={cvt:StatusMessageConverter}}" />
 
                             <ScrollViewer
+                                x:Name="AllScrol"
                                 Grid.Row="1"
                                 HorizontalScrollBarVisibility="Auto"
                                 VerticalScrollBarVisibility="Visible">
@@ -371,6 +422,13 @@
                                                                     <i:InvokeCommandAction Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" />
                                                                 </i:EventTrigger>
                                                             </i:Interaction.Triggers>
+                                                            <Button.ToolTip>
+                                                                <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                                                    <TextBlock TextAlignment="Center">
+                                                                        Click to rate this tour
+                                                                    </TextBlock>
+                                                                </ToolTip>
+                                                            </Button.ToolTip>
                                                         </Button>
 
                                                     </Grid>
@@ -385,7 +443,7 @@
                     </DockPanel>
 
                 </TabItem>
-                <TabItem Style="{StaticResource TabStyle}">
+                <TabItem x:Name="Active" Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
                             FontSize="22"
@@ -403,7 +461,10 @@
                             Visibility="{Binding ActiveTours.Count, Converter={cvt:StatusMessageConverter}}" />
 
 
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer
+                            x:Name="ActiveScrol"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Visible">
                             <ItemsControl
                                 Focusable="True"
                                 ItemsSource="{Binding ActiveTours}"
@@ -639,7 +700,13 @@
                                                             Style="{StaticResource KeyPointsTextBlocs}"
                                                             Text="{Binding Item3.Name}" />
                                                     </StackPanel>
-
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                                            <TextBlock TextAlignment="Center">
+                                                                Current progress of the tour
+                                                            </TextBlock>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
                                                 </StackPanel>
 
                                             </Grid>
@@ -650,7 +717,7 @@
                         </ScrollViewer>
                     </DockPanel>
                 </TabItem>
-                <TabItem Style="{StaticResource TabStyle}">
+                <TabItem x:Name="Finished" Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
                             FontSize="22"
@@ -703,6 +770,7 @@
                                 Visibility="{Binding FinishedTours.Count, Converter={cvt:StatusMessageConverter}}" />
 
                             <ScrollViewer
+                                x:Name="FinishedScrol"
                                 Grid.Row="1"
                                 HorizontalScrollBarVisibility="Auto"
                                 VerticalScrollBarVisibility="Visible">
@@ -823,9 +891,9 @@
                                                                 <StackPanel Orientation="Horizontal">
                                                                     <Image
                                                                         Height="40"
-                                                                        Visibility="Collapsed"
                                                                         Margin="5,0,5,0"
-                                                                        Source="{Binding Item3, Converter={cvt:RateStatusConverter}}" />
+                                                                        Source="{Binding Item3, Converter={cvt:RateStatusConverter}}"
+                                                                        Visibility="Collapsed" />
                                                                     <TextBlock Margin="0,0,5,0" Text="{Binding Item3}" />
                                                                 </StackPanel>
                                                             </Button.Content>
@@ -858,6 +926,13 @@
                                                                     <i:InvokeCommandAction Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" />
                                                                 </i:EventTrigger>
                                                             </i:Interaction.Triggers>
+                                                            <Button.ToolTip>
+                                                                <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                                                    <TextBlock TextAlignment="Center">
+                                                                        Click to rate this tour
+                                                                    </TextBlock>
+                                                                </ToolTip>
+                                                            </Button.ToolTip>
                                                         </Button>
                                                     </Grid>
 

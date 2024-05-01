@@ -36,6 +36,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
         private bool AreDataSaved;
 
         public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest)
@@ -65,7 +69,30 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(CloseWindow);
             HelpCommand = new RelayCommand(Help);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
             Messenger.Default.Register<NotificationMessage>(this, SaveReservation);
+        }
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollDataUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollDataDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollDataToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollDataToTop"));
         }
 
         private void SaveReservation(NotificationMessage message)

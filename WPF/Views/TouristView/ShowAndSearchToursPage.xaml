@@ -10,6 +10,34 @@
     Title="Booking app"
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
+    <Page.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="I"
+            Command="{Binding InboxCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="F"
+            Command="{Binding SearchCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="A"
+            Command="{Binding ShowAllCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+    </Page.InputBindings>
 
     <DockPanel Margin="10">
 
@@ -46,6 +74,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Help" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Open help window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+H)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
@@ -87,6 +125,16 @@
                         </Grid>
 
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Show my notifications<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+I)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button
@@ -115,6 +163,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Show all" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Cancel the search<LineBreak />
+                                and display all tours<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Ctrl+A)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button
@@ -134,13 +192,26 @@
                             <TextBlock Margin="0,0,5,0" Text="Search" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Search for tours<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+F)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
 
         </DockPanel>
 
         <Grid Margin="15">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+            <ScrollViewer
+                x:Name="Skrol"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Visible">
                 <ItemsControl
                     x:Name="SearchResultList"
                     Focusable="True"
@@ -247,6 +318,13 @@
                                     </StackPanel>
 
                                 </Grid>
+                                <Border.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Click to reserve<LineBreak />
+                                            the tour</TextBlock>
+                                    </ToolTip>
+                                </Border.ToolTip>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

@@ -1,5 +1,5 @@
-﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels.TouristViewModels;
+﻿using BookingApp.Command;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using System;

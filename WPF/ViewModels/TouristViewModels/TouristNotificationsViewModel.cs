@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using BookingApp.View.TouristView;
 using BookingApp.Aplication.Dto;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -30,6 +31,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand<object> ShowDetailsCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
 
         public TouristNotificationsViewModel(User loggedInUser)
         {
@@ -40,9 +45,33 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             HelpCommand = new RelayCommand(Help);
             CloseCommand = new RelayCommand(CloseWindow);
             ShowDetailsCommand = new RelayCommand<object>(ShowTourDetails);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
 
             LoggedInUser = loggedInUser;
             GetMyNotifications();
+        }
+
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToTop"));
         }
 
         private void ShowTourDetails(object parametar)

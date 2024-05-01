@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -31,6 +32,30 @@ namespace BookingApp.View.TouristView
         {
             InitializeComponent();
             DataContext = new ShowAndSearchToursViewModel(loggedInUser);
+            Skrol.Focus();
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                switch (message.Notification)
+                {
+                    case "ScrollToursToTop":
+                        Skrol.ScrollToTop();
+                        break;
+
+                    case "ScrollToursToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+
+                    case "ScrollToursDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+
+                    case "ScrollToursUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                }
+            });
         }
     }
 

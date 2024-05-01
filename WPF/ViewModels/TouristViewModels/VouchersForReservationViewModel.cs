@@ -28,6 +28,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
 
         public VouchersForReservationViewModel(User loggedInUser)
         {
@@ -39,6 +43,29 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(CloseWindow);
             HelpCommand = new RelayCommand(Help);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+        }
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollReservationVoucherUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollReservationVoucherDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollReservationVoucherToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollReservationVoucherToTop"));
         }
         private void Help()
         {

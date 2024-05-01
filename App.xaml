@@ -18,6 +18,25 @@
         <SolidColorBrush x:Key="SelectedCardColor" Color="#F59432" />
         <SolidColorBrush x:Key="ValidationMessageColor" Color="Red" />
 
+        <Style x:Key="Tooltips" TargetType="ToolTip">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border
+                            Background="{StaticResource CardColor}"
+                            BorderBrush="{StaticResource BackgroundColor}"
+                            BorderThickness="2"
+                            CornerRadius="4">
+                            <ContentPresenter Margin="4" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -401,39 +420,42 @@
                             </Border>
                         </Viewbox>
                         <ControlTemplate.Triggers>
-                            <EventTrigger RoutedEvent="Checked">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="Green"
-                                            Duration="0:0:0.1" />
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Ellipse"
-                                            Storyboard.TargetProperty="Margin"
-                                            To="20 1 2 1"
-                                            Duration="0:0:0.1" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Unchecked">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="White"
-                                            Duration="0:0:0.1" />
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Ellipse"
-                                            Storyboard.TargetProperty="Margin"
-                                            To="2 1 2 1"
-                                            Duration="0:0:0.1" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="Green"
+                                                Duration="0:0:0.1" />
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="Ellipse"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="20 1 2 1"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="White"
+                                                Duration="0:0:0.1" />
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="Ellipse"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="2 1 2 1"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
                         </ControlTemplate.Triggers>
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -690,27 +712,27 @@
             <Setter Property="CalendarDayButtonStyle" Value="{StaticResource IncreasedDayStyle}" />
         </Style>
 
-        
-        <!--GUIDE-->
-        
-        
-        
-        
-        
-        
-        <!-- Stilovi za vodiča -->
+
+        <!--  GUIDE  -->
+
+
+
+
+
+
+        <!--  Stilovi za vodiča  -->
         <SolidColorBrush x:Key="pozadina" Color="#55DFE0" />
         <SolidColorBrush x:Key="gropuBox" Color="LightGreen" />
         <SolidColorBrush x:Key="nagivation" Color="WhiteSmoke" />
 
 
-        <!--BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE-->
-        <SolidColorBrush x:Key="MouseOverColor" Color="#7BD8"/>
+        <!--  BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE  -->
+        <SolidColorBrush x:Key="MouseOverColor" Color="#7BD8" />
 
-        <SolidColorBrush x:Key="DefaultColor" Color="White"/>
+        <SolidColorBrush x:Key="DefaultColor" Color="White" />
 
 
-        <!--BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE-->
+        <!--  BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE  -->
         <SolidColorBrush x:Key="MouseOverButtonColor" Color="LightGoldenrodYellow" />
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White" />
@@ -718,8 +740,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -741,8 +767,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -758,12 +788,16 @@
 
         <Style x:Key="AcceptButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White" />
-                <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -781,9 +815,10 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter />
                         </Border>
                     </ControlTemplate>

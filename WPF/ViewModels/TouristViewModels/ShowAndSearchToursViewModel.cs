@@ -48,6 +48,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand ShowAllCommand { get; set; }
         public RelayCommand InboxCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
         public RelayCommand<object> SelectedCardCommand { get; set; }
 
         public ShowAndSearchToursViewModel(User loggedInUser)
@@ -68,7 +72,30 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             ShowAllCommand = new RelayCommand(ShowAllTours);
             InboxCommand = new RelayCommand(OpenInbox);
             HelpCommand = new RelayCommand(Help);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
             SelectedCardCommand = new RelayCommand<object>(SelectedTourCard);
+        }
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursToTop"));
         }
 
         public bool IsShowAllButtonVisible

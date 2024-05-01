@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -86,6 +87,23 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
             CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
             OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
+        }
+        public RelayCommand<object> FocusUpCommand => new RelayCommand<object>(FocusToComboBox);
+        public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToBox);
+
+        private void FocusToComboBox(object o)
+        {
+            // Assuming MyComboBox is your ComboBox instance
+            ComboBox comboBox = o as ComboBox;
+            if (comboBox != null)
+                comboBox.Focus();
+        }
+        private void FocusToBox(object o)
+        {
+            // Assuming MyComboBox is your ComboBox instance
+            TextBox comboBox = o as TextBox;
+            if (comboBox != null)
+                comboBox.Focus();
         }
 
         private void CloseWindow()

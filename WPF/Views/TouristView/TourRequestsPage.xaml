@@ -11,6 +11,43 @@
     Title="Booking app"
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
+    <Page.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="I"
+            Command="{Binding InboxCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="N"
+            Command="{Binding CreateCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+        <KeyBinding
+            Key="Right"
+            Command="{Binding ChangeTabRightCommand}"
+            Modifiers="Alt" />
+        <KeyBinding
+            Key="E"
+            Command="{Binding ExportCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="Left"
+            Command="{Binding ChangeTabLeftCommand}"
+            Modifiers="Alt" />
+    </Page.InputBindings>
+
 
     <Page.Resources>
         <Style x:Key="dash" TargetType="Border">
@@ -114,6 +151,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Help" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Open help window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+H)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
@@ -155,14 +202,30 @@
                         </Grid>
 
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Show my notifications<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+I)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
 
         </DockPanel>
 
         <Grid Margin="15,25,15,15">
-            <TabControl Background="{StaticResource PageColor}" BorderBrush="{StaticResource BackgroundColor}">
-                <TabItem Width="auto" Style="{StaticResource TabStyle}">
+            <TabControl
+                x:Name="TabControla"
+                Background="{StaticResource PageColor}"
+                BorderBrush="{StaticResource BackgroundColor}">
+                <TabItem
+                    x:Name="Requests"
+                    Width="auto"
+                    Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
                             Margin="15,0"
@@ -195,7 +258,16 @@
                                 <Button.BorderBrush>
                                     <SolidColorBrush Opacity="0" Color="White" />
                                 </Button.BorderBrush>
-
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Create new request<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text="(Ctrl+N)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
                             <StackPanel
                                 Margin="0,0,85,0"
@@ -238,6 +310,7 @@
                                 Visibility="{Binding TourRequests.Count, Converter={cvt:StatusMessageConverter}}" />
 
                             <ScrollViewer
+                                x:Name="RequestsSkrol"
                                 Grid.Row="1"
                                 Margin="0,10,0,0"
                                 CanContentScroll="True"
@@ -382,7 +455,10 @@
                     </DockPanel>
 
                 </TabItem>
-                <TabItem Width="auto" Style="{StaticResource TabStyle}">
+                <TabItem
+                    x:Name="Stats"
+                    Width="auto"
+                    Style="{StaticResource TabStyle}">
                     <TabItem.Header>
                         <TextBlock
                             Margin="15,0"
@@ -390,7 +466,7 @@
                             FontWeight="Bold"
                             Text="Statistics" />
                     </TabItem.Header>
-                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <ScrollViewer x:Name="StatsSkrol" VerticalScrollBarVisibility="Visible">
                         <Grid Margin="50,20,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
@@ -610,6 +686,16 @@
                                     <Button.BorderBrush>
                                         <SolidColorBrush Opacity="0" Color="White" />
                                     </Button.BorderBrush>
+                                    <Button.ToolTip>
+                                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                            <TextBlock TextAlignment="Center">
+                                                Export the statistics<LineBreak />
+                                                as a PDF<Run
+                                                    FontStyle="Italic"
+                                                    Foreground="{StaticResource ValidationMessageColor}"
+                                                    Text=" (Ctrl+E)" /></TextBlock>
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </Grid>
                         </Grid>

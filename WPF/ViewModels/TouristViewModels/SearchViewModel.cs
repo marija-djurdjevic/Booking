@@ -16,6 +16,7 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -77,6 +78,23 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
             CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
             OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
+        }
+        public RelayCommand<object> FocusUpCommand => new RelayCommand<object>(FocusToComboBox);
+        public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToInteger);
+
+        private void FocusToComboBox(object o)
+        {
+            // Assuming MyComboBox is your ComboBox instance
+            ComboBox comboBox = o as ComboBox;
+            if(comboBox != null)
+                comboBox.Focus();
+        }
+        private void FocusToInteger(object o)
+        {
+        // Assuming MyComboBox is your ComboBox instance
+            IntegerUpDown comboBox = o as IntegerUpDown;
+            if (comboBox != null)
+                comboBox.Focus();
         }
         private void CloseWindow()
         {
