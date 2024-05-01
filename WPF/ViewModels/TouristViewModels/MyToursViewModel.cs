@@ -14,6 +14,7 @@ using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -101,6 +102,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand AllToursSortingCommand { get; set; }
         public RelayCommand FinishedToursSortingCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
+        public RelayCommand ChangeTabRightCommand { get; private set; }
+        public RelayCommand ChangeTabLeftCommand { get; private set; }
         public MyToursViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -111,18 +118,53 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             myToursService = new MyToursService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ITourReservationRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
 
-            UnreadNotificationCount= notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
             FillCollections();
             HelpCommand = new RelayCommand(Help);
             InboxCommand = new RelayCommand(OpenInbox);
             RateCommand = new RelayCommand<object>(RateTour);
             AllToursSortingCommand = new RelayCommand(SortingAllToursSelectionChanged);
             FinishedToursSortingCommand = new RelayCommand(SortingFinishedToursSelectionChanged);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+            ChangeTabRightCommand = new RelayCommand(ChangeTabRight);
+            ChangeTabLeftCommand = new RelayCommand(ChangeTabLeft);
         }
 
+        private void ChangeTabLeft()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabLeftMyTours"));
+        }
+
+        private void ChangeTabRight()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabRightMyTours"));
+        }
+
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursToTop"));
+        }
         private void Help()
         {
-            
+
         }
 
         public void FillCollections()

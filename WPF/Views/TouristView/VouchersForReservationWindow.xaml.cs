@@ -28,15 +28,29 @@ namespace BookingApp.View.TouristView
         {
             InitializeComponent();
             DataContext = new VouchersForReservationViewModel(loggedInUser);
-            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
-        }
-
-        private void CloseWindow(NotificationMessage message)
-        {
-            if (message.Notification == "CloseVouchersForReservationWindowMessage")
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
-                this.Close();
-            }
+                switch (message.Notification)
+                {
+                    case "ScrollReservationVoucherToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollReservationVoucherToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollReservationVoucherDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollReservationVoucherUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                    case "CloseVouchersForReservationWindowMessage":
+                        this.Close();
+                        break;
+                }
+            });
         }
     }
 }

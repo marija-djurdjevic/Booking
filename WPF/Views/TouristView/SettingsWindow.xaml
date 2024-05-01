@@ -2,6 +2,7 @@
     x:Class="BookingApp.View.TouristView.SettingsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="clr-namespace:BookingApp"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
@@ -13,7 +14,9 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
+    </Window.InputBindings>
 
     <DockPanel Margin="10">
         <DockPanel
@@ -69,7 +72,16 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Close window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Escape)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
@@ -146,6 +158,8 @@
                         Margin="0,10,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
+                        Command="{Binding ShowTooltipsCommand}"
+                        IsChecked="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Mode=TwoWay}"
                         Style="{StaticResource TogleStyle}" />
 
                 </Grid>

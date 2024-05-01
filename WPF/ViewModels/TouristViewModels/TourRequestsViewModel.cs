@@ -5,6 +5,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
 using BookingApp.WPF.Views.TouristView;
+using GalaSoft.MvvmLight.Messaging;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
@@ -163,6 +164,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand SelectedStatisticYearCommand { get; set; }
         public RelayCommand CreateCommand { get; set; }
         public RelayCommand ExportCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
+        public RelayCommand ChangeTabRightCommand { get; private set; }
+        public RelayCommand ChangeTabLeftCommand { get; private set; }
 
         public TourRequestsViewModel(User loggedInUser)
         {
@@ -181,8 +188,43 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             ExportCommand = new RelayCommand(Export);
             SortingRequeststCommand = new RelayCommand(SortingSelectionChanged);
             SelectedStatisticYearCommand = new RelayCommand(SelectedStatisticYear);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+            ChangeTabRightCommand = new RelayCommand(ChangeTabRight);
+            ChangeTabLeftCommand = new RelayCommand(ChangeTabLeft);
 
             FetchStatistics();
+        }
+        private void ChangeTabLeft()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabLeftRequests"));
+        }
+
+        private void ChangeTabRight()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabRightRequests"));
+        }
+
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollRequestsUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollRequestsDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollRequestsToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollRequestsToTop"));
         }
 
         private void Export()

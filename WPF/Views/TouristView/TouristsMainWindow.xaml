@@ -14,6 +14,36 @@
     Background="{StaticResource BackgroundColor}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="S"
+            Command="{Binding ShowAndSearchCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="M"
+            Command="{Binding MyToursCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="T"
+            Command="{Binding TourRequestCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="C"
+            Command="{Binding ComplexCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="V"
+            Command="{Binding VouchersCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="S"
+            Command="{Binding SettingsCommand}"
+            Modifiers="Ctrl+Alt" />
+        <KeyBinding
+            Key="L"
+            Command="{Binding LogoutCommand}"
+            Modifiers="Ctrl" />
+    </Window.InputBindings>
 
     <DockPanel Margin="5" Background="{StaticResource BackgroundColor}">
         <DockPanel Width="340" DockPanel.Dock="Left">
@@ -45,7 +75,7 @@
                             Height="50"
                             VerticalAlignment="Top"
                             DockPanel.Dock="Right">
-                            <Button Click="SettingsButtonClick">
+                            <Button Command="{Binding SettingsCommand}">
                                 <Button.BorderBrush>
                                     <SolidColorBrush Opacity="0" Color="#FF707070" />
                                 </Button.BorderBrush>
@@ -59,6 +89,16 @@
                                         Source="/Resources/Icons/TouristIcons/settings.png" />
 
                                 </Button.Content>
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Open settings<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text=" (Ctrl+Alt+S)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
 
                         </DockPanel>
@@ -72,7 +112,7 @@
                                 Margin="0"
                                 VerticalAlignment="Top"
                                 Background="{StaticResource CardColor}"
-                                Click="LogoutButtonClick"
+                                Command="{Binding LogoutCommand}"
                                 Style="{StaticResource ConfirmButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -89,7 +129,16 @@
                                 <Button.BorderBrush>
                                     <SolidColorBrush Opacity="0" Color="White" />
                                 </Button.BorderBrush>
-
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Logout<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text=" (Ctrl+L)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
                         </DockPanel>
 
@@ -113,7 +162,7 @@
 
                         </StackPanel>
                     </DockPanel>
-                    <Button Click="ShowAndSearchToursButtonClick">
+                    <Button Command="{Binding ShowAndSearchCommand}">
                         <Border>
 
                             <TextBlock
@@ -156,9 +205,18 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    Show tours for reservation<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+S)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
-                    <Button Click="MyToursButtonClick">
+                    <Button Command="{Binding MyToursCommand}">
                         <Border>
 
                             <TextBlock
@@ -201,10 +259,19 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    View my reserved tours<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+M)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
 
-                    <Button Click="TourRequestsButtonClick">
+                    <Button Command="{Binding TourRequestCommand}">
                         <Border>
 
                             <TextBlock
@@ -247,10 +314,19 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    View and create tour requests<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+T)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
 
-                    <Button Click="ShowAndSearchToursButtonClick">
+                    <Button Command="{Binding ComplexCommand}">
                         <Border>
 
                             <TextBlock
@@ -293,11 +369,20 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    View and create complex<LineBreak />
+                                    tour requests<Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+C)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
 
 
-                    <Button Click="VouchersButtonClick">
+                    <Button Command="{Binding VouchersCommand}">
                         <Border>
 
                             <TextBlock
@@ -340,7 +425,16 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    View my valid vouchers<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+V)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
 
                 </StackPanel>

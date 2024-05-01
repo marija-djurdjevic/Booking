@@ -13,6 +13,11 @@
     ResizeMode="NoResize"
     WindowState="Maximized"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding Key="Right" Command="{Binding NextImageCommand}" />
+        <KeyBinding Key="Left" Command="{Binding PreviousImageCommand}" />
+        <KeyBinding Key="Esc" Command="{Binding CloseWindowCommand}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -41,6 +46,16 @@
                 <Button.Content>
                     <Image HorizontalAlignment="Left" Source="/Resources/Icons/TouristIcons/previous.png" />
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Show previous image<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Left Arrow)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
             <Button
                 Grid.Column="1"
@@ -54,6 +69,16 @@
                 <Button.Content>
                     <Image HorizontalAlignment="Left" Source="/Resources/Icons/TouristIcons/next.png" />
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Show next image<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Right Arrow)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Grid>
 
@@ -63,7 +88,7 @@
             HorizontalAlignment="Center"
             Command="{Binding CloseWindowCommand}"
             FontSize="50"
-            Style="{StaticResource CancelButton}">
+            Style="{StaticResource ResizeButtonStyle}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image
@@ -76,7 +101,16 @@
             <Button.BorderBrush>
                 <SolidColorBrush Opacity="0" Color="White" />
             </Button.BorderBrush>
-
+            <Button.ToolTip>
+                <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                    <TextBlock TextAlignment="Center">
+                        Close window<LineBreak />
+                        <Run
+                            FontStyle="Italic"
+                            Foreground="{StaticResource ValidationMessageColor}"
+                            Text="(Escape)" /></TextBlock>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </Window>

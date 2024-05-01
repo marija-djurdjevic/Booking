@@ -21,6 +21,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Views.TouristView;
+using BookingApp.Command;
 
 namespace BookingApp.View.TouristView
 {
@@ -55,6 +56,13 @@ namespace BookingApp.View.TouristView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public RelayCommand ShowAndSearchCommand { get; private set; }
+        public RelayCommand MyToursCommand { get; private set; }
+        public RelayCommand TourRequestCommand { get; private set; }
+        public RelayCommand ComplexCommand { get; private set; }
+        public RelayCommand VouchersCommand { get; private set; }
+        public RelayCommand SettingsCommand { get; private set; }
+        public RelayCommand LogoutCommand { get; private set; }
 
         public TouristsMainWindow(User loggedInUser)
         {
@@ -64,45 +72,48 @@ namespace BookingApp.View.TouristView
             ActiveCard = "ShowAndSearch";
             Tourist = _touristService.GetByUserId(LoggedInUser.Id);
             Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
+            ((App)Application.Current).globalVariables.ShowTooltips = Tourist.ShowTooltips;
+            ShowAndSearchCommand = new RelayCommand(ShowAndSearchExecuteCommand);
+            MyToursCommand = new RelayCommand(MyToursExecuteCommand);
+            TourRequestCommand = new RelayCommand(TourRequestsExecuteCommand);
+            ComplexCommand = new RelayCommand(SettingsExecuteCommand);
+            VouchersCommand = new RelayCommand(VouchersExecuteCommand);
+            SettingsCommand = new RelayCommand(SettingsExecuteCommand);
+            LogoutCommand = new RelayCommand(LogoutExecuteCommand);
         }
 
-        private void ShowAndSearchToursButtonClick(object sender, RoutedEventArgs e)
+        private void ShowAndSearchExecuteCommand()
         {
             Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
             ActiveCard = "ShowAndSearch";
         }
 
-        private void MyToursButtonClick(object sender, RoutedEventArgs e)
+        private void MyToursExecuteCommand()
         {
             Paige.Content = new MyToursPage(LoggedInUser);
             ActiveCard = "MyTours";
         }
 
-        private void TourRequestsButtonClick(object sender, RoutedEventArgs e)
+        private void TourRequestsExecuteCommand()
         {
             Paige.Content = new TourRequestsPage(LoggedInUser);
             ActiveCard = "TourRequests";
         }
 
-        private void VouchersButtonClick(object sender, RoutedEventArgs e)
+        private void VouchersExecuteCommand()
         {
             Paige.Content = new VoucherPage(LoggedInUser);
             ActiveCard = "Vouchers";
         }
 
-        private void LogoutButtonClick(object sender, RoutedEventArgs e)
+        private void LogoutExecuteCommand()
         {
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
             Close();
         }
 
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SettingsButtonClick(object sender, RoutedEventArgs e)
+        private void SettingsExecuteCommand()
         {
             SettingsWindow settingsWindow = new SettingsWindow(LoggedInUser);
             settingsWindow.ShowDialog();

@@ -19,29 +19,25 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
     public class SettingsViewModel : BindableBase
     {
         public Tourist Tourist { get; set; }
-        public TouristService TouristService { get; set; }
 
-        private bool showTooltips;
-
-        public bool ShowTooltips
-        {
-            get { return showTooltips; }
-            set
-            {
-                showTooltips = value;
-                OnPropertyChanged(nameof(ShowTooltips));
-            }
-        }
-
+        private TouristService touristService;
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        public RelayCommand ShowTooltipsCommand { get; set; }
 
         public SettingsViewModel(User loggedInUser)
         {
-            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
-            Tourist = TouristService.GetByUserId(loggedInUser.Id);
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            Tourist = touristService.GetByUserId(loggedInUser.Id);
             CloseCommand = new RelayCommand(CloseWindow);
             HelpCommand = new RelayCommand(Help);
+            ShowTooltipsCommand = new RelayCommand(ShowTooltipsExecuteCommand);
+        }
+
+        private void ShowTooltipsExecuteCommand()
+        {
+            Tourist.ShowTooltips = ((App)Application.Current).globalVariables.ShowTooltips;
+            touristService.Update(Tourist);
         }
 
         private void Help()

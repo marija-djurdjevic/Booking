@@ -5,6 +5,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,11 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand InboxCommand { get; set; }
-         
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
+
         public VoucherViewModel(User loggedInUser)
         {
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
@@ -50,6 +55,30 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
             HelpCommand = new RelayCommand(Help);
             InboxCommand = new RelayCommand(OpenInbox);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+        }
+
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollVoucherUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollVoucherDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollVoucherToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollVoucherToTop"));
         }
 
         private void Help()

@@ -15,6 +15,27 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding FocusUpCommand}"
+            CommandParameter="{Binding ElementName=MyComboBox}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding FocusDownCommand}"
+            CommandParameter="{Binding ElementName=DownField}"
+            Modifiers="Ctrl" />
+    </Window.InputBindings>
 
     <DockPanel Margin="20,10,20,10">
         <DockPanel
@@ -45,6 +66,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -66,6 +97,7 @@
 
             <StackPanel Grid.Column="1" Margin="0,10,0,0">
                 <ComboBox
+                    x:Name="MyComboBox"
                     Width="300"
                     Height="40"
                     HorizontalAlignment="Right"
@@ -84,6 +116,13 @@
                             <i:InvokeCommandAction Command="{Binding CountryComboBoxCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <ComboBox.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Leave field empty<LineBreak />
+                                to search all countries</TextBlock>
+                        </ToolTip>
+                    </ComboBox.ToolTip>
                 </ComboBox>
                 <ComboBox
                     x:Name="myComboBox"
@@ -108,6 +147,13 @@
                             <i:InvokeCommandAction Command="{Binding OpenDropDownCommand}" CommandParameter="{Binding ElementName=myComboBox}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <ComboBox.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Leave field empty<LineBreak />
+                                to search all cities</TextBlock>
+                        </ToolTip>
+                    </ComboBox.ToolTip>
                 </ComboBox>
 
 
@@ -120,7 +166,15 @@
                     FontSize="20"
                     Minimum="1"
                     TextAlignment="Left"
-                    Value="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Path=SearchParams.Duration, UpdateSourceTrigger=PropertyChanged}">
+                    <extendedToolkit:IntegerUpDown.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Enter 0<LineBreak />
+                                to search all durations</TextBlock>
+                        </ToolTip>
+                    </extendedToolkit:IntegerUpDown.ToolTip>
+                </extendedToolkit:IntegerUpDown>
 
 
                 <ComboBox
@@ -135,8 +189,17 @@
                     ItemsSource="{Binding Languages}"
                     SelectedItem="{Binding Path=SearchParams.Language, UpdateSourceTrigger=PropertyChanged}"
                     Text="{Binding SearchParams.Language}"
-                    TextSearch.TextPath="." />
+                    TextSearch.TextPath=".">
+                    <ComboBox.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Leave field empty<LineBreak />
+                                to search all languages</TextBlock>
+                        </ToolTip>
+                    </ComboBox.ToolTip>
+                </ComboBox>
                 <extendedToolkit:IntegerUpDown
+                    x:Name="DownField"
                     Width="300"
                     Height="40"
                     Margin="0,30,0,0"
@@ -145,11 +208,15 @@
                     FontSize="20"
                     Minimum="1"
                     TextAlignment="Left"
-                    Value="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}" />
-
-
-
-
+                    Value="{Binding Path=SearchParams.MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}">
+                    <extendedToolkit:IntegerUpDown.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Enter 0<LineBreak />
+                                to search all tourist numbers</TextBlock>
+                        </ToolTip>
+                    </extendedToolkit:IntegerUpDown.ToolTip>
+                </extendedToolkit:IntegerUpDown>
             </StackPanel>
 
             <Button
@@ -168,7 +235,16 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Click to search for tours<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Ctrl+Enter)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
             <Button
@@ -187,7 +263,16 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Cancel search<LineBreak />
+                            and close window<Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Escape)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Grid>
     </DockPanel>
