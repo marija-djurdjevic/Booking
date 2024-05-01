@@ -80,19 +80,21 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
         }
         public RelayCommand<object> FocusUpCommand => new RelayCommand<object>(FocusToComboBox);
-        public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToComboBox);
+        public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToInteger);
 
         private void FocusToComboBox(object o)
         {
             // Assuming MyComboBox is your ComboBox instance
             ComboBox comboBox = o as ComboBox;
-            comboBox.Focus();
+            if(comboBox != null)
+                comboBox.Focus();
         }
         private void FocusToInteger(object o)
         {
         // Assuming MyComboBox is your ComboBox instance
-            extendedToolkit: IntegerUpDown comboBox = o as IntegerUpDown;
-            comboBox.Focus();
+            IntegerUpDown comboBox = o as IntegerUpDown;
+            if (comboBox != null)
+                comboBox.Focus();
         }
         private void CloseWindow()
         {

@@ -95,13 +95,15 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             // Assuming MyComboBox is your ComboBox instance
             ComboBox comboBox = o as ComboBox;
-            comboBox.Focus();
+            if (comboBox != null)
+                comboBox.Focus();
         }
         private void FocusToBox(object o)
         {
             // Assuming MyComboBox is your ComboBox instance
             TextBox comboBox = o as TextBox;
-            comboBox.Focus();
+            if (comboBox != null)
+                comboBox.Focus();
         }
 
         private void CloseWindow()
