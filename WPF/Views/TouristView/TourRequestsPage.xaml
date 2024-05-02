@@ -39,10 +39,6 @@
             Command="{Binding ChangeTabRightCommand}"
             Modifiers="Alt" />
         <KeyBinding
-            Key="E"
-            Command="{Binding ExportCommand}"
-            Modifiers="Ctrl" />
-        <KeyBinding
             Key="Left"
             Command="{Binding ChangeTabLeftCommand}"
             Modifiers="Alt" />
@@ -459,6 +455,12 @@
                     x:Name="Stats"
                     Width="auto"
                     Style="{StaticResource TabStyle}">
+                    <TabItem.InputBindings>
+                        <KeyBinding
+                            Key="E"
+                            Command="{Binding ExportCommand}"
+                            Modifiers="Ctrl" />
+                    </TabItem.InputBindings>
                     <TabItem.Header>
                         <TextBlock
                             Margin="15,0"
@@ -508,17 +510,18 @@
                                     </StackPanel>
                                     <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="4*" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel
+                                            x:Name="PyeChart"
                                             Grid.Column="0"
                                             Margin="0,20,0,0"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom"
                                             Background="{StaticResource CardColor}"
                                             Orientation="Vertical">
-                                            <StackPanel Margin="0,0,0,30" Orientation="Horizontal">
+                                            <StackPanel Margin="15,0,15,30" Orientation="Horizontal">
                                                 <TextBlock
                                                     VerticalAlignment="Top"
                                                     FontSize="20"
@@ -575,7 +578,10 @@
                                 VerticalAlignment="Top"
                                 Background="{StaticResource BackgroundColor}" />
                             <Grid Grid.Row="1">
-                                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                                <StackPanel
+                                    x:Name="lanChart"
+                                    Margin="0,20,0,0"
+                                    Orientation="Vertical">
                                     <TextBlock
                                         Height="auto"
                                         Padding="8"
@@ -600,8 +606,12 @@
                                                 FontWeight="Bold"
                                                 Foreground="Red"
                                                 Labels="{Binding LanguagesLabels}"
-                                                LabelsRotation="25"
-                                                ShowLabels="True" />
+                                                LabelsRotation="75"
+                                                ShowLabels="True">
+                                                <lvc:Axis.Separator>
+                                                    <lvc:Separator Step="1" />
+                                                </lvc:Axis.Separator>
+                                            </lvc:Axis>
                                         </lvc:CartesianChart.AxisX>
                                         <lvc:CartesianChart.AxisY>
                                             <lvc:Axis
@@ -609,7 +619,11 @@
                                                 FontSize="20"
                                                 FontWeight="Bold"
                                                 Foreground="{StaticResource BackgroundColor}"
-                                                LabelFormatter="{Binding LanguageFormatter}" />
+                                                LabelFormatter="{Binding LanguageFormatter}">
+                                                <lvc:Axis.Separator>
+                                                    <lvc:Separator Step="1" />
+                                                </lvc:Axis.Separator>
+                                            </lvc:Axis>
                                         </lvc:CartesianChart.AxisY>
                                     </lvc:CartesianChart>
                                 </StackPanel>
@@ -621,7 +635,10 @@
                                 VerticalAlignment="Bottom"
                                 Background="{StaticResource BackgroundColor}" />
                             <Grid Grid.Row="2">
-                                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                                <StackPanel
+                                    x:Name="locChart"
+                                    Margin="0,20,0,0"
+                                    Orientation="Vertical">
                                     <TextBlock
                                         Height="auto"
                                         Padding="8"
@@ -646,8 +663,12 @@
                                                 FontWeight="Bold"
                                                 Foreground="Red"
                                                 Labels="{Binding LocationLabels}"
-                                                LabelsRotation="25"
-                                                ShowLabels="True" />
+                                                LabelsRotation="75"
+                                                ShowLabels="True">
+                                                <lvc:Axis.Separator>
+                                                    <lvc:Separator Step="1" />
+                                                </lvc:Axis.Separator>
+                                            </lvc:Axis>
                                         </lvc:CartesianChart.AxisX>
                                         <lvc:CartesianChart.AxisY>
                                             <lvc:Axis
@@ -655,7 +676,11 @@
                                                 FontSize="20"
                                                 FontWeight="Bold"
                                                 Foreground="{StaticResource BackgroundColor}"
-                                                LabelFormatter="{Binding LanguageFormatter}" />
+                                                LabelFormatter="{Binding LanguageFormatter}">
+                                                <lvc:Axis.Separator>
+                                                    <lvc:Separator Step="1" />
+                                                </lvc:Axis.Separator>
+                                            </lvc:Axis>
                                         </lvc:CartesianChart.AxisY>
                                     </lvc:CartesianChart>
                                 </StackPanel>
@@ -672,7 +697,7 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Background="{StaticResource SelectedCardColor}"
-                                    Command="{Binding CreateCommand}"
+                                    Command="{Binding ExportCommand}"
                                     Style="{StaticResource ConfirmButton}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
