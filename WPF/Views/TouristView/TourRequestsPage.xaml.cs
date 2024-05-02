@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using LiveCharts.Wpf;
@@ -77,7 +77,6 @@ namespace BookingApp.WPF.Views.TouristView
                             StatsSkrol.ScrollToVerticalOffset(newOffsetUp);
                         break;
                     case "SaveCharts":
-                        TabControla.SelectedItem = Stats;
                         SaveLanChartAsImage();
                         SaveLocChartAsImage();
                         SavePyeChartAsImage();
@@ -97,7 +96,7 @@ namespace BookingApp.WPF.Views.TouristView
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 encoder.Save(stream);
             }
@@ -114,7 +113,7 @@ namespace BookingApp.WPF.Views.TouristView
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 encoder.Save(stream);
             }
@@ -131,7 +130,7 @@ namespace BookingApp.WPF.Views.TouristView
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 encoder.Save(stream);
             }

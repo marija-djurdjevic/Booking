@@ -29,7 +29,7 @@ namespace BookingApp.Aplication.UseCases
         public List<TourRequest> GetNotAcceptedRequests()
         {
             CheckStatus();
-            return GetAllRequests().FindAll(t => t.Status != TourRequestStatus.Accepted);
+            return GetAllSimpleRequests().FindAll(t => t.Status != TourRequestStatus.Accepted);
         }
 
         public HashSet<int> GetTouristIdsInterestedForTour(string language,string location)
@@ -48,7 +48,7 @@ namespace BookingApp.Aplication.UseCases
         public List<TourRequest> GetByTouristId(int touristId)
         {
             CheckStatus();
-            var allRequests = tourRequestRepository.GetAll();
+            var allRequests = GetAllSimpleRequests();
             return allRequests.FindAll(t => t.TouristId == touristId);
         }
 
@@ -64,9 +64,9 @@ namespace BookingApp.Aplication.UseCases
             }
         }
 
-        public List<TourRequest> GetAllRequests()
+        public List<TourRequest> GetAllSimpleRequests()
         {
-            return tourRequestRepository.GetAll();
+            return tourRequestRepository.GetAll().FindAll(r=>r.ComplexId==-1);
         }
 
         

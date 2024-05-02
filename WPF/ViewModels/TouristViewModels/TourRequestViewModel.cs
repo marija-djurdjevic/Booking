@@ -26,6 +26,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private List<Tuple<string, string, int>> persons;
         private TourRequestStatus status;
         private DateTime acceptedDate;
+        private int complexId;
 
         public string Error => null;
 
@@ -129,6 +130,18 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 {
                     id = value;
                     OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public int ComplexId
+        {
+            get => complexId;
+            set
+            {
+                if (value != complexId)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(ComplexId));
                 }
             }
         }
@@ -304,10 +317,11 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Persons = tourRequest.Persons;
             Status = tourRequest.Status;
             AcceptedDate = tourRequest.AcceptedDate;
+            ComplexId = tourRequest.ComplexId;
         }
         public TourRequest ToTourRequest()
         {
-            return new TourRequest(Id, GuideId, TouristId, Location, Description, Language, TouristNumber, StartDate, EndDate, Persons, Status, AcceptedDate);
+            return new TourRequest(Id, GuideId,ComplexId, TouristId, Location, Description, Language, TouristNumber, StartDate, EndDate, Persons, Status, AcceptedDate);
         }
 
     }

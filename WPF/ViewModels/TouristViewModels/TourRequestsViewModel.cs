@@ -334,7 +334,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         public void CreateTourRequest()
         {
-            new CreateTourRequestWindow(LoggedInUser).ShowDialog();
+            new CreateTourRequestWindow(LoggedInUser,false,new ComplexTourRequest()).ShowDialog();
             GetMyRequests();
             FetchStatistics();
         }

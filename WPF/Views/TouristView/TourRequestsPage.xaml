@@ -317,6 +317,11 @@
                                     Focusable="True"
                                     ItemsSource="{Binding TourRequests}"
                                     Style="{StaticResource CardView}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Height="auto" Orientation="Vertical" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
 
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>

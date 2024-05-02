@@ -26,10 +26,10 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequestViewModel tourRequest)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             InitializeComponent();
-            DataContext = new TouristsDataViewModel(touristNumber, selectedTour, userId, isRequest, tourRequest);
+            DataContext = new TouristsDataViewModel(touristNumber, selectedTour, userId, isRequest, tourRequest, isComplex, complexTourRequest);
             Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
                 switch (message.Notification)

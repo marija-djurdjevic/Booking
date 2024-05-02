@@ -30,7 +30,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            tourRequests = new List<TourRequest>(tourRequestService.GetAllRequests());
+            tourRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             SelectedYear = selectedYear;
             RequestsPerMonth = new Dictionary<string, int>();
             Location = location;

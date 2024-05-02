@@ -32,6 +32,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private TourReservationService reservationDataService;
         private TourRequestService requestService;
 
+        public bool IsComplex { get; set; }
+        public ComplexTourRequest ComplexTourRequest { get; set; }
+
         public string TitleTxt { get; set; }
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -42,7 +45,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand ScrollUpCommand { get; private set; }
         private bool AreDataSaved;
 
-        public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest)
+        public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             Tourists = new ObservableCollection<Tuple<TourReservationViewModel, string, bool>>();
             touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
@@ -55,6 +58,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             TourRequestViewModel = tourRequest;
             LoggedInTourist = touristService.GetByUserId(userId);
             AreDataSaved = false;
+            IsComplex = isComplex;
+            ComplexTourRequest = complexTourRequest;
 
             TitleTxt = "Enter the data of " + touristNumber + " people";
 
@@ -119,7 +124,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            foreach(Tuple<TourReservationViewModel, string, bool> data in Tourists)
+            foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
             {
                 if (!data.Item1.IsValid)
                 {
@@ -135,9 +140,16 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
                     TourRequestViewModel.Persons.Add(person);
                 }
-                requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
-                Style style = Application.Current.FindResource("MessageStyle") as Style;
-                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                if (!IsComplex)
+                {
+                    requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
+                    Style style = Application.Current.FindResource("MessageStyle") as Style;
+                    MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
+                }
+                else
+                {
+                    ComplexTourRequest.TourRequests.Add(TourRequestViewModel.ToTourRequest());
+                }
                 Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
                 Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
             }

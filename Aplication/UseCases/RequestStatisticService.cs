@@ -20,7 +20,7 @@ namespace BookingApp.Aplication.UseCases
         public List<string> GetLocations()
         {
             List<string> locations = new List<string>();
-            var requests=GetAllRequests();
+            var requests=GetAllSimpleRequests();
             foreach (var request in requests )
             {
                 string location = $"{request.Location.City}, {request.Location.Country}";
@@ -32,7 +32,7 @@ namespace BookingApp.Aplication.UseCases
         public List<string> GetLanguages()
         {
             List<string> languages = new List<string>();
-            var requests = GetAllRequests();
+            var requests = GetAllSimpleRequests();
             foreach (var request in requests)
             {
                 string language = request.Language;
@@ -46,7 +46,7 @@ namespace BookingApp.Aplication.UseCases
 
         public string GetMostRequestedLanguage()
         {
-            var allRequests = GetAllRequests();
+            var allRequests = GetAllSimpleRequests();
             var languageCounts = allRequests.GroupBy(r => r.Language)
                                              .Select(g => new { Language = g.Key, Count = g.Count() })
                                              .OrderByDescending(x => x.Count);
@@ -61,7 +61,7 @@ namespace BookingApp.Aplication.UseCases
 
         public string GetMostRequestedLocation()
         {
-            var allRequests = GetAllRequests();
+            var allRequests = GetAllSimpleRequests();
             var locationCounts = allRequests.GroupBy(r => $"{r.Location.City}, {r.Location.Country}")
                                             .Select(g => new { Location = g.Key, Count = g.Count() })
                                             .OrderByDescending(x => x.Count);
@@ -73,10 +73,6 @@ namespace BookingApp.Aplication.UseCases
 
             return string.Empty;
         }
-
-       
-       
-
 
         public List<(DateTime, DateTime)> CalculateFreeDates(List<(DateTime, DateTime)> bookedDates, (DateTime, DateTime) touristsDates)
         {
@@ -117,13 +113,6 @@ namespace BookingApp.Aplication.UseCases
 
             return freeDates;
         }
-
-
-
-
-
-
-
     }
 
 }

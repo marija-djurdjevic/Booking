@@ -25,7 +25,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public GeneralStatisticsViewModel(string language,string location)
         {
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            tourRequests = new List<TourRequest>(tourRequestService.GetAllRequests());
+            tourRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Location = location;
             Language = language;
             RequestsPerYear = new Dictionary<string, int>();

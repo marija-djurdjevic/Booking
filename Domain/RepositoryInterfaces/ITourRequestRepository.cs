@@ -15,5 +15,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         void Delete(int id);
         void Update(TourRequest updatedTourRequest);
         TourRequest GetById(int id);
+        List<TourRequest> GetByComplexId(int complexId);
     }
 }

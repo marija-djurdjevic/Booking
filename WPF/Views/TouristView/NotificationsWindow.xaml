@@ -116,6 +116,11 @@
                     Height="auto"
                     ItemsSource="{Binding Notifications}"
                     Style="{StaticResource CardView}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Height="auto" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <GroupBox Height="auto">

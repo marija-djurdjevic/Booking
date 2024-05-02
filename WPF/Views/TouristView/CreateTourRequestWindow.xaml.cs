@@ -23,10 +23,10 @@ namespace BookingApp.WPF.Views.TouristView
     /// </summary>
     public partial class CreateTourRequestWindow : Window
     {
-        public CreateTourRequestWindow(User loggedInUser)
+        public CreateTourRequestWindow(User loggedInUser,bool IsComplex,ComplexTourRequest complexTourRequest)
         {
             InitializeComponent();
-            DataContext = new CreateTourRequestViewModel(loggedInUser);
+            DataContext = new CreateTourRequestViewModel(loggedInUser,IsComplex,complexTourRequest);
             Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 

@@ -76,7 +76,7 @@ namespace BookingApp.View.TouristView
             ShowAndSearchCommand = new RelayCommand(ShowAndSearchExecuteCommand);
             MyToursCommand = new RelayCommand(MyToursExecuteCommand);
             TourRequestCommand = new RelayCommand(TourRequestsExecuteCommand);
-            ComplexCommand = new RelayCommand(SettingsExecuteCommand);
+            ComplexCommand = new RelayCommand(ComplexTourRequestsExecuteCommand);
             VouchersCommand = new RelayCommand(VouchersExecuteCommand);
             SettingsCommand = new RelayCommand(SettingsExecuteCommand);
             LogoutCommand = new RelayCommand(LogoutExecuteCommand);
@@ -98,6 +98,11 @@ namespace BookingApp.View.TouristView
         {
             Paige.Content = new TourRequestsPage(LoggedInUser);
             ActiveCard = "TourRequests";
+        }
+        private void ComplexTourRequestsExecuteCommand()
+        {
+            Paige.Content = new ComplexTourRequestsPage(LoggedInUser);
+            ActiveCard = "Complex";
         }
 
         private void VouchersExecuteCommand()

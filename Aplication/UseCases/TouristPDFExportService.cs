@@ -50,36 +50,33 @@ namespace BookingApp.Aplication.UseCases
         {
             try
             {
-                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+
+                Document.Create(container =>
                 {
-                    Document.Create(container =>
+                    container.Page(page =>
                     {
-                        container.Page(page =>
-                        {
-                            page.Size(PageSizes.A4);
-                            page.Margin(1, Unit.Centimetre);
-                            page.PageColor(Colors.White);
-                            page.DefaultTextStyle(x => x.FontSize(20));
+                        page.Size(PageSizes.A4);
+                        page.Margin(1, Unit.Centimetre);
+                        page.PageColor(Colors.White);
+                        page.DefaultTextStyle(x => x.FontSize(20));
 
 
-                            page.Header().Element(ComposeHeader);
-                            page.Content().Element(ComposeContent);
+                        page.Header().Element(ComposeHeader);
+                        page.Content().Element(ComposeContent);
 
-                            page.Footer()
-                                .PaddingBottom(10)
-                                .AlignCenter()
-                                .Text(x =>
-                                {
-                                    x.Span("Page ");
-                                    x.CurrentPageNumber();
-                                });
-                        });
-                    })
-                .GeneratePdf(filePath);
+                        page.Footer()
+                            .PaddingBottom(10)
+                            .AlignCenter()
+                            .Text(x =>
+                            {
+                                x.Span("Page ");
+                                x.CurrentPageNumber();
+                            });
+                    });
+                })
+            .GeneratePdf(filePath);
 
-                Process.Start("explorer.exe", filePath);
-
-                }
+            Process.Start("explorer.exe", filePath);
             }
             catch (IOException)
             {
@@ -88,7 +85,7 @@ namespace BookingApp.Aplication.UseCases
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("The file is currently open. Please close it and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, style);
                 return;
             }
-            
+
         }
         void ComposeHeader(IContainer container)
         {
