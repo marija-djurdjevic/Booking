@@ -8,6 +8,7 @@ using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.Messaging;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -155,7 +156,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             }
         }
-
+        public TouristPDFExportService touristPDFExportService;
         public User LoggedInUser { get; set; }
         private readonly TouristGuideNotificationService notificationService;
         public RelayCommand InboxCommand { get; set; }
@@ -229,7 +230,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Export()
         {
-
+            Messenger.Default.Send(new NotificationMessage("SaveCharts"));
+            touristPDFExportService = new TouristPDFExportService(LoggedInUser.Id, SelectedYear, AveragePeopleNumber);
         }
 
         private void FillRequestYears()
@@ -249,6 +251,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             FillLanguageChart();
             FillLocationChart();
             SelectedStatisticYear();
+            Messenger.Default.Send(new NotificationMessage("SaveCharts"));
         }
 
         private void FillLanguageChart()
@@ -290,17 +293,18 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             {
                 new PieSeries
                 {
-                    Title = "Accepted requests",
+                    Title = "Accepted requests: "+((float)accepted/(accepted+notAccepted))*100+"%",
                     Values = new ChartValues<double> {accepted},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Not accepted requests",
+                    Title = "Not accepted requests: "+((float)notAccepted/(accepted+notAccepted))*100+"%",
                     Values = new ChartValues<double> {notAccepted},
                     DataLabels = true
                 }
             };
+            Messenger.Default.Send(new NotificationMessage("SaveCharts"));
         }
 
         private void Help()
@@ -330,7 +334,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         public void CreateTourRequest()
         {
-            new CreateTourRequestWindow(LoggedInUser).ShowDialog();
+            new CreateTourRequestWindow(LoggedInUser,false,new ComplexTourRequest()).ShowDialog();
             GetMyRequests();
             FetchStatistics();
         }

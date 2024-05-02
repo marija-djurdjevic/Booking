@@ -58,6 +58,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             }
         }
+        public bool IsComplex { get; set; }
+        public ComplexTourRequest ComplexTourRequest { get; set; }
 
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -66,11 +68,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand CountryComboBoxCommand { get; set; }
         public RelayCommand<object> OpenDropDownCommand { get; set; }
 
-        public CreateTourRequestViewModel(User loggedInUser)
+        public CreateTourRequestViewModel(User loggedInUser,bool isComplex,ComplexTourRequest complexTourRequest)
         {
             LoggedInUser = loggedInUser;
             TourRequestViewModel = new TourRequestViewModel();
             TourRequestViewModel.TouristId = LoggedInUser.Id;
+            IsComplex = isComplex;
+            ComplexTourRequest = complexTourRequest;
 
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -128,7 +132,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
                 return;
             }
-            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel).ShowDialog();
+            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel,IsComplex,ComplexTourRequest).ShowDialog();
         }
 
         private void Help()

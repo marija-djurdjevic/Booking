@@ -31,8 +31,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             tourRequestService = new   TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests());
-            allRequests = new List<TourRequest>(tourRequestService.GetAllRequests());
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests());
+            allRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Locations = new ObservableCollection<string>(requestStatisticService.GetLocations());
             Languages = new ObservableCollection<string>(requestStatisticService.GetLanguages());
             StartDateTime = null;

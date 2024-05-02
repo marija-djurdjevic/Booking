@@ -138,6 +138,11 @@
                     x:Name="Items"
                     ItemsSource="{Binding Vouchers}"
                     Style="{StaticResource CardView}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Height="auto" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <GroupBox Header="{Binding Item2}" Style="{StaticResource HoverStil}">
