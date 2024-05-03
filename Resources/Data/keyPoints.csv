@@ -107,3 +107,9 @@
 115|25|ssss|Begining|1|False
 116|25|ssssdddd|Middle|2|False
 117|25|ssssddddfff|End|3|False
+118|26|Start point|Begining|1|True
+119|26|Middle point 1|Middle|2|True
+120|26|Middle point 2|Middle|3|True
+121|26|Middle point 3|Middle|4|True
+122|26|Middle point 4|Middle|5|True
+123|26|End point|End|6|True
