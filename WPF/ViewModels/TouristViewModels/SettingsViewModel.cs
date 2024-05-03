@@ -23,6 +23,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private TouristService touristService;
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
+        public RelayCommand WizardCommand { get; set; }
         public RelayCommand ShowTooltipsCommand { get; set; }
 
         public SettingsViewModel(User loggedInUser)
@@ -31,7 +32,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Tourist = touristService.GetByUserId(loggedInUser.Id);
             CloseCommand = new RelayCommand(CloseWindow);
             HelpCommand = new RelayCommand(Help);
+            WizardCommand = new RelayCommand(WizardExecuteCommand);
             ShowTooltipsCommand = new RelayCommand(ShowTooltipsExecuteCommand);
+        }
+
+        private void WizardExecuteCommand(object obj)
+        {
+            
         }
 
         private void ShowTooltipsExecuteCommand()
