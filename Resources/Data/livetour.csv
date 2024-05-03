@@ -12,6 +12,4 @@
 18|False|18|tacka1|Begining|1|True|18|tacka2|Middle|2|False|18|tacka3|Middle|3|False|18|tacka4|Middle|4|False|18|tacka5|Middle|5|False|18|tacka6|Middle|6|False|18|tacka7|End|7|False
 19|False|19|AAAA|Begining|1|True|19|AAAASSSS|Middle|2|False|19|AAAASSSSDDDD|Middle|3|False|19|AAAASSSSDDDDFFFF|Middle|4|False|19|AAAASSSSDDDDFFFFGGGG|Middle|5|False|19|AAAASSSSDDDDFFFFGGGGHHHH|End|6|False
 20|False|20|afadfadf|Begining|1|True|20|afadfadfafadf|End|2|False
-24|False|24|ime|Begining|1|True|24|Grad|Middle|2|True|24|Drzava|Middle|3|True|24|Rijeka|Middle|4|True|24|Planina|End|5|True
-26|False|26|Start point|Begining|1|True|26|Middle point 1|Middle|2|True|26|Middle point 2|Middle|3|True|26|Middle point 3|Middle|4|True|26|Middle point 4|Middle|5|True|26|End point|End|6|True
-21|True|21|AFAFADF|Begining|1|True|21|AFAFADFADF|Middle|2|True|21|AFAFADFADF|Middle|3|True|21|AFAFADFADF|Middle|4|True|21|AFAFADFADF|Middle|5|False|21|AFAFADFADF|End|6|False|21|ssss|Begining|1|True|21|ssssdddd|Middle|2|False|21|ssssddddfff|End|3|False
+21|True|21|AFAFADF|Begining|1|True|21|AFAFADFADF|Middle|2|True|21|AFAFADFADF|Middle|3|True|21|AFAFADFADF|Middle|4|True|21|AFAFADFADF|Middle|5|False|21|AFAFADFADF|End|6|False|21|ssss|Begining|1|True|21|ssssdddd|Middle|2|True|21|ssssddddfff|End|3|False

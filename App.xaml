@@ -721,9 +721,9 @@
 
 
         <!--  Stilovi za vodiča  -->
-        <SolidColorBrush x:Key="pozadina" Color="#55DFE0" />
+        <SolidColorBrush x:Key="pozadina" Color="#80DFE0" />
         <SolidColorBrush x:Key="gropuBox" Color="LightGreen" />
-        <SolidColorBrush x:Key="nagivation" Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="nagivation" Color="#95B0B0" />
 
 
         <!--  BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE  -->
@@ -840,6 +840,33 @@
 
 
 
+
+
+
+        <SolidColorBrush x:Key="SelectedColor" Color="Black" />
+
+        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SelectedColor}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource MouseOverColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
 

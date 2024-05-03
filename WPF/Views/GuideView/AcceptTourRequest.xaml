@@ -10,6 +10,7 @@
       Title="AcceptTourRequest" Height="768" Width="1024">
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter" />
+        <local:DateRangeConverter x:Key="DateRangeConverter" />
     </Page.Resources>
 
     <Grid>
@@ -127,7 +128,6 @@
 
         </Grid>
 
-
         <ListBox
             x:Name="ListBoxDates"
             Margin="346,21,293,504"
@@ -136,7 +136,7 @@
             ItemsSource="{Binding FreeDates}" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding StringFormat='{}{0:dd-MM-yyyy HH:mm}'}" FontSize="20" />
+                    <TextBlock Text="{Binding Converter={StaticResource DateRangeConverter}}" FontSize="20" Width="358" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
