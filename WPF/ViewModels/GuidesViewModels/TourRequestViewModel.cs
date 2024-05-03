@@ -33,8 +33,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests().Where(request => request.Status == TourRequestStatus.Pending));
-            allRequests = new List<TourRequest>(tourRequestService.GetAllRequests());
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending));
+            allRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Locations = new ObservableCollection<string>(requestStatisticService.GetLocations());
             Languages = new ObservableCollection<string>(requestStatisticService.GetLanguages());
             StartDateTime = null;
@@ -171,7 +171,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void ExecuteSearchCommand()
         {
-            var allRequests = tourRequestService.GetAllRequests().Where(request => request.Status == TourRequestStatus.Pending);
+            var allRequests = tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending);
             var filteredRequests = allRequests.Where(request =>
                 (string.IsNullOrEmpty(Language) || request.Language == Language) &&
                 (string.IsNullOrEmpty(Location) || request.Location.City == Location.Split(',')[0]) &&
@@ -201,7 +201,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             TouristsNumber = 0;
             StartDateTime = null;
             EndDateTime = null;
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests().Where(request => request.Status == TourRequestStatus.Pending));
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending));
 
         }
     }

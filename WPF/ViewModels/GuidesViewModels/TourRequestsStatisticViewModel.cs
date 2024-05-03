@@ -249,7 +249,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             SelectedYear = null;
             IsYear = false;
             IsGeneral = false;
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllRequests());
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests());
             UpdateChart();
         }
 
