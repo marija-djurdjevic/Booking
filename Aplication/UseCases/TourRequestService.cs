@@ -71,6 +71,11 @@ namespace BookingApp.Aplication.UseCases
             return tourRequestRepository.GetAll().FindAll(r=>r.ComplexId==-1);
         }
 
+
+        public List<TourRequest>GetAllRequests()
+        {
+            return tourRequestRepository.GetAll();
+        }
         
         public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates()
         {
