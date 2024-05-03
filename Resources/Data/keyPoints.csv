@@ -89,10 +89,10 @@
 97|21|AFAFADF|Begining|1|True
 98|21|AFAFADFADF|Middle|2|True
 99|21|AFAFADFADF|Middle|3|True
-100|21|AFAFADFADF|Middle|4|False
+100|21|AFAFADFADF|Middle|4|True
 101|21|AFAFADFADF|Middle|5|False
 102|21|AFAFADFADF|End|6|False
-103|21|ssss|Begining|1|False
+103|21|ssss|Begining|1|True
 104|21|ssssdddd|Middle|2|False
 105|21|ssssddddfff|End|3|False
 106|22|ssss|Begining|1|False
@@ -107,3 +107,5 @@
 115|25|ssss|Begining|1|False
 116|25|ssssdddd|Middle|2|False
 117|25|ssssddddfff|End|3|False
+118|26|adfdf|Begining|1|False
+119|26|adfdfadf|End|2|False

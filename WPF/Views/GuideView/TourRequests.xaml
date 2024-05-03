@@ -75,6 +75,9 @@
                     FontSize="24"
                     Text="Choose location:" />
                 <ComboBox
+                    IsEditable="True"
+                    TextSearch.TextPath="."
+                    IsTextSearchEnabled="True"
                     Grid.Column="0"
                     Margin="251,16,105,12"
                     ItemsSource="{Binding Locations}"
@@ -108,6 +111,8 @@
                     FontSize="24"
                     Text="Choose language:" />
                 <ComboBox
+                    IsEditable="True" TextSearch.TextPath="."
+                    IsTextSearchEnabled="True"
                     Grid.Row="2"
                     Grid.Column="0"
                     Height="42"
@@ -157,16 +162,28 @@
 
 
                 <Button
+                    FontSize="20"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Width="175"
                     Height="50"
-                    Margin="234,0,0,0"
-                    HorizontalAlignment="Left"
+                    Margin="236,0,4,0"
                     VerticalAlignment="Center"
                     Command="{Binding SearchCommand}"
                     Content="Search"
                     Style="{StaticResource CustomButtonStyle}"/>
+
+
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="158"
+                    Height="50"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Command="{Binding ResetSearchCommand}"
+                    Content="Reset search"
+                    FontSize="20"
+                    Style="{StaticResource CustomButtonStyle}" Margin="25,0,0,0"/>
 
 
 
@@ -224,7 +241,7 @@
                                     <!--  Informacije o turi  -->
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
 
-                                        <TextBlock Margin="0,0,0,20">
+                                        <TextBlock Margin="0,0,0,15">
                                             <Run FontSize="24" Text="Location: " />
                                             <TextBlock Margin="165,0,0,0">
                                                 <Run FontSize="24" Text="{Binding Location.City}" />
@@ -233,22 +250,30 @@
                                             </TextBlock>
                                         </TextBlock>
 
-                                        <TextBlock Margin="0,0,0,20">
+                                        <TextBlock Margin="0,0,0,13">
                                             <Run FontSize="24" Text="Language: " />
                                             <TextBlock Margin="153,0,0,0">
                                                 <Run FontSize="24" Text="{Binding Language}" />
                                             </TextBlock>
                                         </TextBlock>
 
+                                        <TextBlock Margin="0,0,0,15">
+                                            <Run FontSize="24" Text="Start date and time:         " />
+                                            <Run FontSize="24" Text="{Binding StartDate, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                        </TextBlock>
+
+
                                         <TextBlock>
-                                            <Run FontSize="24" Text="Tourist sign-ups number: " />
-                                            <Run FontSize="24" Text="{Binding TouristNumber}" />
+                                            <Run FontSize="24" Text="End date and time:          " />
+                                            <TextBlock Margin="4,0,0,0">
+                                                <Run FontSize="24" Text="{Binding EndDate, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                            </TextBlock>
                                         </TextBlock>
 
                                         <Button
                                             Width="138"
-                                            Height="36"
-                                            Margin="630,10,5,0"
+                                            Height="43"
+                                            Margin="630,-30,5,0"
                                             Padding="-6"
                                             Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                             CommandParameter="{Binding Id}"

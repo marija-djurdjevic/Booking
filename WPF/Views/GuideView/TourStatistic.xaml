@@ -65,7 +65,7 @@
 
 
 
-        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994">
+        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994" >
             <ListBox x:Name="tourListBox"
          Grid.Row="2"
          ItemsSource="{Binding SortedTours}"
@@ -74,18 +74,11 @@
 
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <Border BorderThickness="1" BorderBrush="Black">
-                                        <ContentPresenter/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="Margin" Value="0,0,0,10" />
                     </Style>
                 </ListBox.ItemContainerStyle>
-
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="960" Height="250">
@@ -167,7 +160,7 @@
 
                                 <!-- Start Date and Time -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" FontSize="24" Text="Start Date and Time: " Grid.ColumnSpan="2" Margin="0,26,511,-26" />
-                                <TextBlock Grid.Row="2" FontSize="24" Text="{Binding StartDateTime}" Margin="126,26,250,-26" Grid.Column="1" />
+                                <TextBlock Grid.Row="2" FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" Margin="126,26,250,-26" Grid.Column="1" />
                             </Grid>
 
 

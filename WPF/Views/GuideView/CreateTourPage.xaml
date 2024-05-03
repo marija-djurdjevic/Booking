@@ -17,7 +17,7 @@
     </Page.Resources>
 
     <Grid>
-        
+
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,69,14,108">
 
             <Grid Background="{StaticResource pozadina}" Height="1950">
@@ -68,14 +68,17 @@
                     <TextBox
                         Grid.Row="0"
                         Height="42"
-                        Margin="215,115,629,1337"
+                        Margin="215,116,629,1355"
                         Text="{Binding Name, Mode=TwoWay}"
                         />
                     <ComboBox
                     x:Name="ComboBoxLangugage"
+                    IsEditable="True"
+                    TextSearch.TextPath="."
+                    IsTextSearchEnabled="True"
                     Grid.Row="0"
                     Height="42"
-                    Margin="216,184,629,1268"
+                    Margin="216,186,629,1285"
                     ItemsSource="{Binding Langugages}"
                     SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
 
@@ -112,7 +115,7 @@
                     <xctk:IntegerUpDown
                         Grid.Row="0"
                         Height="42"
-                        Margin="356,474,489,996"
+                        Margin="356,472,489,999"
                         Increment="1"
                         Minimum="0"
                         RenderTransformOrigin="-0.113,-7.205"
@@ -120,16 +123,19 @@
 
                     <ComboBox
                         x:Name="ComboBoxLocation"
+                        IsEditable="True" 
+                        TextSearch.TextPath="." 
+                        IsTextSearchEnabled="True"
                         Grid.Row="0"
                         Height="42"
-                        Margin="356,571,489,899"
+                        Margin="356,568,489,903"
                         ItemsSource="{Binding CitiesCountries}"
                         SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
 
                     <xctk:IntegerUpDown
                         Grid.Row="0"
                         Height="42"
-                        Margin="354,661,488,809"
+                        Margin="354,660,488,811"
                         Increment="1"
                         Minimum="0"
                         Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
@@ -139,13 +145,27 @@
                     <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,788,550,678" Text="{Binding KeyPoints, Mode=TwoWay}" />
                     <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
 
-                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,862,550,550" ItemsSource="{Binding KeyPointNames}" FontSize="20">
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100"  Margin="210,862,550,531" ItemsSource="{Binding KeyPointNames}" FontSize="20">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}"  FontSize="20" />
-                                    <Button Width="30" Height="30" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X"  FontSize="20" />
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding}" FontSize="20" />
+                                    <Button Grid.Column="1" Width="30" Height="30" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X" FontSize="20" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -159,44 +179,50 @@
                         BorderThickness="0,0,0,1" />
 
 
-                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="661,1204,79,154">
+                    <Border BorderBrush="Black" BorderThickness="1" Height="100"  CornerRadius="30" Margin="656,1204,100,154">
                         <Button
-                                Height="58"
+                                Height="43"
                                 Padding="-2"
                                 Command="{Binding UploadImageCommand}"
                                 Content="UPLOAD"
-                                FontSize="40" Margin="48,47,41,42"/>
+                                FontSize="24" Margin="54,29,51,26"/>
                     </Border>
 
 
+
                     <Grid>
-                        <TextBlock  Text="Images" FontSize="24" Margin="327,1141,580,325" />
+                        <TextBlock Text="Images" FontSize="24" Margin="307,1141,600,325" />
 
                         <Image
-                            x:Name="ImagePreview"
-                            Grid.Column="0"
-                            Width="187"
-                            Height="157"
-                            Margin="268,1189,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Stretch="Fill"
-                            Source="{Binding CurrentImage}" />
+        x:Name="ImagePreview"
+        Grid.Column="0"
+        Width="187"
+        Height="157"
+        Margin="249,1189,0,0"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Stretch="Fill"
+        Source="{Binding CurrentImage}" />
 
-
-                        <Grid Margin="28,1260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Grid Margin="0,1260,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding NextImageCommand}" Content="Next" Margin="460,0,-420,0"/>
-                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding PreviousImageCommand}" Content="Previous" Margin="136,0,-96,0"/>
-                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="298,127,-258,-125"/>
-                        </Grid>
+                            <Button Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-253,-7,360,0">
+                                <TextBlock Text="&#x25C0;" FontSize="24"/>
+                            </Button>
 
+                            <Button Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="45,-7,50,0">
+                                <TextBlock Text="&#x25B6;" FontSize="24"/>
+                            </Button>
+
+                            <Button Command="{Binding DeleteImageCommand}" FontSize="24" Content="Delete" Margin="-120,109,191,-113"/>
+                        </Grid>
                     </Grid>
+
 
 
 
@@ -211,12 +237,13 @@
 
 
                     <Button
-                        Height="60"
-                        Margin="697,1540,132,-93"
+                        Height="45"
+                        Margin="706,1540,152,-73"
                         Command="{Binding AddDateCommand}"
                         CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
                         Content="ADD"
-                        FontSize="40" />
+                        FontSize="24"
+                        />
 
                     <Label
                         Margin="18,1536,384,-178"
@@ -225,13 +252,14 @@
                     <xctk:DateTimePicker
                         x:Name="StartDateTimePicker"
                         Grid.Row="0"
-                        Margin="356,1536,424,-94" />
+                        Margin="356,1540,424,-72"
+                        Height="45"/>
 
 
-                    
+
                     <ListBox
                         x:Name="ListBoxDates"
-                        Margin="357,1643,390,-250"
+                        Margin="357,1643,365,-250"
                         Height="120"
                         ItemsSource="{Binding TourDates}">
                         <ListBox.ItemTemplate>
@@ -255,11 +283,10 @@
 
 
                     <Button
-                        Height="65"
-                        Margin="356,1858,424,-416"
+                        Margin="402,1861,432,-402"
                          Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         Content="CONFRIM"
-                        FontSize="40" />
+                        FontSize="24" />
 
 
                 </Grid>
