@@ -1,4 +1,4 @@
-﻿using BookingApp.Aplication.UseCases;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
@@ -16,6 +16,8 @@ using BookingApp.WPF.Views.GuideView;
 using BookingApp.GuestView;
 using BookingApp.View;
 using System.Windows;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -34,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand generalStatisticsCommand;
         private RelayCommand monthStatisticsCommand;
         private RelayCommand sideMenuCommand;
+        private RelayCommand resetSearchCommand;
 
         public TourRequestsStatisticViewModel()
         {
@@ -48,6 +51,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             generalStatisticsCommand = new RelayCommand(ExecuteGeneralStatisticsCommand);
             monthStatisticsCommand = new RelayCommand(ExecuteMonthStatisticsCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            resetSearchCommand = new RelayCommand(ExecuteResetSearchCommand);
         }
 
         public ObservableCollection<TourRequest> TourRequests
@@ -95,7 +99,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set
             {
                 selectedYear = value;
-                
+
                 OnPropertyChanged();
             }
         }
@@ -108,6 +112,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 if (searchCommand != value)
                 {
                     searchCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public RelayCommand ResetSearchCommand
+        {
+            get { return resetSearchCommand; }
+            set
+            {
+                if (resetSearchCommand != value)
+                {
+                    resetSearchCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -149,7 +167,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             var generalStat = new GeneralStatistics(Language, Location);
             GuideMainWindow.MainFrame.Navigate(generalStat);
 
-            
+
         }
 
 
@@ -161,7 +179,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 string year = selectedYearItem.Content.ToString();
                 var montStat = new MonthStatistics(year, Language, Location);
                 GuideMainWindow.MainFrame.Navigate(montStat);
-                
+
             }
         }
 
@@ -181,17 +199,19 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
             if (SelectedYear.Content.ToString() != "General")
             {
-                
+
                 filteredRequests = filteredRequests.Where(request =>
                     request.StartDate.Year.ToString() == SelectedYear.Content.ToString());
             }
 
-            
-            RequestsNumber = filteredRequests.Count();
 
-           
+            RequestsNumber = filteredRequests.Count();
+            AllRequestsNumber = tourRequests.Count();
+
+
             IsYear = SelectedYear.Content.ToString() != "General";
             IsGeneral = SelectedYear.Content.ToString() == "General";
+            UpdateChart();
         }
 
 
@@ -220,6 +240,19 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         }
 
 
+        private void ExecuteResetSearchCommand()
+        {
+            Language = null;
+            Location = null;
+            RequestsNumber = 0;
+            AllRequestsNumber = 0;
+            SelectedYear = null;
+            IsYear = false;
+            IsGeneral = false;
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests());
+            UpdateChart();
+        }
+
 
 
 
@@ -241,5 +274,47 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             get { return isGeneral; }
             set { isGeneral = value; OnPropertyChanged(); }
         }
+
+
+        private int allRequestsNumber;
+        public int AllRequestsNumber
+        {
+            get { return allRequestsNumber; }
+            set { allRequestsNumber = value; OnPropertyChanged(); }
+        }
+        private SeriesCollection seriesCollection;
+        public SeriesCollection SeriesCollection
+        {
+            get { return seriesCollection; }
+            set { seriesCollection = value; OnPropertyChanged(nameof(SeriesCollection)); }
+        }
+
+        private void UpdateChart()
+        {
+               double totalRequests = AllRequestsNumber;
+               double searchedRequests = RequestsNumber;
+
+               SeriesCollection = new SeriesCollection
+          {
+             new PieSeries
+             {
+               Title = "Total Requests",
+               Values = new ChartValues<double> { totalRequests },
+               DataLabels = true,
+               LabelPoint = chartPoint => string.Format("{0:P}", chartPoint.Participation),
+               FontSize=24
+             },
+             new PieSeries
+             {
+               Title = "Searched Requests",
+               Values = new ChartValues<double> { searchedRequests },
+               DataLabels = true,
+               LabelPoint = chartPoint => string.Format("{0:P}", chartPoint.Participation),
+               FontSize=24
+             }
+          };
+
+        }
+
     }
 }

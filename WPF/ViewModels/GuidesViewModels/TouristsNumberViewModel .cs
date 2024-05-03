@@ -12,17 +12,21 @@ using System.Linq;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Aplication;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     internal class TouristsNumberPageViewModel : BaseViewModel
     {
+        private Tour selectedTour;
         private int tourId;
         private int under18Count;
         private int between18And50Count;
         private int over50Count;
         private readonly TouristService touristService;
+        private readonly TourService tourService;
         private readonly TourReservationService tourReservationService;
         private readonly TouristExperienceService touristExperienceService;
         private RelayCommand navigateHomeCommand;
@@ -32,6 +36,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         public TouristsNumberPageViewModel(int tourId)
         {
             this.tourId = tourId;
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            SelectedTour=tourService.GetTourById(tourId);
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
@@ -39,6 +45,44 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             CountTouristsByAge();
+
+
+            HistogramData = new SeriesCollection
+{
+    new ColumnSeries
+    {
+        Title = "Under 18",
+        Values = new ChartValues<int> { Under18Count }
+    },
+    new ColumnSeries
+    {
+        Title = "Between 18 and 50",
+        Values = new ChartValues<int> { Between18And50Count }
+    },
+    new ColumnSeries
+    {
+        Title = "Over 50",
+        Values = new ChartValues<int> { Over50Count }
+    }
+};
+
+            Labels = new[] { "Age Groups" };
+
+        }
+
+
+       
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                if (selectedTour != value)
+                {
+                    selectedTour = value;
+                    OnPropertyChanged(nameof(SelectedTour));
+                }
+            }
         }
 
         public int Under18Count
@@ -53,6 +97,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 }
             }
         }
+        
+
 
         public int Between18And50Count
         {
@@ -162,6 +208,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
+
+
+        public SeriesCollection HistogramData { get; set; }
+        public string[] Labels { get; set; }
+
+
 
 
 

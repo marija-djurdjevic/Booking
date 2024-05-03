@@ -2,6 +2,7 @@
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.Models.Enums;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
@@ -27,19 +28,21 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand acceptCommand;
         private List<TourRequest> allRequests;
         private RelayCommand sideMenuCommand;
+        private RelayCommand resetSearchCommand;
         public TourRequestViewModel()
         {
-            tourRequestService = new   TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests());
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending));
             allRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Locations = new ObservableCollection<string>(requestStatisticService.GetLocations());
             Languages = new ObservableCollection<string>(requestStatisticService.GetLanguages());
             StartDateTime = null;
-            EndDateTime=null;
+            EndDateTime = null;
             searchCommand = new RelayCommand(ExecuteSearchCommand);
             acceptCommand = new RelayCommand(ExecuteAcceptCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            resetSearchCommand = new RelayCommand(ExecuteResetSearchCommand);
         }
 
         public RelayCommand SideManuCommand
@@ -84,7 +87,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { languages = value; OnPropertyChanged(); }
         }
 
-       
+
         public string Language
         {
             get { return language; }
@@ -150,10 +153,25 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
 
 
-        
+        public RelayCommand ResetSearchCommand
+        {
+            get { return resetSearchCommand; }
+            set
+            {
+                if (resetSearchCommand != value)
+                {
+                    resetSearchCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+
         private void ExecuteSearchCommand()
         {
-            
+            var allRequests = tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending);
             var filteredRequests = allRequests.Where(request =>
                 (string.IsNullOrEmpty(Language) || request.Language == Language) &&
                 (string.IsNullOrEmpty(Location) || request.Location.City == Location.Split(',')[0]) &&
@@ -176,6 +194,15 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         }
 
 
+        private void ExecuteResetSearchCommand()
+        {
+            Language = null;
+            Location = null;
+            TouristsNumber = 0;
+            StartDateTime = null;
+            EndDateTime = null;
+            TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending));
 
+        }
     }
 }

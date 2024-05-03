@@ -39,5 +39,8 @@ namespace BookingApp.View.GuideView
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
         }
+
+
+
     }
 }

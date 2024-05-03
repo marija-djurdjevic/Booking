@@ -6,6 +6,8 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Models.Enums;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using System.Net.WebSockets;
+using System.CodeDom;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -69,6 +71,11 @@ namespace BookingApp.Aplication.UseCases
             return tourRequestRepository.GetAll().FindAll(r=>r.ComplexId==-1);
         }
 
+
+        public List<TourRequest>GetAllRequests()
+        {
+            return tourRequestRepository.GetAll();
+        }
         
         public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates()
         {
@@ -77,6 +84,39 @@ namespace BookingApp.Aplication.UseCases
 
             return tourDates;
         }
+
+
+        public void UpdateRequestById(int requestId, DateTime newAcceptedDate)
+        {
+            var request = tourRequestRepository.GetById(requestId);
+            if (request != null)
+            {
+                request.AcceptedDate = newAcceptedDate;
+                request.Status= TourRequestStatus.Accepted;
+                tourRequestRepository.Update(request);
+            }
+        }
+
+        public TourRequest GetRequestById(int requestId)
+        {
+            return tourRequestRepository.GetById(requestId);
+        }
+
+
+        public List<DateTime> GetAllAcceptedDates()
+        {
+            var allrequests=tourRequestRepository.GetAll();
+            var acceptedDates = new List<DateTime>();
+            foreach(var request in allrequests)
+            {
+                if (request.Status == TourRequestStatus.Accepted)
+                {
+                    acceptedDates.Add(request.AcceptedDate);
+                }
+            }
+            return acceptedDates;
+        }
+
 
         public (DateTime StartDate, DateTime EndDate) GetDateSlotById(int requestId)
         {
