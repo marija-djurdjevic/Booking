@@ -114,11 +114,11 @@ namespace BookingApp.Aplication.UseCases
                     });
                     row.RelativeItem().AlignRight().Column(column =>
                     {
-                        column.Item().Text($"Export time:").Style(textStyle);
+                        column.Item().Text($"Export date:").Style(textStyle);
 
                         column.Item().AlignCenter().Text(text =>
                         {
-                            text.Span($"{DateTime.Now:dd/MM/yyyy hh:mm}").FontColor(Colors.Green.Medium).SemiBold();
+                            text.Span($"{DateTime.Now:dd/MM/yyyy}").FontColor(Colors.Green.Medium).SemiBold();
                         });
                     });
                 });

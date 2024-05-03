@@ -14,5 +14,4 @@
 20|False|20|afadfadf|Begining|1|True|20|afadfadfafadf|End|2|False
 21|False|21|AFAFADF|Begining|1|True|21|AFAFADFADF|Middle|2|True|21|AFAFADFADF|Middle|3|True|21|AFAFADFADF|Middle|4|True|21|AFAFADFADF|Middle|5|True|21|AFAFADFADF|End|6|True
 24|False|24|ime|Begining|1|True|24|Grad|Middle|2|True|24|Drzava|Middle|3|True|24|Rijeka|Middle|4|True|24|Planina|End|5|True
-26|False|26|1|Begining|1|True|26|2|Middle|2|True|26|3|End|3|True
-27|False|27|s|Begining|1|True|27|ss|Middle|2|True|27|sss|Middle|3|True|27|ssss|End|4|True
+26|False|26|Start point|Begining|1|True|26|Middle point 1|Middle|2|True|26|Middle point 2|Middle|3|True|26|Middle point 3|Middle|4|True|26|Middle point 4|Middle|5|True|26|End point|End|6|True

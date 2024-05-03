@@ -142,6 +142,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
                 if (!IsComplex)
                 {
+                    TourRequestViewModel.ComplexId = -1;
                     requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
                     Style style = Application.Current.FindResource("MessageStyle") as Style;
                     MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);

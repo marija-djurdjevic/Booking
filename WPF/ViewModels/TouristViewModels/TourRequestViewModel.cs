@@ -140,7 +140,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             {
                 if (value != complexId)
                 {
-                    id = value;
+                    complexId = value;
                     OnPropertyChanged(nameof(ComplexId));
                 }
             }
