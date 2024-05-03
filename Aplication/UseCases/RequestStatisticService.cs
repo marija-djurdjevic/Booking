@@ -78,7 +78,7 @@ namespace BookingApp.Aplication.UseCases
        
 
 
-        public List<(DateTime, DateTime)> CalculateFreeDates(List<(DateTime, DateTime)> bookedDates, (DateTime, DateTime) touristsDates)
+        public List<(DateTime, DateTime)> CalculateFreeDates(List<(DateTime, DateTime)> bookedDates, (DateTime, DateTime) touristsDates, List<DateTime> acceptedDates)
         {
             var freeDates = new List<(DateTime, DateTime)>();
 
@@ -113,6 +113,12 @@ namespace BookingApp.Aplication.UseCases
             if (startFreeDate < touristsDates.Item2)
             {
                 freeDates.Add((startFreeDate, touristsDates.Item2));
+            }
+
+
+            foreach (var acceptedDate in acceptedDates)
+            {
+                freeDates.RemoveAll(d => d.Item1 <= acceptedDate && d.Item2 >= acceptedDate);
             }
 
             return freeDates;

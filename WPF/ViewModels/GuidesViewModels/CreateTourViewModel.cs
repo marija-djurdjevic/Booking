@@ -2,6 +2,7 @@
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
+using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
@@ -379,10 +380,26 @@ namespace BookingApp.WPF.ViewModels
             }
         }
 
+        private string keyPoints;
+        public string KeyPoints
+        {
+            get { return keyPoints; }
+            set
+            {
+                if (keyPoints != value)
+                {
+                    keyPoints = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private void AddKeyPoint(object parameter)
         {
+            
             string keyPointName = parameter.ToString();
             KeyPointNames.Add(keyPointName);
+            KeyPoints = "";
            
 
         }

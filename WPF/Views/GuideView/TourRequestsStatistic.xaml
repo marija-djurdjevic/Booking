@@ -3,9 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    
-
-
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:BookingApp.WPF.Converters"
       mc:Ignorable="d" 
@@ -58,12 +56,12 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose location:" FontSize="24" Margin="10,16,810,78" Grid.RowSpan="2"/>
-                    <ComboBox  Grid.Column="0" Width="200" Margin="285,16,565,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
+                    <ComboBox IsEditable="True" TextSearch.TextPath="." IsTextSearchEnabled="True"  Grid.Column="0" Width="200" Margin="285,16,565,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
 
 
                     <!-- Choose language -->
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Choose language:" FontSize="24" Margin="11,20,809,7"/>
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Top" Margin="285,18,565,0" Height="41"/>
+                    <ComboBox IsEditable="True" TextSearch.TextPath="." IsTextSearchEnabled="True" Text="{Binding Language}" Grid.Row="1" Grid.Column="0" Width="200"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Top" Margin="285,18,565,0" Height="41"/>
 
 
 
@@ -76,6 +74,7 @@
                         <ComboBoxItem Content="2023"/>
                         <ComboBoxItem Content="2022"/>
                     </ComboBox>
+                    <Button Grid.Row="1" Content="Reset search" FontSize="24"   Margin="575,16,334,13" Command="{Binding ResetSearchCommand}" Style="{StaticResource CustomButtonStyle}" />
 
 
                 </Grid>
@@ -83,33 +82,46 @@
 
 
             <Grid Grid.Row="2">
-                <Label  Content="Searched requests" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="99,81,0,0"/>
-                <Rectangle Fill="LightGray" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="41,68,0,0" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <Label  Content="All requests" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="102,164,0,0"/>
-                <Rectangle Fill="DarkGray" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="41,152,0,0" />
+                <lvc:PieChart Width="300" Height="300" Grid.Column="1" Series="{Binding SeriesCollection}" Margin="0,12,0,-12">
+                    <lvc:PieChart.LegendLocation>
+                        None
+                    </lvc:PieChart.LegendLocation>
+                </lvc:PieChart>
 
 
-               
-
+                <Grid Grid.Column="0" VerticalAlignment="Top" Margin="10,58,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="103*"/>
+                        <ColumnDefinition Width="87*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Searched requests" FontSize="24" Margin="80,13,-78,-175" Grid.ColumnSpan="2" />
+                    <Label Content="All requests" Height="45" FontSize="24" Margin="84,116,110,-117" Grid.ColumnSpan="2" />
+                    <Rectangle Fill="#F44336" Width="50" Height="50" Margin="20,6,136,-12" />
+                    <Rectangle Fill="#2196F3" Width="50" Height="50"  Margin="20,112,136,-118" />
+                </Grid>
             </Grid>
 
-            <Grid Grid.Row="3">
-                <Label  FontSize="32" Content="The number of requests for the searched parameters is: " HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,22" />
+            <Grid Grid.Row="3" Margin="0,0,0,125">
+                <Label  FontSize="32" Content="The number of requests for the searched parameters is: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,61,0,0" />
 
 
-                <Label FontSize="32" Content="{Binding RequestsNumber}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="60" Width="52" Margin="793,0,0,14" />
+                <Label FontSize="32" Content="{Binding RequestsNumber}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="60" Width="52" Margin="793,0,0,3" />
 
 
 
-                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="General stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="42" Width="135"
+                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="General Stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="49" Width="136"
                         Visibility="{Binding IsGeneral, Converter={StaticResource ButtonVisibilityConverter}}"
-                        Command="{Binding GeneralStatisticsCommand}" Margin="0,0,29,23"  />
+                        Command="{Binding GeneralStatisticsCommand}" Margin="853,66,0,0"  />
 
 
-                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="Months Stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="42" Width="136"
+                <Button Style="{StaticResource CustomButtonStyle }" FontSize="24" Content="Months Stat" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="54" Width="136"
                         Visibility="{Binding IsYear, Converter={StaticResource ButtonVisibilityConverter}}"
-                        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="0,184,29,0" />
+                        Command="{Binding MonthStatisticsCommand}" CommandParameter="{Binding SelectedYear}" Margin="853,61,0,0" />
 
             </Grid>
         </Grid>
