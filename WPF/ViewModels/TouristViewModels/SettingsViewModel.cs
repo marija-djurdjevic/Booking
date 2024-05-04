@@ -39,7 +39,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void WizardExecuteCommand(object obj)
         {
-            new TouristWizardMainWindow(Tourist).ShowDialog();
+            new TouristWizardMainWindow().ShowDialog();
         }
 
         private void ShowTooltipsExecuteCommand()

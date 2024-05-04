@@ -13,6 +13,7 @@ namespace BookingApp.Domain.Models
         public string LastName { get; set; }
         public int Age { get; set; }
         public bool ShowTooltips { set; get; }
+        public bool ShowWizard { set; get; }
 
         public Tourist() { }
 
@@ -22,6 +23,7 @@ namespace BookingApp.Domain.Models
             LastName = lastName;
             Age = age;
             ShowTooltips = true;
+            ShowWizard = true;
         }
         public Tourist(string username, string password, string firstName, string lastName, int age, UserRole role, bool showTooltips)
         {
@@ -33,10 +35,11 @@ namespace BookingApp.Domain.Models
             LastName = lastName;
             Age = age;
             ShowTooltips = showTooltips;
+            ShowWizard = true;
         }
         public override string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FirstName, LastName, Age.ToString(),ShowTooltips.ToString() };
+            string[] csvValues = { Id.ToString(), FirstName, LastName, Age.ToString(),ShowTooltips.ToString(),ShowWizard.ToString() };
             return csvValues;
         }
 
@@ -47,6 +50,7 @@ namespace BookingApp.Domain.Models
             LastName = values[2];
             Age = Convert.ToInt32(values[3]);
             ShowTooltips = Convert.ToBoolean(values[4]);
+            ShowWizard = Convert.ToBoolean(values[5]);
         }
     }
 }

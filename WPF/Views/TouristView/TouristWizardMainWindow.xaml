@@ -7,10 +7,10 @@
     xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app wizard"
-    Width="1050"
-    Height="700"
+    MinWidth="1050"
+    MinHeight="700"
     Background="{StaticResource BackgroundColor}"
-    ResizeMode="NoResize"
+    ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -81,7 +81,7 @@
                                     Width="50"
                                     Height="50"
                                     Panel.ZIndex="2"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=0}" />
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -94,7 +94,7 @@
                     <Border
                         Width="80"
                         Height="5"
-                        Margin="-25,25,-28,0"
+                        Margin="-25,25,-18,0"
                         VerticalAlignment="Top"
                         Panel.ZIndex="1"
                         Background="#FF32BA7C" />
@@ -109,7 +109,8 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=1}" />
+
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -141,7 +142,7 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=2}" />
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -171,7 +172,7 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=3}" />
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -201,7 +202,7 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=4}" />
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -231,7 +232,7 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="/Resources/Icons/TouristIcons/checked.png" />
+                                    Source="{Binding ShowingImage, Converter={cvt:WizardConverter}, ConverterParameter=5}" />
                                 <TextBlock
                                     Margin="5,0,5,5"
                                     FontSize="20"
@@ -253,7 +254,8 @@
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
                 Click="BackButtonClick"
-                Style="{StaticResource ConfirmButton}">
+                Style="{StaticResource ConfirmButton}"
+                Visibility="{Binding ShowingImage, Converter={cvt:WizardNavigationsConverter}, ConverterParameter=back}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image
@@ -275,7 +277,8 @@
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
                 Click="NextButtonClick"
-                Style="{StaticResource ConfirmButton}">
+                Style="{StaticResource ConfirmButton}"
+                Visibility="{Binding ShowingImage, Converter={cvt:WizardNavigationsConverter}, ConverterParameter=next}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image
@@ -297,7 +300,8 @@
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
                 Click="FinishButtonClick"
-                Style="{StaticResource ConfirmButton}">
+                Style="{StaticResource ConfirmButton}"
+                Visibility="{Binding ShowingImage, Converter={cvt:WizardNavigationsConverter}, ConverterParameter=finish}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image
@@ -315,67 +319,84 @@
                 </Button.BorderBrush>
             </Button>
         </DockPanel>
-        <DockPanel
-            Margin="15"
-            Background="{StaticResource PageColor}"
-            DockPanel.Dock="Top">
+        <DockPanel Margin="15" DockPanel.Dock="Top">
             <DockPanel>
-                <Image
-                    x:Name="ImageContent"
-                    Margin="5"
-                    DockPanel.Dock="Top"
-                    Stretch="Uniform"
-                    Visibility="Collapsed">
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Source" Value="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}" />
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <Grid
-                    x:Name="WelcomeText"
-                    Margin="30,0,30,0"
-                    Visibility="Visible">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="80" />
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="80" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock VerticalAlignment="Center">
-                            <Run
-                                FontSize="30"
-                                FontWeight="Bold"
-                                Text="Welcome to the BookingApp!" />
-                        </TextBlock>
+                <Border
+                    BorderBrush="{StaticResource SelectedCardColor}"
+                    BorderThickness="8"
+                    CornerRadius="5">
+                    <DockPanel Background="{StaticResource SelectedCardColor}">
+                        <MediaElement
+                            x:Name="VideoPleyer"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Top"
+                            LoadedBehavior="Manual"
+                            MediaEnded="ReplayVideo"
+                            ScrubbingEnabled="True"
+                            Source="{Binding ShowingImage}"
+                            Stretch="Uniform"
+                            UnloadedBehavior="Stop"
+                            Visibility="Collapsed" />
+                        <Image
+                            x:Name="ImageContent"
+                            Margin="5"
+                            DockPanel.Dock="Top"
+                            Stretch="Uniform"
+                            Visibility="Collapsed">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}" />
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Grid
+                            x:Name="WelcomeText"
+                            Margin="30,0,30,0"
+                            Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80" />
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="80" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run
+                                        FontSize="30"
+                                        FontWeight="Bold"
+                                        Text="Welcome to the BookingApp!" />
+                                </TextBlock>
 
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                            <Run FontSize="20" Text="The Wizard is here to make your first steps in the app easier. Step by step, we'll guide you through the basic functionalities of our application and show you how to use it." />
-                        </TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                            <Run FontSize="20" Text="Browse all tours, make reservations, track active tours, create requests for your private tours, and much more." />
-                        </TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                            <Run FontSize="20" Text="If you need help or have any questions, we're here to assist you. Click on 'Help' in any window of the application to get additional information." />
-                        </TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="4">
-                        <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                            <Run
-                                FontSize="20"
-                                FontWeight="Bold"
-                                Text="Are you ready? Let's start the journey!" />
-                        </TextBlock>
-                    </Grid>
-                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                    <Run FontSize="20" Text="The Wizard is here to make your first steps in the app easier. Step by step, we'll guide you through the basic functionalities of our application and show you how to use it." />
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                    <Run FontSize="20" Text="Browse all tours, make reservations, track active tours, create requests for your private tours, and much more." />
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                    <Run FontSize="20" Text="If you need help or have any questions, we're here to assist you. Click on 'Help' in any window of the application to get additional information." />
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Text="Are you ready? Let's start the journey!" />
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+
+                    </DockPanel>
+                </Border>
             </DockPanel>
         </DockPanel>
     </DockPanel>
