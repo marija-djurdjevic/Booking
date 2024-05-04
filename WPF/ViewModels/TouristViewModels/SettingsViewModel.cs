@@ -4,6 +4,7 @@ using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void WizardExecuteCommand(object obj)
         {
-            
+            new TouristWizardMainWindow().ShowDialog();
         }
 
         private void ShowTooltipsExecuteCommand()

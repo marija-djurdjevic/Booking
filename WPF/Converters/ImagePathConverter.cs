@@ -22,17 +22,20 @@ namespace BookingApp.WPF.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            string brokenImage = ImageService.GetAbsolutePath("Resources\\Icons\\TouristIcons\\broken-image.png");
             if (value is string imagePath && !string.IsNullOrEmpty(imagePath))
             {
                 string absoluteImagePath = ImageService.GetAbsolutePath(value.ToString());
                 if (System.IO.File.Exists(absoluteImagePath))
                 {
+                    if (absoluteImagePath.EndsWith(".mp4"))
+                        return brokenImage;
                     return ImageService.GetAbsolutePath(value.ToString());
                 }
-                return ImageService.GetAbsolutePath("Resources\\Icons\\TouristIcons\\broken-image.png");
+                return brokenImage;
             }
 
-            return null;
+            return brokenImage;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

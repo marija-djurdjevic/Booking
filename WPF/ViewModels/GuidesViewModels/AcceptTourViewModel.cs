@@ -22,6 +22,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private  ObservableCollection<(DateTime, DateTime)> freeDates = new ObservableCollection<(DateTime, DateTime)>();
         private  readonly TourRequestService tourRequestService;
         private RequestStatisticService requestStatisticService;
+        private TouristGuideNotificationService notificationService;
         private  ObservableCollection<(DateTime, DateTime)> bookedDates;
         private (DateTime, DateTime) touristsDates;
         private RelayCommand sideMenuCommand;
@@ -35,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             this.id = id;
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
             requestStatisticService=new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             SelectedTour = tourRequestService.GetRequestById(id);
             LoadBookedDates();
             TouristsDates=tourRequestService.GetDateSlotById(id);
@@ -131,6 +133,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             if (FreeDates.Any(dateRange => SelectedDateTime >= dateRange.Item1 && SelectedDateTime <= dateRange.Item2))
             {
                 tourRequestService.UpdateRequestById(id,SelectedDateTime);
+                TouristGuideNotification touristGuideNotification= new TouristGuideNotification(SelectedTour.TouristId,2,SelectedTour.Id,DateTime.Now,Domain.Models.Enums.NotificationType.RequestAccepted,"Ognjen",SelectedDateTime);
+                notificationService.Save(touristGuideNotification);
             }
             else
             {

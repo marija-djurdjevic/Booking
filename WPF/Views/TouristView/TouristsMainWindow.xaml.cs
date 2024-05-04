@@ -70,9 +70,11 @@ namespace BookingApp.View.TouristView
             DataContext = this;
             LoggedInUser = loggedInUser;
             ActiveCard = "ShowAndSearch";
+
             Tourist = _touristService.GetByUserId(LoggedInUser.Id);
             Paige.Content = new ShowAndSearchToursPage(LoggedInUser);
             ((App)Application.Current).globalVariables.ShowTooltips = Tourist.ShowTooltips;
+
             ShowAndSearchCommand = new RelayCommand(ShowAndSearchExecuteCommand);
             MyToursCommand = new RelayCommand(MyToursExecuteCommand);
             TourRequestCommand = new RelayCommand(TourRequestsExecuteCommand);
@@ -80,6 +82,13 @@ namespace BookingApp.View.TouristView
             VouchersCommand = new RelayCommand(VouchersExecuteCommand);
             SettingsCommand = new RelayCommand(SettingsExecuteCommand);
             LogoutCommand = new RelayCommand(LogoutExecuteCommand);
+
+            if (Tourist.ShowWizard)
+            {
+                new TouristWizardMainWindow().ShowDialog();
+                Tourist.ShowWizard = false;
+                _touristService.Update(Tourist);
+            }
         }
 
         private void ShowAndSearchExecuteCommand()
