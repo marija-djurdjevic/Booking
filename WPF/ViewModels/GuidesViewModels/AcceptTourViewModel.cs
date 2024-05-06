@@ -128,6 +128,25 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         }
 
 
+
+        private bool isAccepted;
+
+        public bool IsAccepted
+        {
+            get { return isAccepted; }
+            set
+            {
+                isAccepted = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
+
+
+
         private void ExecuteAcceptTourCommand()
         {
             if (FreeDates.Any(dateRange => SelectedDateTime >= dateRange.Item1 && SelectedDateTime <= dateRange.Item2))
@@ -135,14 +154,23 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 tourRequestService.UpdateRequestById(id,SelectedDateTime);
                 TouristGuideNotification touristGuideNotification= new TouristGuideNotification(SelectedTour.TouristId,2,SelectedTour.Id,DateTime.Now,Domain.Models.Enums.NotificationType.RequestAccepted,"Ognjen",SelectedDateTime);
                 notificationService.Save(touristGuideNotification);
+                if (!IsAccepted)
+                {
+                    tourRequestService.UpdateRequestById(id, SelectedDateTime);
+                    IsAccepted = true;
+                    MessageBox.Show("Tour request successfully accepted.");
+                }
+                else
+                {
+                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.");
+                }
             }
             else
             {
-
-
                 MessageBox.Show("Selected date is not available for booking.");
             }
         }
+
 
 
 

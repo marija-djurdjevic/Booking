@@ -62,9 +62,10 @@
                     <!-- Slika -->
                     <Image Width="120" Height="120" Margin="10,59,10,0" VerticalAlignment="Top" Stretch="Fill">
                         <Image.Source>
-                            <Binding Converter="{StaticResource ImagePathConverter}" Path="SelectedTour.ImagesPaths[0]" />
+                            <BitmapImage UriSource="/Resources/Icons/TouristIcons/broken-image.png" />
                         </Image.Source>
                     </Image>
+
 
                     <TextBlock FontSize="24" Text="About tour" Margin="14,10,0,10"/>
                     <!-- Informacije -->
