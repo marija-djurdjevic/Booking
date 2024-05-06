@@ -117,6 +117,7 @@
     <PackageReference Include="MVVMLight.Messaging" Version="1.0.0" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="QuestPDF" Version="2024.3.2" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>

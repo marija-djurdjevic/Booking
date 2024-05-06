@@ -38,108 +38,164 @@
 
                     <Label
                     Height="357"
-                    Margin="15,44,20,0"
+                    Margin="15,34,20,0"
                     VerticalAlignment="Top"
                     Content="Basic informations:"
                     FontSize="32" />
                     <Label
-                    Margin="25,108,20,1261"
+                    Margin="25,100,20,1269"
                     Content="Name:"
                     FontSize="28" />
                     <Label
-                    Margin="25,178,20,1235"
+                    Margin="25,186,20,1227"
                     Content="Language:"
                     FontSize="28" />
                     <Label
-                    Margin="25,263,20,1155"
+                    Margin="25,271,20,1147"
                     Content="Description:"
                     FontSize="28" />
 
 
                     <Border
                     Height="2"
-                    Margin="0,404,0,1106"
+                    Margin="0,422,0,1089"
                     BorderBrush="Black"
                     BorderThickness="0,0,0,1" />
 
+
+
                     <TextBox
-                    Grid.Row="0"
-                    Height="42"
-                    Margin="215,116,629,1355"
-                    Text="{Binding Name, Mode=TwoWay}"
-                    />
+                Grid.Row="0"
+                Height="42"
+                Margin="215,107,629,1364"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+
+
+
+
+                    
+                    
                     <TextBox
                     Padding="5" 
                     FontSize="20"
                     Grid.Row="0"
                     Height="42"
-                    Margin="216,186,629,1285"
+                    Margin="215,193,629,1278"
                     Text="{Binding MostRequestedLanguage}"
                     IsReadOnly="True"/>
 
+
+
                     <TextBox
                     Grid.Row="0"
-                    Margin="215,277,40,1119"
+                    Margin="215,291,40,1105"
                     TextWrapping="Wrap"
                     Text="{Binding Description, Mode=TwoWay}" />
 
 
                     <Label
-                    Margin="15,409,20,1027"
+                    Margin="15,429,20,1007"
                     Content="Tour details:"
                     FontSize="32" />
                     <Label
-                    Margin="25,561,100,863"
+                    Margin="25,593,100,831"
                     Content="Location:"
                     FontSize="28" />
                     <Label
-                    Margin="25,466,20,956"
+                    Margin="25,492,20,930"
                     Content="Duration:"
                     FontSize="28" />
                     <Label
-                    Margin="24,656,21,779"
+                    Margin="24,696,21,739"
                     Content="Max tourists numbmer:"
                     FontSize="28" />
 
                     <Border
                     Height="2"
-                    Margin="0,728,0,764"
+                    Margin="0,788,0,723"
                     BorderBrush="Black"
                     BorderThickness="0,0,0,1" />
 
                     <xctk:IntegerUpDown
-                    Grid.Row="0"
-                    Height="42"
-                    Margin="356,472,489,999"
-                    Increment="1"
-                    Minimum="0"
-                    RenderTransformOrigin="-0.113,-7.205"
-                    Value="{Binding Duration, Mode=TwoWay}" />
+                Grid.Row="0"
+                Height="42"
+                Margin="356,502,489,969"
+                Increment="1"
+                Minimum="0"
+                RenderTransformOrigin="-0.113,-7.205"
+                Value="{Binding Duration, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </xctk:IntegerUpDown>
+
+                   
 
                     <TextBox
                     Grid.Row="0"
                     Height="42"
                     FontSize="20"
                     Padding="5" 
-                    Margin="356,568,320,903"
+                    Margin="356,601,320,872"
                     Text="{Binding MostRequestedLocation }"
-                    IsReadOnly="True"
-                     />
+                    IsReadOnly="True"   />
+                    
+                    
+                    
 
                     <xctk:IntegerUpDown
-                    Grid.Row="0"
-                    Height="42"
-                    Margin="354,660,488,811"
-                    Increment="1"
-                    Minimum="0"
-                    Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
+                Grid.Row="0"
+                Height="42"
+                Margin="357,702,489,769"
+                Increment="1"
+                Minimum="0"
+                Value="{Binding MaxTouristNumber, Mode=TwoWay,ValidatesOnDataErrors=True}" >
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </xctk:IntegerUpDown>
 
 
-                    <Label Margin="24,776,11,604" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,788,550,678" Text="{Binding KeyPoints, Mode=TwoWay}" />
-                    <Button Height="48" Margin="512,784,390,675" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+                    <Label Margin="24,818,11,562" Content="Key Point:" FontSize="32" />
+                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,826,550,641" Text="{Binding KeyPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
 
-                    <ListBox x:Name="ListBoxKeyPoints" Height="100"  Margin="210,862,550,531" ItemsSource="{Binding KeyPointNames}" FontSize="20">
+                    <Button Style="{StaticResource CustomButtonStyle}" Height="48" Margin="530,826,347,641" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+
+
+
+
+
+
+
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,932,550,481" ItemsSource="{Binding KeyPointNames}" FontSize="20">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -162,7 +218,39 @@
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="Validation.ErrorTemplate">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <DockPanel LastChildFill="True">
+                                                <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="20" Text="X" Margin="5"/>
+                                                <Border BorderBrush="Red" BorderThickness="1">
+                                                    <AdornedElementPlaceholder/>
+                                                </Border>
+                                            </DockPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
                     </ListBox>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -179,7 +267,8 @@
                             Padding="-2"
                             Command="{Binding UploadImageCommand}"
                             Content="UPLOAD"
-                            FontSize="24" Margin="54,29,51,26"/>
+                            FontSize="24" Margin="54,29,51,26"
+                            Style="{StaticResource CustomButtonStyle}"/>
                     </Border>
 
 
@@ -196,7 +285,16 @@
     HorizontalAlignment="Left"
     VerticalAlignment="Top"
     Stretch="Fill"
-    Source="{Binding CurrentImage}" />
+    Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="placeholder"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent, Mode=OneWay}" Foreground="Red" Margin="-82,0,0,0" FontSize="20"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </Image>
 
                         <Grid Margin="0,1260,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
@@ -205,15 +303,15 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-253,-7,360,0">
+                            <Button Style="{StaticResource CustomButtonStyle}" Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-253,-7,360,0">
                                 <TextBlock Text="&#x25C0;" FontSize="24"/>
                             </Button>
 
-                            <Button Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="45,-7,50,0">
+                            <Button Style="{StaticResource CustomButtonStyle}" Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="45,-7,50,0">
                                 <TextBlock Text="&#x25B6;" FontSize="24"/>
                             </Button>
 
-                            <Button Command="{Binding DeleteImageCommand}" FontSize="24" Content="Delete" Margin="-120,109,191,-113"/>
+                            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding DeleteImageCommand}" Padding="5" FontSize="24" Content="Delete" Margin="-120,109,191,-113"/>
                         </Grid>
                     </Grid>
 
@@ -231,18 +329,20 @@
 
 
                     <Button
-                    Height="45"
-                    Margin="706,1540,152,-73"
+                    Height="48"
+                    Margin="706,1540,171,-73"
                     Command="{Binding AddDateCommand}"
                     CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
                     Content="ADD"
                     FontSize="24"
-                    />
+                    Style="{StaticResource CustomButtonStyle}" />
 
                     <Label
                     Margin="18,1536,384,-178"
                     Content="Start Date and Time:"
                     FontSize="28" />
+
+
                     <xctk:DateTimePicker
                     x:Name="StartDateTimePicker"
                     Grid.Row="0"
@@ -277,41 +377,43 @@
 
 
                     <Button
-                    Margin="402,1861,432,-402"
+                    Margin="359,1861,475,-402"
                      Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     Content="CONFRIM"
-                    FontSize="24" />
+                    FontSize="24"
+                    Style="{StaticResource CustomButtonStyle}"/>
 
                     <Label
-                        Margin="203,411,435,1053"
-                        Content="( Most requested location: "
-                        FontSize="28" />
+     Margin="203,431,435,1033"
+     Content="( Most requested location: "
+     FontSize="28" />
                     <Label
-                        Margin="310,46,320,1409"
-                        Content="( Most reqested langugage:"
-                        FontSize="28" />
+     Margin="310,38,320,1417"
+     Content="( Most reqested langugage:"
+     FontSize="28" />
 
-                    <Label Margin="531,411.5,20,1050"
-                        FontSize="28">
+                    <Label Margin="531,430,20,1032"
+     FontSize="28">
                         <TextBlock>
-                            <Run Text="{Binding MostRequestedLocation}" />
-                            <TextBlock Margin="0,-0.1,0,0">
-                                <Run Text=")" />
-                            </TextBlock>
-                        </TextBlock>
+         <Run Text="{Binding MostRequestedLocation}" />
+         <TextBlock Margin="0,-0.1,0,0">
+             <Run Text=")" />
+         </TextBlock>
+     </TextBlock>
                     </Label>
 
-                    <Label Margin="650,44,7,1409"
-                        FontSize="28">
+                    <Label Margin="650,38,7,1415"
+     FontSize="28">
                         <TextBlock>
-                            <TextBlock Margin="7,3,0,0">
-                            <Run Text="{Binding MostRequestedLanguage}" />
-                                </TextBlock>
-                            <TextBlock Margin="0,3.2,0,0">
-                                 <Run Text=")" />
-                            </TextBlock>
-                        </TextBlock>
+         <TextBlock Margin="7,3,0,0">
+         <Run Text="{Binding MostRequestedLanguage}" />
+             </TextBlock>
+         <TextBlock>
+              <Run Text=")" />
+         </TextBlock>
+     </TextBlock>
                     </Label>
+
 
                 </Grid>
 
@@ -368,6 +470,5 @@
 
 
     </Grid>
-
 
 </Page>

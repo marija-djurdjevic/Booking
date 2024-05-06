@@ -16,11 +16,13 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Linq.Expressions;
 using BookingApp.Domain.Models;
+using System.Windows;
+using System.ComponentModel;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     
-     internal class CreateSuggestedTourViewModel : BaseViewModel
+     internal class CreateSuggestedTourViewModel : BaseViewModel, IDataErrorInfo
     {
         private string name;
         private string description;
@@ -90,6 +92,95 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             LoadCitiesCountries();
         }
 
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrWhiteSpace(Name))
+                    {
+                        return "Name can not be empty!";
+                    }
+                }
+
+                else if (columnName == "SelectedLanguage")
+                {
+                    if (SelectedLanguage == null)
+                    {
+                        return "Please select a language!";
+                    }
+                }
+
+
+                else if (columnName == "Duration")
+                {
+                    if (Duration <= 0)
+                    {
+                        return "Duration must be greater than 0!";
+                    }
+                }
+
+
+
+                else if (columnName == "MaxTouristNumber")
+                {
+                    if (MaxTouristNumber <= 0)
+                    {
+                        return "Max tourist number must be greater than 0!";
+                    }
+                }
+
+
+
+                else if (columnName == "KeyPoints")
+                {
+                    if (KeyPointNames.Count < 2)
+                    {
+                        return "Key points must contain at least two items.";
+                    }
+                    else if (KeyPointNames.Any(string.IsNullOrEmpty))
+                    {
+                        return "Key points cannot contain empty names.";
+                    }
+                }
+
+
+
+
+                else if (columnName == "CurrentImage")
+                {
+                    if (CurrentImage == null)
+                    {
+                        return "You need to upload at least one image.";
+                    }
+                }
+
+
+
+
+
+                else if (columnName == "SelectedLocation")
+                {
+                    if (string.IsNullOrEmpty(SelectedLocation))
+                    {
+                        return "Please select a location!";
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                // Ovde možete dodati validaciju za ceo objekat ako je potrebno
+                return null; // Ako nema grešaka, vratite null
+            }
+        }
 
 
 
@@ -390,13 +481,29 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
+
+        private string keyPoints;
+        public string KeyPoints
+        {
+            get { return keyPoints; }
+            set
+            {
+                if (keyPoints != value)
+                {
+                    keyPoints = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private void AddKeyPoint(object parameter)
         {
             string keyPointName = parameter.ToString();
             KeyPointNames.Add(keyPointName);
-
+            KeyPoints = "";
 
         }
+
 
 
         private void NextImage(object parameter)
@@ -447,15 +554,24 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             foreach (var startDate in TourDates)
             {
+                if (!ValidateAll())
+                {
+                    MessageBox.Show("Tour cannot be created. Please correct the errors.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 LocationDto newLocationDto = GetLocationDto();
                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
                 CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
                 (bool success,int tourId) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
-                if (!success)
+                if (success)
                 {
-                    return;
+                    MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                foreach(var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
+                else
+                {
+                    MessageBox.Show("Failed to create tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
                 {
                     TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,2,tourId,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,"Ognjen");
                     notificationService.Save(touristGuideNotification);
@@ -491,7 +607,66 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { mostRequestedLanguage = value; OnPropertyChanged(); }
         }
 
+        public bool ValidateAll()
+        {
+            bool isValid = true;
 
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+
+                isValid = false;
+            }
+
+
+            if (SelectedLanguage == null)
+            {
+
+                isValid = false;
+            }
+
+
+            if (Duration <= 0)
+            {
+
+                isValid = false;
+            }
+
+
+            if (MaxTouristNumber <= 0)
+            {
+
+                isValid = false;
+            }
+
+
+            if (KeyPointNames.Count < 2)
+            {
+
+                isValid = false;
+            }
+            else if (KeyPointNames.Any(string.IsNullOrEmpty))
+            {
+
+                isValid = false;
+            }
+
+
+            if (CurrentImage == null)
+            {
+
+                isValid = false;
+            }
+
+
+            if (string.IsNullOrEmpty(SelectedLocation))
+            {
+
+                isValid = false;
+            }
+
+
+            return isValid;
+        }
 
     }
 }

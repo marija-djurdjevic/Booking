@@ -229,12 +229,12 @@
                                         Grid.Column="0"
                                         Width="150"
                                         Height="230"
-                                        Margin="0,7,10,38"
+                                        Margin="0,-13,10,18"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top"
                                         Stretch="Fill">
                                         <Image.Source>
-                                            <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
+                                            <BitmapImage UriSource="/Resources/Icons/TouristIcons/broken-image.png" />
                                         </Image.Source>
                                     </Image>
 
