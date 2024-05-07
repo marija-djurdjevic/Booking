@@ -7,6 +7,7 @@
     xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:val="clr-namespace:BookingApp.WPF.Validations"
     Title="Booking app"
     Width="700"
     Height="650"
@@ -17,6 +18,27 @@
     Background="{StaticResource PageColor}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+    </Window.InputBindings>
 
     <DockPanel Margin="40,10,40,10">
         <DockPanel
@@ -32,7 +54,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -43,6 +65,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -56,7 +88,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Click="ConfirmClick"
+                    Command="{Binding ConfirmCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -70,12 +102,21 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Confirm tour reservation<LineBreak />
+                                and proceed<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Ctrl+Enter)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button
                     Grid.Column="0"
-                    Click="CancelClick"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -89,13 +130,22 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Cancel tour reservation<LineBreak />
+                                and close window<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Escape)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Left">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="Skrol" VerticalScrollBarVisibility="Auto">
                 <ItemsControl
                     x:Name="SearchResultList"
                     Margin="0,0,20,20"
@@ -124,7 +174,9 @@
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             IsReadOnly="{Binding Item3}"
-                                            Text="{Binding Item1.TouristFirstName}" />
+                                            Text="{Binding Item1.TouristFirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
+
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                         <TextBlock
@@ -136,7 +188,8 @@
                                             HorizontalAlignment="Left"
                                             FontSize="20"
                                             IsReadOnly="{Binding Item3}"
-                                            Text="{Binding Item1.TouristLastName}" />
+                                            Text="{Binding Item1.TouristLastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
                                         <TextBlock
@@ -151,7 +204,8 @@
                                             Maximum="150"
                                             Minimum="1"
                                             TextAlignment="Left"
-                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged}" />
+                                            Validation.ErrorTemplate="{StaticResource AgeValidationTemplate}"
+                                            Value="{Binding Path=Item1.TouristAge, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
                                     </StackPanel>
                                 </Grid>

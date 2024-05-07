@@ -50,7 +50,11 @@ namespace BookingApp.Repositories
             tourRequests = GetAll();
             return tourRequests.FirstOrDefault(t => t.Id == id);
         }
-
+        public List<TourRequest> GetByComplexId(int complexId)
+        {
+            var allRequests = GetAll();
+            return allRequests.FindAll(t => t.ComplexId == complexId);
+        }
         public int NextId()
         {
             tourRequests = _serializer.FromCSV(FilePath);

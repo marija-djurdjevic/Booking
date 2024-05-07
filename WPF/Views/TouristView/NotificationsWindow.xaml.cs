@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,22 +22,33 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class NotificationsWindow : Window
     {
-        private TouristNotificationsViewModel notificationViewModel;
         public NotificationsWindow(User loggedInUser)
         {
             InitializeComponent();
-            notificationViewModel = new TouristNotificationsViewModel(loggedInUser);
-            DataContext = notificationViewModel;
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
+            DataContext = new TouristNotificationsViewModel(loggedInUser);
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                switch (message.Notification)
+                {
+                    case "ScrollToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                    case "CloseNotificationsWindowMessage":
+                        this.Close();
+                        break;
+                }
+            });
         }
     }
 }

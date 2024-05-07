@@ -16,6 +16,24 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ReserveCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="P"
+            Command="{Binding ShowImageCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Left" Command="{Binding PreviousImageCommand}" />
+        <KeyBinding Key="Right" Command="{Binding NextImageCommand}" />
+
+    </Window.InputBindings>
 
     <Window.Resources>
         <Style x:Key="GroupBoxTextBlocs" TargetType="TextBlock">
@@ -41,7 +59,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -52,6 +70,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Help" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Open help window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+H)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
             </Grid>
@@ -88,49 +116,77 @@
                         FontWeight="Bold"
                         Foreground="Red"
                         Minimum="1"
-                        TextAlignment="Center"
-                        Value="{Binding Path=NumberOfReservations, UpdateSourceTrigger=PropertyChanged}" />
+                        TextAlignment="Left"
+                        Validation.ErrorTemplate="{StaticResource BookingValidationTemplate}"
+                        Value="{Binding Path=NumberOfReservations, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <extendedToolkit:IntegerUpDown.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    Enter the number of tourists<LineBreak />
+                                    reserving the tour</TextBlock>
+                            </ToolTip>
+                        </extendedToolkit:IntegerUpDown.ToolTip>
+                    </extendedToolkit:IntegerUpDown>
 
                 </StackPanel>
 
                 <Button
                     Grid.Row="1"
                     Grid.Column="0"
-                    Click="CancelButtonCLick"
+                    Command="{Binding CloseCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image
                                 Height="40"
                                 Margin="5,0,5,0"
-                                Source="/Resources/Icons/TouristIcons/cancel.png" />
-                            <TextBlock Margin="0,0,5,0" Text="Cancel" />
+                                Source="/Resources/Icons/TouristIcons/close.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Close" />
                         </StackPanel>
                     </Button.Content>
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Cancel tour reservation<LineBreak />
+                                and close window<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Escape)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
-                    Click="ConfirmButtonClick"
+                    Command="{Binding ReserveCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image
+                                Width="40"
                                 Height="40"
                                 Margin="5,0,5,0"
-                                Source="/Resources/Icons/TouristIcons/confirm.png" />
-                            <TextBlock Margin="0,0,5,0" Text="Confirm" />
+                                Source="/Resources/Icons/TouristIcons/reserved.png" />
+                            <TextBlock Margin="0,0,5,0" Text="Reserve" />
                         </StackPanel>
                     </Button.Content>
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Confirm tour reservation<LineBreak />
+                                and proceed<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Ctrl+Enter)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
@@ -164,16 +220,26 @@
                                 Width="50"
                                 Height="50"
                                 Background="{StaticResource PageColor}"
-                                Click="PreviousImageButtonClick">
+                                Command="{Binding PreviousImageCommand}">
                                 <Button.BorderBrush>
                                     <SolidColorBrush Opacity="0" Color="White" />
                                 </Button.BorderBrush>
                                 <Button.Content>
                                     <Image HorizontalAlignment="Left" Source="/Resources/Icons/TouristIcons/previous.png" />
                                 </Button.Content>
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Show previous image<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text=" (Left Arrow)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
 
-                            <Button Padding="5" Click="ImageButtonClick">
+                            <Button Padding="5" Command="{Binding ShowImageCommand}">
                                 <Button.Background>
                                     <SolidColorBrush Opacity="0" />
                                 </Button.Background>
@@ -184,6 +250,16 @@
                                         Source="{Binding ShowingImage, Converter={cvt:ImagePathConverter}}"
                                         Stretch="Uniform" />
                                 </Button.Content>
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Click to previw image<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text=" (Ctrl+P)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
 
 
@@ -191,13 +267,23 @@
                                 Width="50"
                                 Height="50"
                                 Background="{StaticResource PageColor}"
-                                Click="NextImageButtonClick">
+                                Command="{Binding NextImageCommand}">
                                 <Button.BorderBrush>
                                     <SolidColorBrush Opacity="0" Color="White" />
                                 </Button.BorderBrush>
                                 <Button.Content>
                                     <Image HorizontalAlignment="Right" Source="/Resources/Icons/TouristIcons/next.png" />
                                 </Button.Content>
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Show next image<LineBreak />
+                                            <Run
+                                                FontStyle="Italic"
+                                                Foreground="{StaticResource ValidationMessageColor}"
+                                                Text=" (Right Arrow)" /></TextBlock>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
 
                         </StackPanel>

@@ -14,7 +14,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class TourStatisticViewModel : BaseViewModel
     {
@@ -27,7 +27,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private ObservableCollection<Tour> finishedTours;
         private ObservableCollection<Tour> sortedTours;
         private RelayCommand touristsButtonClickCommand;
-        private RelayCommand navigateBackCommand;
+        private RelayCommand sideMenuCommand;
         public TourStatisticViewModel()
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
@@ -35,7 +35,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
-            navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             LoadData();
         }
         private void LoadData()
@@ -121,18 +121,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 }
             }
         }
-        public RelayCommand NavigateBackCommand
-        {
-            get { return navigateBackCommand; }
-            set
-            {
-                if (navigateBackCommand != value)
-                {
-                    navigateBackCommand = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+       
         private void ExecuteTouristsButtonClick(object parameter)
         {
             if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
@@ -141,10 +130,29 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 GuideMainWindow.MainFrame.Navigate(touristsNumberPage1);
             }
         }
-        private void ExecuteNavigateBack()
+       
+
+        public RelayCommand SideManuCommand
         {
-            var mainPage = new GuideMainPage1();
-            GuideMainWindow.MainFrame.Navigate(mainPage);
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
         }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
     }
 }

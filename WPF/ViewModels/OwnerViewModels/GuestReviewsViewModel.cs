@@ -13,7 +13,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 
-namespace BookingApp.WPF.ViewModel.OwnerViewModel
+namespace BookingApp.WPF.ViewModels.OwnerViewModel
 {
     public class GuestReviewsViewModel : INotifyPropertyChanged
     {

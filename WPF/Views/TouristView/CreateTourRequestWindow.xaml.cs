@@ -1,6 +1,7 @@
-﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+﻿using BookingApp.Command;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,42 +23,19 @@ namespace BookingApp.WPF.Views.TouristView
     /// </summary>
     public partial class CreateTourRequestWindow : Window
     {
-        private CreateTourRequestViewModel createTourRequestViewModel;
-        public CreateTourRequestWindow(User loggedInUser)
+        public CreateTourRequestWindow(User loggedInUser,bool IsComplex,ComplexTourRequest complexTourRequest)
         {
-            createTourRequestViewModel = new CreateTourRequestViewModel(loggedInUser);
             InitializeComponent();
-            DataContext = createTourRequestViewModel;
+            DataContext = new CreateTourRequestViewModel(loggedInUser,IsComplex,complexTourRequest);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            createTourRequestViewModel.Confirm();
-            Close();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CityComboBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            createTourRequestViewModel.CityComboBoxLostFocus();
-        }
-
-        private void CountryComboBoxChanged(object sender, RoutedEventArgs e)
-        {
-            createTourRequestViewModel.CountryComboBoxChanged();
-        }
-
-        private void OpenDropDownClick(object sender, EventArgs e)
-        {
-            createTourRequestViewModel.OpenDropDownClick(sender);
+            if (message.Notification == "CloseCreateTourRequestWindowMessage")
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class GuideMainPageViewModel : BaseViewModel
     {
@@ -37,6 +37,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private RelayCommand reviewTourClickCommand;
         private RelayCommand cancelTourClickCommand;
         private LiveTourRepository liveTourRepository;
+        private RelayCommand sideMenuCommand;
         public GuideMainPageViewModel()
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
@@ -51,6 +52,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             LoadTours();
         }
         public ObservableCollection<Tour> TodayTours
@@ -128,6 +130,32 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 }
             }
         }
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideManuPage=new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideManuPage);
+
+        }
+
+        
+
+
         private void ExecuteCreateTourClick()
         {
             var createTourPage = new CreateTourPage();
@@ -138,13 +166,22 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             if (parameter != null && parameter is int tourId)
             {
                 var tour = tourService.GetTourById(tourId);
-                if (tour != null)
+                if (tour != null && liveTourService.HasLiveTour())
                 {
                     liveTourService.ActivateTour(tourId);
                     liveTourService.CheckFirstKeyPoint(tourId);
                     liveTourService.SaveChanges();
                     LiveTourPage liveTourPage = new LiveTourPage(tourId);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
+                }
+
+                else
+                {
+                    MessageBox.Show("Zavrsi zapocetu turu");
+                    int id=liveTourService.GetLiveTourId();
+                    LiveTourPage liveTourPage = new LiveTourPage(id);
+                    GuideMainWindow.MainFrame.Navigate(liveTourPage);
+
                 }
             }
         }

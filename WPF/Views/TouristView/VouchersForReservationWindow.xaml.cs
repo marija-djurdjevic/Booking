@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,29 +24,33 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class VouchersForReservationWindow : Window
     {
-        public VouchersForReservationViewModel VouchersForReservationViewModel { get; set; }
         public VouchersForReservationWindow(User loggedInUser)
         {
             InitializeComponent();
-            VouchersForReservationViewModel = new VouchersForReservationViewModel(loggedInUser);
-            DataContext = VouchersForReservationViewModel;
-        }
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            if(VouchersForReservationViewModel.Confirm())
+            DataContext = new VouchersForReservationViewModel(loggedInUser);
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
-                Close();
-            }
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
+                switch (message.Notification)
+                {
+                    case "ScrollReservationVoucherToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollReservationVoucherToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollReservationVoucherDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollReservationVoucherUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                    case "CloseVouchersForReservationWindowMessage":
+                        this.Close();
+                        break;
+                }
+            });
         }
     }
 }

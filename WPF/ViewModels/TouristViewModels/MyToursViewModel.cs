@@ -13,12 +13,13 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Command;
+using GalaSoft.MvvmLight.Messaging;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class MyToursViewModel : INotifyPropertyChanged
+    public class MyToursViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private ObservableCollection<Tuple<TourDto, Visibility, string>> tours;
         public ObservableCollection<Tuple<TourDto, Visibility, string>> Tours
         {
@@ -26,7 +27,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             set
             {
                 tours = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Tours));
             }
         }
         private ObservableCollection<Tuple<TourDto, Visibility, string>> finishedTours;
@@ -36,7 +37,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             set
             {
                 finishedTours = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(FinishedTours));
             }
         }
         private ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>> activeTours;
@@ -46,7 +47,18 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             set
             {
                 activeTours = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(ActiveTours));
+            }
+        }
+
+        private int unreadNotificationCount;
+        public int UnreadNotificationCount
+        {
+            get { return unreadNotificationCount; }
+            set
+            {
+                unreadNotificationCount = value;
+                OnPropertyChanged(nameof(UnreadNotificationCount));
             }
         }
 
@@ -83,6 +95,19 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             }
         }
         private readonly MyToursService myToursService;
+        private readonly TouristGuideNotificationService notificationService;
+
+        public RelayCommand<object> RateCommand { get; set; }
+        public RelayCommand InboxCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand AllToursSortingCommand { get; set; }
+        public RelayCommand FinishedToursSortingCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
+        public RelayCommand ChangeTabRightCommand { get; private set; }
+        public RelayCommand ChangeTabLeftCommand { get; private set; }
         public MyToursViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -91,8 +116,57 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             ActiveTours = new ObservableCollection<Tuple<TourDto, List<KeyPoint>, KeyPoint>>();
             FinishedTours = new ObservableCollection<Tuple<TourDto, Visibility, string>>();
             myToursService = new MyToursService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ITourReservationRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
+
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
             FillCollections();
+            HelpCommand = new RelayCommand(Help);
+            InboxCommand = new RelayCommand(OpenInbox);
+            RateCommand = new RelayCommand<object>(RateTour);
+            AllToursSortingCommand = new RelayCommand(SortingAllToursSelectionChanged);
+            FinishedToursSortingCommand = new RelayCommand(SortingFinishedToursSelectionChanged);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+            ChangeTabRightCommand = new RelayCommand(ChangeTabRight);
+            ChangeTabLeftCommand = new RelayCommand(ChangeTabLeft);
         }
+
+        private void ChangeTabLeft()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabLeftMyTours"));
+        }
+
+        private void ChangeTabRight()
+        {
+            Messenger.Default.Send(new NotificationMessage("ChangeTabRightMyTours"));
+        }
+
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursUp"));
+        }
+
+        private void ScrollDown()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollMyToursToTop"));
+        }
+        private void Help()
+        {
+
+        }
+
         public void FillCollections()
         {
             Tours.Clear();
@@ -125,17 +199,14 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
         public void OpenInbox()
         {
             new NotificationsWindow(LoggedInUser).ShowDialog();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
         public void RateTour(object sender)
         {
-            Button rateButton = (Button)sender;
-            Tuple<TourDto, Visibility, string> tupl = (Tuple<TourDto, Visibility, string>)rateButton.DataContext;
+            Tuple<TourDto, Visibility, string> tupl = (Tuple<TourDto, Visibility, string>)sender;
             new RateTourWindow(tupl.Item1, LoggedInUser).ShowDialog();
             FillCollections();
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
-
         public void SortingAllToursSelectionChanged()
         {
             myToursService.SortTours(Tours, AllToursSelectedSort);

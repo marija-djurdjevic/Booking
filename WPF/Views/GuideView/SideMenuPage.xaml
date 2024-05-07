@@ -11,27 +11,37 @@
     <Grid>
 
 
-        <Grid Background="White">
+
+        <Grid Background="{StaticResource pozadina}">
             <!--sredina-->
+            <Grid Margin="10,100,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="170*"/>
+                    <ColumnDefinition Width="795*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="82" Grid.Row="0" Margin="-9,-29,0,0" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tour Requests" FontSize="28" Command="{Binding NavigateToTourRequestCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,349,0,-385" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,258,0,-302" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tour Request Statistics" FontSize="28" Command="{Binding NavigateToTourRequestsStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,87,0,-126" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Create Suggested Tour" FontSize="28" Command="{Binding NavigateToSuggestedTourCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,0,0,-40" Grid.ColumnSpan="3" Click="Button_Click"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Grid.Row="6" Margin="-9,173,0,-211" Grid.ColumnSpan="3"/>
+                <Button Style="{StaticResource SideManuuttonStyle}" Content="Tours Statistics" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="539" Height="86" Grid.Row="6" Margin="-9,432,0,-471" Grid.ColumnSpan="3"/>
 
 
-
-
-
-            <StackPanel Margin="10,100,0,0">
-                <Button Click="NavigateToStranica1" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="526">
-                    <TextBlock Text="Naziv stranice 1" FontSize="28" Height="58" Width="526" HorizontalAlignment="Center"/>
-                </Button>
-                <TextBlock Text="Naziv stranice 2" FontSize="28" Margin="0,25,0,25"/>
-                <TextBlock Text="Naziv stranice 3" FontSize="28" Margin="0,25,0,25"/>
-                <TextBlock Text="Naziv stranice 4" FontSize="28" Margin="0,25,0,25"/>
-                <TextBlock Text="Naziv stranice 5" FontSize="28" Margin="0,25,0,25"/>
-                <TextBlock Text="Naziv stranice 6" FontSize="28" Margin="0,25,0,25"/>
-                <TextBlock Text="Naziv stranice 7" FontSize="28" Margin="0,25,0,0"/>
-            </StackPanel>
-
-
+            </Grid>
         </Grid>
+
 
         <Line X1="540" Y1="0" X2="540" Y2="768" Stroke="Black" StrokeThickness="1"/>
 
@@ -43,7 +53,7 @@
 
 
             <!-- Gornja navigaciona traka -->
-            <Grid Height="71" VerticalAlignment="Top" Grid.Row="0" Background="White">
+            <Grid Height="71" VerticalAlignment="Top" Grid.Row="0" Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <!-- Prva kolona za sliku -->
@@ -52,11 +62,16 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Slika u prvoj koloni -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
-                Stretch="Uniform"
-                Width="71"
-                Height="71"
-                MouseLeftButtonUp="NavigateBack"/>
+                <Button Grid.Column="0"
+                    Command="{Binding SideManuCommand}"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+                        Stretch="Uniform"
+                        Width="71"
+                        Height="71" />
+                </Button>
+
 
 
 
@@ -64,32 +79,7 @@
 
 
 
-            <!-- Donja navigaciona traka -->
-            <Grid VerticalAlignment="Top" Grid.Row="1"   Background="LightGray" Margin="0,289,0,0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <!-- Prva kolona za sliku u levom cosku -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Druga kolona za sredinu -->
 
-                </Grid.ColumnDefinitions>
-
-                <!-- Prva slika u levom cosku -->
-                <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\back.png"
-                Stretch="Uniform"
-                Width="59"
-                Height="59"
-                MouseLeftButtonUp="NavigateBack"/>
-
-
-
-                <!-- Druga slika u sredini -->
-                <Image Grid.Column="1" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\home4.png"
-                    Stretch="Uniform"
-                    Width="59"
-                    Height="59"
-                    MouseLeftButtonUp="NavigateToMainPage"/>
-            </Grid>
         </Grid>
 
 

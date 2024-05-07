@@ -5,6 +5,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.Models.Enums;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class LiveTourViewModel : BaseViewModel
     {
@@ -31,6 +32,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private RelayCommand addTouristClickCommand;
         private RelayCommand checkCommand;
         private LiveTour liveTour;
+        private RelayCommand sideMenuCommand;
         public LiveTourViewModel(int tourId)
         {
             this.tourId = tourId;
@@ -41,11 +43,13 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             SelectedTour = tourService.GetTourById(tourId);
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             liveTour = liveTourService.FindLiveTourById(tourId);
-            Tourists = new ObservableCollection<TourReservation>(liveTourService.GetTouristsByTourId(tourId));
+            var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
+            Tourists = new ObservableCollection<TourReservation>(tourists);
             KeyPoints = new ObservableCollection<KeyPoint>(liveTourService.GetTourKeyPoints(tourId));
             finishTourClickCommand = new RelayCommand(ExecuteFinishTourClick);
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
             checkCommand = new RelayCommand(Check);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
         }
         public ObservableCollection<TourReservation> Tourists
         {
@@ -103,6 +107,33 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 }
             }
         }
+
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+
+
         private bool AreAllKeyPointsChecked(List<KeyPoint> keyPoints)
         {
             int checkedKeyPointsCount = keyPoints.Count(kp => kp.IsChecked);
@@ -114,7 +145,11 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             keyPoint.IsChecked = true;
             keyPointService.Update(keyPoint);
             liveTourService.CheckKeyPoint(tourId, keyPoint);
+
             var keypoints = keyPointService.GetTourKeyPoints(tourId);
+            KeyPoints = new ObservableCollection<KeyPoint>(keypoints);
+
+            
             if (AreAllKeyPointsChecked(keypoints))
             {
                 ExecuteFinishTourClick();
@@ -131,7 +166,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             var keyPoints = keyPointService.GetTourKeyPoints(tourId);
             foreach (var keyPoint in keyPoints)
             {
-                keyPoint.IsChecked = false;
+                keyPoint.IsChecked = true;
                 keyPointService.Update(keyPoint);
             }
             liveTourService.FinishTour(tourId);
@@ -154,7 +189,8 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
                 touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
             }
-            Tourists.Remove(selectedTourist);
+            var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
+            Tourists = new ObservableCollection<TourReservation>(tourists);
         }
     }
 }

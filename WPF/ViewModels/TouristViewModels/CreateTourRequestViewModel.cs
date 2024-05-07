@@ -1,10 +1,12 @@
 ﻿using BookingApp.Aplication;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication.UseCases;
+using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +14,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class CreateTourRequestViewModel: INotifyPropertyChanged
+    public class CreateTourRequestViewModel : BindableBase
     {
         private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly GlobalLocationsService GlobalLocationsService;
@@ -25,6 +29,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public static List<string> Countires { get; set; }
         public static List<string> AllCities { get; set; }
         public static List<string> Languages { get; set; }
+        private string oldCity;
 
         private List<string> cities;
         public List<string> Cities
@@ -35,39 +40,41 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 if (value != cities)
                 {
                     cities = value;
-                    OnPropertyChanged(nameof(cities));
+                    OnPropertyChanged(nameof(Cities));
                 }
             }
         }
-        public LocationDto SelectedLocation { get; set; }
         public User LoggedInUser { get; set; }
-        private TourRequest tourRequest { get; set; }
-        public TourRequest TourRequest
+        private TourRequestViewModel tourRequestViewModel { get; set; }
+        public TourRequestViewModel TourRequestViewModel
         {
-            get => tourRequest;
+            get => tourRequestViewModel;
             set
             {
-                if (value != tourRequest)
+                if (value != tourRequestViewModel)
                 {
-                    tourRequest = value;
-                    OnPropertyChanged(nameof(tourRequest));
+                    tourRequestViewModel = value;
+                    OnPropertyChanged(nameof(TourRequestViewModel));
                 }
             }
         }
+        public bool IsComplex { get; set; }
+        public ComplexTourRequest ComplexTourRequest { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand CityComboBoxCommand { get; set; }
+        public RelayCommand CountryComboBoxCommand { get; set; }
+        public RelayCommand<object> OpenDropDownCommand { get; set; }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public CreateTourRequestViewModel(User loggedInUser)
+        public CreateTourRequestViewModel(User loggedInUser,bool isComplex,ComplexTourRequest complexTourRequest)
         {
             LoggedInUser = loggedInUser;
-            TourRequest = new TourRequest();
-            TourRequest.TouristId = LoggedInUser.Id;
-            SelectedLocation = new LocationDto();
+            TourRequestViewModel = new TourRequestViewModel();
+            TourRequestViewModel.TouristId = LoggedInUser.Id;
+            IsComplex = isComplex;
+            ComplexTourRequest = complexTourRequest;
 
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -75,8 +82,41 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Countires = GlobalLocationsService.GetAllCountries();
             Languages = GlobalLanguagesService.GetAll();
             AllCities = GlobalLocationsService.GetAllCities();
+            oldCity = "";
 
             UpdateCitiesFromList(AllCities);
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(CloseWindow);
+            HelpCommand = new RelayCommand(Help);
+            CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
+            CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
+            OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
+        }
+        public RelayCommand<object> FocusUpCommand => new RelayCommand<object>(FocusToComboBox);
+        public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToBox);
+
+        private void FocusToComboBox(object o)
+        {
+            // Assuming MyComboBox is your ComboBox instance
+            ComboBox comboBox = o as ComboBox;
+            if (comboBox != null)
+                comboBox.Focus();
+        }
+        private void FocusToBox(object o)
+        {
+            // Assuming MyComboBox is your ComboBox instance
+            TextBox comboBox = o as TextBox;
+            if (comboBox != null)
+                comboBox.Focus();
+        }
+
+        private void CloseWindow()
+        {
+            // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
+            Style style = Application.Current.FindResource("MessageStyle") as Style;
+            MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to close window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+            if (result == MessageBoxResult.Yes)
+                Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }
 
         private void UpdateCitiesFromList(List<string> cities)
@@ -86,40 +126,43 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public void Confirm()
         {
-            new TouristsDataWindow(TourRequest.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequest).ShowDialog();
+            if (!TourRequestViewModel.IsValid)
+            {
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
+                return;
+            }
+            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel,IsComplex,ComplexTourRequest).ShowDialog();
         }
 
-        
+        private void Help()
+        { }
 
-        public void CityComboBoxLostFocus()
+        public void CityComboBoxLostFocus(object parameter)
         {
-            if (AllCities.Contains(SelectedLocation.City) && !string.Equals(TourRequest.Location.City, SelectedLocation.City))
+            if (AllCities.Contains(TourRequestViewModel.City) && !string.Equals(TourRequestViewModel.City, oldCity))
             {
-                SelectedLocation.Country = GlobalLocationsService.GetCountryForCity(SelectedLocation.City.ToString());
+                TourRequestViewModel.Country = GlobalLocationsService.GetCountryForCity(TourRequestViewModel.City.ToString());
+                oldCity = TourRequestViewModel.City;
             }
-            TourRequest.Location.City = SelectedLocation.City;
         }
 
         public void CountryComboBoxChanged()
         {
-            if (!string.Equals(TourRequest.Location.Country, SelectedLocation.Country))
+            if (!string.IsNullOrEmpty(TourRequestViewModel.Country))
             {
-                if (!string.IsNullOrEmpty(SelectedLocation.Country))
-                {
-                    List<string> citisInCountry = GlobalLocationsService.GetCitiesFromCountry(SelectedLocation.Country.ToString());
-                    UpdateCitiesFromList(citisInCountry);
-                }
-                else if (string.IsNullOrEmpty(SelectedLocation.Country))
-                    UpdateCitiesFromList(AllCities);
-                TourRequest.Location.Country = SelectedLocation.Country;
-
+                List<string> citisInCountry = GlobalLocationsService.GetCitiesFromCountry(TourRequestViewModel.Country.ToString());
+                UpdateCitiesFromList(citisInCountry);
             }
+            else if (string.IsNullOrEmpty(TourRequestViewModel.Country))
+                UpdateCitiesFromList(AllCities);
         }
 
         public void OpenDropDownClick(object sender)
         {
             var comboBox = sender as ComboBox;
-            comboBox.IsDropDownOpen = Cities.Count() > 500 ? false : true;
+            if (comboBox != null)
+                comboBox.IsDropDownOpen = Cities.Count() > 500 ? false : true;
         }
     }
 }

@@ -26,5 +26,10 @@ namespace BookingApp.Aplication.UseCases
             var tourist = GetByUserId(touristId);
             return tourist != null ? tourist.Age : -1;
         }
+
+        public void Update(Tourist tourist)
+        {
+            touristRepository.Update(tourist);
+        }
     }
 }

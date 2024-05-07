@@ -16,8 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Domain.Models;
 using System.IO;
-using BookingApp.WPF.ViewModel.GuestViewModel;
-using BookingApp.WPF.ViewModel.OwnerViewModel;
+using BookingApp.WPF.ViewModels.GuestViewModel;
+using BookingApp.WPF.ViewModels.OwnerViewModel;
 
 namespace BookingApp.View
 {

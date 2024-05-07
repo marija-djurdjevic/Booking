@@ -1,14 +1,79 @@
-﻿<Window x:Class="BookingApp.View.GuideMainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View"
-        mc:Ignorable="d"
-        Title="GuideMainWindow" Height="768" Width="1024"
-        WindowStartupLocation="CenterScreen">
+﻿<Window
+    x:Class="BookingApp.View.GuideMainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="GuideMainWindow"
+    Width="1024"
+    Height="768"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
-    <Grid>
-        <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden"/>
-    </Grid>
+    <DockPanel>
+
+
+        <DockPanel DockPanel.Dock="Top" Visibility="Collapsed">
+            <Grid
+                Height="71"
+                VerticalAlignment="Top"
+                Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+
+                <Image
+                    Grid.Column="0"
+                    Width="71"
+                    Height="71"
+                    Source="/Resources/Images/menu5.png"
+                    Stretch="Uniform" />
+            </Grid>
+        </DockPanel>
+
+        <DockPanel
+            Height="71"
+            VerticalAlignment="Bottom"
+            Background="{StaticResource nagivation}"
+            DockPanel.Dock="Bottom">
+            <!--  Donja navigaciona traka  -->
+
+
+
+            <!--  Prva slika u levom cosku  -->
+            <Button
+                Width="82"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Command="{Binding GoBackCommand}">
+                <Image
+                    Width="59"
+                    Height="59"
+                    Source="/Resources/Images/back.png" />
+            </Button>
+
+            <!--  Druga slika u sredini  -->
+            <Button
+                Width="82"
+                Background="Transparent"
+                HorizontalAlignment="Center"
+                BorderThickness="0"
+                Command="{Binding GoHomeCommand}">
+                <Image
+                    HorizontalAlignment="Center"
+                    Width="59"
+                    Height="59"
+                    Source="/Resources/Images/home4.png" />
+            </Button>
+
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Left">
+            <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden" />
+        </DockPanel>
+    </DockPanel>
 </Window>

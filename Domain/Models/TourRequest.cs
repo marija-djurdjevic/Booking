@@ -14,6 +14,7 @@ namespace BookingApp.Domain.Models
         public int Id { get; set; }
         public int GuideId { get; set; }
         public int TouristId { get; set; }
+        public int ComplexId { get; set; }
         public Location Location { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
@@ -29,11 +30,13 @@ namespace BookingApp.Domain.Models
             Location = new Location();
             Persons = new List<Tuple<string, string, int>>();
             Status = TourRequestStatus.Pending;
+            ComplexId = -1;
         }
 
-        public TourRequest(int id, int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate)
+        public TourRequest(int id, int guideId,int complexId, int touristId, Location location, string description, string language, int touristNumber, DateTime startDate, DateTime endDate, List<Tuple<string, string, int>> persons, TourRequestStatus status, DateTime acceptedDate)
         {
             Id = id;
+            GuideId = guideId;
             TouristId = touristId;
             Location = location;
             Description = description;
@@ -41,7 +44,10 @@ namespace BookingApp.Domain.Models
             TouristNumber = touristNumber;
             StartDate = startDate;
             EndDate = endDate;
-            Status = TourRequestStatus.Pending;
+            Persons = persons;
+            Status = status;
+            AcceptedDate = acceptedDate;
+            ComplexId = complexId;
         }
 
         public string[] ToCSV()
@@ -49,9 +55,10 @@ namespace BookingApp.Domain.Models
             string persons = "";
             foreach (var person in Persons)
             {
-                persons += person.Item1 + "," + person.Item2 + "," + person.Item3 + ",";
+                persons += person.Item1 + "," + person.Item2 + "," + person.Item3 + "|";
             }
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), Location.City, Location.Country, Description, Language, TouristNumber.ToString(), StartDate.ToString("dd.MM.yyyy HH:mm:ss"), EndDate.ToString("dd.MM.yyyy HH:mm:ss"), Status.ToString(), AcceptedDate.ToString("dd.MM.yyyy HH:mm:ss"), persons };
+            persons=persons.Remove(persons.Length - 1);
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(),ComplexId.ToString(), Location.City, Location.Country, Description, Language, TouristNumber.ToString(), StartDate.ToString("dd.MM.yyyy HH:mm:ss"), EndDate.ToString("dd.MM.yyyy HH:mm:ss"), Status.ToString(), AcceptedDate.ToString("dd.MM.yyyy HH:mm:ss"), persons };
             return csvValues;
         }
 
@@ -60,16 +67,17 @@ namespace BookingApp.Domain.Models
             Id = Convert.ToInt32(values[0]);
             TouristId = Convert.ToInt32(values[1]);
             GuideId = Convert.ToInt32(values[2]);
-            Location.City = values[3];
-            Location.Country = values[4];
-            Description = values[5];
-            Language = values[6];
-            TouristNumber = Convert.ToInt32(values[7]);
-            StartDate = DateTime.ParseExact(values[8], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
-            EndDate = DateTime.ParseExact(values[9], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
-            Status = (TourRequestStatus)Enum.Parse(typeof(TourRequestStatus), values[10]);
-            AcceptedDate = DateTime.ParseExact(values[11], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
-            for (int i = 12; i < values.Length; i++)
+            ComplexId = Convert.ToInt32(values[3]);
+            Location.City = values[4];
+            Location.Country = values[5];
+            Description = values[6];
+            Language = values[7];
+            TouristNumber = Convert.ToInt32(values[8]);
+            StartDate = DateTime.ParseExact(values[9], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
+            EndDate = DateTime.ParseExact(values[10], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
+            Status = (TourRequestStatus)Enum.Parse(typeof(TourRequestStatus), values[11]);
+            AcceptedDate = DateTime.ParseExact(values[12], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); ;
+            for (int i = 13; i < values.Length; i++)
             {
                 var osoba = values[i].Split(',');
                 Tuple<string, string, int> osobaTuple = new Tuple<string, string, int>(osoba[0], osoba[1], Convert.ToInt32(osoba[2]));

@@ -1,7 +1,8 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,21 +28,31 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class VoucherPage : Page
     {
-        private VoucherViewModel voucherViewModel;
         public VoucherPage(User loggedInUser)
         {
             InitializeComponent();
-            voucherViewModel = new VoucherViewModel(loggedInUser);
-            DataContext = voucherViewModel;
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            voucherViewModel.OpenInbox();
+            DataContext = new VoucherViewModel(loggedInUser);
+            Items.Focus();
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                switch (message.Notification)
+                {
+                    case "ScrollVoucherToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollVoucherToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollVoucherDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollVoucherUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                }
+            });
         }
     }
 }
