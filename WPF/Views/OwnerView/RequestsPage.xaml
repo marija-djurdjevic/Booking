@@ -89,10 +89,12 @@
                                 Margin="5"
                                 Orientation="Horizontal">
                                 <Button
+                                    Background="{StaticResource OwnerButtonColor2}"
                                     Margin="5"
                                     Click="AcceptButton_Click"
                                     Content="Accept" />
                                 <Button
+                                    Background="{StaticResource OwnerButtonColor2}"
                                     Margin="5"
                                     Click="DenyButton_Click"
                                     Content="Deny" />

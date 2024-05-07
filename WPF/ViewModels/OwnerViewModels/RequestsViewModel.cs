@@ -17,8 +17,8 @@ namespace BookingApp.WPF.ViewModel.OwnerViewModel
     public class RequestsViewModel
     {
         public ObservableCollection<ReservationChangeRequest> ReservationChangeRequests { get; set; }
-        private ChangeRequestService _requestsService;
-        private PropertyReservationService _reservationService;
+        private readonly ChangeRequestService _requestsService;
+        private readonly PropertyReservationService _reservationService;
 
         public RequestsViewModel()
         {

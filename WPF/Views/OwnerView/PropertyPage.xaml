@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel>
             <Frame x:Name="AddPropertyFrame"/>
-            <Button Click="AddProperty_Click" Content="Add Property" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+            <Button Background="{StaticResource OwnerButtonColor2}" Click="AddProperty_Click" Content="Add Property" Width="150" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left"/>
             <!-- Property Content Here -->
         </StackPanel>
     </Grid>
