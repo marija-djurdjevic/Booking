@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
+using BookingApp.Aplication;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.View
 {
@@ -38,7 +40,7 @@ namespace BookingApp.View
             InitializeComponent();
             this.LoggedInUser = LoggedInUser;
             _notifications = new List<Notification>();
-            _ownerService = new OwnerService();
+            _ownerService = new OwnerService(Injector.CreateInstance<IOwnerReviewRepository>(), Injector.CreateInstance<IOwnerRepository>());
             _ownerService.UpdateOwnerPropertiesBasedOnReviews();
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage(LoggedInUser));

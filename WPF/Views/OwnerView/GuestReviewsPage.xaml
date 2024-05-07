@@ -20,72 +20,56 @@
             <ItemsControl ItemsSource="{Binding OwnerReviews}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border
-                            Margin="5"
-                            Padding="10"
-                            BorderBrush="Black"
-                            BorderThickness="1">
+                        <Border BorderBrush="{StaticResource OwnerBorderColor}" Margin="5" Padding="10" BorderThickness="1">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFD6D6D6" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <!--  Reservation info  -->
-                                <StackPanel
-                                    Grid.Column="0"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
-                                    <TextBlock
-                                        Margin="0,0,0,5"
-                                        FontWeight="Bold"
-                                        Text="Reservation Info" />
-                                    <TextBlock FontWeight="Bold">Guest First Name:</TextBlock>
-                                    <TextBlock Text="{Binding Value.GuestFirstName}" />
-                                    <TextBlock FontWeight="Bold">Guest Last Name:</TextBlock>
-                                    <TextBlock Text="{Binding Value.GuestLastName}" />
-                                    <TextBlock FontWeight="Bold">Property Name:</TextBlock>
-                                    <TextBlock Text="{Binding Value.PropertyName}" />
-                                </StackPanel>
+                                <!-- Reservation Card -->
+                                <Border  Grid.Column="0" Background="#fdf3af" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
+                                    <StackPanel>
+                                        <TextBlock Margin="0,0,0,5" FontWeight="Bold" Text="Reservation Info" />
+                                        <TextBlock FontWeight="Bold">Guest First Name:</TextBlock>
+                                        <TextBlock Text="{Binding Value.GuestFirstName}" />
+                                        <TextBlock FontWeight="Bold">Guest Last Name:</TextBlock>
+                                        <TextBlock Text="{Binding Value.GuestLastName}" />
+                                        <TextBlock FontWeight="Bold">Property Name:</TextBlock>
+                                        <TextBlock Text="{Binding Value.PropertyName}" />
+                                    </StackPanel>
+                                </Border>
 
-                                <!--  Review info  -->
-                                <StackPanel
-                                    Grid.Column="1"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
-                                    <TextBlock
-                                        Margin="0,0,0,5"
-                                        FontWeight="Bold"
-                                        Text="Review Info" />
-                                    <TextBlock FontWeight="Bold">Cleanliness:</TextBlock>
-                                    <TextBlock Text="{Binding Key.Cleanliness}" />
-                                    <TextBlock FontWeight="Bold">Correctness:</TextBlock>
-                                    <TextBlock Text="{Binding Key.Correctness}" />
-                                    <TextBlock FontWeight="Bold">Comment:</TextBlock>
-                                    <TextBlock Text="{Binding Key.Comment}" />
-                                </StackPanel>
-
-                                <!--  Kontrola za prikaz slika  -->
-                                <Border Grid.Column="2" Margin="10,0">
+                                <!-- Review Card -->
+                                <Border Grid.Column="1" Background="#fdf3af" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
                                     <Grid>
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,5" FontWeight="Bold" Text="Review Info" />
+                                            <TextBlock FontWeight="Bold">Cleanliness:</TextBlock>
+                                            <TextBlock Text="{Binding Key.Cleanliness}" />
+                                            <TextBlock FontWeight="Bold">Correctness:</TextBlock>
+                                            <TextBlock Text="{Binding Key.Correctness}" />
+                                            <TextBlock FontWeight="Bold">Comment:</TextBlock>
+                                            <TextBlock Text="{Binding Key.Comment}" />
+                                        </StackPanel>
+                                        <!-- Image -->
                                         <Image
                                             Width="150"
                                             Height="100"
                                             Source="{Binding Key.ImagesPaths[0], Converter={StaticResource ImagePathConverter}}"
-                                            Stretch="UniformToFill" />
-                                        <!--  Dugmad za navigaciju između slika  -->
-                                        <StackPanel
-                                            Margin="0,0,0,10"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            Orientation="Horizontal">
-                                            <Button
-                                                Margin="0,0,10,0"
-                                                Command="{Binding ShowPreviousImageCommand}"
-                                                Content="Previous" />
-                                            <Button Command="{Binding ShowNextImageCommand}" Content="Next" />
-                                        </StackPanel>
+                                            Stretch="UniformToFill"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Margin="0,0,10,10" />
                                     </Grid>
                                 </Border>
                             </Grid>

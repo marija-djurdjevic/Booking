@@ -25,7 +25,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModel
         public int TotalImagesCount { get; set; }
 
 
-        private OwnerReviewService _reviewService;
+        private readonly OwnerReviewService _reviewService;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

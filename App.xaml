@@ -9,7 +9,14 @@
 
 
 
-
+        <!--  Stilovi za vlasnika  -->
+        <SolidColorBrush x:Key="OwneBackgroundColor" Color="#FCFBF4" />
+        <SolidColorBrush x:Key="OwnerCardColor" Color="#FDF3AF" />
+        <SolidColorBrush x:Key="OwnerButtonColor" Color="#FFEBEB" />
+        <SolidColorBrush x:Key="OwnerButtonColor2" Color="#F7F0B6" />
+        <SolidColorBrush x:Key="OwnerTabColor" Color="#FCFBF4" />
+        <SolidColorBrush x:Key="OwnerBorderColor" Color="#8B8386" />
+        <SolidColorBrush x:Key="OwnerToolBarColor" Color="#8B8386" />
         <!--  STilovi za turistu  -->
 
         <SolidColorBrush x:Key="BackgroundColor" Color="#00896F" />
