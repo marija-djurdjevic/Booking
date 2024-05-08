@@ -3,31 +3,100 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View.GuideView"
+      xmlns:local="clr-namespace:BookingApp.WPF.Converters"
       mc:Ignorable="d" 
       Title="TourReviewPage1"  Height="768" Width="1024">
 
 
+    <Page.Resources>
+        <local:ImagePathConverter x:Key="ImagePathConverter" />
+    </Page.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
+        </Grid.RowDefinitions>
+
         <!-- Gornja navigaciona traka -->
-        <Grid Height="71" VerticalAlignment="Top" Background="LightGray">
+        <Grid x:Name="grid1" Grid.Row="0" VerticalAlignment="Top" Background="{StaticResource nagivation}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="71"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Slika u prvoj koloni -->
-            <Image Grid.Column="0" Source="C:\Users\papov\OneDrive\Radna površina\project\sims-ra-2024-group-1-team-a\Resources\Images\menu5.png"
-               Stretch="Uniform" Width="71" Height="71" MouseLeftButtonUp="NavigateToSideMenuPage"/>
+            <Button VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Command="{Binding SideManuCommand}"
+                Background="Transparent"
+                BorderThickness="0">
+                <Image Source="/Resources/Images/menu5.png"
+                    Stretch="Uniform"
+                    Width="71"
+                    Height="71" />
+            </Button>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURISTS REVIEWS"/>
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="768" Margin="0,71,0,0">
-            <Grid Background="White">
-                <ItemsControl  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146">
+        <Grid  Background="{StaticResource pozadina}" Grid.Row="1">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="0,0,15,10" Grid.ColumnSpan="2">
+                <Grid Background="{StaticResource pozadina}" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Slika -->
+                    <Image Width="122" Height="118" Margin="10,48,10,0" VerticalAlignment="Top" Stretch="Fill">
+                        <Image.Source>
+                            <Binding Converter="{StaticResource ImagePathConverter}" Path="SelectedTour.ImagesPaths[0]" />
+                        </Image.Source>
+                    </Image>
+                    <TextBlock Margin="10,8,857,135" FontSize="24" Text="About Tour" Grid.ColumnSpan="2"  />
+                    <!-- Informacije -->
+                    <StackPanel Grid.Column="1" Margin="10,40,10,10">
+                        <TextBlock Margin="0,10,0,0">
+                        <Run FontSize="24" Text="Location:                  " />
+                        <TextBlock>
+                            <Run FontSize="24" Text="{Binding SelectedTour.Location.City}" />
+                            <Run FontSize="24" Text="," />
+                            <Run FontSize="24" Text="{Binding SelectedTour.Location.Country}" />
+                        </TextBlock>
+                    </TextBlock>
+
+                        <TextBlock Margin="0,10,0,0">
+                        <Run FontSize="24" Text="Language:                " />
+                        <TextBlock>
+                            <Run FontSize="24" Text="{Binding SelectedTour.Language}" />
+                        </TextBlock>
+                    </TextBlock>
+
+                        <TextBlock Margin="0,10,0,0">
+                        <Run FontSize="24" Text="Start date and time: " />
+                        <Run FontSize="24" Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+
+
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left"  Margin="0,0,0,109" Width="1009">
+            <Grid  Background="{StaticResource pozadina}">
+
+                <ItemsControl d:ItemsSource="{d:SampleData ItemCount=2}"  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox Width="950" FontSize="32" Margin="0,56,0,10">
+
+                            <GroupBox Background="{StaticResource gropuBox }" BorderBrush="Black" BorderThickness="2"  Width="950" FontSize="24" Margin="0,0,0,10">
+
                                 <GroupBox.Header>
+
                                     <Label>
                                         <TextBlock>
                                             <Run Text="{Binding Tourist.FirstName}" />
@@ -35,7 +104,9 @@
                                             <Run Text="{Binding Tourist.LastName}" />
                                         </TextBlock>
                                     </Label>
+
                                 </GroupBox.Header>
+
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -48,47 +119,47 @@
 
                                     <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="283.593" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Guide's knowledge: " />
+                                        <TextBlock Grid.Column="0" Text="  Guide's knowledge: " />
                                         <TextBlock Grid.Column="1" Text="{Binding GuideKnowledgeRating}" />
                                     </Grid>
 
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="283.593" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Guide's language: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding GuideLanguageRating}" />
+                                        <TextBlock Grid.Column="0" Text="  Guide's language: " Margin="0,5,0,0" />
+                                        <TextBlock Grid.Column="1" Text="{Binding GuideLanguageRating}" Margin="0,5,0,0" />
                                     </Grid>
 
                                     <Grid Grid.Row="2">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="283.593" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Tour attractions: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding TourInterestingesRating}" />
+                                        <TextBlock Grid.Column="0" Text="  Tour attractions: " Margin="0,5,0,0"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding TourInterestingesRating}" Margin="0,5,0,0" />
                                     </Grid>
 
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="283.593" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Arrival key point: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding ArrivalKeyPoint.Name}" />
+                                        <TextBlock Grid.Column="0" Text="  Arrival key point: " Margin="0,5,0,0" />
+                                        <TextBlock Grid.Column="1" Text="{Binding ArrivalKeyPoint.Name}" Margin="0,5,0,0" />
                                     </Grid>
 
                                     <Grid Grid.Row="4">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="283.593" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Review status: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding CommentStatus}" />
+                                        <TextBlock Grid.Column="0" Text="  Review status: " Margin="0,5,0,0" />
+                                        <TextBlock Grid.Column="1" Text="{Binding CommentStatus}" Margin="0,5,0,0" />
                                     </Grid>
 
                                     <Grid Grid.Row="5" Margin="0,0,0,60">
@@ -96,42 +167,25 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Review: " />
-                                        <TextBlock Grid.Column="1" Text="{Binding Comment}" TextWrapping="Wrap" />
+                                        <TextBlock Grid.Column="0" Text="  Review: " Margin="0,5,0,0" />
+                                        <TextBlock Text="{Binding Comment}" TextWrapping="Wrap" Margin="185,5,221,0" Grid.Column="1"  />
                                     </Grid>
-                                    <Button Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="264" Height="53" FontSize="28" Content="REPORT REVIEW"
-  Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" />
+                                    <Button Style="{StaticResource CustomButtonStyle}"  Grid.Row="5"  Width="190" Height="53" Margin="0,20,10,12" FontSize="24" Content="REPORT REVIEW"
+                                    Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
 
 
                                 </Grid>
+
                             </GroupBox>
+
                         </DataTemplate>
+
                     </ItemsControl.ItemTemplate>
+
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
 
-
-
-        <!-- Donja navigaciona traka -->
-        <Grid VerticalAlignment="Bottom" Background="LightGray" Height="71" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Prva slika u levom cosku -->
-            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}"
-                Background="Transparent" BorderBrush="Transparent">
-                <Image Source="/Resources/Images/back.png" Stretch="Uniform" Width="59" Height="59" />
-            </Button>
-
-
-            <Button Grid.Column="1" Command="{Binding NavigateBackCommand}"
-                Background="Transparent" BorderBrush="Transparent">
-                <Image Source="/Resources/Images/home4.png" Stretch="Uniform" Width="59" Height="59" />
-            </Button>
-        </Grid>
 
     </Grid>
 </Page>

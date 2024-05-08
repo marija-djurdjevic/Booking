@@ -1,26 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Aplication.Dto;
-using System.Windows;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repositories;
 using BookingApp.Domain.Models.Enums;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using System.Net.WebSockets;
+using System.CodeDom;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class TourRequestService
     {
         private readonly ITourRequestRepository tourRequestRepository;
+        private readonly ITourRepository tourRepository;
 
-        public TourRequestService(ITourRequestRepository tourRequestRepository)
+        public TourRequestService(ITourRequestRepository tourRequestRepository, ITourRepository tourRepository)
         {
             this.tourRequestRepository = tourRequestRepository;
+            this.tourRepository = tourRepository;
         }
 
         public void CreateRequest(TourRequest tourRequest)
@@ -29,18 +28,37 @@ namespace BookingApp.Aplication.UseCases
             CheckStatus();
         }
 
+        public List<TourRequest> GetNotAcceptedRequests()
+        {
+            CheckStatus();
+            return GetAllSimpleRequests().FindAll(t => t.Status != TourRequestStatus.Accepted);
+        }
+
+        public HashSet<int> GetTouristIdsInterestedForTour(string language,string location)
+        {
+            HashSet<int> touristIds = new HashSet<int>();
+            foreach(var request in GetNotAcceptedRequests())
+            {
+                if(request.Language.ToLower() == language.ToLower() || request.Location.City.ToLower() == location.ToLower())
+                {
+                    touristIds.Add(request.TouristId);
+                }
+            }
+            return touristIds;
+        }
+
         public List<TourRequest> GetByTouristId(int touristId)
         {
             CheckStatus();
-            var allRequests = tourRequestRepository.GetAll();
-            return allRequests.FindAll(t=>t.TouristId==touristId);
+            var allRequests = GetAllSimpleRequests();
+            return allRequests.FindAll(t => t.TouristId == touristId);
         }
 
         private void CheckStatus()
         {
-            foreach(var request in tourRequestRepository.GetAll())
+            foreach (var request in tourRequestRepository.GetAll())
             {
-                if (request.StartDate < DateTime.Now.AddHours(48) && request.Status==TourRequestStatus.Pending)
+                if (request.StartDate < DateTime.Now.AddHours(48) && request.Status == TourRequestStatus.Pending)
                 {
                     request.Status = TourRequestStatus.Invalid;
                     tourRequestRepository.Update(request);
@@ -48,9 +66,67 @@ namespace BookingApp.Aplication.UseCases
             }
         }
 
-        public void SortTours(ObservableCollection<Tuple<TourRequest, string>> unsorted, string sortBy)
+        public List<TourRequest> GetAllSimpleRequests()
         {
-            var sorted = new List<Tuple<TourRequest, string>>();
+            return tourRequestRepository.GetAll().FindAll(r=>r.ComplexId==-1);
+        }
+
+
+        public List<TourRequest>GetAllRequests()
+        {
+            return tourRequestRepository.GetAll();
+        }
+        
+        public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates()
+        {
+            var upcomingTours = tourRepository.GetAll().Where(t => t.StartDateTime >= DateTime.Today).ToList();
+            var tourDates = upcomingTours.Select(t => (t.StartDateTime, t.StartDateTime.AddHours(t.Duration))).ToList();
+
+            return tourDates;
+        }
+
+
+        public void UpdateRequestById(int requestId, DateTime newAcceptedDate)
+        {
+            var request = tourRequestRepository.GetById(requestId);
+            if (request != null)
+            {
+                request.AcceptedDate = newAcceptedDate;
+                request.Status= TourRequestStatus.Accepted;
+                tourRequestRepository.Update(request);
+            }
+        }
+
+        public TourRequest GetRequestById(int requestId)
+        {
+            return tourRequestRepository.GetById(requestId);
+        }
+
+
+        public List<DateTime> GetAllAcceptedDates()
+        {
+            var allrequests=tourRequestRepository.GetAll();
+            var acceptedDates = new List<DateTime>();
+            foreach(var request in allrequests)
+            {
+                if (request.Status == TourRequestStatus.Accepted)
+                {
+                    acceptedDates.Add(request.AcceptedDate);
+                }
+            }
+            return acceptedDates;
+        }
+
+
+        public (DateTime StartDate, DateTime EndDate) GetDateSlotById(int requestId)
+        {
+            var request = tourRequestRepository.GetById(requestId);
+            return (request.StartDate, request.EndDate);
+        }
+
+        public void SortTours(ObservableCollection<Tuple<TourRequestViewModel, string>> unsorted, string sortBy)
+        {
+            var sorted = new List<Tuple<TourRequestViewModel, string>>();
             switch (sortBy)
             {
                 case "System.Windows.Controls.ComboBoxItem: Date - Ascending":
@@ -75,5 +151,6 @@ namespace BookingApp.Aplication.UseCases
             }
             return;
         }
+       
     }
 }

@@ -7,24 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
     Title="CreateTourPage"
     Width="1024"
-    Height="3000"
+    Height="768"
     mc:Ignorable="d">
 
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathToBitmapConverter" />
+        <local:EmptySelectionConverter x:Key="EmptySelectionConverter" />
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-            <Grid Background="White">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,69,14,108">
+
+            <Grid Background="{StaticResource pozadina}" Height="1950">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" MinHeight="835" />
-                    <RowDefinition Height="Auto" MinHeight="0" />
+                    <RowDefinition Height="Auto" MinHeight="550" />
+                    <RowDefinition Height="Auto" MinHeight="285" />
 
                 </Grid.RowDefinitions>
 
@@ -35,118 +39,241 @@
                 <!--  Glavni sadržaj ispod gornje navigacione trake  -->
 
 
-                <Grid Margin="0,30,0,0">
+                <Grid Margin="0,-30,0,0">
 
 
                     <Label
-                        Height="794"
-                        Margin="15,44,20,0"
+                        Height="357"
+                        Margin="15,34,20,0"
                         VerticalAlignment="Top"
                         Content="Basic informations:"
                         FontSize="32" />
                     <Label
-                        Margin="25,108,20,1261"
+                        Margin="25,100,20,1269"
                         Content="Name:"
                         FontSize="28" />
                     <Label
-                        Margin="25,178,20,1235"
+                        Margin="25,186,20,1227"
                         Content="Language:"
                         FontSize="28" />
                     <Label
-                        Margin="25,263,20,1155"
+                        Margin="25,271,20,1147"
                         Content="Description:"
                         FontSize="28" />
 
 
                     <Border
                         Height="2"
-                        Margin="0,330,0,1108"
+                        Margin="0,422,0,1089"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,1" />
 
+
+
                     <TextBox
-                        Grid.Row="0"
-                        Height="42"
-                        Margin="215,115,629,1337"
-                        Text="{Binding Name, Mode=TwoWay}" />
-                    <ComboBox
-                    x:Name="ComboBoxLangugage"
                     Grid.Row="0"
                     Height="42"
-                    Margin="216,184,629,1268"
-                    ItemsSource="{Binding Langugages}"
-                    SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
+                    Margin="215,107,629,1364"
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+
+
+
+
+                    <ComboBox
+                        x:Name="SelectedLanguage"
+                        IsEditable="True"
+                        TextSearch.TextPath="."
+                        IsTextSearchEnabled="True"
+                        Grid.Row="0"
+                        Height="42"
+                        Margin="215,193,629,1278"
+                        ItemsSource="{Binding Langugages}"
+                        SelectedItem="{Binding SelectedLanguage, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent, Mode=OneWay}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </ComboBox>
+
+
+
 
                     <TextBox
                         Grid.Row="0"
-                        Height="42"
-                        Margin="215,272,40,1180"
+                        Margin="215,291,40,1105"
+                        TextWrapping="Wrap"
                         Text="{Binding Description, Mode=TwoWay}" />
 
 
                     <Label
-                        Margin="15,349,20,1087"
+                        Margin="15,429,20,1007"
                         Content="Tour details:"
                         FontSize="32" />
                     <Label
-                        Margin="25,492,100,917"
+                        Margin="25,593,100,831"
                         Content="Location:"
                         FontSize="28" />
                     <Label
-                        Margin="25,408,20,998"
+                        Margin="25,492,20,930"
                         Content="Duration:"
                         FontSize="28" />
                     <Label
-                        Margin="25,582,20,829"
+                        Margin="24,696,21,739"
                         Content="Max tourists numbmer:"
                         FontSize="28" />
 
                     <Border
                         Height="2"
-                        Margin="0,641,0,797"
+                        Margin="0,788,0,723"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,1" />
 
                     <xctk:IntegerUpDown
-                        Grid.Row="0"
-                        Height="42"
-                        Margin="356,416,489,1036"
-                        Increment="1"
-                        Minimum="0"
-                        RenderTransformOrigin="-0.113,-7.205"
-                        Value="{Binding Duration, Mode=TwoWay}" />
+                    Grid.Row="0"
+                    Height="42"
+                    Margin="356,502,489,969"
+                    Increment="1"
+                    Minimum="0"
+                    RenderTransformOrigin="-0.113,-7.205"
+                    Value="{Binding Duration, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </xctk:IntegerUpDown>
 
-                    <ComboBox
-                        x:Name="ComboBoxLocation"
-                        Grid.Row="0"
-                        Height="42"
-                        Margin="356,500,489,952"
-                        ItemsSource="{Binding CitiesCountries}"
-                        SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
+                    <ComboBox x:Name="ComboBoxLocation"
+          IsEditable="True"
+          TextSearch.TextPath="."
+          IsTextSearchEnabled="True"
+          Grid.Row="0"
+          Height="42"
+          Margin="356,600,489,871"
+          ItemsSource="{Binding CitiesCountries}"
+          SelectedItem="{Binding SelectedLocation, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <Border BorderBrush="Red" BorderThickness="1">
+                                        <AdornedElementPlaceholder/>
+                                    </Border>
+                                    <TextBlock Text="{Binding [0].ErrorContent, Mode=OneWay}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </ComboBox>
 
                     <xctk:IntegerUpDown
-                        Grid.Row="0"
-                        Height="42"
-                        Margin="354,591,488,861"
-                        Increment="1"
-                        Minimum="0"
-                        Value="{Binding MaxTouristNumber, Mode=TwoWay}" />
+                    Grid.Row="0"
+                    Height="42"
+                    Margin="357,702,489,769"
+                    Increment="1"
+                    Minimum="0"
+                    Value="{Binding MaxTouristNumber, Mode=TwoWay,ValidatesOnDataErrors=True}" >
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </xctk:IntegerUpDown>
 
 
-                    <Label Margin="24,700,11,680" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Width="242" Height="46" Margin="204,682,561,712" Text="{Binding KeyPoints, Mode=TwoWay}" />
-                    <Button Width="128" Height="48" Margin="503,682,376,710" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+                    <Label Margin="24,818,11,562" Content="Key Point:" FontSize="32" />
+                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,826,550,641" Text="{Binding KeyPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="placeholder"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="20"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
 
-                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="212,785,570,609" ItemsSource="{Binding KeyPointNames}">
+                    <Button Height="48" Margin="530,826,347,641" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" Style="{StaticResource CustomButtonStyle}" FontSize="20" />
+
+
+
+
+
+
+
+                    <ListBox x:Name="ListBoxKeyPoints" Height="100" Margin="210,932,550,481" ItemsSource="{Binding KeyPointNames}" FontSize="20">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
-                                    <Button Width="20" Height="20" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X" />
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding}" FontSize="20" />
+                                    <Button Grid.Column="1" Width="30" Height="30" Margin="5" Command="{Binding DataContext.RemoveKeyPointCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding}" Content="X" FontSize="20" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="Validation.ErrorTemplate">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <DockPanel LastChildFill="True">
+                                                <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="20" Text="X" Margin="5"/>
+                                                <Border BorderBrush="Red" BorderThickness="1">
+                                                    <AdornedElementPlaceholder/>
+                                                </Border>
+                                            </DockPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
                     </ListBox>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,39 +284,60 @@
                         BorderThickness="0,0,0,1" />
 
 
-                    <Button
-                        Width="184"
-                        Margin="700,1220,140,158"
-                        Command="{Binding UploadImageCommand}"
-                        Content="UPLOAD"
-                        FontSize="40"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Height="100"  CornerRadius="30" Margin="656,1204,100,154">
+                        <Button
+                                Height="43"
+                                Padding="-2"
+                                Command="{Binding UploadImageCommand}"
+                                Content="UPLOAD"
+                                FontSize="24" Margin="54,29,51,26"
+                                Style="{StaticResource CustomButtonStyle}"/>
+                    </Border>
+
+
 
                     <Grid>
+                        <TextBlock Text="Images" FontSize="24" Margin="307,1141,600,325" />
+
                         <Image
-                            x:Name="ImagePreview"
-                            Grid.Column="0"
-                            Width="150"
-                            Height="230"
-                            Margin="286,1146,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Stretch="Fill"
-                            Source="{Binding CurrentImage}" />
+        x:Name="ImagePreview"
+        Grid.Column="0"
+        Width="187"
+        Height="157"
+        Margin="249,1189,0,0"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Stretch="Fill"
+        Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="placeholder"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent, Mode=OneWay}" Foreground="Red" Margin="-82,0,0,0" FontSize="20"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </Image>
 
-
-                        <Grid Margin="28,1260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Grid Margin="0,1260,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding NextImageCommand}" Content="Next" Margin="460,0,-420,0"/>
-                            <Button Grid.Column="2" Width="80" Height="32" Command="{Binding PreviousImageCommand}" Content="Previous" Margin="136,0,-96,0"/>
-                            <Button Grid.Column="2" Width="80" Height="30" Command="{Binding DeleteImageCommand}" Content="Delete" Margin="288,127,-248,-125"/>
-                        </Grid>
+                            <Button Style="{StaticResource CustomButtonStyle}" Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-253,-7,360,0">
+                                <TextBlock Text="&#x25C0;" FontSize="24"/>
+                            </Button>
 
+                            <Button Style="{StaticResource CustomButtonStyle}" Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="45,-7,50,0">
+                                <TextBlock Text="&#x25B6;" FontSize="24"/>
+                            </Button>
+
+                            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding DeleteImageCommand}" Padding="5" FontSize="24" Content="Delete" Margin="-120,109,191,-113"/>
+                        </Grid>
                     </Grid>
+
 
 
 
@@ -202,41 +350,42 @@
                         BorderThickness="0,0,0,1" />
 
 
-                    <TextBox
-                        x:Name="NewDateTextBox"
-                        Grid.Row="0"
-                        Margin="356,1488,486,-89" />
+
                     <Button
-                        Width="184"
-                        Margin="700,1480,140,-102"
+                        Height="48"
+                        Margin="706,1540,171,-73"
                         Command="{Binding AddDateCommand}"
                         CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
                         Content="ADD"
-                        FontSize="40" />
+                        FontSize="24"
+                        Style="{StaticResource CustomButtonStyle}"/>
 
                     <Label
-                        Margin="18,1488,384,-130"
+                        Margin="18,1536,384,-178"
                         Content="Start Date and Time:"
                         FontSize="28" />
+
+
                     <xctk:DateTimePicker
                         x:Name="StartDateTimePicker"
                         Grid.Row="0"
-                        Margin="356,1488,486,-89" />
+                        Margin="356,1540,424,-72"
+                        Height="45"/>
 
 
 
                     <ListBox
                         x:Name="ListBoxDates"
-                        Height="100"
-                        Margin="315,1609,450,-215"
+                        Margin="357,1643,365,-250"
+                        Height="120"
                         ItemsSource="{Binding TourDates}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" FontSize="20" />
                                     <Button
-                                        Width="20"
-                                        Height="20"
+                                        Width="30"
+                                        Height="30"
                                         Margin="5"
                                         Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                         Content="X"
@@ -251,11 +400,11 @@
 
 
                     <Button
-                        Width="184"
-                        Margin="392,2026,448,-648"
+                        Margin="357,1861,477,-402"
                          Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         Content="CONFRIM"
-                        FontSize="40" />
+                        FontSize="24" 
+                        Style="{StaticResource CustomButtonStyle}"/>
 
 
                 </Grid>
@@ -269,9 +418,14 @@
             </Grid>
         </ScrollViewer>
 
+
+
+
+
+
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -281,7 +435,7 @@
                 Grid.Row="0"
                 Height="71"
                 VerticalAlignment="Top"
-                Background="LightGray">
+                Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71" />
                     <!--  Prva kolona za sliku  -->
@@ -290,53 +444,20 @@
                 </Grid.ColumnDefinitions>
 
                 <!--  Slika u prvoj koloni  -->
-                <Image
-                    Grid.Column="0"
-                    Width="71"
-                    Height="71"
-                    MouseLeftButtonUp="NavigateToSideMenuPage"
-                    Source="/Resources/Images/menu5.png"
-                    Stretch="Uniform" />
+                <Button Grid.Column="0"
+                    Command="{Binding SideManuCommand}"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+                        Stretch="Uniform"
+                        Width="71"
+                        Height="71" />
+                </Button>
 
-
-
-            </Grid>
-
-
-
-            <!--  Donja navigaciona traka  -->
-            <Grid
-                Grid.Row="1"
-                Margin="0,288,0,0"
-                VerticalAlignment="Top"
-                Background="LightGray">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <!--  Prva kolona za sliku u levom cosku  -->
-                    <ColumnDefinition Width="*" />
-                    <!--  Druga kolona za sredinu  -->
-
-                </Grid.ColumnDefinitions>
-
-                <!--  Prva slika u levom cosku  -->
-                <Image
-                    Grid.Column="0"
-                    Width="59"
-                    Height="59"
-                    MouseLeftButtonUp="NavigateToMainPage"
-                    Source="/Resources/Images/back.png"
-                    Stretch="Uniform" />
-
-                <!--  Druga slika u sredini  -->
-                <Image
-                    Grid.Column="1"
-                    Width="59"
-                    Height="59"
-                    MouseLeftButtonUp="NavigateToMainPage"
-                    Source="/Resources/Images/home4.png"
-                    Stretch="Uniform" />
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE TOUR"/>
 
             </Grid>
+
         </Grid>
 
 

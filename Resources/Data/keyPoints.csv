@@ -50,3 +50,89 @@
 58|11|Banja Luka|Middle|2|False
 59|11|Beograd|Middle|3|False
 60|11|Novi Sad|End|4|False
+61|12|adfadf|Begining|1|False
+62|12|adfadfadf|End|2|False
+63|13|sdsD|Begining|1|False
+64|13|sdsDsdSD|End|2|False
+65|14|aaaaa|Begining|1|False
+66|14|ssssss|Middle|2|False
+67|14|ddddd|Middle|3|False
+68|14|fffffff|End|4|False
+69|15|aaaaa|Begining|1|False
+70|15|ssssss|Middle|2|False
+71|15|ddddd|Middle|3|False
+72|15|fffffff|End|4|False
+73|16|jedan|Begining|1|True
+74|16|dva|Middle|2|True
+75|16|tri|Middle|3|False
+76|16|cetiri|Middle|4|False
+77|16|pet|End|5|False
+78|17|asasas|Begining|1|True
+79|17|asasasasd|Middle|2|False
+80|17|asasasasdasdasd|Middle|3|False
+81|17|asa|End|4|False
+82|18|tacka1|Begining|1|True
+83|18|tacka2|Middle|2|False
+84|18|tacka3|Middle|3|False
+85|18|tacka4|Middle|4|False
+86|18|tacka5|Middle|5|False
+87|18|tacka6|Middle|6|False
+88|18|tacka7|End|7|False
+89|19|AAAA|Begining|1|True
+90|19|AAAASSSS|Middle|2|False
+91|19|AAAASSSSDDDD|Middle|3|False
+92|19|AAAASSSSDDDDFFFF|Middle|4|False
+93|19|AAAASSSSDDDDFFFFGGGG|Middle|5|False
+94|19|AAAASSSSDDDDFFFFGGGGHHHH|End|6|False
+95|20|afadfadf|Begining|1|True
+96|20|afadfadfafadf|End|2|False
+97|21|AFAFADF|Begining|1|True
+98|21|AFAFADFADF|Middle|2|True
+99|21|AFAFADFADF|Middle|3|True
+100|21|AFAFADFADF|Middle|4|True
+101|21|AFAFADFADF|Middle|5|False
+102|21|AFAFADFADF|End|6|False
+103|21|ssss|Begining|1|True
+104|21|ssssdddd|Middle|2|True
+105|21|ssssddddfff|End|3|False
+106|22|ssss|Begining|1|False
+107|22|ssssdddd|Middle|2|False
+108|22|ssssddddfff|End|3|False
+109|23|ssss|Begining|1|False
+110|23|ssssdddd|Middle|2|False
+111|23|ssssddddfff|End|3|False
+112|24|ssss|Begining|1|False
+113|24|ssssdddd|Middle|2|False
+114|24|ssssddddfff|End|3|False
+115|25|ssss|Begining|1|False
+116|25|ssssdddd|Middle|2|False
+117|25|ssssddddfff|End|3|False
+118|26|Start point|Begining|1|True
+119|26|Middle point 1|Middle|2|True
+120|26|Middle point 2|Middle|3|True
+121|26|Middle point 3|Middle|4|True
+122|26|Middle point 4|Middle|5|True
+123|26|End point|End|6|True
+118|26|adfdf|Begining|1|False
+119|26|adfdfadf|End|2|False
+124|27|aaa|Begining|1|False
+125|27|dddd|End|2|False
+126|28|AAA|Begining|1|False
+127|28|SSSS|End|2|False
+128|29|adf|Begining|1|False
+129|29|adf|End|2|False
+130|30|aaaa|Begining|1|False
+131|30|sssss|End|2|False
+132|31|aaaa|Begining|1|False
+133|31|sssss|End|2|False
+134|32|sa|Begining|1|False
+135|32|adfadf|End|2|False
+136|33|afadf|Begining|1|False
+137|33|sfsfgsfg|End|2|False
+138|34|ddd|Begining|1|False
+139|34|fffff|End|2|False
+140|35|pariz|Begining|1|False
+141|35|london|Middle|2|False
+142|35|lisabon|End|3|False
+143|36|f|Begining|1|False
+144|36|ggg|End|2|False

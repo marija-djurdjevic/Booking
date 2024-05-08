@@ -12,31 +12,77 @@ using System.Linq;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Aplication;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     internal class TouristsNumberPageViewModel : BaseViewModel
     {
+        private Tour selectedTour;
         private int tourId;
         private int under18Count;
         private int between18And50Count;
         private int over50Count;
         private readonly TouristService touristService;
+        private readonly TourService tourService;
         private readonly TourReservationService tourReservationService;
         private readonly TouristExperienceService touristExperienceService;
         private RelayCommand navigateHomeCommand;
         private RelayCommand navigateBackCommand;
+        private RelayCommand sideMenuCommand;
 
         public TouristsNumberPageViewModel(int tourId)
         {
             this.tourId = tourId;
+            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            SelectedTour=tourService.GetTourById(tourId);
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             CountTouristsByAge();
+
+
+            HistogramData = new SeriesCollection
+{
+    new ColumnSeries
+    {
+        Title = "Under 18",
+        Values = new ChartValues<int> { Under18Count }
+    },
+    new ColumnSeries
+    {
+        Title = "Between 18 and 50",
+        Values = new ChartValues<int> { Between18And50Count }
+    },
+    new ColumnSeries
+    {
+        Title = "Over 50",
+        Values = new ChartValues<int> { Over50Count }
+    }
+};
+
+            Labels = new[] { "Age Groups" };
+
+        }
+
+
+       
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                if (selectedTour != value)
+                {
+                    selectedTour = value;
+                    OnPropertyChanged(nameof(SelectedTour));
+                }
+            }
         }
 
         public int Under18Count
@@ -51,6 +97,8 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
                 }
             }
         }
+        
+
 
         public int Between18And50Count
         {
@@ -81,12 +129,12 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
         private void CountTouristsByAge()
         {
 
-            var users = tourReservationService.GetByTourId(tourId).Where(t => t.IsUser && !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name));
+            var tourists = tourReservationService.GetByTourId(tourId).Where(t => !string.IsNullOrWhiteSpace(t.JoinedKeyPoint.Name));
 
-            foreach (var user in users)
+            foreach (var tourist in tourists)
             {
-                int touristId = user.UserId;
-                int age = touristService.GetAgeById(touristId);
+
+                int age = tourist.TouristAge;
                 if (age < 18)
                 {
                     Under18Count++;
@@ -128,7 +176,7 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
 
         private void ExecuteNavigateHome()
         {
-            var mainPage = new GuideMainPage1();
+            var mainPage = new GuideMainPage();
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
@@ -138,5 +186,36 @@ namespace BookingApp.WPF.ViewModel.GuidesViewModel
             var tourStatisticPage = new TourStatistic();
             GuideMainWindow.MainFrame.Navigate(tourStatisticPage);
         }
+
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage();
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
+
+
+        public SeriesCollection HistogramData { get; set; }
+        public string[] Labels { get; set; }
+
+
+
+
+
     }
 }

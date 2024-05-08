@@ -1,4 +1,5 @@
 ﻿using BookingApp.View.GuideView;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,7 +13,10 @@ namespace BookingApp.View
         {
             InitializeComponent();
             MainFrame = (Frame)this.FindName("MainFrameControl");
-            MainFrame.Navigate(new GuideMainPage1());
+            MainFrame.Navigate(new GuideMainPage());
+            DataContext = new GuideMainWindowViewModel();
         }
     }
+
+
 }

@@ -5,3 +5,11 @@
 5|False|5|Novi Sad|Begining|1|False|5|Ruma|Middle|2|False|5|Batrovci|Middle|3|False|5|Gradiska|Middle|4|False|5|Nova Topola|Middle|5|False|5|Aleksandrovac|Middle|6|False|5|Miljevici|End|7|False
 9|False|9|Linz|Begining|1|False|9|Banja Luka|Middle|2|False|9|Sarajevo|Middle|3|False|9|Leskovac|Middle|4|False|9|Gornji Milanovac|Middle|5|False|9|Beograd|Middle|6|False|9|Novi Sad|Middle|7|False|9|Subotica|End|8|False
 10|False|10|Vienna|Begining|1|False|10|Banja Luka|Middle|2|False|10|Beograd|Middle|3|False|10|Novi Sad|End|4|False
+13|False|13|sdsD|Begining|1|False|13|sdsDsdSD|End|2|False
+14|False|14|aaaaa|Begining|1|False|14|ssssss|Middle|2|False|14|ddddd|Middle|3|False|14|fffffff|End|4|False
+16|False|16|jedan|Begining|1|True|16|dva|Middle|2|True|16|tri|Middle|3|False|16|cetiri|Middle|4|False|16|pet|End|5|False
+17|False|17|asasas|Begining|1|True|17|asasasasd|Middle|2|False|17|asasasasdasdasd|Middle|3|False|17|asa|End|4|False
+18|False|18|tacka1|Begining|1|True|18|tacka2|Middle|2|False|18|tacka3|Middle|3|False|18|tacka4|Middle|4|False|18|tacka5|Middle|5|False|18|tacka6|Middle|6|False|18|tacka7|End|7|False
+19|False|19|AAAA|Begining|1|True|19|AAAASSSS|Middle|2|False|19|AAAASSSSDDDD|Middle|3|False|19|AAAASSSSDDDDFFFF|Middle|4|False|19|AAAASSSSDDDDFFFFGGGG|Middle|5|False|19|AAAASSSSDDDDFFFFGGGGHHHH|End|6|False
+20|False|20|afadfadf|Begining|1|True|20|afadfadfafadf|End|2|False
+21|True|21|AFAFADF|Begining|1|True|21|AFAFADFADF|Middle|2|True|21|AFAFADFADF|Middle|3|True|21|AFAFADFADF|Middle|4|True|21|AFAFADFADF|Middle|5|False|21|AFAFADFADF|End|6|False|21|ssss|Begining|1|True|21|ssssdddd|Middle|2|True|21|ssssddddfff|End|3|False

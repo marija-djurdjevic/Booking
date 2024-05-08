@@ -13,6 +13,27 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+    </Window.InputBindings>
 
     <Window.Resources>
         <Style x:Key="LargeRadioButtonStyle" TargetType="RadioButton">
@@ -76,7 +97,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -87,6 +108,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -100,7 +131,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Click="ConfirmClick"
+                    Command="{Binding ConfirmCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -114,12 +145,21 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Finish tour reservation<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Ctrl+Enter)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
 
                 <Button
                     Grid.Column="0"
-                    Click="CancelClick"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -133,14 +173,26 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Cancel tour reservation<LineBreak />
+                                and close window<Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Escape)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
 
         <DockPanel Margin="0,20,0,20" DockPanel.Dock="Left">
 
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <ScrollViewer
+                x:Name="Skrol"
+                HorizontalScrollBarVisibility="Hidden"
+                VerticalScrollBarVisibility="Visible">
 
                 <ListBox
                     Background="{StaticResource PageColor}"
@@ -187,6 +239,13 @@
                                         </StackPanel>
                                     </GroupBox>
                                 </RadioButton.Content>
+                                <RadioButton.ToolTip>
+                                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <TextBlock TextAlignment="Center">
+                                            Click to use voucher
+                                        </TextBlock>
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
                             </RadioButton>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -2,18 +2,25 @@
     x:Class="BookingApp.View.TouristView.SettingsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="clr-namespace:BookingApp"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Booking app"
     Width="350"
-    Height="480"
+    Height="620"
     Background="{StaticResource PageColor}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
+        <KeyBinding
+            Key="W"
+            Command="{Binding WizardCommand}"
+            Modifiers="Ctrl" />
+    </Window.InputBindings>
 
     <DockPanel Margin="10">
         <DockPanel
@@ -31,7 +38,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}"
                     Visibility="Collapsed">
                     <Button.Content>
@@ -55,7 +62,7 @@
                     Margin="15,15"
                     Padding="10,0"
                     HorizontalAlignment="Center"
-                    Click="CloseButtonCLick"
+                    Command="{Binding CloseCommand}"
                     Style="{StaticResource CancelButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -69,7 +76,16 @@
                     <Button.BorderBrush>
                         <SolidColorBrush Opacity="0" Color="White" />
                     </Button.BorderBrush>
-
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Close window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text=" (Escape)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
@@ -80,7 +96,41 @@
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="2*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
+                <Grid Grid.Row="3">
+                    <Button
+                        Grid.Row="1"
+                        Margin="0,0,0,0"
+                        Padding="10,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource BackgroundColor}"
+                        Command="{Binding WizardCommand}"
+                        Style="{StaticResource CancelButton}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Height="40"
+                                    Margin="5,0,5,0"
+                                    Source="/Resources/Icons/TouristIcons/wizard.png" />
+                                <TextBlock Margin="0,0,5,0" Text="Start wizard" />
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Opacity="0" Color="White" />
+                        </Button.BorderBrush>
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text="(Ctrl+W)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                </Grid>
                 <Image
                     Grid.Row="0"
                     Height="150"
@@ -146,6 +196,8 @@
                         Margin="0,10,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
+                        Command="{Binding ShowTooltipsCommand}"
+                        IsChecked="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Mode=TwoWay}"
                         Style="{StaticResource TogleStyle}" />
 
                 </Grid>

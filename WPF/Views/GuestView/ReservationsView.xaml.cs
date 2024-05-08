@@ -1,5 +1,5 @@
 ﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.GuestViewModel;
+using BookingApp.WPF.ViewModels.GuestViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;

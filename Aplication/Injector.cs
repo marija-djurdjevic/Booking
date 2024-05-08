@@ -14,6 +14,7 @@ namespace BookingApp.Aplication
         {
         { typeof(ITourRepository), new TourRepository() },
         { typeof(IPropertyRepository), new PropertyRepository() },
+        { typeof(IOwnerRepository), new OwnerRepository() },
         { typeof(IPropertyReservationRepository), new PropertyReservationRepository() },
         { typeof(ITouristRepository), new TouristRepository() },
         { typeof(IGlobalLanguagesRepository), new GlobalLanguagesRepository() },
@@ -26,6 +27,7 @@ namespace BookingApp.Aplication
         { typeof(IUserRepository), new UserRepository() },
         { typeof(IVoucherRepository), new VoucherRepository() },
         { typeof(ITourRequestRepository), new TourRequestRepository() },
+        { typeof(IComplexTourRequestRepository), new ComplexTourRequestRepository() },
         { typeof(IOwnerReviewRepository), new OwnerReviewRepository() },
         { typeof(IReservedDateRepository), new ReservedDateRepository() },
         { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestsRepository() },

@@ -2,10 +2,13 @@
     x:Class="BookingApp.WPF.Views.TouristView.CreateTourRequestWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extendedToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvmLight="http://www.galasoft.ch/mvvmlight"
     xmlns:rh="http://schemas.rollinghours.com/wpf"
     Title="Booking app"
     Width="554"
@@ -14,6 +17,29 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding FocusUpCommand}"
+            CommandParameter="{Binding ElementName=MyComboBox}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding FocusDownCommand}"
+            CommandParameter="{Binding ElementName=DownField}"
+            Modifiers="Ctrl" />
+    </Window.InputBindings>
+
     <DockPanel Margin="20,10,20,10">
         <DockPanel
             Grid.ColumnSpan="2"
@@ -32,7 +58,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -43,6 +69,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -65,6 +101,7 @@
 
             <StackPanel Grid.Column="1" Margin="0,10,0,0">
                 <ComboBox
+                    x:Name="MyComboBox"
                     Width="300"
                     Height="40"
                     HorizontalAlignment="Right"
@@ -75,26 +112,41 @@
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Countires}"
-                    LostFocus="CountryComboBoxChanged"
-                    SelectedItem="{Binding SelectedLocation.Country}"
-                    Text="{Binding SelectedLocation.Country}"
-                    TextSearch.TextPath="." />
+                    SelectedItem="{Binding TourRequestViewModel.Country, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding TourRequestViewModel.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    TextSearch.TextPath="."
+                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding CountryComboBoxCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
                 <ComboBox
+                    x:Name="myComboBox"
                     Width="300"
                     Height="40"
                     Margin="0,30,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     AllowDrop="False"
-                    DropDownOpened="OpenDropDownClick"
                     FontSize="20"
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Cities}"
-                    LostFocus="CityComboBoxLostFocus"
-                    SelectedItem="{Binding SelectedLocation.City}"
-                    Text="{Binding SelectedLocation.City}"
-                    TextSearch.TextPath="." />
+                    SelectedItem="{Binding TourRequestViewModel.City, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding TourRequestViewModel.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    TextSearch.TextPath="."
+                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding CityComboBoxCommand}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="DropDownOpened">
+                            <i:InvokeCommandAction Command="{Binding OpenDropDownCommand}" CommandParameter="{Binding ElementName=myComboBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
 
                 <Grid
                     Width="300"
@@ -128,6 +180,18 @@
                         FontSize="18"
                         Foreground="{StaticResource BackgroundColor}"
                         Text="end date" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        FontSize="20"
+                        Foreground="{StaticResource BackgroundColor}"
+                        Opacity="0"
+                        Text="{Binding TourRequestViewModel.DateMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
                     <DatePicker
                         Grid.Row="1"
                         Grid.Column="0"
@@ -142,8 +206,10 @@
                         FirstDayOfWeek="Monday"
                         FontSize="20"
                         InputScope="DateYear"
-                        SelectedDate="{Binding TourRequest.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
-                        SelectedDateFormat="Short" />
+                        SelectedDate="{Binding TourRequestViewModel.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnDataErrors=True}"
+                        SelectedDateFormat="Short"
+                        Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
+
 
                     <DatePicker
                         Grid.Row="1"
@@ -159,8 +225,9 @@
                         FirstDayOfWeek="Monday"
                         FontSize="20"
                         InputScope="DateYear"
-                        SelectedDate="{Binding TourRequest.EndDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedDateFormat="Short" />
+                        SelectedDate="{Binding TourRequestViewModel.EndDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        SelectedDateFormat="Short"
+                        Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
 
                 </Grid>
 
@@ -175,9 +242,10 @@
                     IsEditable="True"
                     IsTextSearchEnabled="True"
                     ItemsSource="{Binding Languages}"
-                    SelectedItem="{Binding Path=TourRequest.Language, UpdateSourceTrigger=PropertyChanged}"
-                    Text="{Binding TourRequest.Language}"
-                    TextSearch.TextPath="." />
+                    SelectedItem="{Binding Path=TourRequestViewModel.Language, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding TourRequestViewModel.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    TextSearch.TextPath="."
+                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}" />
                 <extendedToolkit:IntegerUpDown
                     Width="300"
                     Height="40"
@@ -187,10 +255,12 @@
                     FontSize="20"
                     Minimum="1"
                     TextAlignment="Left"
-                    Value="{Binding Path=TourRequest.TouristNumber, UpdateSourceTrigger=PropertyChanged}" />
+                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                    Value="{Binding Path=TourRequestViewModel.TouristNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
 
                 <TextBox
+                    x:Name="DownField"
                     Width="300"
                     MinHeight="130"
                     Margin="0,30,0,0"
@@ -198,14 +268,14 @@
                     VerticalAlignment="Top"
                     FontSize="18"
                     MaxLength="200"
-                    Text="{Binding TourRequest.Description}"
+                    Text="{Binding TourRequestViewModel.Description}"
                     TextWrapping="Wrap" />
 
             </StackPanel>
 
             <Button
                 Grid.Column="1"
-                Click="ConfirmClick"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -219,12 +289,21 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Confirm creation request<LineBreak />
+                            and proceed<Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Ctrl+Enter)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
             <Button
                 Grid.Column="0"
-                Click="CancelClick"
+                Command="{Binding CancelCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -238,7 +317,16 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Cancel tour creation<LineBreak />
+                            and close window<Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Escape)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Grid>
     </DockPanel>

@@ -13,6 +13,33 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding RemoveImageCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="N"
+            Command="{Binding AddImageCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="P"
+            Command="{Binding ShowImageCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Left" Command="{Binding PreviousImageCommand}" />
+        <KeyBinding Key="Right" Command="{Binding NextImageCommand}" />
+
+    </Window.InputBindings>
+
     <Window.Resources>
         <Style x:Key="LargeRadioButtonStyle" TargetType="RadioButton">
             <Setter Property="Template">
@@ -77,7 +104,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -88,6 +115,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -134,36 +171,67 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 1}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 1}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 2}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 2}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 4}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 4}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="knowledge"
-                        IsChecked="{Binding GuideKnowledge, Converter={cvt:RadioButtonConverter 5}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideKnowledgeRating, Converter={cvt:RadioButtonConverter 5}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
 
                 </UniformGrid>
                 <UniformGrid
@@ -177,36 +245,67 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 1}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 1}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 2}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 2}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 4}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 4}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="language"
-                        IsChecked="{Binding GuideLanguage, Converter={cvt:RadioButtonConverter 5}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.GuideLanguageRating, Converter={cvt:RadioButtonConverter 5}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
 
                 </UniformGrid>
                 <UniformGrid
@@ -220,36 +319,67 @@
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 1}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 1}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="2"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 2}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 2}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="3"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 3}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 3}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Style="{StaticResource LargeRadioButtonStyle}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="4"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 4}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 4}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
                     <RadioButton
                         Content="5"
                         FontSize="20"
                         FontWeight="Bold"
                         GroupName="interesting"
-                        IsChecked="{Binding TourInterestingness, Converter={cvt:RadioButtonConverter 5}}"
-                        Style="{StaticResource LargeRadioButtonStyle}" />
+                        IsChecked="{Binding TouristExperienceViewModel.TourInterestingesRating, Converter={cvt:RadioButtonConverter 5}}"
+                        Style="{StaticResource LargeRadioButtonStyle}">
+                        <RadioButton.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                Click to rate
+                            </ToolTip>
+                        </RadioButton.ToolTip>
+                    </RadioButton>
 
                 </UniformGrid>
 
@@ -258,7 +388,7 @@
                     Margin="0,30,0,0"
                     FontSize="18"
                     MaxLength="200"
-                    Text="{Binding TouristExperience.Comment}"
+                    Text="{Binding TouristExperienceViewModel.Comment}"
                     TextWrapping="Wrap" />
 
                 <Grid Margin="0,30">
@@ -285,11 +415,21 @@
                             VerticalAlignment="Center"
                             Background="{StaticResource PageColor}"
                             BorderBrush="White"
-                            Click="PreviousImageButtonClick">
+                            Command="{Binding PreviousImageCommand}">
                             <Image
                                 Width="30"
                                 Height="30"
                                 Source="/Resources/Icons/TouristIcons/previous.png" />
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                    <TextBlock TextAlignment="Center">
+                                        Show previous image<LineBreak />
+                                        <Run
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource ValidationMessageColor}"
+                                            Text=" (Left Arrow)" /></TextBlock>
+                                </ToolTip>
+                            </Button.ToolTip>
                         </Button>
                         <Button
                             Grid.Column="1"
@@ -298,11 +438,21 @@
                             VerticalAlignment="Center"
                             Background="{StaticResource PageColor}"
                             BorderBrush="White"
-                            Click="NextImageButtonClick">
+                            Command="{Binding NextImageCommand}">
                             <Image
                                 Width="30"
                                 Height="30"
                                 Source="/Resources/Icons/TouristIcons/next.png" />
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                    <TextBlock TextAlignment="Center">
+                                        Show next image<LineBreak />
+                                        <Run
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource ValidationMessageColor}"
+                                            Text=" (Right Arrow)" /></TextBlock>
+                                </ToolTip>
+                            </Button.ToolTip>
                         </Button>
                     </Grid>
 
@@ -312,11 +462,36 @@
                         Grid.Column="0"
                         Height="150"
                         Background="White"
-                        Click="ImageButtonClick">
+                        Command="{Binding ShowImageCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border
+                                                BorderBrush="Black"
+                                                BorderThickness="1"
+                                                CornerRadius="10">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
                         <Button.Content>
                             <Image Source="{Binding ShowingImage, UpdateSourceTrigger=PropertyChanged, Converter={cvt:ImagePathConverter}}" />
-
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    Click to previw image<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+P)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
                     <Button
                         Grid.Row="0"
@@ -327,7 +502,7 @@
                         VerticalAlignment="Top"
                         Background="{StaticResource PageColor}"
                         BorderBrush="Red"
-                        Click="RemoveImageButtonClick">
+                        Command="{Binding RemoveImageCommand}">
                         <Button.Content>
                             <Image
                                 Width="35"
@@ -335,6 +510,16 @@
                                 VerticalAlignment="Center"
                                 Source="/Resources/Icons/TouristIcons/photo.png" />
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    Remove displayed image<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+D)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
                     <Button
                         Grid.Row="0"
@@ -345,7 +530,7 @@
                         VerticalAlignment="Center"
                         Background="{StaticResource PageColor}"
                         BorderBrush="White"
-                        Click="AddImageButtonClick">
+                        Command="{Binding AddImageCommand}">
                         <Button.Content>
                             <Image
                                 Width="75"
@@ -353,6 +538,16 @@
                                 VerticalAlignment="Center"
                                 Source="/Resources/Icons/TouristIcons/image.png" />
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                <TextBlock TextAlignment="Center">
+                                    Add new images<LineBreak />
+                                    <Run
+                                        FontStyle="Italic"
+                                        Foreground="{StaticResource ValidationMessageColor}"
+                                        Text=" (Ctrl+N)" /></TextBlock>
+                            </ToolTip>
+                        </Button.ToolTip>
                     </Button>
                 </Grid>
 
@@ -362,7 +557,7 @@
             </StackPanel>
             <Button
                 Grid.Column="1"
-                Click="ConfirmClick"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -376,12 +571,21 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Confirm and finish rating<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Ctrl+Enter)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
             <Button
                 Grid.Column="0"
-                Click="CancelClick"
+                Command="{Binding CancelCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -395,7 +599,16 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Cancel rating<LineBreak />
+                            and close window<Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Escape)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </Grid>
     </DockPanel>

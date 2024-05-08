@@ -13,7 +13,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 
-namespace BookingApp.WPF.ViewModel.OwnerViewModel
+namespace BookingApp.WPF.ViewModels.OwnerViewModel
 {
     public class GuestReviewsViewModel : INotifyPropertyChanged
     {
@@ -25,7 +25,7 @@ namespace BookingApp.WPF.ViewModel.OwnerViewModel
         public int TotalImagesCount { get; set; }
 
 
-        private OwnerReviewService _reviewService;
+        private readonly OwnerReviewService _reviewService;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

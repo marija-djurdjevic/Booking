@@ -13,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.View;
-using BookingApp.WPF.ViewModel;
-using BookingApp.WPF.ViewModel.GuidesViewModel;
+using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 
 namespace BookingApp.View.GuideView
 {
     /// <summary>
     /// Interaction logic for GuideMainPage1.xaml
     /// </summary>
-    public partial class GuideMainPage1 : Page
+    public partial class GuideMainPage : Page
     {
-        public GuideMainPage1()
+        public GuideMainPage()
         {
             InitializeComponent();
             DataContext = new GuideMainPageViewModel();
@@ -49,8 +49,12 @@ namespace BookingApp.View.GuideView
            
         }
 
-
-
-
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }
+

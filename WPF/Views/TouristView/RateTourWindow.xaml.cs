@@ -18,8 +18,9 @@ using System.Windows.Controls.Primitives;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -28,53 +29,19 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class RateTourWindow : Window
     {
-        private RateTourViewModel rateTourViewModel;
         public RateTourWindow(TourDto selectedTour, User loggedInTourist)
         {
             InitializeComponent();
-            rateTourViewModel = new RateTourViewModel(selectedTour, loggedInTourist);
-            DataContext = rateTourViewModel;
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
+            DataContext = new RateTourViewModel(selectedTour, loggedInTourist);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void CancelClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            Close();
-        }
-
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.Confirm();
-            MessageBox.Show("You have successfully rated the tour!");
-            Close();
-
-        }
-        private void AddImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.AddImage();
-        }
-
-        private void RemoveImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.RemoveImage();
-        }
-
-        private void NextImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.GetNextImage();
-        }
-
-        private void PreviousImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.GetPreviousImage();
-        }
-
-        private void ImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            rateTourViewModel.ShowImage();
-        }
+            if (message.Notification == "CloseRateTourWindowMessage")
+            {
+                this.Close();
+            }
+        }        
     }
 }

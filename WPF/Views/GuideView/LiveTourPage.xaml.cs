@@ -2,7 +2,7 @@
 using BookingApp.Domain.Models.Enums;
 using BookingApp.Repositories;
 using BookingApp.View.GuideView;
-using BookingApp.WPF.ViewModel.GuidesViewModel;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,7 +44,7 @@ namespace BookingApp.View
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage1 guideMainPage = new GuideMainPage1();
+            GuideMainPage guideMainPage = new GuideMainPage();
             this.NavigationService.Navigate(guideMainPage);
         }
 

@@ -16,8 +16,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -26,44 +27,19 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TourBookingWindow : Window
     {
-        private TourBookingViewModel tourBookingViewModel;
         public TourBookingWindow(TourDto selectedTour, int userId)
         {
             InitializeComponent();
-            tourBookingViewModel = new TourBookingViewModel(selectedTour, userId);
-            DataContext = tourBookingViewModel;
+            DataContext = new TourBookingViewModel(selectedTour, userId);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void ConfirmButtonClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            if(tourBookingViewModel.Confirm())
+            if (message.Notification == "CloseTourBookingWindowMessage")
             {
-                Close();
+                this.Close();
             }
-        }
-
-        private void CancelButtonCLick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void ImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            tourBookingViewModel.ShowImage();
-        }
-
-        private void NextImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            tourBookingViewModel.GetNextImage();
-        }
-
-        private void PreviousImageButtonClick(object sender, RoutedEventArgs e)
-        {
-            tourBookingViewModel.GetPreviousImage();
         }
     }
 }

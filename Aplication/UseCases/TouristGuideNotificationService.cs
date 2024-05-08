@@ -34,5 +34,15 @@ namespace BookingApp.Aplication.UseCases
             var touristGuideNotifications = notificationRepository.GetAll();
             return touristGuideNotifications.FindAll(t => t.TouristId == Id).OrderByDescending(x => x.Date).ToList();
         }
+
+        public int GetUnreadNotificationCount(int id)
+        {
+            return (int)GetByUserId(id).FindAll(t=>!t.Seen).Count();
+        }
+
+        internal void Save(TouristGuideNotification touristGuideNotification)
+        {
+            notificationRepository.Save(touristGuideNotification);
+        }
     }
 }

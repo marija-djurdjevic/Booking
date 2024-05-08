@@ -27,7 +27,7 @@ namespace BookingApp.Aplication.UseCases
         }
 
         private int counter = 0;
-        public bool CreateTour(TourDto tourDto, ObservableCollection<string> keyPointNames, DateTime tourDate)
+        public (bool,int) CreateTour(TourDto tourDto, ObservableCollection<string> keyPointNames, DateTime tourDate)
         {
 
             Tour tour = new Tour
@@ -50,7 +50,7 @@ namespace BookingApp.Aplication.UseCases
             tourRepository.Save(tour);
             keyPointService.SetKeyPoints(tour.Id, keyPointNames);
 
-            return true;
+            return (true,tour.Id);
         }
     }
 }

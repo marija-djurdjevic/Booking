@@ -1,4 +1,5 @@
 ﻿using BookingApp.View.GuideView;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +25,16 @@ namespace BookingApp.View
         public SideMenuPage()
         {
             InitializeComponent();
+            DataContext = new SideMenuViewModel();
         }
 
         private void NavigateBack(object sender, MouseButtonEventArgs e)
         {
-            NavigationService?.GoBack();
+
         }
 
-        private void NavigateToStranica1(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            
-        }
-
-        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
-        {
-            GuideMainPage1 guideMainPage = new GuideMainPage1();
-            this.NavigationService.Navigate(guideMainPage);
-
 
         }
     }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -15,23 +15,50 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <None Remove="Resources\Icons\OwnerIcons\account.jpeg" />
+    <None Remove="Resources\Icons\OwnerIcons\account.png" />
+    <None Remove="Resources\Icons\OwnerIcons\logout.png" />
+    <None Remove="Resources\Icons\OwnerIcons\notificationf.png" />
+    <None Remove="Resources\Icons\OwnerIcons\notifications.png" />
+    <None Remove="Resources\Icons\OwnerIcons\user.png" />
+    <None Remove="Resources\Icons\OwnerIcons\user2.png" />
+
+    <None Remove="Resources\Icons\TouristIcons\accepted.png" />
+
     <None Remove="Resources\Icons\TouristIcons\add.png" />
     <None Remove="Resources\Icons\TouristIcons\arrived.png" />
+    <None Remove="Resources\Icons\TouristIcons\booking.png" />
     <None Remove="Resources\Icons\TouristIcons\cancel.png" />
+    <None Remove="Resources\Icons\TouristIcons\check-mark.png" />
+    <None Remove="Resources\Icons\TouristIcons\checked.png" />
     <None Remove="Resources\Icons\TouristIcons\close.png" />
     <None Remove="Resources\Icons\TouristIcons\confirm.png" />
+    <None Remove="Resources\Icons\TouristIcons\delete.png" />
     <None Remove="Resources\Icons\TouristIcons\end.png" />
+    <None Remove="Resources\Icons\TouristIcons\erase.png" />
+    <None Remove="Resources\Icons\TouristIcons\expired.png" />
+    <None Remove="Resources\Icons\TouristIcons\finish.png" />
     <None Remove="Resources\Icons\TouristIcons\grade.png" />
     <None Remove="Resources\Icons\TouristIcons\help.png" />
     <None Remove="Resources\Icons\TouristIcons\image.png" />
     <None Remove="Resources\Icons\TouristIcons\inbox.png" />
+    <None Remove="Resources\Icons\TouristIcons\invalid.png" />
+    <None Remove="Resources\Icons\TouristIcons\mainWindow.png" />
     <None Remove="Resources\Icons\TouristIcons\middle.png" />
     <None Remove="Resources\Icons\TouristIcons\pdf.png" />
+    <None Remove="Resources\Icons\TouristIcons\pending.png" />
+    <None Remove="Resources\Icons\TouristIcons\previous.png" />
+    <None Remove="Resources\Icons\TouristIcons\reserve.png" />
+    <None Remove="Resources\Icons\TouristIcons\reserved.png" />
+    <None Remove="Resources\Icons\TouristIcons\round.png" />
     <None Remove="Resources\Icons\TouristIcons\show.png" />
     <None Remove="Resources\Icons\TouristIcons\showall.png" />
     <None Remove="Resources\Icons\TouristIcons\start.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Icons\TouristIcons\unarrived.png" />
+    <None Remove="Resources\Icons\TouristIcons\welcome.png" />
+    <None Remove="Resources\Icons\TouristIcons\wizard.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back %281%29.png" />
     <None Remove="Resources\Images\back %282%29.png" />
@@ -39,6 +66,8 @@
     <None Remove="Resources\Images\bell.png" />
     <None Remove="Resources\Images\booking.png" />
     <None Remove="Resources\Images\chat.png" />
+    <None Remove="Resources\Images\checkbox-unchecked.svg" />
+    <None Remove="Resources\Images\checked-checkbox-icon-checkbox-ico-115632629493xkxpf63d8.png" />
     <None Remove="Resources\Images\contract.png" />
     <None Remove="Resources\Images\correct.png" />
     <None Remove="Resources\Images\decline.png" />
@@ -59,6 +88,18 @@
     <None Remove="Resources\Images\question.png" />
     <None Remove="Resources\Images\star %281%29.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\TouristWizardImages\1.1.png" />
+    <None Remove="Resources\Images\TouristWizardImages\1.2.png" />
+    <None Remove="Resources\Images\TouristWizardImages\1.3.mp4" />
+    <None Remove="Resources\Images\TouristWizardImages\1.4.png" />
+    <None Remove="Resources\Images\TouristWizardImages\2.1.png" />
+    <None Remove="Resources\Images\TouristWizardImages\2.2.png" />
+    <None Remove="Resources\Images\TouristWizardImages\3.1.png" />
+    <None Remove="Resources\Images\TouristWizardImages\3.2.png" />
+    <None Remove="Resources\Images\TouristWizardImages\4.1.png" />
+    <None Remove="Resources\Images\TouristWizardImages\4.2.png" />
+    <None Remove="Resources\Images\TouristWizardImages\5.1.png" />
+    <None Remove="Resources\Images\unchecked.jpg" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
     <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
@@ -68,7 +109,6 @@
     <None Remove="Resources\Icons\TouristIcons\logout.png" />
     <None Remove="Resources\Icons\TouristIcons\next.png" />
     <None Remove="Resources\Icons\TouristIcons\photo.png" />
-    <None Remove="Resources\Icons\TouristIcons\previous.png" />
     <None Remove="Resources\Icons\TouristIcons\removeimage.png" />
     <None Remove="Resources\Icons\TouristIcons\settings.png" />
     <None Remove="Resources\Icons\TouristIcons\target.png" />
@@ -88,6 +128,39 @@
     <Content Include="Resources\Images\TouristExperienceImages\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\TouristWizardImages\1.1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\1.2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\1.3.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\1.4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\2.1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\2.2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\3.1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\3.2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\4.1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\4.2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristWizardImages\5.1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -96,28 +169,62 @@
   <ItemGroup>
     <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Build" Version="17.9.5" />
     <PackageReference Include="Microsoft.Build.Framework" Version="17.9.5" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.3" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="MVVMLight.Messaging" Version="1.0.0" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="QuestPDF" Version="2024.3.2" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
+
+    <Resource Include="Resources\Icons\OwnerIcons\account.jpeg" />
+    <Resource Include="Resources\Icons\OwnerIcons\account.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\logout.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\notificationf.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\notifications.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\user.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\user2.png" />
+
+    <Resource Include="Resources\Icons\TouristIcons\accepted.png" />
+
     <Resource Include="Resources\Icons\TouristIcons\add.png" />
     <Resource Include="Resources\Icons\TouristIcons\arrived.png" />
+    <Resource Include="Resources\Icons\TouristIcons\booking.png" />
     <Resource Include="Resources\Icons\TouristIcons\broken-image.png" />
     <Resource Include="Resources\Icons\TouristIcons\cancel.png" />
+    <Resource Include="Resources\Icons\TouristIcons\check-mark.png" />
+    <Resource Include="Resources\Icons\TouristIcons\checked.png" />
     <Resource Include="Resources\Icons\TouristIcons\close.png" />
     <Resource Include="Resources\Icons\TouristIcons\confirm.png" />
+    <Resource Include="Resources\Icons\TouristIcons\delete.png" />
     <Resource Include="Resources\Icons\TouristIcons\end.png" />
+    <Resource Include="Resources\Icons\TouristIcons\erase.png" />
+    <Resource Include="Resources\Icons\TouristIcons\expired.png" />
+    <Resource Include="Resources\Icons\TouristIcons\finish.png" />
     <Resource Include="Resources\Icons\TouristIcons\grade.png" />
     <Resource Include="Resources\Icons\TouristIcons\help.png" />
     <Resource Include="Resources\Icons\TouristIcons\image.png" />
     <Resource Include="Resources\Icons\TouristIcons\inbox.png" />
+    <Resource Include="Resources\Icons\TouristIcons\Invalid.png" />
     <Resource Include="Resources\Icons\TouristIcons\logout.png" />
+    <Resource Include="Resources\Icons\TouristIcons\mainWindow.png" />
     <Resource Include="Resources\Icons\TouristIcons\middle.png" />
     <Resource Include="Resources\Icons\TouristIcons\next.png" />
     <Resource Include="Resources\Icons\TouristIcons\pdf.png" />
+    <Resource Include="Resources\Icons\TouristIcons\Pending.png" />
     <Resource Include="Resources\Icons\TouristIcons\photo.png" />
-    <Resource Include="Resources\Icons\TouristIcons\previous.png" />
+    <Content Include="Resources\Icons\TouristIcons\previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Icons\TouristIcons\reserve.png" />
+    <Resource Include="Resources\Icons\TouristIcons\reserved.png" />
+    <Resource Include="Resources\Icons\TouristIcons\round.png" />
     <Resource Include="Resources\Icons\TouristIcons\settings.png" />
     <Resource Include="Resources\Icons\TouristIcons\show.png" />
     <Resource Include="Resources\Icons\TouristIcons\showall.png" />
@@ -126,12 +233,16 @@
     <Resource Include="Resources\Icons\TouristIcons\travel.png" />
     <Resource Include="Resources\Icons\TouristIcons\unarrived.png" />
     <Resource Include="Resources\Icons\TouristIcons\user.png" />
+    <Resource Include="Resources\Icons\TouristIcons\welcome.png" />
+    <Resource Include="Resources\Icons\TouristIcons\wizard.png" />
     <Resource Include="Resources\Images\back (1).png" />
     <Resource Include="Resources\Images\back (2).png" />
     <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\bell.png" />
     <Resource Include="Resources\Images\booking.png" />
     <Resource Include="Resources\Images\chat.png" />
+    <Resource Include="Resources\Images\checkbox-unchecked.svg" />
+    <Resource Include="Resources\Images\checked-checkbox-icon-checkbox-ico-115632629493xkxpf63d8.png" />
     <Resource Include="Resources\Images\contract.png" />
     <Resource Include="Resources\Images\correct.png" />
     <Resource Include="Resources\Images\decline.png" />
@@ -149,11 +260,18 @@
     <Resource Include="Resources\Images\star (1).png" />
     <Resource Include="Resources\Images\star (2).png" />
     <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\unchecked.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\GuestExperienceImages\" />
     <Folder Include="Resources\Images\TourImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="WPF\Views\TouristView\ComplexTourRequestsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 using BookingApp.Domain.Models;
 using BookingApp.Repositories;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,22 +23,19 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        private SettingsViewModel settingsViewModel;
         public SettingsWindow(User loggedInUser)
         {
             InitializeComponent();
-            settingsViewModel = new SettingsViewModel(loggedInUser);
-            DataContext = settingsViewModel;
+            DataContext = new SettingsViewModel(loggedInUser);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
 
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-
-        }
-
-        private void CloseButtonCLick(object sender, RoutedEventArgs e)
-        {
-            Close();
+            if (message.Notification == "CloseSettingsWindowMessage")
+            {
+                this.Close();
+            }
         }
     }
 }

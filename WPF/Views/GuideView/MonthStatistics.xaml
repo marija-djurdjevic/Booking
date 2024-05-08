@@ -1,0 +1,84 @@
+﻿<Page x:Class="BookingApp.WPF.Views.GuideView.MonthStatistics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Converters"
+      mc:Ignorable="d" 
+      
+      Title="MonthStatistics" Height="768" Width="1024">
+    <Page.Resources>
+        <local:MonthConverter x:Key="MonthConverter" />
+    </Page.Resources>
+
+
+    <Grid Background="{StaticResource pozadina}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="71"/>
+                <RowDefinition Height="540"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <!-- Gornja navigaciona traka -->
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Slika u prvoj koloni -->
+                <Button Grid.Column="0"
+                Command="{Binding SideManuCommand}"
+                Background="Transparent"
+                BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+             Stretch="Uniform"
+             Width="71"
+             Height="71" />
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="{Binding SelectedYear, StringFormat='STATISTIC PER MONTHS IN {0} YEAR'}"/>
+
+            </Grid>
+
+
+            <DataGrid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding RequestsPerMonth}" AutoGenerateColumns="False" FontSize="20">
+                <DataGrid.Resources>
+                    <local:MonthConverter x:Key="MonthConverter" />
+                </DataGrid.Resources>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Month" Binding="{Binding Key, Converter={StaticResource MonthConverter}}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                               
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Requests Number" Binding="{Binding Value}" Width="300" FontSize="20">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
+
+        </Grid>
+    </Grid>
+</Page>

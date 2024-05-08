@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="clr-namespace:BookingApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BookingApp.View.TouristView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vmdl="clr-namespace:BookingApp.WPF.ViewModels.TouristViewModels"
     Title="Booking app"
     Width="750"
     Height="650"
@@ -13,6 +15,24 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+
+    </Window.InputBindings>
 
     <DockPanel Margin="10">
 
@@ -28,7 +48,7 @@
                 Margin="0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"
-                Click="HelpButtonClick"
+                Command="{Binding HelpCommand}"
                 Style="{StaticResource ConfirmButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -39,6 +59,16 @@
                         <TextBlock Margin="0,0,5,0" Text="Help" />
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Open help window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text="(Ctrl+H)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
 
         </DockPanel>
@@ -49,7 +79,7 @@
                 Margin="15,15"
                 Padding="10,0"
                 HorizontalAlignment="Right"
-                Click="CloseButtonClick"
+                Command="{Binding CloseCommand}"
                 Style="{StaticResource CancelButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -63,17 +93,34 @@
                 <Button.BorderBrush>
                     <SolidColorBrush Opacity="0" Color="White" />
                 </Button.BorderBrush>
-
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                        <TextBlock TextAlignment="Center">
+                            Close window<LineBreak />
+                            <Run
+                                FontStyle="Italic"
+                                Foreground="{StaticResource ValidationMessageColor}"
+                                Text=" (Escape)" /></TextBlock>
+                    </ToolTip>
+                </Button.ToolTip>
             </Button>
         </DockPanel>
 
         <Grid Margin="15,5,15,5">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+            <ScrollViewer
+                x:Name="Skrol"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Visible">
                 <ItemsControl
                     Width="650"
                     Height="auto"
                     ItemsSource="{Binding Notifications}"
                     Style="{StaticResource CardView}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Height="auto" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <GroupBox Height="auto">
@@ -106,22 +153,27 @@
                                                 VerticalAlignment="Top"
                                                 FontWeight="Bold"
                                                 Text="{Binding Item2}"
-                                                TextWrapping="Wrap" />
+                                                TextWrapping="Wrap">
+                                                <Run Text=" " />
+                                            </TextBlock>
+
                                             <TextBlock
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Top"
-                                                Text=" have been added to the tour: "
+                                                Text="have been added to the tour: "
                                                 TextWrapping="Wrap" />
                                             <TextBlock
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Top"
                                                 FontWeight="Bold"
                                                 Text="{Binding Item1.TourName}"
-                                                TextWrapping="Wrap" />
+                                                TextWrapping="Wrap">
+                                                <Run Text=" " />
+                                            </TextBlock>
                                             <TextBlock
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Top"
-                                                Text=" KeyPoint: "
+                                                Text="KeyPoint: "
                                                 TextWrapping="Wrap" />
                                             <TextBlock
                                                 HorizontalAlignment="Left"
@@ -182,6 +234,64 @@
                                                     FontWeight="Bold"
                                                     Text="{Binding Item1.AcceptedTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}"
                                                     TextWrapping="Wrap" />
+                                            </WrapPanel>
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            FontWeight="Bold"
+                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </Grid>
+                                    <Grid Visibility="{Binding Item1.Type, ConverterParameter=created, Converter={cvt:TouristNotificationConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Vertical">
+                                            <WrapPanel
+                                                Grid.Row="0"
+                                                Margin="10"
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontWeight="Bold"
+                                                    Text="A new tour has been created that might interest you."
+                                                    TextWrapping="Wrap" />
+
+                                            </WrapPanel>
+
+                                            <WrapPanel
+                                                Grid.Row="0"
+                                                Margin="10"
+                                                Orientation="Horizontal">
+                                                <Button
+                                                    Margin="0"
+                                                    HorizontalAlignment="Right"
+                                                    Background="{StaticResource BackgroundColor}"
+                                                    Style="{StaticResource ResizeButtonStyle}">
+
+                                                    <Button.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image
+                                                                Height="40"
+                                                                Margin="5,0,5,0"
+                                                                Source="/Resources/Icons/TouristIcons/showall.png" />
+                                                            <TextBlock Margin="0,0,5,0" Text="Show details" />
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                    <Button.BorderBrush>
+                                                        <SolidColorBrush Opacity="0" Color="White" />
+                                                    </Button.BorderBrush>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Button>
                                             </WrapPanel>
                                         </StackPanel>
 

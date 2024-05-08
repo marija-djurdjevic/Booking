@@ -8,7 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
-namespace BookingApp.WPF.ViewModel.GuestViewModel
+namespace BookingApp.WPF.ViewModels.GuestViewModel
 {
     public class ChangeReservationViewModel
     {

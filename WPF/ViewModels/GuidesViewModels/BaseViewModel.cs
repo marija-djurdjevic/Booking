@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BookingApp.WPF.ViewModel.GuidesViewModel
+namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

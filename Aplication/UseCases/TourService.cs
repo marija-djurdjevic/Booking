@@ -1,5 +1,5 @@
 using BookingApp.Repositories;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,13 +46,17 @@ namespace BookingApp.Aplication.UseCases
 
         public List<Tour> GetAllSorted()
         {
-            return  SortByDate(GetAll());
+            return SortByDate(GetAll());
         }
 
         //futured tours sort by date and past show on end
         public List<Tour> SortByDate(List<Tour> unsorted)
         {
-            var sorted = unsorted.OrderBy(t => t.StartDateTime < System.DateTime.Now).ThenBy(t => t.StartDateTime).ToList();
+            var sorted = unsorted
+                .OrderBy(t => t.StartDateTime.Date < DateTime.Now.Date) // Ture sa datumom manjim od trenutnog dolaze prvo
+                .ThenByDescending(t => t.StartDateTime.Date < DateTime.Now.Date ? t.StartDateTime : DateTime.MaxValue) // Sortiraj ture sa datumom manjim od trenutnog u rastucem redosledu
+                .ThenBy(t => t.StartDateTime.Date >= DateTime.Now.Date ? t.StartDateTime : DateTime.MinValue) // Sortiraj ture sa datumom vecim ili jednakim trenutnom u opadajucem redosledu
+                .ToList();
             return sorted;
         }
 

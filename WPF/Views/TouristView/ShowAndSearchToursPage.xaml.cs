@@ -18,7 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -27,35 +28,34 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class ShowAndSearchToursPage : Page
     {
-        private ShowAndSearchToursViewModel showAndSearchToursViewModel;
         public ShowAndSearchToursPage(User loggedInUser)
         {
             InitializeComponent();
-            showAndSearchToursViewModel = new ShowAndSearchToursViewModel(loggedInUser);
-            DataContext = showAndSearchToursViewModel;
-        }
-        private void SelectedTourCard(object sender, MouseButtonEventArgs e)
-        {
-            showAndSearchToursViewModel.SelectedTourCard(sender);
-        }
+            DataContext = new ShowAndSearchToursViewModel(loggedInUser);
+            Skrol.Focus();
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                switch (message.Notification)
+                {
+                    case "ScrollToursToTop":
+                        Skrol.ScrollToTop();
+                        break;
 
-        private void SearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.Search();
-        }
+                    case "ScrollToursToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
 
-        private void ShowAllToursButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.ShowAllTours();
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
+                    case "ScrollToursDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
 
-        }
-
-        private void InboxButtonClick(object sender, RoutedEventArgs e)
-        {
-            showAndSearchToursViewModel.OpenInbox();
+                    case "ScrollToursUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                }
+            });
         }
     }
 

@@ -16,51 +16,103 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using GalaSoft.MvvmLight.Messaging;
+using BookingApp.Command;
 
-namespace BookingApp.WPF.ViewModel.TouristViewModel
+namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
-    public class ShowAndSearchToursViewModel : INotifyPropertyChanged
+    public class ShowAndSearchToursViewModel : BindableBase
     {
         public static ObservableCollection<TourDto> Tours { get; set; }
         public User LoggedInUser { get; set; }
         public TourDto SelectedTour { get; set; }
 
+        private int unreadNotificationCount;
+        public int UnreadNotificationCount
+        {
+            get { return unreadNotificationCount; }
+            set
+            {
+                unreadNotificationCount = value;
+                OnPropertyChanged(nameof(UnreadNotificationCount));
+            }
+        }
+
         private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
+        private readonly TouristGuideNotificationService notificationService;
 
-        private bool _isCancelSearchButtonVisible;
+        private bool _isShowAllButtonVisible;
+
+        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand ShowAllCommand { get; set; }
+        public RelayCommand InboxCommand { get; set; }
+        public RelayCommand HelpCommand { get; set; }
+        public RelayCommand ScrollToTopCommand { get; private set; }
+        public RelayCommand ScrollToBottomCommand { get; private set; }
+        public RelayCommand ScrollDownCommand { get; private set; }
+        public RelayCommand ScrollUpCommand { get; private set; }
+        public RelayCommand<object> SelectedCardCommand { get; set; }
 
         public ShowAndSearchToursViewModel(User loggedInUser)
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
-            IsCancelSearchButtonVisible = false;
+            IsShowAllButtonVisible = false;
             LoggedInUser = loggedInUser;
             GetAllTours();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
+            Messenger.Default.Register<NotificationMessage>(this, ShowAllButton);
 
+            SearchCommand = new RelayCommand(Search);
+            ShowAllCommand = new RelayCommand(ShowAllTours);
+            InboxCommand = new RelayCommand(OpenInbox);
+            HelpCommand = new RelayCommand(Help);
+            ScrollToTopCommand = new RelayCommand(ScrollToTop);
+            ScrollToBottomCommand = new RelayCommand(ScrollToBottom);
+            ScrollDownCommand = new RelayCommand(ScrollDown);
+            ScrollUpCommand = new RelayCommand(ScrollUp);
+            SelectedCardCommand = new RelayCommand<object>(SelectedTourCard);
+        }
+        private void ScrollUp()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursUp"));
         }
 
-        public bool IsCancelSearchButtonVisible
+        private void ScrollDown()
         {
-            get => _isCancelSearchButtonVisible;
+            Messenger.Default.Send(new NotificationMessage("ScrollToursDown"));
+        }
+
+        private void ScrollToBottom()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursToBottom"));
+        }
+
+        private void ScrollToTop()
+        {
+            Messenger.Default.Send(new NotificationMessage("ScrollToursToTop"));
+        }
+
+        public bool IsShowAllButtonVisible
+        {
+            get => _isShowAllButtonVisible;
             set
             {
-                if (value != _isCancelSearchButtonVisible)
+                if (value != _isShowAllButtonVisible)
                 {
-                    _isCancelSearchButtonVisible = value;
-                    OnPropertyChanged("IsCancelSearchButtonVisible");
+                    _isShowAllButtonVisible = value;
+                    OnPropertyChanged("IsShowAllButtonVisible");
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void Help()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         }
 
         public void GetAllTours()
@@ -74,8 +126,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
         public void SelectedTourCard(object sender)
         {
-            Border border = (Border)sender;
-            SelectedTour = (TourDto)border.DataContext;
+            SelectedTour = (TourDto)sender;
             SelectedTour.KeyPoints = keyPointService.GetTourKeyPoints(SelectedTour.Id);
             if (SelectedTour.MaxTouristNumber > 0)
             {
@@ -84,28 +135,35 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             }
             else
             {
-                MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city.");
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("The tour is fully booked. Please select an alternative tour from this city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
                 ShowUnbookedToursInCity();
+            }
+        }
+
+        private void ShowAllButton(NotificationMessage message)
+        {
+            if (message.Notification == "ShowAllButtonMessage")
+            {
+                IsShowAllButtonVisible=true;
             }
         }
 
         public void Search()
         {
-            SearchWindow searchWindow = new SearchWindow(Tours);
-            searchWindow.ShowDialog();
-
-            IsCancelSearchButtonVisible = searchWindow.searchViewModel.IsCancelSearchButtonVisible;
+            new SearchWindow(Tours).ShowDialog();
         }
 
         public void OpenInbox()
         {
             NotificationsWindow notificationsWindow = new NotificationsWindow(LoggedInUser);
             notificationsWindow.ShowDialog();
+            UnreadNotificationCount = notificationService.GetUnreadNotificationCount(LoggedInUser.Id);
         }
 
         public void ShowAllTours()
         {
-            IsCancelSearchButtonVisible = false;
+            IsShowAllButtonVisible = false;
             GetAllTours();
         }
 
@@ -115,7 +173,7 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
 
             if (unBookedToursInCity.Count > 0)
             {
-                IsCancelSearchButtonVisible = true;
+                IsShowAllButtonVisible = true;
                 Tours.Clear();
                 foreach (var tour in unBookedToursInCity)
                 {
@@ -124,7 +182,8 @@ namespace BookingApp.WPF.ViewModel.TouristViewModel
             }
             else
             {
-                MessageBox.Show("There are no tours from that city");
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours from that city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
             }
         }
 

@@ -7,6 +7,21 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="800"
       Title="ReservationsPage">
+    <Page.Resources>
+        <!-- Definiranje animacije za promjenu veličine dugmeta -->
+        <Storyboard x:Key="ButtonAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                             To="1.05" Duration="0:0:0.3" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                             To="1.05" Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="ButtonResetAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                             To="1" Duration="0:0:0.3" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                             To="1" Duration="0:0:0.3" />
+        </Storyboard>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,10 +30,37 @@
         </Grid.RowDefinitions>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-            <Button Click="RateGuestButton_Click" Content="Rate the guest" Width="150" Height="30" Margin="0,0,10,0"/>
-            <Button Click="Requests_Click" Content="Requests for reservation changes" Width="200" Height="30" HorizontalAlignment="Right"/>
-        </StackPanel>
+        <DockPanel Grid.Row="0" Margin="10">
+            <!-- Prvo dugme - docked uz lijevu ivicu -->
+            <Button Background="{StaticResource OwnerButtonColor2}" Content="Rate the guest" Click="RateGuestButton_Click" Width="150" Height="30" Margin="0,0,10,0">
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Button.RenderTransform>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard Storyboard="{StaticResource ButtonAnimation}"/>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard Storyboard="{StaticResource ButtonResetAnimation}"/>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Drugo dugme - docked uz desnu ivicu -->
+            <Button Background="{StaticResource OwnerButtonColor2}" Content="Requests for reservation changes" Click="Requests_Click" Width="200" Height="30" HorizontalAlignment="Right">
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Button.RenderTransform>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard Storyboard="{StaticResource ButtonAnimation}"/>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard Storyboard="{StaticResource ButtonResetAnimation}"/>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </DockPanel>
 
         <!-- Reservation DataGrid -->
         <DataGrid Grid.Row="1"
@@ -26,13 +68,35 @@
                   AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                   x:Name="ReservationDataGrid"
-                  SelectionMode="Single" IsReadOnly="True" Margin="10">
+                  SelectionMode="Single" IsReadOnly="True" Margin="10"
+                  AlternationCount="2">
+            <DataGrid.Resources>
+                <!-- Promijenite boju pozadine tabele -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#E1DFE0" />
+                <!-- Promijenite boju pozadine zaglavlja -->
+
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+                <!-- Promijenite boju okvira ćelija -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="#8B8386" />
+            </DataGrid.Resources>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White" />
+                    <Style.Triggers>
+                        <!-- Postavite boju pozadine naizmenično -->
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#FBF8DA" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Property id" Width="100" Binding="{Binding PropertyId}"/>
-                <DataGridTextColumn Header="First Name" Width="120" Binding="{Binding GuestFirstName}"/>
-                <DataGridTextColumn Header="Last Name" Width="120" Binding="{Binding GuestLastName}"/>
-                <DataGridTextColumn Header="Start Date" Width="120" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <DataGridTextColumn Header="End Date" Width="120" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="First Name" Width="*" Binding="{Binding GuestFirstName}"/>
+                <DataGridTextColumn Header="Last Name" Width="*" Binding="{Binding GuestLastName}"/>
+                <DataGridTextColumn Header="Arrival Date" Width="*" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Departure Date" Width="*" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Property" Width="*" Binding="{Binding PropertyName}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

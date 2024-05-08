@@ -18,8 +18,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -28,42 +29,18 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class SearchWindow : Window
     {
-        public SearchViewModel searchViewModel { get; set; }
         public SearchWindow(ObservableCollection<TourDto> tours)
         {
             InitializeComponent();
-            searchViewModel = new SearchViewModel(tours);
-            DataContext = searchViewModel;
+            DataContext = new SearchViewModel(tours);
+            Messenger.Default.Register<NotificationMessage>(this, CloseWindow);
         }
-
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void CloseWindow(NotificationMessage message)
         {
-            searchViewModel.Confirm();
-            Close();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CityComboBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            searchViewModel.CityComboBoxLostFocus();
-        }
-
-        private void CountryComboBoxChanged(object sender, RoutedEventArgs e)
-        {
-            searchViewModel.CountryComboBoxChanged();
-        }
-
-        private void OpenDropDownClick(object sender, EventArgs e)
-        {
-            searchViewModel.OpenDropDownClick(sender);
+            if (message.Notification == "CloseSearchWindowMessage")
+            {
+                this.Close();
+            }
         }
     }
 }

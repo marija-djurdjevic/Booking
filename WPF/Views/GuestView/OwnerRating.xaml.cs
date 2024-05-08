@@ -1,7 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Aplication.Dto;
 using BookingApp.Repositories;
-using BookingApp.WPF.ViewModel.GuestViewModel;
+using BookingApp.WPF.ViewModels.GuestViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

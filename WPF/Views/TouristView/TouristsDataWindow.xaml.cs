@@ -15,8 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.WPF.ViewModel.TouristViewModel;
+using BookingApp.WPF.ViewModels.TouristViewModels;
 using BookingApp.Aplication.Dto;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BookingApp.View.TouristView
 {
@@ -25,30 +26,33 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TouristsDataWindow : Window
     {
-        private TouristsDataViewModel touristsDataViewModel;
-        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId,bool isRequest, TourRequest tourRequest)
+        public TouristsDataWindow(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             InitializeComponent();
-            touristsDataViewModel = new TouristsDataViewModel(touristNumber, selectedTour, userId,isRequest,tourRequest);
-            DataContext = touristsDataViewModel;
-        }
-
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            if (touristsDataViewModel.Confirm())
+            DataContext = new TouristsDataViewModel(touristNumber, selectedTour, userId, isRequest, tourRequest, isComplex, complexTourRequest);
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
-                Close();
-            }
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-         
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
+                switch (message.Notification)
+                {
+                    case "ScrollDataToTop":
+                        Skrol.ScrollToTop();
+                        break;
+                    case "ScrollDataToBottom":
+                        Skrol.ScrollToBottom();
+                        break;
+                    case "ScrollDataDown":
+                        double newOffset = Skrol.VerticalOffset + 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffset);
+                        break;
+                    case "ScrollDataUp":
+                        double newOffsetUp = Skrol.VerticalOffset - 40; // Adjust the amount to scroll as needed
+                        Skrol.ScrollToVerticalOffset(newOffsetUp);
+                        break;
+                    case "CloseTouristsDataWindowMessage":
+                        this.Close();
+                        break;
+                }
+            });
         }
     }
 }

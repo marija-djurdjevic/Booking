@@ -9,12 +9,33 @@
     Title="Booking app"
     Style="{StaticResource PageSetup}"
     mc:Ignorable="d">
+    <Page.InputBindings>
+        <KeyBinding
+            Key="H"
+            Command="{Binding HelpCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="I"
+            Command="{Binding InboxCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="U"
+            Command="{Binding ScrollToTopCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ScrollToBottomCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding Key="Down" Command="{Binding ScrollDownCommand}" />
+        <KeyBinding Key="Up" Command="{Binding ScrollUpCommand}" />
+
+    </Page.InputBindings>
 
     <DockPanel Margin="10">
 
         <DockPanel
             Height="100"
-            Margin="100,0,0,0"
+            Margin="100,0,10,0"
             DockPanel.Dock="Top">
 
             <TextBlock Style="{StaticResource NasloviProzoraTextBlock}" Text="All my active vouchers" />
@@ -26,7 +47,7 @@
                     Margin="0"
                     VerticalAlignment="Top"
                     Background="{StaticResource SelectedCardColor}"
-                    Click="HelpButtonClick"
+                    Command="{Binding HelpCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -37,6 +58,16 @@
                             <TextBlock Margin="0,0,5,0" Text="Help" />
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Open help window<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+H)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
@@ -44,17 +75,49 @@
                     Margin="0"
                     VerticalAlignment="Bottom"
                     Background="{StaticResource BackgroundColor}"
-                    Click="InboxButtonClick"
+                    Command="{Binding InboxCommand}"
                     Style="{StaticResource ConfirmButton}">
                     <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image
-                                Height="40"
-                                Margin="5,0,5,0"
-                                Source="/Resources/Icons/TouristIcons/inbox.png" />
-                            <TextBlock Margin="0,0,5,0" Text="Inbox" />
-                        </StackPanel>
+                        <Grid>
+                            <Border
+                                Width="35"
+                                Height="35"
+                                Margin="-10"
+                                Padding="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="Red"
+                                BorderBrush="{StaticResource BackgroundColor}"
+                                BorderThickness="2"
+                                CornerRadius="999"
+                                Visibility="{Binding UnreadNotificationCount, Converter={cvt:InboxBadgeConverter}}">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding UnreadNotificationCount}" />
+                            </Border>
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Height="40"
+                                    Margin="5,0,5,0"
+                                    Source="/Resources/Icons/TouristIcons/inbox.png" />
+                                <TextBlock Margin="0,0,5,0" Text="Inbox" />
+                            </StackPanel>
+                        </Grid>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                            <TextBlock TextAlignment="Center">
+                                Show my notifications<LineBreak />
+                                <Run
+                                    FontStyle="Italic"
+                                    Foreground="{StaticResource ValidationMessageColor}"
+                                    Text="(Ctrl+I)" /></TextBlock>
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </Grid>
         </DockPanel>
@@ -67,8 +130,19 @@
                 FontWeight="Black"
                 Text="Currently, you don't have any earned vouchers."
                 Visibility="{Binding Vouchers.Count, Converter={cvt:StatusMessageConverter}}" />
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding Vouchers}" Style="{StaticResource CardView}">
+            <ScrollViewer
+                x:Name="Skrol"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Visible">
+                <ItemsControl
+                    x:Name="Items"
+                    ItemsSource="{Binding Vouchers}"
+                    Style="{StaticResource CardView}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Height="auto" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <GroupBox Header="{Binding Item2}" Style="{StaticResource HoverStil}">
