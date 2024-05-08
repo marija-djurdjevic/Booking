@@ -11,7 +11,7 @@
             <Button HorizontalAlignment="Left">
                 <Image Width="25" Height="25" Source="\Resources\Images\back (2).png"></Image>
             </Button>
-            <Label Margin="165, 0, 0, 0" VerticalAlignment="Center" FontSize="16">Booking</Label>
+            <Label Margin="175, 0, 0, 0" VerticalAlignment="Center" FontSize="16">Booking</Label>
         </ToolBar>
         <Button FontSize="30" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,45,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
