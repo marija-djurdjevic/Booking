@@ -11,30 +11,28 @@
             <Button Click="MenuBurger_Click">
                 <Image Source="\Resources\Images\menu-burger.png"></Image>
             </Button>
-            <Label Content="BookingApp" Height="40" Margin="10, 3, 0, 0" FontSize="16"/>
-            <Button Background="LightSteelBlue" Content="Log out" Click="LogOut_Click" Height="35" FontSize="16" Width="70" VerticalAlignment="Center" Margin="110, 0, 0, 0"/>
-            <Button Margin="0, 0, 0, 0" Background="LightSteelBlue">
-                <Border CornerRadius="60">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="\Resources\Images\icons8-play-50.png" Margin="2, 0, 0 ,0" Width="20" Height="30"/>
-                        <TextBlock Margin="2, 6" Width="45" Text="DEMO"/>
-                    </StackPanel>
-                </Border>
+            <Label Content="BookingApp" Height="35" FontSize="16"/>
+            <Button Margin="185, 0, 0, 0">
+                <Image Source="\Resources\Images\bell.png"></Image>
             </Button>
+            <Button Click="LogOut_Click" Margin="3, 3, 0, 3">
+                <Image Source="\Resources\Images\logout.png"></Image>
+            </Button>
+
         </ToolBar>
         <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,44,0,44" NavigationUIVisibility="Hidden"/>
-        <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#dddddd" Height="45" Width="430">
-            <Button BorderBrush="#dddd" Margin="100, 0" Width="60">
+        <DockPanel VerticalAlignment="Bottom" Background="#dddddd" Height="45" Width="430">
+            <Button BorderBrush="#dddd" Margin="20, 0, 0, 0" Width="60">
                 <Image Source="\Resources\Images\back (1).png" Width="60"></Image>
             </Button>
-            <Button BorderBrush="#dddd" Margin="0, 0, 100, 0" Width="60">
+            <Button BorderBrush="#dddd" Margin="115, 0, 0, 0" HorizontalAlignment="Center">
                 <Image Source="\Resources\Images\home.png"></Image>
             </Button>
+            <Button Content="DEMO" BorderThickness="2" FontWeight="Bold" FontSize="18" BorderBrush="Black" Margin="60, 0, 0, 0" Background="#dddd" Height="40" Width="70"/>
         </DockPanel>
 
         <Frame Name="ActionFrame" HorizontalAlignment="Left" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"
         Height="Auto">
-            <!-- Ovdje će se prikazivati vaše stranice -->
         </Frame>
     </Grid>
 

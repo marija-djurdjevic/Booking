@@ -52,5 +52,27 @@ namespace BookingApp.GuestView
             }
             
         }
+
+        private void Upcoming_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.GetUpcomingReservations();
+            TypeTextBlock.Text = "Upcoming";
+            TypePopup.IsOpen = false;
+        }
+
+        private void Completed_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.GetCompletedReservations();
+            TypeTextBlock.Text = "Completed";
+            TypePopup.IsOpen = false;
+        }
+
+        private void AllReservations_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.GetAllReservations();
+            TypeTextBlock.Text = "All";
+            TypePopup.IsOpen = false;
+        }
+
     }
 }

@@ -122,5 +122,17 @@ namespace BookingApp.Aplication.UseCases
                 throw new Exception("Reservation not found for ReservationId: " + request.ReservationId);
             }
         }
+
+        public List<PropertyReservation> GetUpcomingReservations(int guestId)
+        {
+            DateTime today = DateTime.Today;
+            return propertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false && r.StartDate >= today);
+        }
+
+        public List<PropertyReservation> GetCompletedReservations(int guestId)
+        {
+            DateTime today = DateTime.Today;
+            return propertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false && r.EndDate < today);
+        }
     }
 }

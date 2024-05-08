@@ -78,14 +78,18 @@
 
             <StackPanel Width="125" Orientation="Vertical">
                 <Label
-                    Width="90"
-                    Margin="10,10,0,0"
-                    Content="Type:" />
-                <TextBox
-                    x:Name="SearchByType"
-                    Width="100"
-                    Height="30"
-                    Margin="10,0,0,0" />
+                 Width="90"
+                 Margin="10,10,0,0"
+                 Content="Type:" />
+                <ComboBox
+                 x:Name="SearchByType"
+                 Width="100"
+                 Height="30"
+                 Margin="10,0,0,0">
+                <ComboBoxItem Content="Cabin"/>
+                <ComboBoxItem Content="Apartment"/>
+                <ComboBoxItem Content="House"/>
+                </ComboBox>
                 <Button
                     Width="100"
                     Height="35"

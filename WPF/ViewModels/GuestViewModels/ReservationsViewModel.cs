@@ -72,5 +72,23 @@ namespace BookingApp.WPF.ViewModels.GuestViewModel
 
             }
         }
+
+        public void GetAllReservations()
+        {
+            GuestsReservations.Clear();
+            propertyReservationService.UpdateGuestReservations(LoggedInGuest.Id).ForEach(GuestsReservations.Add);
+        }
+
+        public void GetUpcomingReservations()
+        {
+            GuestsReservations.Clear();
+            propertyReservationService.GetUpcomingReservations(LoggedInGuest.Id).ForEach(GuestsReservations.Add);
+        }
+
+        public void GetCompletedReservations()
+        {
+            GuestsReservations.Clear();
+            propertyReservationService.GetCompletedReservations(LoggedInGuest.Id).ForEach(GuestsReservations.Add);
+        }
     }
 }
