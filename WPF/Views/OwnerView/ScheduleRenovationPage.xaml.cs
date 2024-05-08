@@ -38,5 +38,22 @@ namespace BookingApp.WPF.Views.OwnerView
             AllPropertyNames = _propertyRepository.GetAllPropertyNames();
             DataContext = this;
         }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Logika za pretragu dostupnih slotova
+            // Ovdje bi se trebala popuniti DataGrid sa dostupnim slotovima
+
+            // Nakon popunjavanja DataGrid-a i pripreme podataka za prikaz, postavite vidljivost na Visible
+            /*InstructionLabel.Visibility = Visibility.Visible;
+            DateGrid.Visibility = Visibility.Visible;
+            AdditionalInfoTextBox.Visibility = Visibility.Visible;
+            SubmitButton.Visibility = Visibility.Visible;*/
+        }
+        private void SubmitButton_Click(object sender, RoutedEventArgs e) { }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
