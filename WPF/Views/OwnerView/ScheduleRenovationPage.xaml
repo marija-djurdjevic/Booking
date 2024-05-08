@@ -1,0 +1,68 @@
+﻿<Page x:Class="BookingApp.WPF.Views.OwnerView.ScheduleRenovationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:repos="clr-namespace:BookingApp.Repositories"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="ScheduleRenovationPage">
+
+    <Grid>
+        <!-- Gornji dio s ComboBox-om, DatePicker-ima i Search dugmetom -->
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <!-- Combo box za izbor nekretnine -->
+            <StackPanel Margin="10,0">
+                <TextBlock Text="Select Property"/>
+                <ComboBox x:Name="PropertyComboBox" Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedIndex="0"/>
+            </StackPanel>
+
+            <!-- Date picker za početak renovacije -->
+            <StackPanel Margin="5,0">
+                <TextBlock Text="Start Date"/>
+                <DatePicker  x:Name="StartDatePicker" Width="120"/>
+            </StackPanel>
+
+            <!-- Date picker za kraj renovacije -->
+            <StackPanel Margin="5,0">
+                <TextBlock Text="End Date"/>
+                <DatePicker  x:Name="EndDatePicker" Width="120"/>
+            </StackPanel>
+
+            <!-- Labela za unos trajanja renovacije -->
+            <StackPanel Margin="5,0">
+                <TextBlock Text="Duration"/>
+                <TextBox x:Name="DurationTextBox" Width="120" Height="22"/>
+            </StackPanel>
+
+            <Button Margin="5,10" Width="150" Height="30" Content="Search" Click="SearchButton_Click" Background="{DynamicResource OwnerButtonColor2}" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <!-- Donji dio s Please select... tekstom, DataGrid-om, TextArea-om i Submit dugmetom -->
+        <StackPanel Margin="10" VerticalAlignment="Top">
+            <!-- Tekstovi Please select... i Enter renovation description -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,70,10,5" FontWeight="Bold" FontSize="14" Text="Please select one of available slots below"/>
+                <TextBlock Margin="30,70,10,5" FontWeight="Bold" FontSize="14" Text="Enter renovation description"/>
+            </StackPanel>
+
+            <!-- WrapPanel za držanje DataGrid-a i TextArea-e -->
+            <WrapPanel>
+                <!-- DataGrid za prikaz datuma -->
+                <DataGrid x:Name="DateDataGrid" MouseDoubleClick="DateDataGrid_MouseDoubleClick" AutoGenerateColumns="False" Width="267" Height="140">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- TextArea za dodatne informacije -->
+                <TextBox x:Name="RenovationDescriptionTextBox" Margin="40,5" Height="140" Width="200"/>
+            </WrapPanel>
+
+            <!-- Submit dugme -->
+            <Button Margin="100,10,0,0" Width="150" Height="30" Content="Submit" Background="{DynamicResource OwnerButtonColor2}" Click="SubmitButton_Click" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>
