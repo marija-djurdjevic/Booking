@@ -30,6 +30,10 @@ namespace BookingApp.Repositories
             propertyReservations = _serializer.FromCSV(FilePath);
         }
 
+        public List<PropertyReservation> GetAllPropertyReservationsByPropertyId(int propertyId)
+        {
+            return propertyReservations.Where(pr => pr.PropertyId == propertyId).ToList();
+        }
         public void AddPropertyReservation(PropertyReservation _propertyReservation)
         {
             int nextId = NextId();

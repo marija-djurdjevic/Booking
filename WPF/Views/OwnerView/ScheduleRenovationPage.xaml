@@ -15,22 +15,28 @@
             <!-- Combo box za izbor nekretnine -->
             <StackPanel Margin="10,0">
                 <TextBlock Text="Select Property"/>
-                <ComboBox Width="190" ItemsSource="{Binding AllPropertyNames}" SelectedIndex="0"/>
+                <ComboBox x:Name="PropertyComboBox" Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedIndex="0"/>
             </StackPanel>
 
             <!-- Date picker za početak renovacije -->
             <StackPanel Margin="5,0">
                 <TextBlock Text="Start Date"/>
-                <DatePicker Width="190"/>
+                <DatePicker  x:Name="StartDatePicker" Width="120"/>
             </StackPanel>
 
             <!-- Date picker za kraj renovacije -->
             <StackPanel Margin="5,0">
                 <TextBlock Text="End Date"/>
-                <DatePicker Width="190"/>
+                <DatePicker  x:Name="EndDatePicker" Width="120"/>
             </StackPanel>
 
-            <Button Margin="5,10" Width="150" Height="30" Content="Search" Background="{DynamicResource OwnerButtonColor2}" VerticalAlignment="Top"/>
+            <!-- Labela za unos trajanja renovacije -->
+            <StackPanel Margin="5,0">
+                <TextBlock Text="Duration"/>
+                <TextBox x:Name="DurationTextBox" Width="120" Height="22"/>
+            </StackPanel>
+
+            <Button Margin="5,10" Width="150" Height="30" Content="Search" Click="SearchButton_Click" Background="{DynamicResource OwnerButtonColor2}" VerticalAlignment="Top"/>
         </StackPanel>
 
         <!-- Donji dio s Please select... tekstom, DataGrid-om, TextArea-om i Submit dugmetom -->
@@ -44,19 +50,19 @@
             <!-- WrapPanel za držanje DataGrid-a i TextArea-e -->
             <WrapPanel>
                 <!-- DataGrid za prikaz datuma -->
-                <DataGrid AutoGenerateColumns="False" Width="267" Height="140">
+                <DataGrid x:Name="DateDataGrid" MouseDoubleClick="DateDataGrid_MouseDoubleClick" AutoGenerateColumns="False" Width="267" Height="140">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Start Date"/>
-                        <DataGridTextColumn Width="*" Header="End Date"/>
+                        <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
                 <!-- TextArea za dodatne informacije -->
-                <TextBox Margin="40,5" Height="140" Width="200"/>
+                <TextBox x:Name="RenovationDescriptionTextBox" Margin="40,5" Height="140" Width="200"/>
             </WrapPanel>
 
             <!-- Submit dugme -->
-            <Button Margin="100,10,0,0" Width="150" Height="30" Content="Submit" Background="{DynamicResource OwnerButtonColor2}" Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Button Margin="100,10,0,0" Width="150" Height="30" Content="Submit" Background="{DynamicResource OwnerButtonColor2}" Click="SubmitButton_Click" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>
