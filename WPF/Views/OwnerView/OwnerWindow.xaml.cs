@@ -19,6 +19,7 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.WPF.Views.OwnerView;
 
 namespace BookingApp.View
 {
@@ -45,6 +46,7 @@ namespace BookingApp.View
             ReservationsFrame.Navigate(new ReservationsPage());
             PropertyFrame.Navigate(new PropertyPage(LoggedInUser));
             GuestReviewsFrame.Navigate(new GuestReviewsPage());
+            RenovationsFrame.Navigate(new RenovationsPage(LoggedInUser));
 
         }
 

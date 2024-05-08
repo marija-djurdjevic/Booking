@@ -12,6 +12,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
         void AddPropertyReservation(PropertyReservation _propertyReservation);
         List<PropertyReservation> GetAll();
         List<PropertyReservation> GetReservationDataById(int id);
+        public List<PropertyReservation> GetAllPropertyReservationsByPropertyId(int propertyId);
         void Update(PropertyReservation updatedPropertyReservation);
         PropertyReservation GetReservationById(int id);
         void UpdatePropertyReservation(PropertyReservation updatedReservation);
