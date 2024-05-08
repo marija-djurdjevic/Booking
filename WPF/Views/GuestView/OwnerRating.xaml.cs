@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static System.Net.Mime.MediaTypeNames;
+using BookingApp.WPF.Views.GuestView;
 
 namespace BookingApp.GuestView
 {
@@ -56,5 +57,10 @@ namespace BookingApp.GuestView
             viewModel.RemovePhotos();
         }
 
+        private void RenovationReccomendation_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationReccomendationView renovationReccomendation = new RenovationReccomendationView();
+            NavigationService.Navigate(renovationReccomendation, this);
+        }
     }
 }

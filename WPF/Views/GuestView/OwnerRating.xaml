@@ -81,7 +81,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0" Height="100" Width="400">
             <TextBox TextWrapping="Wrap" Text="{Binding Path=OwnerReview.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </Border>
-        <Button Content="Renovation reccomendations" Grid.Row="1" HorizontalAlignment="Left" Margin="10, 45,0,0" VerticalAlignment="Center" Width="170" Height="30"/>
+        <Button Content="Renovation reccomendations" Click="RenovationReccomendation_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="10, 45,0,0" VerticalAlignment="Center" Width="170" Height="30"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,175,0,0" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Add photos" Width="100" Height="30" HorizontalAlignment="Left" Click="AddPhotos_Click"/>

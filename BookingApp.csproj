@@ -74,6 +74,7 @@
     <None Remove="Resources\Images\delete-button.png" />
     <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\hammer.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\home4.png" />
     <None Remove="Resources\Images\icons8-play-50.png" />
@@ -248,6 +249,7 @@
     <Resource Include="Resources\Images\decline.png" />
     <Resource Include="Resources\Images\delete-button.png" />
     <Resource Include="Resources\Images\earth.png" />
+    <Resource Include="Resources\Images\hammer.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\home4.png" />
     <Resource Include="Resources\Images\icons8-play-50.png" />
