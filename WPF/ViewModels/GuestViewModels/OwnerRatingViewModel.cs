@@ -11,6 +11,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
 using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.WPF.Views.GuestView;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModel
 {
@@ -140,7 +142,6 @@ namespace BookingApp.WPF.ViewModels.GuestViewModel
                 }
             }
         }
-
 
     }
 
