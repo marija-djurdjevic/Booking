@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using BookingApp.View;
+using BookingApp.WPF.Views.GuestView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,12 @@ namespace BookingApp.GuestView
         {
             ReservationsView reservationsView = new ReservationsView(LoggedInGuest);
             NavigationService.Navigate(reservationsView);
+        }
+
+        private void ReviewScore_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReviewScoreView guestReviewScore = new GuestReviewScoreView(LoggedInGuest);
+            NavigationService.Navigate(guestReviewScore);   
         }
     }
 }
