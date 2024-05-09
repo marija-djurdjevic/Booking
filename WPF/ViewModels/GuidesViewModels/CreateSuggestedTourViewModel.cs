@@ -566,16 +566,16 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 (bool success,int tourId) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
                 if (success)
                 {
+                    foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
+                    {
+                        TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId, 2, tourId, DateTime.Now, Domain.Models.Enums.NotificationType.ToursOfInterestCreated, "Ognjen");
+                        notificationService.Save(touristGuideNotification);
+                    }
                     MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     MessageBox.Show("Failed to create tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
-                {
-                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,2,tourId,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,"Ognjen");
-                    notificationService.Save(touristGuideNotification);
                 }
             }
         }

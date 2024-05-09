@@ -318,7 +318,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             string title = "Request ";
             foreach (var request in tourRequestService.GetByTouristId(LoggedInUser.Id))
             {
-                TourRequests.Add(new Tuple<TourRequestViewModel, string>(new TourRequestViewModel(request), title + ++i));
+                TourRequests.Add(new Tuple<TourRequestViewModel, string>(new TourRequestViewModel(request), title + request.Id));
             }
         }
 

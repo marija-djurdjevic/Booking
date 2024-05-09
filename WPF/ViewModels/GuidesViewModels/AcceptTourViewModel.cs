@@ -152,12 +152,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             if (FreeDates.Any(dateRange => SelectedDateTime >= dateRange.Item1 && SelectedDateTime <= dateRange.Item2))
             {
                 tourRequestService.UpdateRequestById(id,SelectedDateTime);
-                TouristGuideNotification touristGuideNotification= new TouristGuideNotification(SelectedTour.TouristId,2,SelectedTour.Id,DateTime.Now,Domain.Models.Enums.NotificationType.RequestAccepted,"Ognjen",SelectedDateTime);
-                notificationService.Save(touristGuideNotification);
                 if (!IsAccepted)
                 {
                     tourRequestService.UpdateRequestById(id, SelectedDateTime);
                     IsAccepted = true;
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, 2, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, "Ognjen", SelectedDateTime);
+                    notificationService.Save(touristGuideNotification);
                     MessageBox.Show("Tour request successfully accepted.");
                 }
                 else

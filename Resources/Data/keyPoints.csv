@@ -136,3 +136,9 @@
 142|35|lisabon|End|3|False
 143|36|f|Begining|1|False
 144|36|ggg|End|2|False
+145|37|1|Begining|1|True
+146|37|2|Middle|2|True
+147|37|3|End|3|True
+148|38|1|Begining|1|True
+149|38|2|Middle|2|True
+150|38|3|End|3|True
