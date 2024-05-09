@@ -293,13 +293,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             {
                 new PieSeries
                 {
-                    Title = "Accepted requests: "+((float)accepted/(accepted+notAccepted))*100+"%",
+                    Title = $"Accepted requests: {((float)accepted/(accepted+notAccepted))*100:N2}%",
                     Values = new ChartValues<double> {accepted},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Not accepted requests: "+((float)notAccepted/(accepted+notAccepted))*100+"%",
+                    Title = $"Not accepted requests: {((float)notAccepted/(accepted+notAccepted))*100:N2}% ",
                     Values = new ChartValues<double> {notAccepted},
                     DataLabels = true
                 }
