@@ -10,6 +10,7 @@
 
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter" />
+        <local:StatusToColorConverter x:Key="StatusToColorConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -54,19 +55,19 @@
                             <Binding Converter="{StaticResource ImagePathConverter}" Path="SelectedTour.ImagesPaths[0]" />
                         </Image.Source>
                     </Image>
-                    <TextBlock Margin="10,8,857,135" FontSize="24" Text="About Tour" Grid.ColumnSpan="2"  />
+                    <TextBlock Margin="10,8,857,135" FontSize="24" Text="About Tour" FontWeight="Bold" Grid.ColumnSpan="2"  />
                     <!-- Informacije -->
                     <StackPanel Grid.Column="1" Margin="10,40,10,10">
-                        <TextBlock Margin="0,10,0,0">
-                        <Run FontSize="24" Text="Location:                  " />
-                        <TextBlock>
-                            <Run FontSize="24" Text="{Binding SelectedTour.Location.City}" />
-                            <Run FontSize="24" Text="," />
-                            <Run FontSize="24" Text="{Binding SelectedTour.Location.Country}" />
+                        <TextBlock Margin="-0.5,10,0,0">
+                        <Run FontSize="24" FontWeight="DemiBold" Text="Location:                  " />
+                        <TextBlock Margin="-3,0,0,0">
+                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding SelectedTour.Location.City}" />
+                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding SelectedTour.Location.Country}" />
                         </TextBlock>
                     </TextBlock>
 
-                        <TextBlock Margin="0,10,0,0">
+                        <TextBlock Margin="1,10,0,0">
                         <Run FontSize="24" Text="Language:                " />
                         <TextBlock>
                             <Run FontSize="24" Text="{Binding SelectedTour.Language}" />
@@ -75,7 +76,9 @@
 
                         <TextBlock Margin="0,10,0,0">
                         <Run FontSize="24" Text="Start date and time: " />
+                              <TextBlock Margin="-1,0,0,0">
                         <Run FontSize="24" Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                  </TextBlock>
                         </TextBlock>
                     </StackPanel>
                 </Grid>
@@ -86,22 +89,23 @@
 
 
 
-        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left"  Margin="0,0,0,109" Width="1009">
+        <ScrollViewer VerticalScrollBarVisibility="visible" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Height="390" Margin="0,0,0,109" Width="1009" >
             <Grid  Background="{StaticResource pozadina}">
 
                 <ItemsControl d:ItemsSource="{d:SampleData ItemCount=2}"  ItemsSource="{Binding TouristExperiences}" Margin="0,0,0,146" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
-                            <GroupBox Background="{StaticResource gropuBox }" BorderBrush="Black" BorderThickness="2"  Width="950" FontSize="24" Margin="0,0,0,10">
+                            <GroupBox Background="{Binding Path=., Converter={StaticResource StatusToColorConverter}}" BorderBrush="Black" BorderThickness="2" Width="950" FontSize="24" Margin="0,0,0,10">
+
 
                                 <GroupBox.Header>
 
                                     <Label>
                                         <TextBlock>
-                                            <Run Text="{Binding Tourist.FirstName}" />
+                                            <Run FontWeight="Bold" Text="{Binding Tourist.FirstName}" />
                                             <Run Text=" " />
-                                            <Run Text="{Binding Tourist.LastName}" />
+                                            <Run FontWeight="Bold" Text="{Binding Tourist.LastName}" />
                                         </TextBlock>
                                     </Label>
 

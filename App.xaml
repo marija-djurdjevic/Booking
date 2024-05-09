@@ -722,7 +722,7 @@
 
         <!--  Stilovi za vodiča  -->
         <SolidColorBrush x:Key="pozadina" Color="#80DFE0" />
-        <SolidColorBrush x:Key="gropuBox" Color="LightGreen" />
+        <SolidColorBrush x:Key="gropuBox" Color="#A5F7A6" />
         <SolidColorBrush x:Key="nagivation" Color="#95B0B0" />
 
 

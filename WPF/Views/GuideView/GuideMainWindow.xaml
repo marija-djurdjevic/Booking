@@ -59,12 +59,12 @@
             <!--  Druga slika u sredini  -->
             <Button
                 Width="82"
-                Background="Transparent"
                 HorizontalAlignment="Center"
+                Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding GoHomeCommand}">
                 <Image
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Width="59"
                     Height="59"
                     Source="/Resources/Images/home4.png" />

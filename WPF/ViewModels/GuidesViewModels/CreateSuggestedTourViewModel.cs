@@ -177,8 +177,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             get
             {
-                // Ovde možete dodati validaciju za ceo objekat ako je potrebno
-                return null; // Ako nema grešaka, vratite null
+               
+                return null; 
             }
         }
 
@@ -436,7 +436,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void RemoveKeyPoint(object parameter)
         {
             string keyPointName = parameter.ToString();
-            KeyPointNames.Remove(keyPointName);
+            KeyPointNames.Remove(keyPointName); 
+            OnPropertyChanged(nameof(KeyPoints));
         }
 
 

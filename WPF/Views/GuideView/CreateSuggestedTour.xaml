@@ -41,7 +41,8 @@
                     Margin="15,34,20,0"
                     VerticalAlignment="Top"
                     Content="Basic informations:"
-                    FontSize="32" />
+                    FontSize="32"
+                    FontWeight="DemiBold"/>
                     <Label
                     Margin="25,100,20,1269"
                     Content="Name:"
@@ -105,7 +106,8 @@
                     <Label
                     Margin="15,429,20,1007"
                     Content="Tour details:"
-                    FontSize="32" />
+                    FontSize="32"
+                      FontWeight="DemiBold"/>
                     <Label
                     Margin="25,593,100,831"
                     Content="Location:"
@@ -255,37 +257,37 @@
 
 
                     <Border
-                    Height="2"
-                    Margin="0,1058,0,380"
-                    BorderBrush="Black"
-                    BorderThickness="0,0,0,1" />
+                Height="2"
+                Margin="0,1058,0,380"
+                BorderBrush="Black"
+                BorderThickness="0,0,0,1" />
 
 
-                    <Border BorderBrush="Black" BorderThickness="1" Height="100"  CornerRadius="30" Margin="656,1204,100,154">
+                    <Border BorderBrush="Black" BorderThickness="1" Height="100"  CornerRadius="30" Margin="588,1232,168,183">
                         <Button
-                            Height="43"
-                            Padding="-2"
-                            Command="{Binding UploadImageCommand}"
-                            Content="UPLOAD"
-                            FontSize="24" Margin="54,29,51,26"
-                            Style="{StaticResource CustomButtonStyle}"/>
+                        Height="43"
+                        Padding="-2"
+                        Command="{Binding UploadImageCommand}"
+                        Content="UPLOAD"
+                        FontSize="24" Margin="54,29,51,26"
+                        Style="{StaticResource CustomButtonStyle}"/>
                     </Border>
 
 
 
                     <Grid>
-                        <TextBlock Text="Images" FontSize="24" Margin="307,1141,600,325" />
+                        <TextBlock FontWeight="DemiBold" Text="Images" FontSize="24" Margin="236,1141,670,325" />
 
                         <Image
-    x:Name="ImagePreview"
-    Grid.Column="0"
-    Width="187"
-    Height="157"
-    Margin="249,1189,0,0"
-    HorizontalAlignment="Left"
-    VerticalAlignment="Top"
-    Stretch="Fill"
-    Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+x:Name="ImagePreview"
+Grid.Column="0"
+Width="187"
+Height="157"
+Margin="177,1189,0,0"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Stretch="Fill"
+Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
                                     <StackPanel>
@@ -303,17 +305,18 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Style="{StaticResource CustomButtonStyle}" Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-253,-7,360,0">
+                            <Button Style="{StaticResource CustomButtonStyle}" Grid.Column="0" Width="80" Height="40" Command="{Binding PreviousImageCommand}" Margin="-333,-7,440,0">
                                 <TextBlock Text="&#x25C0;" FontSize="24"/>
                             </Button>
 
-                            <Button Style="{StaticResource CustomButtonStyle}" Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="45,-7,50,0">
+                            <Button Style="{StaticResource CustomButtonStyle}" Width="80" Height="40" Command="{Binding NextImageCommand}" Margin="-13,-7,120,0">
                                 <TextBlock Text="&#x25B6;" FontSize="24"/>
                             </Button>
 
-                            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding DeleteImageCommand}" Padding="5" FontSize="24" Content="Delete" Margin="-120,109,191,-113"/>
+                            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding DeleteImageCommand}" Padding="5" FontSize="24" Content="Delete" Margin="-205,120,247,-113"/>
                         </Grid>
                     </Grid>
+
 
 
 
@@ -395,7 +398,9 @@
                     <Label Margin="531,430,20,1032"
      FontSize="28">
                         <TextBlock>
+                            <TextBlock Margin="0,1,0,0">
          <Run Text="{Binding MostRequestedLocation}" />
+                                </TextBlock>
          <TextBlock Margin="0,-0.1,0,0">
              <Run Text=")" />
          </TextBlock>
@@ -405,10 +410,10 @@
                     <Label Margin="650,38,7,1415"
      FontSize="28">
                         <TextBlock>
-         <TextBlock Margin="7,3,0,0">
+         <TextBlock Margin="7,0.5,0,0">
          <Run Text="{Binding MostRequestedLanguage}" />
              </TextBlock>
-         <TextBlock>
+         <TextBlock Margin="0,0.5,0,0">
               <Run Text=")" />
          </TextBlock>
      </TextBlock>
@@ -462,7 +467,7 @@
                     Height="71" />
                 </Button>
 
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE TOUR"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE SUGGESTED TOUR"/>
 
             </Grid>
 
