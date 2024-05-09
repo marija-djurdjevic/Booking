@@ -17,7 +17,7 @@ namespace BookingApp.Domain.Models
         public string GuideName { get; set; }
         public string TourName { get; set; }
         public List<string> AddedPersons { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime CreationTime { get; set; }
         public NotificationType Type { get; set; }
         public int RequestId { get; set; }
         public DateTime AcceptedTime { get; set; }
@@ -37,7 +37,7 @@ namespace BookingApp.Domain.Models
             GuideId = guideId;
             TourId = tourId;
             AddedPersons = addedPersons;
-            Date = date;
+            CreationTime = date;
             Type = type;
             Seen = false;
             ActiveKeyPoint = activeKeyPoint;
@@ -49,7 +49,7 @@ namespace BookingApp.Domain.Models
             TouristId = touristId;
             GuideId = guideId;
             TourId = tourId;
-            Date = date;
+            CreationTime = date;
             Type = type;
             Seen = false;
             GuideName = guideName;
@@ -60,7 +60,7 @@ namespace BookingApp.Domain.Models
             TouristId = touristId;
             GuideId = guideId;
             RequestId = requestId;
-            Date = date;
+            CreationTime = date;
             Type = type;
             Seen = false;
             GuideName = guideName;
@@ -71,7 +71,7 @@ namespace BookingApp.Domain.Models
         public virtual string[] ToCSV()
         {
             string addedPersons = string.Join("|", AddedPersons);
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), TourId.ToString(), Date.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(), ActiveKeyPoint, TourName, GuideName,RequestId.ToString(),AcceptedTime.ToString("dd.MM.yyyy HH:mm:ss"), addedPersons };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), TourId.ToString(), CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(), ActiveKeyPoint, TourName, GuideName,RequestId.ToString(),AcceptedTime.ToString("dd.MM.yyyy HH:mm:ss"), addedPersons };
             return csvValues;
         }
 
@@ -82,7 +82,7 @@ namespace BookingApp.Domain.Models
             GuideId = Convert.ToInt32(values[2]);
             TourId = Convert.ToInt32(values[3]);
 
-            Date = DateTime.ParseExact(values[4], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            CreationTime = DateTime.ParseExact(values[4], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
 
             Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[5]);
