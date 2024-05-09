@@ -23,6 +23,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ObservableCollection<string> AllPropertyNames { get; set; }
         public ObservableCollection<DateRange> AvailableDateRanges { get; set; }
         public DateRange SelectedDateRange { get; set; }
+        public event EventHandler GoBackRequested;
         public ScheduleRenovationViewModel(User loggedInUser)
         {
             _loggedInUser = loggedInUser;
@@ -52,7 +53,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             }
             return availableDateRanges;
 
-           //DateDataGrid.ItemsSource = AvailableDateRanges;
         }
         public void SubmitRenovation(int ownerId, int propertyId, DateTime startDate, DateTime endDate, string description, int duration)
         {
@@ -72,10 +72,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 Duration = duration
             };
 
-            // Pozovite odgovarajuću metodu u servisu za čuvanje renovacije
             _renovationService.Save(newRenovation);
 
             MessageBox.Show("Renovation saved successfully.");
+            OnGoBackRequested(EventArgs.Empty);
+        }
+        protected virtual void OnGoBackRequested(EventArgs e)
+        {
+            GoBackRequested?.Invoke(this, e);
         }
 
     }
