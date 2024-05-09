@@ -75,6 +75,9 @@
                     FontSize="24"
                     Text="Choose location:" />
                 <ComboBox
+                    FontSize="20"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Left"
                     IsEditable="True"
                     TextSearch.TextPath="."
                     IsTextSearchEnabled="True"
@@ -111,6 +114,9 @@
                     FontSize="24"
                     Text="Choose language:" />
                 <ComboBox
+                    FontSize="20"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Left"
                     IsEditable="True" TextSearch.TextPath="."
                     IsTextSearchEnabled="True"
                     Grid.Row="2"
@@ -124,17 +130,17 @@
                 <!--  Start datetime  -->
                 <TextBlock
                     Grid.Column="1"
-                    Margin="28,21,0,0"
+                    Margin="18,21,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     FontSize="24"
-                    Text="Start datetime:" />
+                    Text="Start date and time:" />
                 <xctk:DateTimePicker
                     Grid.Row="0"
                     Grid.Column="1"
                     Width="195"
                     Height="42"
-                    Margin="234,16,0,0"
+                    Margin="274,16,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Value="{Binding StartDateTime, Mode=TwoWay}" />
@@ -145,17 +151,17 @@
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
-                    Margin="28,0,0,0"
+                    Margin="18,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="24"
-                    Text="End datetime:" />
+                    Text="End date and time:" />
                 <xctk:DateTimePicker
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="195"
                     Height="42"
-                    Margin="234,0,0,0"
+                    Margin="274,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Value="{Binding EndDateTime, Mode=TwoWay}" />
@@ -166,7 +172,7 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     Height="50"
-                    Margin="236,0,4,0"
+                    Margin="274,0,4,0"
                     VerticalAlignment="Center"
                     Command="{Binding SearchCommand}"
                     Content="Search"
@@ -183,7 +189,7 @@
                     Command="{Binding ResetSearchCommand}"
                     Content="Reset search"
                     FontSize="20"
-                    Style="{StaticResource CustomButtonStyle}" Margin="25,0,0,0"/>
+                    Style="{StaticResource CustomButtonStyle}" Margin="20,0,0,0"/>
 
 
 
@@ -241,12 +247,12 @@
                                     <!--  Informacije o turi  -->
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
 
-                                        <TextBlock Margin="0,0,0,15">
-                                            <Run FontSize="24" Text="Location: " />
-                                            <TextBlock Margin="165,0,0,0">
-                                                <Run FontSize="24" Text="{Binding Location.City}" />
-                                                <Run FontSize="24" Text="," />
-                                                <Run FontSize="24" Text="{Binding Location.Country}" />
+                                        <TextBlock Margin="-1.5,0,0,15">
+                                            <Run FontSize="24" FontWeight="DemiBold" Text="Location: " />
+                                            <TextBlock Margin="164,0,0,0">
+                                                <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
+                                                <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                                                <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
                                             </TextBlock>
                                         </TextBlock>
 

@@ -90,11 +90,11 @@
 98|21|AFAFADFADF|Middle|2|True
 99|21|AFAFADFADF|Middle|3|True
 100|21|AFAFADFADF|Middle|4|True
-101|21|AFAFADFADF|Middle|5|False
-102|21|AFAFADFADF|End|6|False
+101|21|AFAFADFADF|Middle|5|True
+102|21|AFAFADFADF|End|6|True
 103|21|ssss|Begining|1|True
 104|21|ssssdddd|Middle|2|True
-105|21|ssssddddfff|End|3|False
+105|21|ssssddddfff|End|3|True
 106|22|ssss|Begining|1|False
 107|22|ssssdddd|Middle|2|False
 108|22|ssssddddfff|End|3|False
@@ -136,3 +136,9 @@
 142|35|lisabon|End|3|False
 143|36|f|Begining|1|False
 144|36|ggg|End|2|False
+145|37|1|Begining|1|True
+146|37|2|Middle|2|True
+147|37|3|End|3|True
+148|38|1|Begining|1|True
+149|38|2|Middle|2|True
+150|38|3|End|3|True

@@ -293,13 +293,13 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             {
                 new PieSeries
                 {
-                    Title = "Accepted requests: "+((float)accepted/(accepted+notAccepted))*100+"%",
+                    Title = $"Accepted requests: {((float)accepted/(accepted+notAccepted))*100:N2}%",
                     Values = new ChartValues<double> {accepted},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Not accepted requests: "+((float)notAccepted/(accepted+notAccepted))*100+"%",
+                    Title = $"Not accepted requests: {((float)notAccepted/(accepted+notAccepted))*100:N2}% ",
                     Values = new ChartValues<double> {notAccepted},
                     DataLabels = true
                 }
@@ -318,7 +318,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             string title = "Request ";
             foreach (var request in tourRequestService.GetByTouristId(LoggedInUser.Id))
             {
-                TourRequests.Add(new Tuple<TourRequestViewModel, string>(new TourRequestViewModel(request), title + ++i));
+                TourRequests.Add(new Tuple<TourRequestViewModel, string>(new TourRequestViewModel(request), title + request.Id));
             }
         }
 

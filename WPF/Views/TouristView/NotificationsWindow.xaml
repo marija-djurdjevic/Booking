@@ -189,7 +189,7 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
                                             FontWeight="Bold"
-                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                            Text="{Binding Item1.CreationTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                     </Grid>
                                     <Grid Visibility="{Binding Item1.Type, ConverterParameter=accepted, Converter={cvt:TouristNotificationConverter}}">
                                         <Grid.RowDefinitions>
@@ -243,7 +243,7 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
                                             FontWeight="Bold"
-                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                            Text="{Binding Item1.CreationTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                     </Grid>
                                     <Grid Visibility="{Binding Item1.Type, ConverterParameter=created, Converter={cvt:TouristNotificationConverter}}">
                                         <Grid.RowDefinitions>
@@ -301,7 +301,7 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
                                             FontWeight="Bold"
-                                            Text="{Binding Item1.Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                            Text="{Binding Item1.CreationTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                     </Grid>
                                 </Grid>
                                 <GroupBox.Style>

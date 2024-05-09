@@ -43,7 +43,7 @@
             </Grid>
 
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" >
-                <Grid>
+                <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="71"/>
                         <RowDefinition Height="70"/>
@@ -56,19 +56,50 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose location:" FontSize="24" Margin="10,16,810,78" Grid.RowSpan="2"/>
-                    <ComboBox IsEditable="True" TextSearch.TextPath="." IsTextSearchEnabled="True"  Grid.Column="0" Width="200" Margin="285,16,565,12" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
+                    <ComboBox 
+                        FontSize="20"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        IsEditable="True" 
+                        TextSearch.TextPath="." 
+                        IsTextSearchEnabled="True"  
+                        Grid.Column="0" 
+                        Width="200" 
+                        Margin="285,16,565,12" 
+                        ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}"  />
 
 
                     <!-- Choose language -->
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Choose language:" FontSize="24" Margin="11,20,809,7"/>
-                    <ComboBox IsEditable="True" TextSearch.TextPath="." IsTextSearchEnabled="True" Text="{Binding Language}" Grid.Row="1" Grid.Column="0" Width="200"  ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}" VerticalAlignment="Top" Margin="285,18,565,0" Height="41"/>
+                    <ComboBox 
+                        FontSize="20"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        IsEditable="True" 
+                        TextSearch.TextPath="." 
+                        IsTextSearchEnabled="True" 
+                        Text="{Binding Language}" 
+                        Grid.Row="1"
+                        Grid.Column="0" 
+                        Width="200"  
+                        ItemsSource="{Binding Languages}" 
+                        SelectedItem="{Binding Language}" 
+                        VerticalAlignment="Top" 
+                        Margin="285,18,565,0" 
+                        Height="41"/>
 
 
 
                     <Button Grid.Row="1" Content="Search" FontSize="24"   Margin="783,16,69,13" Command="{Binding SearchCommand}" Style="{StaticResource CustomButtonStyle}" />
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Choose year:" FontSize="24" Margin="577,16,277,8"/>
-                    <ComboBox Grid.Column="0" Width="200" Margin="781,14,69,14" SelectedItem="{Binding SelectedYear}">
+                    <ComboBox FontSize="20"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left" 
+                        Grid.Column="0" 
+                        Width="200" 
+                        Margin="781,14,69,14" 
+                        SelectedItem="{Binding SelectedYear}">
                         <ComboBoxItem Content="General"/>
                         <ComboBoxItem Content="2024"/>
                         <ComboBoxItem Content="2023"/>

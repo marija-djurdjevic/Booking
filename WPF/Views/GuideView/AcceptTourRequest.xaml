@@ -67,15 +67,15 @@
                     </Image>
 
 
-                    <TextBlock FontSize="24" Text="About tour" Margin="14,10,0,10"/>
+                    <TextBlock FontSize="24" FontWeight="Bold" Text="About tour" Margin="14,10,0,10"/>
                     <!-- Informacije -->
                     <StackPanel Grid.Column="1" Margin="10,46,10,10">
-                        <TextBlock Margin="0,10,0,0">
-                <Run FontSize="24" Text="Location:                          " />
-                <TextBlock>
-                    <Run FontSize="24" Text="{Binding SelectedTour.Location.City}" />
-                    <Run FontSize="24" Text="," />
-                    <Run FontSize="24" Text="{Binding SelectedTour.Location.Country}" />
+                        <TextBlock Margin="-1.5,10,0,0">
+                <Run FontSize="24" FontWeight="DemiBold" Text="Location:                          " />
+                <TextBlock Margin="-3,0,0,0">
+                    <Run FontSize="24" FontWeight="DemiBold" Text="{Binding SelectedTour.Location.City}" />
+                    <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                    <Run FontSize="24" FontWeight="DemiBold" Text="{Binding SelectedTour.Location.Country}" />
                 </TextBlock>
             </TextBlock>
 

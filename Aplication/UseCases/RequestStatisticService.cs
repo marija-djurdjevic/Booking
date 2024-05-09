@@ -23,8 +23,13 @@ namespace BookingApp.Aplication.UseCases
             var requests=GetAllSimpleRequests();
             foreach (var request in requests )
             {
+                
                 string location = $"{request.Location.City}, {request.Location.Country}";
-                locations.Add(location);
+                if (!locations.Contains(location))
+                {
+                    locations.Add(location) ;
+                }
+               
             }
             return locations;
         }

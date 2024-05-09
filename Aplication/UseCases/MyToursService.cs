@@ -90,10 +90,10 @@ namespace BookingApp.Aplication.UseCases
             var sorted = new List<Tuple<TourDto, Visibility, string>>();
             switch (sortBy)
             {
-                case "System.Windows.Controls.ComboBoxItem: Date - Ascending":
+                case "System.Windows.Controls.ComboBoxItem: CreationTime - Ascending":
                     sorted = unsorted.OrderBy(t => t.Item1.StartDateTime).ThenBy(t => t.Item2).ToList();
                     break;
-                case "System.Windows.Controls.ComboBoxItem: Date - Descending":
+                case "System.Windows.Controls.ComboBoxItem: CreationTime - Descending":
                     sorted = unsorted.OrderByDescending(t => t.Item1.StartDateTime).ThenByDescending(t => t.Item2).ToList();
                     break;
                 case "System.Windows.Controls.ComboBoxItem: Rate status - Ascending":

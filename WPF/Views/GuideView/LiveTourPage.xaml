@@ -45,10 +45,10 @@
         <Grid Grid.Row="1" Background="{StaticResource pozadina}">
             <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="0,0,15,501">
                 <Grid Grid.Column="0" Margin="0,0,0,0">
-                    <TextBlock Text="About tour:" FontSize="24" Margin="13,0,24,20"/>
-                    <TextBlock FontSize="24" Margin="150,130,296,20"><Run Text="Start Date: " /><Run Text=" "/><Run Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" FontSize="24" /></TextBlock>
-                    <TextBlock FontSize="24" Width="422" Margin="152,84,423,48"><Run Text="Language:" FontSize="24" /><Run Text="  "/><Run Text="{Binding SelectedTour.Language}" FontSize="20" /></TextBlock>
-                    <TextBlock FontSize="24" Width="418" Margin="152,39,427,104" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock Text="About tour:" FontWeight="Bold" FontSize="24" Margin="13,0,24,20"/>
+                    <TextBlock FontSize="24" Margin="150,130,296,20"><Run Text="Start date and time: " /><Run Text=" "/><Run Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" FontSize="24" /></TextBlock>
+                    <TextBlock FontSize="24" Width="422" Margin="152,84,423,48"><Run Text="Language:" FontSize="24" /><Run Text="                 "/><Run Text="{Binding SelectedTour.Language}" FontSize="20" /></TextBlock>
+                    <TextBlock FontSize="24" FontWeight="DemiBold" Width="418" Margin="151,39,428,104" RenderTransformOrigin="0.5,0.5">
                         <TextBlock.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleY="1"/>
@@ -56,7 +56,14 @@
                                 <RotateTransform/>
                                 <TranslateTransform/>
                             </TransformGroup>
-                        </TextBlock.RenderTransform><Run Text="Location:" FontSize="24" /><Run Text="    "/><Run Text="{Binding SelectedTour.Location.City}" FontSize="20" /><Run Text=" "/><Run Text="," FontSize="20" /><Run Text=" "/><Run Text="{Binding SelectedTour.Location.Country}" FontSize="20" /></TextBlock>
+                        </TextBlock.RenderTransform><Run Text="Location:" FontSize="24" />
+                        <Run Text="                   "/>
+                        <TextBlock Margin="-16,0,0,0">
+                        <Run Text="{Binding SelectedTour.Location.City}" FontWeight="DemiBold" FontSize="20" />
+                        <Run Text="," FontWeight="DemiBold" FontSize="20" />
+                        <Run Text="{Binding SelectedTour.Location.Country}" FontSize="20" FontWeight="DemiBold" />
+                        </TextBlock>
+                    </TextBlock>
 
                     <Image
                         HorizontalAlignment="Left"
@@ -80,8 +87,8 @@
 
             <!-- Lista ključnih tačaka -->
             <Grid Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Height="Auto" >
-                <TextBlock Text="    Key points:" FontSize="32" Margin="84,-485,-14,739"/>
-                <ListBox x:Name="keyPointsListBox" MinWidth="200" Margin="38,-429,-38,566" ItemsSource="{Binding KeyPoints}" SelectedItem="{Binding SelectedTour}" d:ItemsSource="{d:SampleData ItemCount=5}" Width="316" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <TextBlock Text="    Key points:" FontSize="32" FontWeight="DemiBold" Margin="90,-485,-20,739"/>
+                <ListBox x:Name="keyPointsListBox" MinWidth="200" Margin="44,-429,-44,566" ItemsSource="{Binding KeyPoints}" SelectedItem="{Binding SelectedTour}" d:ItemsSource="{d:SampleData ItemCount=5}" Width="316" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                     <!-- Stil za ListBoxItems -->
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -111,8 +118,8 @@
 
             <!-- Lista turista -->
             <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="614" Margin="0,0,0,0" Height="292" >
-                <TextBlock Text="    Tourists list:" FontSize="32" Margin="437,-491,-57,743"/>
-                <ListBox x:Name="touristsListBox"  ItemsSource="{Binding Tourists}" SelectedItem="{Binding SelectedTourist}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="405,-435,-71,562" >
+                <TextBlock Text="    Tourists list:" FontWeight="DemiBold" FontSize="32" Margin="395,-491,-15,743"/>
+                <ListBox x:Name="touristsListBox"  ItemsSource="{Binding Tourists}" SelectedItem="{Binding SelectedTourist}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="369,-435,-35,562" >
                     <!-- Stil za ListBoxItems -->
 
                     <!-- Template za prikaz turista -->
@@ -126,7 +133,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button  Style="{StaticResource CustomButtonStyle}" Content="ADD" FontSize="28" Width="Auto" Command="{Binding Path=DataContext.AddTouristClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="459,-261,-27,508" />
+                <Button  Style="{StaticResource CustomButtonStyle}" Content="ADD" FontSize="28" Width="Auto" Command="{Binding Path=DataContext.AddTouristClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="420,-261,12,508" />
             </Grid>
             <Button Style="{StaticResource CustomButtonStyle}" Content="Finish Tour" Margin="92,-257,19,512" FontSize="28" Command="{Binding Path=DataContext.FinishTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
 

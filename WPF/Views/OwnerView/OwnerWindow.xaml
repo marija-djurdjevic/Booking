@@ -85,6 +85,7 @@
                 <!-- Analytics Tab Content -->
             </TabItem>
             <TabItem Header="Renovations">
+                <Frame x:Name="RenovationsFrame" NavigationUIVisibility="Hidden"/>
                 <!-- Renovations Tab Content -->
             </TabItem>
             <TabItem Header="Forums">

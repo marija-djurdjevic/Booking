@@ -28,14 +28,6 @@ namespace BookingApp.View
             DataContext = new SideMenuViewModel();
         }
 
-        private void NavigateBack(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

@@ -92,6 +92,10 @@ namespace BookingApp.Repositories
         {
             return property.Id;
         }
+        public List<string> GetAllPropertyNames()
+        {
+            return _properties.Select(p => p.Name).ToList();
+        }
     }
 }
 
