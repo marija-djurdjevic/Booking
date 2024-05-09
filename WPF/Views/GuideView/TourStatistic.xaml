@@ -54,7 +54,7 @@
             <Button
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Margin="771,0,0,0"
+                Margin="763,0,0,0"
                 Content="Generate Tour Stats PDF"
                 Command="{Binding GenerateTourStatsPdfCommand}"
                 FontSize="20"
@@ -65,9 +65,10 @@
 
 
 
-        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxWidth="994" >
+        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Margin="-10,0,0,0" MaxWidth="1001" >
             <ListBox x:Name="tourListBox"
          Grid.Row="2"
+                    
          ItemsSource="{Binding SortedTours}"
          SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
          d:ItemsSource="{d:SampleData ItemCount=2}">
@@ -81,7 +82,7 @@
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="960" Height="250">
+                        <Grid Width="960"   Height="250">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" />
@@ -95,25 +96,29 @@
                            Margin="20,6,0,0"
                            FontSize="32"
                            Text="Most visited tour"
+                           FontWeight="DemiBold"
                            Visibility="Collapsed" />
 
                             <TextBlock x:Name="PeriodLabel"
                            Grid.Row="0"
-                           
+                           FontWeight="SemiBold"
                            VerticalAlignment="Top"
                            HorizontalAlignment="Right"
                            FontSize="32"
                            Text="Period"
-                           Visibility="Collapsed" Margin="30,5,170,0" />
+                           Visibility="Collapsed" Margin="30,5,150,0" />
 
                             <ComboBox x:Name="firstTourComboBox"
                           Grid.Row="0"
-                          
+                          FontSize="20"
+                                      VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Left"
                           Width="130"
                           Height="45"
+                           
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"
-                          Margin="50,6,30,0"
+                          Margin="50,6,10,0"
                           Text="{Binding Path=DataContext.SelectedYear, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                           Visibility="Collapsed">
                                 <ComboBoxItem>General</ComboBoxItem>
@@ -123,16 +128,12 @@
                                 <ComboBoxItem>2021</ComboBoxItem>
                                 <ComboBoxItem>2020</ComboBoxItem>
                             </ComboBox>
-
+                           
                             <!-- Red za sliku i informacije o turi -->
                             <Image
                                 Height="150"
-                                Margin="13,59,812,113"
-                                Stretch="Fill" Grid.RowSpan="2">
-                                <Image.Source>
-                                    <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
-                                </Image.Source>
-                            </Image>
+                                Margin="17,0,785,115"
+                                Stretch="Fill" Source="{Binding ImagesPaths[0], Converter={StaticResource ImagePathConverter}}" Grid.Row="1"/>
 
                             <Grid Grid.Row="1" Margin="193,13,0,67">
                                 <Grid.RowDefinitions>
@@ -146,17 +147,17 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Location -->
-                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" Text="Location: " Margin="0,-16,0,48" Grid.RowSpan="2" />
-                                <TextBlock Grid.Row="0" FontSize="24" Grid.RowSpan="2" Margin="130,-15,37,34" Grid.Column="1">
-                                    <Run Text="{Binding Location.City}" />
-                                    <Run Text=", " />
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" FontWeight="DemiBold" Text="Location: " Margin="-1.5,-16,0,48" Grid.RowSpan="2" />
+                                <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="24" Grid.RowSpan="2" Margin="127.5,-15,37,34" Grid.Column="1">
+                                    <Run  Text="{Binding Location.City}" />
+                                    <Run Text="," />
                                     <Run Text="{Binding Location.Country}" />
                                 </TextBlock>
 
 
                                 <!-- Language -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" FontSize="24" Text="Language: " Margin="0,18,0,14" Grid.RowSpan="2" />
-                                <TextBlock Grid.Row="1" FontSize="24" Text="{Binding Language}" Margin="130,19,10,13" Grid.RowSpan="2" Grid.Column="1" />
+                                <TextBlock Grid.Row="1" FontSize="24" Text="{Binding Language}" Margin="128,19,10,13" Grid.RowSpan="2" Grid.Column="1" />
 
                                 <!-- Start Date and Time -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" FontSize="24" Text="Start Date and Time: " Grid.ColumnSpan="2" Margin="0,26,511,-26" />
@@ -168,7 +169,7 @@
                             <Button 
                         Width="220"
                         Height="39"
-                        Margin="720,141,0,82"
+                        Margin="737,141,3,85"
                         Padding="1"
                         Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                         CommandParameter="{Binding Id}"

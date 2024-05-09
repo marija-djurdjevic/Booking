@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand tourRequestCommand;
         private RelayCommand tourSuggestedCommand;
         private RelayCommand tourRequestStatisticCommand;
+        private RelayCommand homeCommand;
 
         public SideMenuViewModel()
         {
@@ -27,6 +28,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             tourRequestCommand = new RelayCommand(TourRequestCommand);
             tourSuggestedCommand = new RelayCommand(ExecuteSuggestedTourCommand);
             tourRequestStatisticCommand = new RelayCommand(ExecuteTourRequestStatisticCpmmand);
+            homeCommand = new RelayCommand(ExecuteHomeCommand);
         }
 
         
@@ -44,7 +46,21 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-        
+
+        public RelayCommand HomeCommand
+        {
+            get { return homeCommand; }
+            set
+            {
+                if (homeCommand != value)
+                {
+                    homeCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
 
 
         public RelayCommand NavigateToSuggestedTourCommand
@@ -144,6 +160,14 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             GuideMainWindow.MainFrame.Navigate(tourRequestStatistics);
 
         }
+
+
+        private void ExecuteHomeCommand()
+        {
+            var homePage=new GuideMainPage();
+            GuideMainWindow.MainFrame.Navigate(homePage);
+        }
+
 
 
     }

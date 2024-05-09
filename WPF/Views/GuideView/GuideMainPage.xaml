@@ -42,7 +42,7 @@
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Text="ALL TOURS" />
+                    Text="ALL TOURS"  />
             </Grid>
         </DockPanel>
 
@@ -116,12 +116,12 @@
 
                                                 <!--  Informacije o turi  -->
                                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                    <TextBlock Margin="0,0,0,20">
-                                                        <Run Text="Location: " />
-                                                        <TextBlock Margin="140,0,0,0">
-                                                            <Run FontSize="24" Text="{Binding Location.City}" />
-                                                            <Run FontSize="24" Text="," />
-                                                            <Run FontSize="24" Text="{Binding Location.Country}" />
+                                                    <TextBlock Margin="-1.5,0,0,20">
+                                                        <Run Text="Location: " FontWeight="DemiBold" />
+                                                        <TextBlock Margin="136,0,0,0">
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
                                                         </TextBlock>
                                                     </TextBlock>
 
@@ -138,7 +138,7 @@
                                                     </TextBlock>
                                                     <Button
                                                         Width="138"
-                                                        Height="36"
+                                                        Height="42"
                                                         Margin="630,0,0,0"
                                                         Padding="-1"
                                                         Command="{Binding Path=DataContext.StartTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
@@ -206,12 +206,12 @@
 
                                                 <!--  Informacije o turi  -->
                                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                    <TextBlock Margin="0,0,0,20">
-                                                        <Run Text="Location: " />
-                                                        <TextBlock Margin="140,0,0,0">
-                                                            <Run FontSize="24" Text="{Binding Location.City}" />
-                                                            <Run FontSize="24" Text="," />
-                                                            <Run FontSize="24" Text="{Binding Location.Country}" />
+                                                    <TextBlock Margin="-1.5,0,0,20">
+                                                        <Run Text="Location: " FontWeight="DemiBold" />
+                                                        <TextBlock Margin="136,0,0,0">
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
                                                         </TextBlock>
                                                     </TextBlock>
 
@@ -228,7 +228,7 @@
                                                     </TextBlock>
                                                     <Button
                                                         Width="138"
-                                                        Height="36"
+                                                        Height="42"
                                                         Margin="630,0,0,0"
                                                         Padding="-1"
                                                         Command="{Binding Path=DataContext.CancelTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
@@ -236,7 +236,7 @@
                                                         Content="CANCEL"
                                                         FontSize="28"
                                                         Style="{StaticResource CustomButtonStyle}"/>
-
+                                                    
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -254,7 +254,7 @@
 
 
 
-                           <TabItem Header="Finished Tours" >
+                           <TabItem  Header="Finished Tours"  >
                         <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" VerticalAlignment="Top" Background="{StaticResource pozadina}" VerticalScrollBarVisibility="Visible">
                             <ListBox
                             x:Name="tourListBox2"
@@ -303,12 +303,12 @@
 
                                                 <!-- Informacije o turi -->
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                        <TextBlock Margin="0,0,0,20">
-                        <Run Text="Location: " />
-                        <TextBlock Margin="140,0,0,0">
-                            <Run FontSize="24" Text="{Binding Location.City}" />
-                            <Run FontSize="24" Text="," />
-                            <Run FontSize="24" Text="{Binding Location.Country}" />
+                                        <TextBlock Margin="-1.5,0,0,20">
+                        <Run Text="Location: " FontWeight="DemiBold" />
+                        <TextBlock Margin="136,0,0,0">
+                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
+                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
                         </TextBlock>
                     </TextBlock>
 
@@ -325,7 +325,7 @@
                                         </TextBlock>
                                         <Button
                         Width="138"
-                        Height="36"
+                        Height="42"
                         Margin="630,0,0,0"
                         Padding="-10"
                         Command="{Binding Path=DataContext.ReviewTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
