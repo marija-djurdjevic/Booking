@@ -50,7 +50,7 @@
             <!-- WrapPanel za držanje DataGrid-a i TextArea-e -->
             <WrapPanel>
                 <!-- DataGrid za prikaz datuma -->
-                <DataGrid x:Name="DateDataGrid" MouseDoubleClick="DateDataGrid_MouseDoubleClick" AutoGenerateColumns="False" Width="267" Height="140">
+                <DataGrid x:Name="DateDataGrid" MouseDoubleClick="DateDataGrid_MouseDoubleClick" AutoGenerateColumns="False" Width="267" Height="140" ItemsSource="{Binding AvailableDateRanges}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>

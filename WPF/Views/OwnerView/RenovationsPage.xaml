@@ -3,13 +3,68 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+      
+      xmlns:local="clr-namespace:BookingApp.WPF.ViewModels.OwnerViewModels"
+
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="800"
       Title="RenovationsPage">
-
+    
     <Grid>
-        <Frame x:Name="ScheduleRenovationFrame"/>
-        <Button Click="ScheduleRenovation_Click" Background="{StaticResource OwnerButtonColor2}" Content="Schedule a renovation" Width="150" Height="30" Margin="10,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <!-- Prvi red -->
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Dugme "Schedule a renovation" -->
+        <Button Click="ScheduleRenovation_Click" Background="{StaticResource OwnerButtonColor2}" Content="Schedule a renovation" Width="200" Height="30" Margin="10,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+        <!-- Drugi red sa DataGrid-om -->
+        <DataGrid x:Name="RenovationsDataGrid" Grid.Row="1" AutoGenerateColumns="False" Margin="10,0,10,10" ItemsSource="{Binding Renovations}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Property" Binding="{Binding PropertyName}"/>
+                <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <!-- Prva prazna kolona sa dugmetom "Show more details" -->
+                <DataGridTemplateColumn Width="*" Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Show more details">
+                                <Button.ToolTip>
+                                    <ToolTip Width="150">
+                                        <Border BorderThickness="0" CornerRadius="5">
+                                            <StackPanel Background="White" Margin="5">
+                                                <TextBlock TextWrapping="Wrap" FontWeight="Black" Text="{Binding Description}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Druga prazna kolona sa dugmetom "Cancel" -->
+                <DataGridTemplateColumn Width="*" Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Cancel" Click="Cancel_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Width="150">
+                                        <Border BorderThickness="0" CornerRadius="5">
+                                            <StackPanel Background="White" Margin="5">
+                                                <TextBlock TextWrapping="Wrap" FontWeight="Black" Text="Only possible if there are more than 5 days until the renovation!"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Page>

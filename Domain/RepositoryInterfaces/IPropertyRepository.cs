@@ -10,6 +10,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
     public interface IPropertyRepository
     {
         List<Property> GetAllProperties();
+        public List<string> GetAllPropertyNames();
         void SaveChanges();
         int NextId();
         Property GetPropertyById(int propertyId);

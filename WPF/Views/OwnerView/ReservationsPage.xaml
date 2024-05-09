@@ -68,8 +68,8 @@
                   AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                   x:Name="ReservationDataGrid"
-                  SelectionMode="Single" IsReadOnly="True" Margin="10"
-                  AlternationCount="2">
+                  SelectionMode="Single" IsReadOnly="True" Margin="10,0,10,10"
+                  AlternationCount="2" Height="230" VerticalAlignment="Bottom">
             <DataGrid.Resources>
                 <!-- Promijenite boju pozadine tabele -->
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#E1DFE0" />

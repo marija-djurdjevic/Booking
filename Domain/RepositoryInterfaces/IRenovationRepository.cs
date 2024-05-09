@@ -12,6 +12,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public Renovation AddRenovation(Renovation renovation);
         public void UpdateRenovation(Renovation updatedRenovation);
         public void DeleteRenovation(int renovationId);
+        public Renovation Save(Renovation newRenovation);
         public List<Renovation> GetAllRenovations();
         public Renovation GetRenovationById(int renovationId);
         public void SaveChanges();

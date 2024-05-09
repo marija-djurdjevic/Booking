@@ -20,9 +20,7 @@ using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Views.OwnerView
 {
-    /// <summary>
-    /// Interaction logic for RenovationsPage.xaml
-    /// </summary>
+    
     public partial class RenovationsPage : Page
     {
         User LoggedInUser;
@@ -30,7 +28,6 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             this.LoggedInUser = LoggedInUser;
-            
             DataContext = new RenovationsViewModel(LoggedInUser);
             
         }
@@ -41,5 +38,18 @@ namespace BookingApp.WPF.Views.OwnerView
             this.NavigationService.Navigate(renovation);
             
         }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                Renovation renovation = button.DataContext as Renovation;
+                if (renovation != null)
+                {
+                    (DataContext as RenovationsViewModel)?.DeleteRenovation(renovation);
+                }
+            }
+        }
+       
     }
 }
