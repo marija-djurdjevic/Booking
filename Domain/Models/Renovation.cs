@@ -17,6 +17,7 @@ namespace BookingApp.Domain.Models
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public int Duration { get; set; }
+        public string PropertyName { get; set; }
 
         public Renovation() { }
         public Renovation(int id, int ownerId, int propertyId, DateTime startDate, DateTime endDate, string description, int duration)

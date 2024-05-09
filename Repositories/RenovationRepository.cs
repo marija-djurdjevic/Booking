@@ -87,16 +87,9 @@ namespace BookingApp.Repositories
         }
         public Renovation Save(Renovation newRenovation)
         {
-            // Pronalazimo ID za novo renoviranje
             newRenovation.Id = NextId();
-
-            // Dodajemo novo renoviranje u listu
             _renovations.Add(newRenovation);
-
-            // Čuvamo promjene u CSV datoteku
             _serializer.ToCSV(FilePath, _renovations);
-
-            // Vraćamo novo renoviranje koje je upravo dodano
             return newRenovation;
         }
 
