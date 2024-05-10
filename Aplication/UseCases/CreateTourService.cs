@@ -48,11 +48,9 @@ namespace BookingApp.Aplication.UseCases
                 ImagesPaths = tourDto.ImagesPaths.ToList()
             };
 
-            tourDto.Id = tour.Id;
             tourRepository.Save(tour);
             keyPointService.SetKeyPoints(tour.Id, keyPointNames);
-            
-           
+            tourDto.Id = tour.Id;  
         }
     }
 }
