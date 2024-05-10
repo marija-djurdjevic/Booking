@@ -136,11 +136,14 @@
                     FontSize="24"
                     Text="Start date and time:" />
                 <xctk:DateTimePicker
+                    FontSize="20"
                     Grid.Row="0"
                     Grid.Column="1"
                     Width="195"
                     Height="42"
                     Margin="274,16,0,0"
+                    Format="Custom" 
+                    FormatString="dd.MM.yyyy HH:mm \h"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Value="{Binding StartDateTime, Mode=TwoWay}" />
@@ -157,6 +160,9 @@
                     FontSize="24"
                     Text="End date and time:" />
                 <xctk:DateTimePicker
+                    FontSize="20"
+                    Format="Custom" 
+                    FormatString="dd.MM.yyyy HH:mm \h"
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="195"

@@ -148,6 +148,9 @@
         <xctk:DateTimePicker
             x:Name="StartDateTimePicker"
             Grid.Row="2"
+            Format="Custom" 
+            FormatString="dd.MM.yyyy HH:mm \h"
+            FontSize="20"
             Margin="346,177,456,404"
             Value="{Binding SelectedDateTime, Mode=OneWayToSource}" />
 

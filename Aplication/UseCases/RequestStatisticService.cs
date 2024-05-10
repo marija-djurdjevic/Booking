@@ -49,6 +49,30 @@ namespace BookingApp.Aplication.UseCases
             return languages;
         }
 
+
+
+
+        public List<string> GetYears()
+        {
+            List<string> years = new List<string>();
+            var requests = GetAllSimpleRequests();
+            foreach (var request in requests)
+            {
+                string startYear = request.StartDate.Year.ToString();
+                if (!years.Contains(startYear))
+                {
+                    years.Add(startYear);
+                }
+
+                string endYear = request.EndDate.Year.ToString();
+                if (!years.Contains(endYear))
+                {
+                    years.Add(endYear);
+                }
+            }
+            return years;
+        }
+
         public string GetMostRequestedLanguage()
         {
             var allRequests = GetAllSimpleRequests();
