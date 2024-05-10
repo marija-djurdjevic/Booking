@@ -191,6 +191,31 @@
                                             FontWeight="Bold"
                                             Text="{Binding Item1.CreationTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                                     </Grid>
+                                    <Grid Visibility="{Binding Item1.Type, ConverterParameter=voucher, Converter={cvt:TouristNotificationConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <WrapPanel
+                                            Grid.Row="0"
+                                            Margin="10"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontWeight="Bold"
+                                                Text="{Binding Item1.VoucherMessageText}"
+                                                TextWrapping="Wrap" />
+                                        </WrapPanel>
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            FontWeight="Bold"
+                                            Text="{Binding Item1.CreationTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </Grid>
                                     <Grid Visibility="{Binding Item1.Type, ConverterParameter=accepted, Converter={cvt:TouristNotificationConverter}}">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />

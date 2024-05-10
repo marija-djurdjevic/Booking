@@ -48,7 +48,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             Tourists = new ObservableCollection<Tuple<TourReservationViewModel, string, bool>>();
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             reservationDataService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());

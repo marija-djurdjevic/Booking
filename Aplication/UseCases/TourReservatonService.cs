@@ -4,16 +4,19 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 using BookingApp.Domain.RepositoryInterfaces;
+using System;
 
 namespace BookingApp.Aplication.UseCases
 {
     public class TourReservationService
     {
         private readonly ITourReservationRepository tourReservationRepository;
+        private readonly TouristService touristService;
 
         public TourReservationService(ITourReservationRepository tourReservationRepository)
         {
             this.tourReservationRepository = tourReservationRepository;
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
         }
 
         public List<TourReservation> GetByTourId(int tourId)
@@ -30,7 +33,17 @@ namespace BookingApp.Aplication.UseCases
 
         public void Save(TourReservation tourReservation)
         {
+            if(IsUserReserved(tourReservation.UserId, tourReservation.TourId) && tourReservation.IsUser)
+            {
+                return;
+            }
             tourReservationRepository.Save(tourReservation);
+        }
+
+        private bool IsUserReserved(int userId, int tourId)
+        {
+            var reservations = GetByTourId(tourId);
+            return reservations.Any(r => r.UserId == userId && r.IsUser);
         }
 
         public void Update(TourReservation updatedTourReservation)
@@ -64,9 +77,10 @@ namespace BookingApp.Aplication.UseCases
         public void UpdateReservation(TourReservation reservationData)
         {
             tourReservationRepository.UpdateReservation(reservationData);
+            if(reservationData.IsUser && reservationData.IsOnTour && reservationData.JoinedKeyPoint != null)
+            {
+                touristService.UpdateVisitedToursNumber(reservationData.UserId);
+            }
         }
-
-
-       
     }
 }

@@ -69,7 +69,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public TourBookingViewModel(TourDto selectedTour, int userId)
         {
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             KeyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(),Injector.CreateInstance<ILiveTourRepository>());
 
             SelectedTour = selectedTour;

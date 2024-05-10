@@ -46,7 +46,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             liveTourRepository = new LiveTourRepository();
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             tourCancellationService = new TourCancellationService(liveTourService, tourReservationService, tourService, keyPointService, voucherService, touristService);
             createTourClickCommand = new RelayCommand(ExecuteCreateTourClick);
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);

@@ -22,7 +22,7 @@ namespace BookingApp.Domain.Models
         public int RequestId { get; set; }
         public DateTime AcceptedTime { get; set; }
         public bool Seen { get; set; }
-
+        public string VoucherMessageText { get; set; }
         public string ActiveKeyPoint { get; set; }
 
         public TouristGuideNotification()
@@ -71,7 +71,7 @@ namespace BookingApp.Domain.Models
         public virtual string[] ToCSV()
         {
             string addedPersons = string.Join("|", AddedPersons);
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), TourId.ToString(), CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(), ActiveKeyPoint, TourName, GuideName,RequestId.ToString(),AcceptedTime.ToString("dd.MM.yyyy HH:mm:ss"), addedPersons };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), GuideId.ToString(), TourId.ToString(), CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), Type.ToString(), Seen.ToString(), ActiveKeyPoint, TourName, GuideName,RequestId.ToString(),AcceptedTime.ToString("dd.MM.yyyy HH:mm:ss"),VoucherMessageText, addedPersons };
             return csvValues;
         }
 
@@ -92,8 +92,8 @@ namespace BookingApp.Domain.Models
             GuideName = values[9];
             RequestId = Convert.ToInt32(values[10]);
             AcceptedTime = DateTime.ParseExact(values[11], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-
-            for (int i = 12; i < values.Length; i++)
+            VoucherMessageText = values[12];
+            for (int i = 13; i < values.Length; i++)
             {
                 AddedPersons.Add(values[i]);
             }
