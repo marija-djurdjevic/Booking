@@ -1,37 +1,5 @@
-1|4|2|6|21.04.2024 21:00:39|TouristJoined|True|Nis|Prevoz do Gradiska siti|Ognjen|0|01.01.0001 00:00:00|Душко Пилиповић
-2|4|2|6|21.04.2024 21:00:39|RequestAccepted|True|Nis|Prevoz do Gradiska siti|Ognjen|2|21.04.2024 21:00:39|Душко Пилиповић
-3|4|2|5|21.04.2024 21:00:39|ToursOfInterestCreated|True|Nis|Prevoz do Gradiska siti|Ognjen|2|21.04.2024 21:00:39|Душко Пилиповић
-4|4|2|23|27.04.2024 21:02:37|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-5|4|2|24|27.04.2024 21:09:44|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-6|4|2|25|27.04.2024 21:09:46|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-7|4|2|24|27.04.2024 21:11:48|TouristJoined|True|Grad|eee|Ognjen|0|01.01.0001 00:00:00|Душко Пилиповић
-8|4|2|26|28.04.2024 12:31:29|TouristJoined|True|2|Ime|Ognjen|0|01.01.0001 00:00:00|Душко Пилиповић
-9|4|2|27|28.04.2024 12:55:01|TouristJoined|True|sss|s|Ognjen|0|01.01.0001 00:00:00|Душко Пилиповић
-10|15|2|27|28.04.2024 13:01:02|TouristJoined|True|sss|s|Ognjen|0|01.01.0001 00:00:00|Marko Markovic
-11|17|2|26|03.05.2024 15:15:29|TouristJoined|True|Middle point 2|Tour Name|Ognjen|0|01.01.0001 00:00:00|Ана Бабић
-12|4|2|35|06.05.2024 15:23:59|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-13|15|2|35|06.05.2024 15:23:59|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-14|16|2|35|06.05.2024 15:23:59|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-15|4|2|36|06.05.2024 15:28:50|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-16|15|2|36|06.05.2024 15:28:50|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-17|16|2|36|06.05.2024 15:28:50|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-18|17|2|0|09.05.2024 20:58:08|RequestAccepted|True|||Ognjen|31|31.05.2024 20:57:55|
-19|4|2|37|09.05.2024 21:09:17|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-20|15|2|37|09.05.2024 21:09:17|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-21|16|2|37|09.05.2024 21:09:17|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-22|4|2|38|09.05.2024 21:09:20|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-23|15|2|38|09.05.2024 21:09:20|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-24|16|2|38|09.05.2024 21:09:20|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-25|4|2|38|09.05.2024 21:11:50|TouristJoined|True|2|ime|Ognjen|0|01.01.0001 00:00:00|Душко Пилиповић
-26|4|2|39|10.05.2024 14:48:12|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-27|15|2|39|10.05.2024 14:48:12|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-28|16|2|39|10.05.2024 14:48:12|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-29|4|2|40|10.05.2024 14:48:14|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-30|15|2|40|10.05.2024 14:48:14|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-31|16|2|40|10.05.2024 14:48:14|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-32|4|2|41|10.05.2024 14:52:50|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-33|15|2|41|10.05.2024 14:52:50|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-34|16|2|41|10.05.2024 14:52:51|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-35|4|2|42|10.05.2024 14:52:52|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00|
-36|15|2|42|10.05.2024 14:52:52|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
-37|16|2|42|10.05.2024 14:52:52|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00|
+1|4|0|0|10.05.2024 23:48:53|VoucherWon|True||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.|
+2|4|2|41|10.05.2024 23:48:54|TouristJoined|True|9|55|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
+3|4|2|41|11.05.2024 00:04:53|TouristJoined|True|9|55|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
+4|4|2|41|11.05.2024 00:06:01|TouristJoined|True|9|55|Ognjen|0|01.01.0001 00:00:00||89 8
+5|4|2|41|11.05.2024 00:06:04|TouristJoined|True|9|55|Ognjen|0|01.01.0001 00:00:00||7 7

@@ -37,6 +37,10 @@ namespace BookingApp.WPF.Converters
                 {
                     return par == "accepted" ? Visibility.Visible : Visibility.Collapsed;
                 }
+                else if (type == NotificationType.VoucherWon)
+                {
+                    return par == "voucher" ? Visibility.Visible : Visibility.Collapsed;
+                }
             }
 
             return null;

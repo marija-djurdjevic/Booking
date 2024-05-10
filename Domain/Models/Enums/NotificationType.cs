@@ -10,6 +10,7 @@ namespace BookingApp.Domain.Models.Enums
     {
         TouristJoined,
         ToursOfInterestCreated,
-        RequestAccepted
+        RequestAccepted,
+        VoucherWon
     }
 }

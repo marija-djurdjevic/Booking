@@ -32,7 +32,7 @@ namespace BookingApp.Aplication.UseCases
             QuestPDF.Settings.License = LicenseType.Community;
             tourRequest = new TourRequest();
             this.year = year;
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(),Injector.CreateInstance<ITouristGuideNotificationRepository>(),Injector.CreateInstance<IVoucherRepository>());
             tourist = touristService.GetByUserId(touristId);
             this.averageNumberOfPeople = averageNumberOfpeople;
 

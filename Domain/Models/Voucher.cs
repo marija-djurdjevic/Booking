@@ -22,9 +22,8 @@ namespace BookingApp.Domain.Models
             IsUsed = false;
         }
 
-        public Voucher(int id, int tourist_id, string reason, DateTime expirationDate)
+        public Voucher(int tourist_id, string reason, DateTime expirationDate)
         {
-            Id = id;
             TouristId = tourist_id;
             Reason = reason;
             ExpirationDate = expirationDate;
