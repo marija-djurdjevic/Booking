@@ -17,6 +17,7 @@ namespace BookingApp.Aplication.UseCases
         private readonly KeyPointService keyPointService;
         private IKeyPointRepository keyPointRepository;
         private ILiveTourRepository liveTourRepository;
+        
 
         public CreateTourService(ITourRepository tourRepository)
         {
@@ -24,10 +25,11 @@ namespace BookingApp.Aplication.UseCases
             keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
             liveTourRepository = Injector.CreateInstance<ILiveTourRepository>();
             keyPointService = new KeyPointService(keyPointRepository,liveTourRepository);
+     
         }
 
         private int counter = 0;
-        public (bool,int) CreateTour(TourDto tourDto, ObservableCollection<string> keyPointNames, DateTime tourDate)
+        public void CreateTour(TourDto tourDto, ObservableCollection<string> keyPointNames, DateTime tourDate)
         {
 
             Tour tour = new Tour
@@ -46,11 +48,11 @@ namespace BookingApp.Aplication.UseCases
                 ImagesPaths = tourDto.ImagesPaths.ToList()
             };
 
-
+            tourDto.Id = tour.Id;
             tourRepository.Save(tour);
             keyPointService.SetKeyPoints(tour.Id, keyPointNames);
-
-            return (true,tour.Id);
+            
+           
         }
     }
 }
