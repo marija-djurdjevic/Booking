@@ -135,29 +135,34 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
             if (IsRequest)
             {
-                foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
-                {
-                    Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
-                    TourRequestViewModel.Persons.Add(person);
-                }
-                if (!IsComplex)
-                {
-                    TourRequestViewModel.ComplexId = -1;
-                    requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
-                    Style style = Application.Current.FindResource("MessageStyle") as Style;
-                    MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
-                }
-                else
-                {
-                    ComplexTourRequest.TourRequests.Add(TourRequestViewModel.ToTourRequest());
-                }
-                Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
-                Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
+                ConfirmRequestCreation();
             }
             else
             {
                 UseVouchers();
             }
+        }
+
+        public void ConfirmRequestCreation()
+        {
+            foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
+            {
+                Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
+                TourRequestViewModel.Persons.Add(person);
+            }
+            if (!IsComplex)
+            {
+                TourRequestViewModel.ComplexId = -1;
+                requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
+            }
+            else
+            {
+                ComplexTourRequest.TourRequests.Add(TourRequestViewModel.ToTourRequest());
+            }
+            Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }
 
         public void UseVouchers()

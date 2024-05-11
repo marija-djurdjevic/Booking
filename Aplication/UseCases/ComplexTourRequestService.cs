@@ -51,18 +51,16 @@ namespace BookingApp.Aplication.UseCases
                 if (complexRequest.TourRequests.All(t => t.Status == TourRequestStatus.Accepted))
                 {
                     complexRequest.Status = TourRequestStatus.Accepted;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
                 else if (complexRequest.TourRequests.Any(t => t.Status == TourRequestStatus.Invalid))
                 {
                     complexRequest.Status = TourRequestStatus.Invalid;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
                 else
                 {
                     complexRequest.Status = TourRequestStatus.Pending;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
+                complexTourRequestRepository.Update(complexRequest);
             }
         }
 

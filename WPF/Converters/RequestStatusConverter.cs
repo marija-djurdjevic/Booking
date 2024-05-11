@@ -30,32 +30,20 @@ namespace BookingApp.WPF.Converters
                 if (par != null)
                 {
                     if (status == TourRequestStatus.Pending)
-                    {
                         return par == "color" ? Brushes.DarkOrange : "/Resources/Icons/TouristIcons/Pending.png";
-                    }
                     else if (status == TourRequestStatus.Accepted)
-                    {
                         return par == "color" ? Brushes.Green : "/Resources/Icons/TouristIcons/accepted.png";
-                    }
                     else if (status == TourRequestStatus.Invalid)
-                    {
                         return par == "color" ? Brushes.Red : "/Resources/Icons/TouristIcons/Invalid.png";
-                    }
                 }
                 else
                 {
                     if (status == TourRequestStatus.Accepted)
-                    {
                         return Visibility.Visible;
-                    }
                     else
-                    {
                         return Visibility.Collapsed;
-                    }
                 }
-
             }
-
             return null;
         }
 

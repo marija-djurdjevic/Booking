@@ -25,52 +25,19 @@ namespace BookingApp.WPF.Converters
         {
             string status = (string)value;
             string par = (string)parameter;
-            if (status != null)
+            if (status != null && par != null)
             {
-                if (par != null)
-                {
-                    if (status == "Unstarted")
-                    {
-                        return par == "color" ? Brushes.DarkOrange : Visibility.Visible;
-                    }
-                    else if (status == "Unfinished")
-                    {
-                        return par == "color" ? Brushes.YellowGreen : Visibility.Visible;
-                    }
-                    else if (status == "Rated")
-                    {
-                        return par == "color" ? Brushes.DarkBlue : Visibility.Visible;
-                    }
-                    else if (status == "Tourist absent")
-                    {
-                        return par == "color" ? Brushes.Red : Visibility.Visible;
-                    }
-                    else
-                    {
-                        return par == "color" ? Brushes.White : Visibility.Collapsed;
-                    }
-                }
+                if (status == "Unstarted")
+                    return par == "color" ? Brushes.DarkOrange : Visibility.Visible;
+                else if (status == "Unfinished")
+                    return par == "color" ? Brushes.YellowGreen : Visibility.Visible;
+                else if (status == "Rated")
+                    return par == "color" ? Brushes.DarkBlue : Visibility.Visible;
+                else if (status == "Tourist absent")
+                    return par == "color" ? Brushes.Red : Visibility.Visible;
                 else
-                {
-                    if (status == "Unstarted")
-                    {
-                        return "/Resources/Icons/TouristIcons/broken-image.png";
-                    }
-                    else if (status == "Unfinished")
-                    {
-                        return "/Resources/Icons/TouristIcons/broken-image.png";
-                    }
-                    else if (status == "Rated")
-                    {
-                        return "/Resources/Icons/TouristIcons/broken-image.png";
-                    }
-                    else if (status == "Tourist absent")
-                    {
-                        return "/Resources/Icons/TouristIcons/broken-image.png";
-                    }
-                }
+                    return par == "color" ? Brushes.White : Visibility.Collapsed;
             }
-
             return null;
         }
 

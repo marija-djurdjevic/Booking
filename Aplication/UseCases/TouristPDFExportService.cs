@@ -32,7 +32,7 @@ namespace BookingApp.Aplication.UseCases
             QuestPDF.Settings.License = LicenseType.Community;
             tourRequest = new TourRequest();
             this.year = year;
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(),Injector.CreateInstance<ITouristGuideNotificationRepository>(),Injector.CreateInstance<IVoucherRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             tourist = touristService.GetByUserId(touristId);
             this.averageNumberOfPeople = averageNumberOfpeople;
 
@@ -50,7 +50,6 @@ namespace BookingApp.Aplication.UseCases
         {
             try
             {
-
                 Document.Create(container =>
                 {
                     container.Page(page =>
@@ -60,23 +59,15 @@ namespace BookingApp.Aplication.UseCases
                         page.PageColor(Colors.White);
                         page.DefaultTextStyle(x => x.FontSize(20));
 
-
                         page.Header().Element(ComposeHeader);
                         page.Content().Element(ComposeContent);
 
-                        page.Footer()
-                            .PaddingBottom(10)
-                            .AlignCenter()
-                            .Text(x =>
-                            {
-                                x.Span("Page ");
-                                x.CurrentPageNumber();
-                            });
+                        page.Footer().PaddingBottom(10).AlignCenter()
+                            .Text(x => { x.Span("Page "); x.CurrentPageNumber(); });
                     });
-                })
-            .GeneratePdf(filePath);
+                }).GeneratePdf(filePath);
 
-            Process.Start("explorer.exe", filePath);
+                Process.Start("explorer.exe", filePath);
             }
             catch (IOException)
             {
@@ -85,7 +76,6 @@ namespace BookingApp.Aplication.UseCases
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("The file is currently open. Please close it and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, style);
                 return;
             }
-
         }
         void ComposeHeader(IContainer container)
         {
@@ -103,23 +93,17 @@ namespace BookingApp.Aplication.UseCases
                         column.Item().Text($"Tourist:").Style(textStyle);
 
                         column.Item().Text(text =>
-                        {
-                            text.Span($"{tourist.FirstName}").FontColor(Colors.Green.Medium).SemiBold();
-                        });
+                        { text.Span($"{tourist.FirstName}").FontColor(Colors.Green.Medium).SemiBold(); });
 
                         column.Item().Text(text =>
-                        {
-                            text.Span($"{tourist.LastName}").FontColor(Colors.Green.Medium).SemiBold();
-                        });
+                        { text.Span($"{tourist.LastName}").FontColor(Colors.Green.Medium).SemiBold(); });
                     });
                     row.RelativeItem().AlignRight().Column(column =>
                     {
                         column.Item().Text($"Export date:").Style(textStyle);
 
                         column.Item().AlignCenter().Text(text =>
-                        {
-                            text.Span($"{DateTime.Now:dd/MM/yyyy}").FontColor(Colors.Green.Medium).SemiBold();
-                        });
+                        { text.Span($"{DateTime.Now:dd/MM/yyyy}").FontColor(Colors.Green.Medium).SemiBold(); });
                     });
                 });
             });

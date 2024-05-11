@@ -35,47 +35,29 @@ namespace BookingApp.WPF.Converters
                     if (number == 0)
                     {
                         if(parametar == "back")
-                        {
                             return Visibility.Hidden;
-                        }
                         else if (parametar == "next")
-                        {
                             return Visibility.Visible;
-                        }
                         else if(parametar== "finish")
-                        {
                             return Visibility.Hidden;
-                        }
                     }
                     else if (number ==5)
                     {
                         if (parametar == "back")
-                        {
                             return Visibility.Visible;
-                        }
                         else if (parametar == "next")
-                        {
                             return Visibility.Hidden;
-                        }
                         else if (parametar == "finish")
-                        {
                             return Visibility.Visible;
-                        }
                     }
                     else
                     {
                         if (parametar == "back")
-                        {
                             return Visibility.Visible;
-                        }
                         else if (parametar == "next")
-                        {
                             return Visibility.Visible;
-                        }
                         else if (parametar == "finish")
-                        {
                             return Visibility.Hidden;
-                        }
                     }
                 }
             }

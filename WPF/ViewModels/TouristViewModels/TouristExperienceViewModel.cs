@@ -1,11 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.Validations;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -34,7 +30,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             get
             {
-
                 if (columnName == "TourInterestingesRating")
                 {
                     if (TourInterestingesRating < 1 || TourInterestingesRating > 5)
@@ -50,8 +45,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     if (GuideLanguageRating < 1 || GuideLanguageRating > 5)
                         return "You must select grade";
                 }
-
-
                 return null;
             }
         }
