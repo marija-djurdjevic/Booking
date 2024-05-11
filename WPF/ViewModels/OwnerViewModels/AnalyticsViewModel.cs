@@ -26,15 +26,19 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private readonly ChangeRequestService _changeRequestService;
         private readonly RenovationReccomendationService _renovationReccomendationService;
         public SeriesCollection HistogramData { get; private set; }
-        
+        public SeriesCollection CanceledReservationsHistogramData { get; private set; }
+        public SeriesCollection AcceptedRequestsHistogramData { get; private set; }
+        public SeriesCollection RenovationRecommendationHistogramData { get; private set; }
         public List<string> Labels { get; set; }
         public ObservableCollection<string> AllPropertyNames { get; set; }
 
         private string _selectedProperty;
-        private Dictionary<int, int> _histogramData;
+        
         public AnalyticsViewModel(User loggedInUser)
         {
             HistogramData = new SeriesCollection();
+            CanceledReservationsHistogramData = new SeriesCollection();
+            RenovationRecommendationHistogramData = new SeriesCollection();
             Labels = new List<string> { "2020 2021 2022 2023 2024" };
             
             _loggedInUser = loggedInUser;
@@ -44,23 +48,48 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             _renovationReccomendationService = new RenovationReccomendationService(Injector.CreateInstance<IRenovationReccomendationRepository>(), Injector.CreateInstance<IOwnerReviewRepository>(), Injector.CreateInstance<IPropertyReservationRepository>());
             Initialize();
             _selectedProperty = AllPropertyNames.FirstOrDefault();
-            /*for (int year = 2020; year <= 2024; year++)
+           
+            LoadHistogramData();
+            LoadCanceledReservationsHistogramData();
+
+        }
+        private void LoadCanceledReservationsHistogramData()
+        {
+            CanceledReservationsHistogramData.Clear(); 
+            for (int year = 2020; year <= 2024; year++)
             {
-                HistogramData.Add(new ColumnSeries
+                CanceledReservationsHistogramData.Add(new ColumnSeries
                 {
                     Title = year.ToString(),
-                    Values = new ChartValues<int> { GetReservationCountForYear(_selectedProperty, year)
-                    }
+                    Values = new ChartValues<int> { GetCanceledReservationsCountForYear(year) }
                 });
-                
-            }*/
-            LoadHistogramData();
-            
+            }
+        }
+        private void LoadAcceptedRequestsHistogramData()
+        {
+            AcceptedRequestsHistogramData = new SeriesCollection();
+            for (int year = 2020; year <= 2024; year++)
+            {
+                AcceptedRequestsHistogramData.Add(new ColumnSeries
+                {
+                    Title = year.ToString(),
+                    Values = new ChartValues<int> { GetAcceptedRequestsCountForYear(year) }
+                });
+            }
+            OnPropertyChanged(nameof(AcceptedRequestsHistogramData));
+        }
+        private int GetAcceptedRequestsCountForYear(int year)
+        {
+            return _changeRequestService.GetAcceptedReservationChangeRequestsCount(_selectedProperty, year);
+        }
 
+        private int GetCanceledReservationsCountForYear(int year)
+        {
+            return _propertyReservationService.GetCanceledReservationsCount(_selectedProperty, year);
         }
         private void LoadHistogramData()
         {
-            HistogramData.Clear(); // Očisti postojeće podatke prije dodavanja novih
+            HistogramData.Clear(); 
 
             for (int year = 2020; year <= 2024; year++)
             {
@@ -71,11 +100,23 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 });
             }
         }
-        /*private int GetReservationCountForYear(int year)
+        private void LoadRenovationRecommendationData()
         {
-            Random rnd = new Random();
-            return rnd.Next(50, 200); // Vraćamo nasumičan broj rezervacija između 50 i 200
-        }*/
+            RenovationRecommendationHistogramData.Clear();
+            for (int year = 2020; year <= 2024; year++)
+            {
+                RenovationRecommendationHistogramData.Add(new ColumnSeries
+                {
+                    Title = year.ToString(),
+                    Values = new ChartValues<int> { GetReservationRecommendationCountForYear(_selectedProperty, year) }
+                });
+            }
+
+        }
+        private int GetReservationRecommendationCountForYear(string _selectedProperty, int year)
+        {
+            return _renovationReccomendationService.GetRenovationRecommendationsCountForProperty(_selectedProperty, year);
+        }
         private int GetReservationCountForYear(string _selectedProperty, int year)
         {
             return _propertyReservationService.GetReservationsCountForYear(_selectedProperty, year);
@@ -90,24 +131,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 {
                     _selectedProperty = value;
                     OnPropertyChanged(nameof(SelectedProperty));
-                    // Ovdje pozivamo metodu koja će ažurirati podatke o rezervacijama
-                    //UpdateHistogramData();
+                    
                     LoadHistogramData();
+                    LoadCanceledReservationsHistogramData();
+                    LoadAcceptedRequestsHistogramData();
+                    LoadRenovationRecommendationData();
                 }
             }
         }
       
-
-        private Dictionary<int, int> GetReservationDataForProperty(string property)
-        {
-            var random = new Random();
-            var data = new Dictionary<int, int>();
-            for (int year = 2020; year <= 2024; year++)
-            {
-                data.Add(year, random.Next(50, 200)); // Vraćamo nasumičan broj rezervacija između 50 i 200
-            }
-            return data;
-        }
         private void Initialize()
         {
             AllPropertyNames = new ObservableCollection<string>(_propertyService.GetAllPropertyNames());

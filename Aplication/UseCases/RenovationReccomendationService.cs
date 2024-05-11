@@ -31,13 +31,23 @@ namespace BookingApp.Aplication.UseCases
         {
             return ownerReviewRepository.NextId();
         }
+       
         public int GetRenovationRecommendationsCountForProperty(string propertyName, int year)
         {
-            var propertyReservationsForYear = propertyReservationRepository.GetAll()
-                .Where(r => r.PropertyName == propertyName && r.StartDate.Year == year);
+            // Pronalazimo sve rezervacije za datu nekretninu i godinu
+            var propertyReservationsForYear = propertyReservationRepository
+                .GetAll()
+                .Where(r => r.PropertyName == propertyName && r.StartDate.Year == year)
+                .Select(r => r.Id)
+                .ToList();
 
-            return renovationReccomendationRepository.GetAll()
-                .Count(r => propertyReservationsForYear.Any(pr => pr.PropertyName == propertyName && pr.Id == r.OwnerReviewId));
+            // Pronalazimo sve preporuke za renoviranje koje su povezane sa rezervacijama za datu nekretninu i godinu
+            var recommendationsForProperty = renovationReccomendationRepository
+                .GetAll()
+                .Where(r => propertyReservationsForYear.Contains(r.OwnerReviewId))
+                .Count();
+
+            return recommendationsForProperty;
         }
     }
 }
