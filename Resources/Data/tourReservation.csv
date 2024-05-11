@@ -1,11 +1,19 @@
-1|30|4|Душко|Пилиповић|20||0|False|True
-2|30|4|1|1|1||0|False|False
-3|30|4|2|2|2||0|False|False
-4|31|4|Душко|Пилиповић|20||0|False|True
-5|31|4|3|3|3||0|False|False
-6|31|4|4|4|4||0|False|False
-7|41|4|Душко|Пилиповић|20|9|2|False|True
-8|41|4|7|7|7||0|False|False
-9|41|4|7|7|7||0|False|False
-10|41|4|89|8|8|9|2|False|False
-11|41|4|9|89|9||0|False|False
+1|10|4|Душко|Пилиповић|20||0|False|True
+2|10|4|Marko|Marković|50|Bijeljina|3|False|False
+3|10|4|Ana|Anić|60|Bijeljina|3|False|False
+4|13|4|Душко|Пилиповић|20||0|False|True
+5|13|4|Petar|Petrovic|60||0|False|False
+6|13|4|Marko|Marković|30||0|False|False
+7|13|4|Arsenije|Arsić|10||0|False|False
+8|17|4|Душко|Пилиповић|20|Trebinje|3|False|True
+9|17|4|Marko|Petrović|40||0|False|False
+10|17|4|Petar|Marković|50|Trebinje|3|False|False
+11|29|4|Душко|Пилиповић|20|Vranje|2|False|True
+12|29|4|Ognjen|Papović|22|Kragujevac|3|False|False
+13|11|4|Душко|Пилиповић|20||0|False|True
+14|14|4|Душко|Пилиповић|20||0|False|True
+15|18|4|Душко|Пилиповић|20||0|False|True
+16|33|4|Душко|Пилиповић|20||0|False|True
+17|17|15|Marko|Markovic|57|Trebinje|3|False|True
+18|1|15|Marko|Markovic|57|Nova Topola|2|False|True
+19|1|15|Baba|Ana|88|Nova Topola|2|False|False
