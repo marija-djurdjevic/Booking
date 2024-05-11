@@ -134,5 +134,24 @@ namespace BookingApp.Aplication.UseCases
             DateTime today = DateTime.Today;
             return propertyReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.Canceled == false && r.EndDate < today);
         }
+        public int GetReservationsCountForYear(string propertyName, int year)
+        {
+
+            var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
+
+            var reservationsForYear = reservationsForProperty.Where(r => r.StartDate.Year == year);
+
+            return reservationsForYear.Count();
+        }
+        public int GetCanceledReservationsCount(string propertyName, int year)
+        {
+            var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
+
+            var reservationsForYear = reservationsForProperty.Where(r => r.StartDate.Year == year);
+
+            var canceledReservationsForYear = reservationsForYear.Where(r => r.Canceled);
+
+            return canceledReservationsForYear.Count();
+        }
     }
 }

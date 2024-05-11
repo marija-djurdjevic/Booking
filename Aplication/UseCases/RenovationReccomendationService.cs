@@ -13,11 +13,13 @@ namespace BookingApp.Aplication.UseCases
     {
         private readonly IRenovationReccomendationRepository renovationReccomendationRepository;
         private readonly IOwnerReviewRepository ownerReviewRepository;
+        private readonly IPropertyReservationRepository propertyReservationRepository;
 
-        public RenovationReccomendationService(IRenovationReccomendationRepository renovationReccomendationRepository, IOwnerReviewRepository ownerReviewRepository)
+        public RenovationReccomendationService(IRenovationReccomendationRepository renovationReccomendationRepository, IOwnerReviewRepository ownerReviewRepository, IPropertyReservationRepository propertyReservationRepository)
         {
             this.renovationReccomendationRepository = renovationReccomendationRepository;
             this.ownerReviewRepository = ownerReviewRepository;
+            this.propertyReservationRepository = propertyReservationRepository;
         }
 
         public void SaveRenovationReccomendation(RenovationReccomendation renovationReccomendation)
@@ -29,6 +31,13 @@ namespace BookingApp.Aplication.UseCases
         {
             return ownerReviewRepository.NextId();
         }
+        public int GetRenovationRecommendationsCountForProperty(string propertyName, int year)
+        {
+            var propertyReservationsForYear = propertyReservationRepository.GetAll()
+                .Where(r => r.PropertyName == propertyName && r.StartDate.Year == year);
 
+            return renovationReccomendationRepository.GetAll()
+                .Count(r => propertyReservationsForYear.Any(pr => pr.PropertyName == propertyName && pr.Id == r.OwnerReviewId));
+        }
     }
 }

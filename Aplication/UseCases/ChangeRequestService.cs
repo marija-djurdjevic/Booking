@@ -49,6 +49,15 @@ namespace BookingApp.Aplication.UseCases
         {
             reservationChangeRequestsRepository.UpdateChangeRequestComment(requestId, comment);
         }
+        public int GetAcceptedReservationChangeRequestsCount(string propertyName, int year)
+        {
+            var changeRequestsForProperty = reservationChangeRequestsRepository.GetAll()
+                                                .Where(r => r.PropertyName == propertyName && r.RequestStatus == RequestStatus.Approved);
+
+            var changeRequestsForYear = changeRequestsForProperty.Where(r => r.NewStartDate.Year == year || r.NewEndDate.Year == year);
+
+            return changeRequestsForYear.Count();
+        }
 
     }
 }

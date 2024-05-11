@@ -83,6 +83,7 @@
             </TabItem>
             <TabItem Header="Analytics">
                 <!-- Analytics Tab Content -->
+                <Frame x:Name="AnalyticsFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
             <TabItem Header="Renovations">
                 <Frame x:Name="RenovationsFrame" NavigationUIVisibility="Hidden"/>

@@ -26,7 +26,7 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class ScheduleRenovationPage : Page
     {
-        User LoggedInUser;
+        private User LoggedInUser;
         private readonly PropertyRepository _propertyRepository;
         private readonly PropertyReservationRepository _propertyReservationRepository;
         private readonly RenovationRepository _renovationRepository;
