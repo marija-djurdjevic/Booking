@@ -1,6 +1,7 @@
 ﻿using BookingApp.Aplication.Dto;
 using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.WPF.Views.GuestView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,9 @@ namespace BookingApp.GuestView
         public static PropertyRepository PropertyRepository = new PropertyRepository();
         public static PropertyReservationRepository PropertyReservationRepository = new PropertyReservationRepository();
         public static ReservedDateRepository ReservedDateRepository = new ReservedDateRepository();
-
+        public static GuestRepository GuestRepository = new GuestRepository();
+        public static GuestNotificationsRepository GuestNotificationRepository = new GuestNotificationsRepository();
+        public List<PropertyReservation> GuestsReservations { get; set; }
         public PropertyReservationDto PropertyReservation { get; set; }
         public ReservedDate ReservedDate { get; set; }
         public Property SelectedProperty { get; set; }
@@ -25,6 +28,7 @@ namespace BookingApp.GuestView
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateRange SelectedDateRange {  get; set; }
+        public GuestNotification GuestNotification {  get; set; }
         public List<DateRange> AvailableDateRanges { get; set; }
 
         public PropertyBooking(Property selectedProperty, Guest guest, PropertyRepository propertyRepository, PropertyReservationRepository propertyReservationRepository)
@@ -33,8 +37,12 @@ namespace BookingApp.GuestView
             DataContext = this;
             PropertyRepository = propertyRepository;
             PropertyReservationRepository = propertyReservationRepository;
+            GuestRepository = new GuestRepository();
             ReservedDateRepository = new ReservedDateRepository();
+            GuestNotificationRepository = new GuestNotificationsRepository();
+            GuestsReservations = new List<PropertyReservation>();
             AvailableDateRanges = new List<DateRange>();
+            GuestNotification = new GuestNotification();
             SelectedProperty = selectedProperty;
             SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
             LoggedInGuest = guest;
@@ -165,8 +173,26 @@ namespace BookingApp.GuestView
             PropertyReservation.StartDate = SelectedDateRange.Start;
             PropertyReservation.EndDate = SelectedDateRange.End;
             PropertyReservation.PropertyName = SelectedProperty.Name;
+            if(LoggedInGuest.IsSuperGuest)
+            {
+                UpdateSuperGuestPoints();
+            }
+            GuestRepository.Update(LoggedInGuest);
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
+        }
+
+        public void UpdateSuperGuestPoints()
+        {
+            if (LoggedInGuest.Points > 0)
+            {
+                LoggedInGuest.Points -= 1;
+                GuestNotification.GuestId = LoggedInGuest.Id;
+                GuestNotification.Message = "You used the SuperGuest discount on your reservation, you still have " + LoggedInGuest.Points + " points left.";
+                GuestNotification.Read = false;
+                GuestNotificationRepository.AddNotification(GuestNotification);
+            }
+            
         }
 
         private bool ValidateConfirmationInput()

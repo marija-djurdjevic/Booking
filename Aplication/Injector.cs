@@ -34,6 +34,10 @@ namespace BookingApp.Aplication
         { typeof(IReservationChangeRequestRepository), new ReservationChangeRequestsRepository() },
         { typeof(IRenovationReccomendationRepository), new RenovationReccomendationRepository() },
         { typeof(IReviewRepository), new ReviewRepository() },
+        { typeof(IGuestRepository), new GuestRepository() },
+        { typeof(IGuestNotificationRepository), new GuestNotificationsRepository() },
+
+
 
         // Add more implementations here
     };

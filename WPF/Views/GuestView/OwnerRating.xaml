@@ -81,14 +81,14 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0" Height="100" Width="400">
             <TextBox TextWrapping="Wrap" Text="{Binding Path=OwnerReview.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </Border>
-        <Button Content="Renovation reccomendations" Click="RenovationReccomendation_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="10, 45,0,0" VerticalAlignment="Center" Width="170" Height="30"/>
+        <Button Background="#C8CECC" Content="Renovation reccomendations" Click="RenovationReccomendation_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="10, 45,0,0" VerticalAlignment="Center" Width="170" Height="30"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,175,0,0" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Add photos" Width="100" Height="30" HorizontalAlignment="Left" Click="AddPhotos_Click"/>
-                <Button Content="Remove" Width="100" Height="30" HorizontalAlignment="Left" Click="RemovePhotos_Click"/>
+                <Button Background="#C8CECC" Content="Add photos" Width="100" Height="30" HorizontalAlignment="Left" Click="AddPhotos_Click"/>
+                <Button Background="#C8CECC" Content="Remove" Width="100" Height="30" HorizontalAlignment="Left" Click="RemovePhotos_Click"/>
             </StackPanel>
             <Border BorderBrush="Black" BorderThickness="1">
-                <ListBox x:Name="imageListBox" ItemsSource="{Binding AddedImages}" SelectedItem="{Binding SelectedImage}" Height="110" Background="BlanchedAlmond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox Width="400" x:Name="imageListBox" ItemsSource="{Binding AddedImages}" SelectedItem="{Binding SelectedImage}" Height="110" Background="BlanchedAlmond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
@@ -103,7 +103,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Border>
-            <Button Width="400" Height="30" Margin="0, 5, 0, 0" Content="Send" Click="Send_Click"/>
+            <Button Background="#C8CECC" Width="150" Height="30" Margin="0, 5, 0, 0" Content="Send" Click="Send_Click"/>
         </StackPanel>
     </Grid>
 </Page>
