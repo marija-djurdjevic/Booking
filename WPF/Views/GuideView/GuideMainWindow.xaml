@@ -19,7 +19,7 @@
                 Height="71"
                 VerticalAlignment="Top"
                 Background="LightGray">
-               
+
                 <Image
                     Width="71"
                     Height="71"
@@ -39,8 +39,8 @@
 
             <!--  Prva slika u levom cosku  -->
             <Button
-                HorizontalAlignment="Left"
                 Width="82"
+                HorizontalAlignment="Left"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
@@ -53,13 +53,12 @@
 
             <!--  Druga slika u sredini  -->
             <Button
-               HorizontalAlignment="Center"
                 Width="82"
+                HorizontalAlignment="Center"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding GoHomeCommand}">
                 <Image
-                    
                     Width="59"
                     Height="59"
                     Source="/Resources/Images/home4.png" />
