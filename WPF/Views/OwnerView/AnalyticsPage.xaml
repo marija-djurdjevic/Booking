@@ -1,0 +1,81 @@
+﻿<Page x:Class="BookingApp.WPF.Views.OwnerView.AnalyticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+      xmlns:ownerviewmodels="clr-namespace:BookingApp.WPF.ViewModels.OwnerViewModels"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" d:DataContext="{d:DesignInstance Type=ownerviewmodels:AnalyticsViewModel}"
+      mc:Ignorable="d"
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="AnalyticsPage">
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                <!-- Elementi odozgo -->
+                <StackPanel Orientation="Horizontal" Margin="10,0">
+                    <StackPanel Margin="0,0,10,0">
+                        <TextBlock Text="Select Property"/>
+                        <ComboBox x:Name="PropertyComboBox" Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Select Year (optional)"/>
+                        <ComboBox x:Name="YearComboBox" Width="120" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,7,0,0" Width="397">
+                        <TextBlock Text="{Binding MostOccupiedText}" Margin="150,0,10,0"  Width="336" Height="27" FontSize="14" VerticalAlignment="Top" RenderTransformOrigin="0.507,1.455" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Grafikoni -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TabControl Width="400" HorizontalAlignment="Left">
+                        <lvc:CartesianChart Series="{Binding HistogramData}" Height="197" Margin="10,0,10,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabControl>
+                    <TabControl Width="400" HorizontalAlignment="Left">
+                        <lvc:CartesianChart Series="{Binding CanceledReservationsHistogramData}" Height="200" Margin="10,0,10,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Canceled Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabControl>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TabControl Width="400" HorizontalAlignment="Left">
+                        <lvc:CartesianChart Series="{Binding AcceptedRequestsHistogramData}" Height="200" Margin="10,0,10,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Accepted Requests" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabControl>
+                    <TabControl Width="400" HorizontalAlignment="Left">
+                        <lvc:CartesianChart Series="{Binding RenovationRecommendationHistogramData}" Height="200" Margin="10,0,10,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Renovation Recommendations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

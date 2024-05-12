@@ -20,7 +20,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public RenovationReccomendationViewModel()
         {
             RenovationReccomendation = new RenovationReccomendation();
-            renovationReccomendationService = new RenovationReccomendationService(Injector.CreateInstance<IRenovationReccomendationRepository>(), Injector.CreateInstance<IOwnerReviewRepository>());
+            renovationReccomendationService = new RenovationReccomendationService(Injector.CreateInstance<IRenovationReccomendationRepository>(), Injector.CreateInstance<IOwnerReviewRepository>(), Injector.CreateInstance<IPropertyReservationRepository>());
         }
 
         public void SaveReccomendation()
