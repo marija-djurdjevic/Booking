@@ -3,24 +3,19 @@
 3|1|Gradiška|Middle|3|True
 4|1|Zagreb|Middle|4|True
 5|1|Rim|End|5|True
-6|2|Banja Luka|Begining|1|False
-7|2|Nova Topola|Middle|2|False
-8|2|Gradiška|Middle|3|False
-9|2|Zagreb|Middle|4|False
-10|2|Rim|End|5|False
 11|3|Banja Luka|Begining|1|False
 12|3|Nova Topola|Middle|2|False
 13|3|Gradiška|Middle|3|False
 14|3|Zagreb|Middle|4|False
 15|3|Rim|End|5|False
-16|4|Novi Sad|Begining|1|False
-17|4|Beograd|Middle|2|False
-18|4|Bijeljina|Middle|3|False
-19|4|Zagreb|Middle|4|False
-20|4|Rim|Middle|5|False
-21|4|Pariz|Middle|6|False
-22|4|Madrid|Middle|7|False
-23|4|Barselona|End|8|False
+16|4|Novi Sad|Begining|1|True
+17|4|Beograd|Middle|2|True
+18|4|Bijeljina|Middle|3|True
+19|4|Zagreb|Middle|4|True
+20|4|Rim|Middle|5|True
+21|4|Pariz|Middle|6|True
+22|4|Madrid|Middle|7|True
+23|4|Barselona|End|8|True
 24|5|Novi Sad|Begining|1|False
 25|5|Beograd|Middle|2|False
 26|5|Bijeljina|Middle|3|False
@@ -79,10 +74,10 @@
 79|12|Beograd|Middle|4|False
 80|12|Pirot|Middle|5|False
 81|12|Atina|End|6|False
-82|13|Novi Sad|Begining|1|False
-83|13|Bijeljina|Middle|2|False
-84|13|Trebinje|Middle|3|False
-85|13|Miljevići|End|4|False
+82|13|Novi Sad|Begining|1|True
+83|13|Bijeljina|Middle|2|True
+84|13|Trebinje|Middle|3|True
+85|13|Miljevići|End|4|True
 86|14|Novi Sad|Begining|1|False
 87|14|Bijeljina|Middle|2|False
 88|14|Trebinje|Middle|3|False
@@ -111,7 +106,7 @@
 111|20|Bijeljina|Middle|2|False
 112|20|Trebinje|Middle|3|False
 113|20|Miljevići|End|4|False
-114|21|Pirot|Begining|1|False
+114|21|Pirot|Begining|1|True
 115|21|Vranje|Middle|2|False
 116|21|Kragujevac|Middle|3|False
 117|21|Novi Sad|End|4|False
@@ -172,3 +167,5 @@
 172|36|Beograd|Begining|1|False
 173|36|Ruma|Middle|2|False
 174|36|Mitrovica|End|3|False
+175|37|tacka1|Begining|1|False
+176|37|taka2|End|2|False
