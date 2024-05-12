@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -31,16 +32,49 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public SeriesCollection RenovationRecommendationHistogramData { get; private set; }
         public List<string> Labels { get; set; }
         public ObservableCollection<string> AllPropertyNames { get; set; }
+        public ObservableCollection<int> Years { get; set; }
+
 
         private string _selectedProperty;
-        
+        private int _selectedYear;
+        public int SelectedYear
+        {
+            get { return _selectedYear; }
+            set
+            {
+                if (_selectedYear != value)
+                {
+                    _selectedYear = value;
+                    OnPropertyChanged(nameof(SelectedYear));
+                    
+                    if (_selectedYear != 0)
+                    {
+
+                        LoadHistogramDataByMonth(_selectedYear);
+                        LoadCanceledReservationsHistogramDataByMonth(_selectedYear);
+                        LoadAcceptedRequestsHistogramDataByMonth(_selectedYear);
+                        LoadRenovationRecommendationHistogramDataByMonth(_selectedYear);
+                        UpdateMostOccupiedYearAndMonth();
+                    }
+                    else
+                    {
+                        LoadHistogramData();
+                        LoadCanceledReservationsHistogramData();
+                        LoadRenovationRecommendationData();
+                        LoadAcceptedRequestsHistogramData();
+                        UpdateMostOccupiedYearAndMonth();
+                    }
+                }
+            }
+        }
         public AnalyticsViewModel(User loggedInUser)
         {
             HistogramData = new SeriesCollection();
             CanceledReservationsHistogramData = new SeriesCollection();
             RenovationRecommendationHistogramData = new SeriesCollection();
             Labels = new List<string> { "2020 2021 2022 2023 2024" };
-            
+            Years = new ObservableCollection<int> { 2020, 2021, 2022, 2023, 2024 };
+
             _loggedInUser = loggedInUser;
             _propertyService = new PropertyService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>());
             _propertyReservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(),Injector.CreateInstance<IPropertyReservationRepository>(), Injector.CreateInstance<IReservedDateRepository>());
@@ -49,10 +83,28 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Initialize();
             _selectedProperty = AllPropertyNames.FirstOrDefault();
            
-            LoadHistogramData();
-            LoadCanceledReservationsHistogramData();
+            //LoadHistogramData();
+            //LoadCanceledReservationsHistogramData();
 
         }
+        private void UpdateMostOccupiedYearAndMonth()
+        {
+            if (_selectedYear == 0)
+            {
+                
+                int mostOccupiedYear = _propertyReservationService.GetMostOccupiedYear(_selectedProperty);
+                MostOccupiedText = $"Most occupied year: {mostOccupiedYear}";
+                
+            }
+            else
+            {
+                
+                int mostOccupiedMonth = _propertyReservationService.GetMostOccupiedMonthInYear(_selectedProperty, _selectedYear);
+                MostOccupiedText = $"Most occupied month in {_selectedYear}: {CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mostOccupiedMonth)}";
+
+            }
+        }
+
         private void LoadCanceledReservationsHistogramData()
         {
             CanceledReservationsHistogramData.Clear(); 
@@ -127,60 +179,118 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             get { return _selectedProperty; }
             set
             {
+              
                 if (_selectedProperty != value)
                 {
                     _selectedProperty = value;
                     OnPropertyChanged(nameof(SelectedProperty));
-                    
-                    LoadHistogramData();
-                    LoadCanceledReservationsHistogramData();
-                    LoadAcceptedRequestsHistogramData();
-                    LoadRenovationRecommendationData();
+                    if (_selectedYear != 0)
+                    {
+                        LoadHistogramDataByMonth(_selectedYear);
+                        LoadCanceledReservationsHistogramDataByMonth(_selectedYear);
+                        LoadAcceptedRequestsHistogramDataByMonth(_selectedYear);
+                        LoadRenovationRecommendationHistogramDataByMonth(_selectedYear);
+                        UpdateMostOccupiedYearAndMonth();
+                    }
+                    else
+                    {
+                        LoadHistogramData();
+                        LoadCanceledReservationsHistogramData();
+                        LoadRenovationRecommendationData();
+                        LoadAcceptedRequestsHistogramData();
+                        UpdateMostOccupiedYearAndMonth();
+                    }
+                   
                 }
             }
         }
-      
+        private string _mostOccupiedText;
+        public string MostOccupiedText
+        {
+            get { return _mostOccupiedText; }
+            set
+            {
+                _mostOccupiedText = value;
+                OnPropertyChanged(nameof(MostOccupiedText));
+            }
+        }
+
+
+        private void LoadHistogramDataByMonth(int year)
+        {
+            HistogramData.Clear();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                HistogramData.Add(new ColumnSeries
+                {
+                    Title = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Values = new ChartValues<int> { GetReservationCountForMonth(_selectedProperty, year, month) }
+                });
+            }
+        }
+
+        private void LoadCanceledReservationsHistogramDataByMonth(int year)
+        {
+            CanceledReservationsHistogramData.Clear();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                CanceledReservationsHistogramData.Add(new ColumnSeries
+                {
+                    Title = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Values = new ChartValues<int> { GetCanceledReservationsCountForMonth(_selectedProperty, year, month) }
+                });
+            }
+        }
+        private void LoadAcceptedRequestsHistogramDataByMonth(int year)
+        {
+            AcceptedRequestsHistogramData.Clear();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                AcceptedRequestsHistogramData.Add(new ColumnSeries
+                {
+                    Title = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Values = new ChartValues<int> { GetAcceptedRequestsCountForMonth(_selectedProperty, year, month) }
+                });
+            }
+        }
+        private int GetAcceptedRequestsCountForMonth(string _selectedProperty, int year, int month)
+        {
+            return _changeRequestService.GetAcceptedReservationChangeRequestsCountForMonth(_selectedProperty, year, month);
+        }
+        private void LoadRenovationRecommendationHistogramDataByMonth(int year)
+        {
+            RenovationRecommendationHistogramData.Clear();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                RenovationRecommendationHistogramData.Add(new ColumnSeries
+                {
+                    Title = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Values = new ChartValues<int> { GetRenovationRecommendationCountForMonth(_selectedProperty, year, month) }
+                });
+            }
+        }
+        private int GetRenovationRecommendationCountForMonth(string _selectedProperty, int year, int month)
+        {
+            return _renovationReccomendationService.GetRenovationRecommendationsForMonth(_selectedProperty, year, month);
+        }
+        private int GetCanceledReservationsCountForMonth(string _selectedProperty, int year, int month)
+        {
+            return _propertyReservationService.GetCanceledReservationsCountForMonth(_selectedProperty, year, month);
+        }
+        private int GetReservationCountForMonth(string selectedProperty, int year, int month)
+        {
+            return _propertyReservationService.GetReservationsCountForMonth(selectedProperty, year, month);
+        }
         private void Initialize()
         {
             AllPropertyNames = new ObservableCollection<string>(_propertyService.GetAllPropertyNames());
         }
         
-        public Dictionary<int, int> GetYearlyCanceledReservationsCount(string property)
-        {
-            Dictionary<int, int> yearlyCanceledReservationsCount = new Dictionary<int, int>();
-
-            for (int year = 2020; year <= 2024; year++)
-            {
-                int canceledReservationsCount = _propertyReservationService.GetCanceledReservationsCount(property, year);
-                yearlyCanceledReservationsCount.Add(year, canceledReservationsCount);
-            }
-
-            return yearlyCanceledReservationsCount;
-        }
-        public Dictionary<int, int> GetAcceptedReservationChangeRequestsCountForAllYears(string property)
-        {
-            Dictionary<int, int> acceptedRequestsCountForAllYears = new Dictionary<int, int>();
-
-            for (int year = 2020; year <= 2024; year++)
-            {
-                int acceptedRequestsCount = _changeRequestService.GetAcceptedReservationChangeRequestsCount(property, year);
-                acceptedRequestsCountForAllYears.Add(year, acceptedRequestsCount);
-            }
-
-            return acceptedRequestsCountForAllYears;
-        }
-        public Dictionary<int, int> GetRenovationRecommendationsCountForProperty(string property)
-        {
-            Dictionary<int, int> renovationRecommendationsCountForProperty = new Dictionary<int, int>();
-
-            for (int year = 2020; year <= 2024; year++)
-            {
-                int renovationRecommendationsCount = _renovationReccomendationService.GetRenovationRecommendationsCountForProperty(property, year);
-                renovationRecommendationsCountForProperty.Add(year, renovationRecommendationsCount);
-            }
-
-            return renovationRecommendationsCountForProperty;
-        }
+       
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

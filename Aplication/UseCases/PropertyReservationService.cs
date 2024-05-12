@@ -153,5 +153,74 @@ namespace BookingApp.Aplication.UseCases
 
             return canceledReservationsForYear.Count();
         }
+        public int GetReservationsCountForMonth(string propertyName, int year, int month)
+        {
+            var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
+
+            var reservationsForYearAndMonth = reservationsForProperty.Where(r => r.StartDate.Year == year && r.StartDate.Month == month);
+
+            return reservationsForYearAndMonth.Count();
+        }
+        public int GetCanceledReservationsCountForMonth(string propertyName, int year, int month)
+        {
+            var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
+
+            var canceledReservationsForYearAndMonth = reservationsForProperty
+                .Where(r => r.StartDate.Year == year && r.StartDate.Month == month && r.Canceled);
+
+            return canceledReservationsForYearAndMonth.Count();
+        }
+        public int GetMostOccupiedYear(string propertyName)
+        {
+            Dictionary<int, double> yearlyOccupancy = new Dictionary<int, double>();
+
+            // Iterirajte kroz sve rezervacije za dati smeštaj
+            var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
+
+            foreach (var reservation in reservationsForProperty)
+            {
+                int year = reservation.StartDate.Year;
+                if (!yearlyOccupancy.ContainsKey(year))
+                {
+                    yearlyOccupancy[year] = 0;
+                }
+
+                double occupancyInYear = yearlyOccupancy[year];
+                occupancyInYear += (reservation.EndDate - reservation.StartDate).TotalDays;
+                yearlyOccupancy[year] = occupancyInYear;
+            }
+
+            // Pronađi maksimalnu zauzetost u godini
+            int mostOccupiedYear = yearlyOccupancy.OrderByDescending(x => x.Value).FirstOrDefault().Key;
+
+            return mostOccupiedYear;
+        }
+
+        public int GetMostOccupiedMonthInYear(string propertyName, int year)
+        {
+            Dictionary<int, double> monthlyOccupancy = new Dictionary<int, double>();
+
+            // Iterirajte kroz sve rezervacije za dati smeštaj u datoj godini
+            var reservationsForPropertyInYear = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName && r.StartDate.Year == year);
+
+            foreach (var reservation in reservationsForPropertyInYear)
+            {
+                int month = reservation.StartDate.Month;
+                if (!monthlyOccupancy.ContainsKey(month))
+                {
+                    monthlyOccupancy[month] = 0;
+                }
+
+                double occupancyInMonth = monthlyOccupancy[month];
+                occupancyInMonth += (reservation.EndDate - reservation.StartDate).TotalDays;
+                monthlyOccupancy[month] = occupancyInMonth;
+            }
+
+            // Pronađi maksimalnu zauzetost u mjesecu
+            int mostOccupiedMonth = monthlyOccupancy.OrderByDescending(x => x.Value).FirstOrDefault().Key;
+
+            return mostOccupiedMonth;
+        }
+
     }
 }

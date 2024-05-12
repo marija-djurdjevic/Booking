@@ -49,5 +49,21 @@ namespace BookingApp.Aplication.UseCases
 
             return recommendationsForProperty;
         }
+        public int GetRenovationRecommendationsForMonth(string propertyName, int year, int month)
+        {
+            // Pronalazimo sve rezervacije za datu nekretninu, godinu i mjesec
+            var propertyReservationsForYearAndMonth = propertyReservationRepository
+                .GetAll()
+                .Where(r => r.PropertyName == propertyName && r.StartDate.Year == year && r.StartDate.Month == month)
+                .Select(r => r.Id)
+                .ToList();
+
+            // Pronalazimo sve preporuke za renoviranje koje su povezane sa rezervacijama za datu nekretninu, godinu i mjesec
+            var recommendationsForPropertyAndMonth = renovationReccomendationRepository
+                .GetAll()
+                .Count(r => propertyReservationsForYearAndMonth.Contains(r.OwnerReviewId));
+
+            return recommendationsForPropertyAndMonth;
+        }
     }
 }

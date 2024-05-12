@@ -58,6 +58,16 @@ namespace BookingApp.Aplication.UseCases
 
             return changeRequestsForYear.Count();
         }
+        public int GetAcceptedReservationChangeRequestsCountForMonth(string propertyName, int year, int month)
+        {
+            var changeRequestsForProperty = reservationChangeRequestsRepository.GetAll()
+                                                .Where(r => r.PropertyName == propertyName && r.RequestStatus == RequestStatus.Approved);
+
+            var changeRequestsForYearAndMonth = changeRequestsForProperty
+                                                .Where(r => (r.NewStartDate.Year == year && r.NewStartDate.Month == month) || (r.NewEndDate.Year == year && r.NewEndDate.Month == month));
+
+            return changeRequestsForYearAndMonth.Count();
+        }
 
     }
 }
