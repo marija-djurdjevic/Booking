@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="GuestMainWindow" Height="750" Width="430">
     <Grid>
-        <ToolBar Background="#dddddd" VerticalAlignment="Top" Height="45" Width="430">
+        <ToolBar Background="#C8CECC" VerticalAlignment="Top" Height="45" Width="430">
             <Button Click="MenuBurger_Click">
                 <Image Source="\Resources\Images\menu-burger.png"></Image>
             </Button>
             <Label Content="BookingApp" Height="35" FontSize="16"/>
-            <Button Margin="185, 0, 0, 0">
+            <Button Click="Notifications_Click" Margin="185, 0, 0, 0">
                 <Image Source="\Resources\Images\bell.png"></Image>
             </Button>
             <Button Click="LogOut_Click" Margin="3, 3, 0, 3">
@@ -20,15 +20,15 @@
             </Button>
 
         </ToolBar>
-        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,44,0,44" NavigationUIVisibility="Hidden"/>
-        <DockPanel VerticalAlignment="Bottom" Background="#dddddd" Height="45" Width="430">
-            <Button BorderBrush="#dddd" Margin="20, 0, 0, 0" Width="60">
+        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,45,0,44" NavigationUIVisibility="Hidden"/>
+        <DockPanel VerticalAlignment="Bottom" Background="#C8CECC" Height="45" Width="430">
+            <Button Background="#C8CECC" Click="Back_Click" BorderBrush="#C8CECC" Margin="20, 0, 0, 0" Width="60">
                 <Image Source="\Resources\Images\back (1).png" Width="60"></Image>
             </Button>
-            <Button BorderBrush="#dddd" Margin="115, 0, 0, 0" HorizontalAlignment="Center">
+            <Button Background="#C8CECC" BorderBrush="#C8CECC" Margin="115, 0, 0, 0" HorizontalAlignment="Center">
                 <Image Source="\Resources\Images\home.png"></Image>
             </Button>
-            <Button Content="DEMO" BorderThickness="2" FontWeight="Bold" FontSize="18" BorderBrush="Black" Margin="60, 0, 0, 0" Background="#dddd" Height="40" Width="70"/>
+            <Button Content="DEMO" BorderThickness="2" FontWeight="Bold" FontSize="18" BorderBrush="Black" Margin="60, 0, 0, 0" Background="#C8CECC" Height="40" Width="70"/>
         </DockPanel>
 
         <Frame Name="ActionFrame" HorizontalAlignment="Left" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"
