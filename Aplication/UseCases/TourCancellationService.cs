@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using BookingApp.Domain.Models;
+using System.Windows;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -28,12 +29,14 @@ namespace BookingApp.Aplication.UseCases
         {
             if ((tour.StartDateTime - DateTime.Now).TotalHours <= 48)
             {
+                MessageBox.Show("Tour cannot be canceled less than 48 hours before the start.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             liveTourService.RemoveLiveTour(tour.Id);
             tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
             GenerateVouchersForCanceledTourists(tour.Id, tourReservations);
+            MessageBox.Show("Tour canceled successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void DeleteTourAndKeyPoints(int tourId)

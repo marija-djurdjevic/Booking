@@ -19,14 +19,8 @@
                 Height="71"
                 VerticalAlignment="Top"
                 Background="LightGray">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="71" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-
+               
                 <Image
-                    Grid.Column="0"
                     Width="71"
                     Height="71"
                     Source="/Resources/Images/menu5.png"
@@ -34,7 +28,7 @@
             </Grid>
         </DockPanel>
 
-        <DockPanel
+        <Grid
             Height="71"
             VerticalAlignment="Bottom"
             Background="{StaticResource nagivation}"
@@ -45,6 +39,7 @@
 
             <!--  Prva slika u levom cosku  -->
             <Button
+                HorizontalAlignment="Left"
                 Width="82"
                 Background="Transparent"
                 BorderBrush="Transparent"
@@ -58,19 +53,19 @@
 
             <!--  Druga slika u sredini  -->
             <Button
+               HorizontalAlignment="Center"
                 Width="82"
-                HorizontalAlignment="Center"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding GoHomeCommand}">
                 <Image
-                    HorizontalAlignment="Left"
+                    
                     Width="59"
                     Height="59"
                     Source="/Resources/Images/home4.png" />
             </Button>
 
-        </DockPanel>
+        </Grid>
 
         <DockPanel DockPanel.Dock="Left">
             <Frame x:Name="MainFrameControl" NavigationUIVisibility="Hidden" />

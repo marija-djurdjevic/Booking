@@ -170,6 +170,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 keyPointService.Update(keyPoint);
             }
             liveTourService.FinishTour(tourId);
+            MessageBox.Show("Tour successfully finished.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+           
+
         }
         public TourReservation SelectedTourist
         {

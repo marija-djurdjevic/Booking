@@ -345,15 +345,7 @@
 
                 </TabControl>
 
-                <Button
-                    Width="146"
-                    Height="51"
-                    Margin="592,19,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Click="LogOutClick"
-                    Content="LOG OUT"
-                    FontSize="32" />
+                
 
 
             </Grid>

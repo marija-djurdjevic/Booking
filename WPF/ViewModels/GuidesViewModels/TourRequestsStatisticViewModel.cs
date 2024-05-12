@@ -198,7 +198,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         {
             if (SelectedYear == null)
             {
-                MessageBox.Show("nisi izabrao period");
+                MessageBox.Show("You did not select a period.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 return;
             }
 

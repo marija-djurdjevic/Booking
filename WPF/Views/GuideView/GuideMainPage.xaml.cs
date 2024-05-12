@@ -30,24 +30,9 @@ namespace BookingApp.View.GuideView
         }
 
        
-        private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
-        {
-            TourStatistic ts=new TourStatistic();
-            this.NavigationService.Navigate(ts);
-        }
+       
 
-        private void LogOutClick(object sender, RoutedEventArgs e)
-        {
-
-            SignInForm signInWindow = new SignInForm();
-            signInWindow.Show();
-           
-            Window mainWindow = Window.GetWindow(this);
-            mainWindow.Close();
-
-            
-           
-        }
+      
 
         private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

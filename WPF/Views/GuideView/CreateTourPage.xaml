@@ -176,7 +176,7 @@
           VerticalContentAlignment="Center"
           HorizontalContentAlignment="Left"
           Height="42"         
-          Margin="356,601,320,872"
+          Margin="356,601,393,872"
           ItemsSource="{Binding CitiesCountries}"
           SelectedItem="{Binding SelectedLocation, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
                         <Validation.ErrorTemplate>

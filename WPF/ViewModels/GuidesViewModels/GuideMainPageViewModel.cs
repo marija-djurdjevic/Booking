@@ -171,14 +171,16 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                     liveTourService.ActivateTour(tourId);
                     liveTourService.CheckFirstKeyPoint(tourId);
                     liveTourService.SaveChanges();
+                    MessageBox.Show("Tour successfully started.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
                     LiveTourPage liveTourPage = new LiveTourPage(tourId);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
                 }
 
                 else
                 {
-                    MessageBox.Show("Zavrsi zapocetu turu");
-                    int id=liveTourService.GetLiveTourId();
+                    MessageBox.Show("Completed the previously started tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    int id =liveTourService.GetLiveTourId();
                     LiveTourPage liveTourPage = new LiveTourPage(id);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
 
@@ -201,6 +203,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 var tourKeyPoints = keyPointService.GetTourKeyPoints(tourId);
                 var tourReservation = tourReservationService.GetByTourId(tourId);
                 tourCancellationService.CancelTour(tour, tourKeyPoints, tourReservation);
+               
                 LoadTours();
             }
         }
