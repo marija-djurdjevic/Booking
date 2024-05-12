@@ -2,4 +2,5 @@
 29|False|29|Pirot|Begining|1|True|29|Vranje|Middle|2|True|29|Kragujevac|Middle|3|True|29|Novi Sad|End|4|True
 17|False|17|Novi Sad|Begining|1|True|17|Bijeljina|Middle|2|True|17|Trebinje|Middle|3|True|17|Miljevići|End|4|True
 1|False|1|Banja Luka|Begining|1|True|1|Nova Topola|Middle|2|True|1|Gradiška|Middle|3|True|1|Zagreb|Middle|4|True|1|Rim|End|5|True
-4|True|4|Novi Sad|Begining|1|True|4|Beograd|Middle|2|True|4|Bijeljina|Middle|3|True|4|Zagreb|Middle|4|True|4|Rim|Middle|5|True|4|Pariz|Middle|6|True|4|Madrid|Middle|7|True|4|Barselona|End|8|True
+21|False|21|Pirot|Begining|1|True|21|Vranje|Middle|2|True|21|Kragujevac|Middle|3|True|21|Novi Sad|End|4|True
+34|False|34|Beograd|Begining|1|True|34|Ruma|Middle|2|True|34|Mitrovica|End|3|True

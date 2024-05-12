@@ -1,7 +1,7 @@
 1|10|4|Душко|Пилиповић|20||0|False|True
 2|10|4|Marko|Marković|50|Bijeljina|3|False|False
 3|10|4|Ana|Anić|60|Bijeljina|3|False|False
-4|13|4|Душко|Пилиповић|20|Miljevići|4|False|True
+4|13|4|Душко|Пилиповић|20||0|False|True
 5|13|4|Petar|Petrovic|60||0|False|False
 6|13|4|Marko|Marković|30||0|False|False
 7|13|4|Arsenije|Arsić|10||0|False|False
@@ -17,3 +17,24 @@
 17|17|15|Marko|Markovic|57|Trebinje|3|False|True
 18|1|15|Marko|Markovic|57|Nova Topola|2|False|True
 19|1|15|Baba|Ana|88|Nova Topola|2|False|False
+20|29|4|Vanja|Petrovic|21||0|False|False
+21|29|4|Nada|Markovic|77||0|False|False
+22|21|4|Душко|Пилиповић|20|Pirot|1|False|True
+23|21|4|Dragan|Ivastanin|50|Kragujevac|3|False|False
+24|21|4|Mico|Ilic|68|Kragujevac|3|False|False
+25|21|4|Drago|Sokcevic|30|Kragujevac|3|False|False
+26|21|15|Marko|Markovic|57|Vranje|2|False|True
+27|21|15|Mile|Todorovic|24|Kragujevac|3|False|False
+28|34|15|Marko|Markovic|57||0|False|True
+29|34|15|Savo|Prpic|29|Beograd|1|False|False
+30|14|4|Savo|Ilic|25||0|False|False
+31|14|4|Mile|Prpic|24||0|False|False
+32|14|4|Ognjen|Papovic|28||0|False|False
+33|18|4|Savo|Savic|70||0|False|False
+34|18|4|Pera|Peric|44||0|False|False
+35|22|4|Душко|Пилиповић|20||0|False|True
+36|18|15|Marko|Markovic|57||0|False|True
+37|18|15|Ostoja|Tosic|44||0|False|False
+38|18|15|Mirko|Lazic|42||0|False|False
+39|22|15|Marko|Markovic|57||0|False|True
+40|22|15|Branko|Ristic|12||0|False|False
