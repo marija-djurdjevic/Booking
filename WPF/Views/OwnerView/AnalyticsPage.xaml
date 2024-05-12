@@ -33,20 +33,20 @@
                     <TabControl Width="400" HorizontalAlignment="Left">
                         <lvc:CartesianChart Series="{Binding HistogramData}" Height="197" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Year" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Number of Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
                     <TabControl Width="400" HorizontalAlignment="Left">
                         <lvc:CartesianChart Series="{Binding CanceledReservationsHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Year" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Number of Canceled Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Canceled Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
@@ -56,20 +56,20 @@
                     <TabControl Width="400" HorizontalAlignment="Left">
                         <lvc:CartesianChart Series="{Binding AcceptedRequestsHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Year" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Number of Accepted Requests" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Accepted Requests" Foreground="Black" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
                     <TabControl Width="400" HorizontalAlignment="Left">
                         <lvc:CartesianChart Series="{Binding RenovationRecommendationHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Year" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Number of Renovation Recommendations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Renovation Recommendations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
