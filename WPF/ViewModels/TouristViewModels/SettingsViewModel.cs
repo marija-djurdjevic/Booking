@@ -29,7 +29,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         public SettingsViewModel(User loggedInUser)
         {
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             Tourist = touristService.GetByUserId(loggedInUser.Id);
             CloseCommand = new RelayCommand(CloseWindow);
             HelpCommand = new RelayCommand(Help);

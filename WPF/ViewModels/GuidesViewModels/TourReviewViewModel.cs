@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             this.tourId = tourId;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             SelectedTour = tourService.GetTourById(tourId);
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);

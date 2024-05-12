@@ -158,16 +158,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                     IsAccepted = true;
                     TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, 2, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, "Ognjen", SelectedDateTime);
                     notificationService.Save(touristGuideNotification);
-                    MessageBox.Show("Tour request successfully accepted.");
+                    MessageBox.Show("Tour request successfully accepted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 }
                 else
                 {
-                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.");
+                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    
+
                 }
             }
             else
             {
-                MessageBox.Show("Selected date is not available for booking.");
+                MessageBox.Show("Selected date is not available for booking.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
