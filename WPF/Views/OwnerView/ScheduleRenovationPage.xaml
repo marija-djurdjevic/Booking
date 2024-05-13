@@ -8,49 +8,95 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="800"
       Title="ScheduleRenovationPage">
-
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
         <!-- Gornji dio s ComboBox-om, DatePicker-ima i Search dugmetom -->
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
             <!-- Combo box za izbor nekretnine -->
             <StackPanel Margin="10,0">
-                <TextBlock Text="Select Property"/>
-                <ComboBox x:Name="PropertyComboBox" Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedIndex="0"/>
+                <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Select Property"/>
+                <ComboBox x:Name="PropertyComboBox"  Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedIndex="0"
+                 Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource PageBackgroundColor}" 
+                BorderBrush="{StaticResource PageBackgroundColor}" BorderThickness="1"/>
             </StackPanel>
 
             <!-- Date picker za početak renovacije -->
             <StackPanel Margin="5,0">
-                <TextBlock Text="Start Date"/>
-                <DatePicker  x:Name="StartDatePicker" Width="120"/>
+                <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Start Date"/>
+                <DatePicker x:Name="StartDatePicker" Width="120"              Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource PageBackgroundColor}" 
+BorderBrush="{StaticResource PageBackgroundColor}" BorderThickness="1"/>
             </StackPanel>
 
             <!-- Date picker za kraj renovacije -->
             <StackPanel Margin="5,0">
-                <TextBlock Text="End Date"/>
-                <DatePicker  x:Name="EndDatePicker" Width="120"/>
+                <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="End Date"/>
+                <DatePicker  x:Name="EndDatePicker" Width="120"
+                             Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource PageBackgroundColor}" 
+                BorderBrush="{StaticResource PageBackgroundColor}" BorderThickness="1"/>
             </StackPanel>
 
             <!-- Labela za unos trajanja renovacije -->
             <StackPanel Margin="5,0">
-                <TextBlock Text="Duration"/>
-                <TextBox x:Name="DurationTextBox" Width="120" Height="22"/>
+                <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Duration"/>
+                <TextBox x:Name="DurationTextBox" Width="120" Height="22"
+             Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+                BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1"/>
             </StackPanel>
 
-            <Button Margin="5,10" Width="150" Height="30" Content="Search" Click="SearchButton_Click" Background="{DynamicResource OwnerButtonColor2}" VerticalAlignment="Top"/>
+            <Button  Margin="5,10" Width="120" Height="30" Content="Search" Click="SearchButton_Click" VerticalAlignment="Top"/>
         </StackPanel>
 
         <!-- Donji dio s Please select... tekstom, DataGrid-om, TextArea-om i Submit dugmetom -->
         <StackPanel Margin="10" VerticalAlignment="Top">
             <!-- Tekstovi Please select... i Enter renovation description -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0,70,10,5" FontWeight="Bold" FontSize="14" Text="Please select one of available slots below"/>
-                <TextBlock Margin="30,70,10,5" FontWeight="Bold" FontSize="14" Text="Enter renovation description"/>
+                <TextBlock Margin="0,70,10,5"  Foreground="{StaticResource WhiteTextColor}" FontSize="12" Text="Please select one of available slots below"/>
+                <TextBlock Margin="42,70,10,5" FontWeight="Normal"  Foreground="{StaticResource WhiteTextColor}" FontSize="12" Text="Enter renovation description"/>
             </StackPanel>
 
             <!-- WrapPanel za držanje DataGrid-a i TextArea-e -->
             <WrapPanel>
                 <!-- DataGrid za prikaz datuma -->
-                <DataGrid x:Name="DateDataGrid" MouseDoubleClick="DateDataGrid_MouseDoubleClick" AutoGenerateColumns="False" Width="267" Height="140" ItemsSource="{Binding AvailableDateRanges}">
+                <DataGrid x:Name="DateDataGrid" BorderBrush="AliceBlue" AlternationCount="2" Height="140" VerticalAlignment="Bottom"
+                HeadersVisibility="Column" HorizontalGridLinesBrush="{x:Null}" MouseDoubleClick="DateDataGrid_MouseDoubleClick" 
+                AutoGenerateColumns="False" Width="258" ItemsSource="{Binding AvailableDateRanges}">
+                    <DataGrid.Resources>
+                        <!-- Promijenite boju pozadine tabele -->
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2C3E50" />
+                        <!-- Promijenite boju pozadine zaglavlja -->
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
+                        <!-- Promijenite boju okvira ćelija -->
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="AntiqueWhite" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#001B2E" />
+                    </DataGrid.Resources>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#001B2E" />
+                            <Setter Property="Height" Value="40" />
+                            <!-- Postavite ostale željene setere za zaglavlje kolona ovdje -->
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="#34495E" />
+                            <Style.Triggers>
+                                <!-- Postavite boju pozadine naizmenično -->
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                    <Setter Property="Background" Value="#2C3E50" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
@@ -58,11 +104,13 @@
                 </DataGrid>
 
                 <!-- TextArea za dodatne informacije -->
-                <TextBox x:Name="RenovationDescriptionTextBox" Margin="40,5" Height="140" Width="200"/>
+                <TextBox x:Name="RenovationDescriptionTextBox" Margin="10, 0" Height="140" Width="250"
+                TextWrapping="Wrap" Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+                BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1"/>
             </WrapPanel>
 
             <!-- Submit dugme -->
-            <Button Margin="100,10,0,0" Width="150" Height="30" Content="Submit" Background="{DynamicResource OwnerButtonColor2}" Click="SubmitButton_Click" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Button Margin="158,10,0,0" Width="120" Height="30" Content="Submit" Click="SubmitButton_Click" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>

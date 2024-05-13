@@ -72,6 +72,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             HistogramData = new SeriesCollection();
             CanceledReservationsHistogramData = new SeriesCollection();
             RenovationRecommendationHistogramData = new SeriesCollection();
+            AcceptedRequestsHistogramData = new SeriesCollection();
             Labels = new List<string> { "" };
             Years = new ObservableCollection<int> { 2020, 2021, 2022, 2023, 2024 };
 

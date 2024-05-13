@@ -10,72 +10,87 @@
       d:DesignHeight="300" d:DesignWidth="800"
       Title="AnalyticsPage">
 
-    <Grid>
+    <Page.Resources>
+        <!-- Stilovi za grafikone -->
+        <Style TargetType="lvc:CartesianChart">
+            <Setter Property="Background" Value="#2C3E50" />
+        </Style>
+        <Style TargetType="lvc:Axis">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <LinearGradientBrush x:Key="PageBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#485360" Offset="0"/>
+            <GradientStop Color="#1E2833" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Resources>
+
+    <Grid Background="#34495E">
+       
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+            <StackPanel Orientation="Vertical" Margin="10,10,10,0">
                 <!-- Elementi odozgo -->
                 <StackPanel Orientation="Horizontal" Margin="10,0">
                     <StackPanel Margin="0,0,10,0">
-                        <TextBlock Text="Select Property"/>
+                        <TextBlock Text="Select Property" Foreground="White"/>
                         <ComboBox x:Name="PropertyComboBox" Width="120" ItemsSource="{Binding AllPropertyNames}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" HorizontalAlignment="Left"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="Select Year (optional)"/>
+                        <TextBlock Text="Select Year (optional)" Foreground="White"/>
                         <ComboBox x:Name="YearComboBox" Width="120" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" HorizontalAlignment="Left"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,7,0,0" Width="397">
-                        <TextBlock Text="{Binding MostOccupiedText}" Margin="150,0,10,0"  Width="336" Height="27" FontSize="14" VerticalAlignment="Top" RenderTransformOrigin="0.507,1.455" />
+                        <TextBlock Text="{Binding MostOccupiedText}" Margin="150,0,10,0"  Width="336" Height="27" FontSize="14" VerticalAlignment="Top" RenderTransformOrigin="0.507,1.455" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Grafikoni -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TabControl Width="400" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Margin="10,10,0,10">
+                    <TabControl Width="372" Background="{StaticResource PageBackgroundColor}">
+                        
                         <lvc:CartesianChart Series="{Binding HistogramData}" Height="197" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="White" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Reservations" Foreground="White" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
-                    <TabControl Width="400" HorizontalAlignment="Left">
+                    <TabControl Width="372" HorizontalAlignment="Left" Background="{StaticResource PageBackgroundColor}">
                         <lvc:CartesianChart Series="{Binding CanceledReservationsHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="White" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Canceled Reservations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Canceled Reservations" Foreground="White" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TabControl Width="400" HorizontalAlignment="Left">
+                    <TabControl Width="372" Margin="10,10,0,10" Height="211" Background="{StaticResource PageBackgroundColor}">
                         <lvc:CartesianChart Series="{Binding AcceptedRequestsHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="White" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Accepted Requests" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Accepted Requests" Foreground="White" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
-                    <TabControl Width="400" HorizontalAlignment="Left">
+                    <TabControl Width="372" Height="211" HorizontalAlignment="Left" Background="{StaticResource PageBackgroundColor}">
                         <lvc:CartesianChart Series="{Binding RenovationRecommendationHistogramData}" Height="200" Margin="10,0,10,0">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="Black" FontSize="14"/>
+                                <lvc:Axis Title="" Labels="{Binding Labels}" Foreground="White" FontSize="14"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Renovation Recommendations" Foreground="Black" FontSize="14" Height="32" Width="25"/>
+                                <lvc:Axis Title="Renovation Recommendations" Foreground="White" FontSize="14" Height="32" Width="25"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </TabControl>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        
     </Grid>
 </Page>

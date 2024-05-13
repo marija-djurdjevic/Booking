@@ -6,14 +6,29 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="Owner" Height="450" Width="800">
-
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+        <LinearGradientBrush x:Key="PageBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#485360" Offset="0"/>
+            <GradientStop Color="#1E2833" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
     <Grid Background="{StaticResource OwneBackgroundColor}">
 
 
         <!-- ToolBar -->
         <ToolBar Background="{StaticResource OwnerToolBarColor}" DockPanel.Dock="Top" RenderTransformOrigin="0.498,0.224" Margin="0,3,-2,354">
             <!-- BookingApp title -->
-            <Label Content="BookingApp" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="569"/>
+            <Label Content="BookingApp"  Foreground="AntiqueWhite" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="569"/>
             <!-- Empty space to push buttons to the right -->
             <Grid Background="{StaticResource OwnerButtonColor}" DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
@@ -49,28 +64,11 @@
 
             </Grid>
         </ToolBar>
-        <TabControl Background="{StaticResource OwnerTabColor}" Margin="0,60,0,10">
-            <TabControl.Resources>
-                <!-- Stil za selektovani TabItem -->
-                <Style TargetType="TabItem">
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <!-- Postavite boju pozadine kada je selektovan -->
-                            <Setter Property="Background" Value="#FDF3AF" />
-                            <!-- Postavite boju teksta kada je selektovan -->
-                            <Setter Property="Foreground" Value="Black" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="False">
-                            <!-- Postavite boju pozadine kada nije selektovan -->
-                            <Setter Property="Background" Value="#FCFBF4" />
-                            <!-- Postavite boju teksta kada nije selektovan -->
-                            <Setter Property="Foreground" Value="black" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="Reservations">
+        <TabControl Background="{StaticResource OwneBackgroundColor}" Margin="0,60,0,10">
+          
+            <TabItem Header="Reservations" Height="30">
                 <!-- Reservations Tab Content -->
+
                 <Frame x:Name="ReservationsFrame" NavigationUIVisibility="Hidden" Margin="-1,0,0,0"/>
             </TabItem>
             <TabItem Header="Property">

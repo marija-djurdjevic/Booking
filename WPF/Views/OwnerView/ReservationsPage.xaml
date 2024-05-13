@@ -8,20 +8,18 @@
       d:DesignHeight="300" d:DesignWidth="800"
       Title="ReservationsPage">
     <Page.Resources>
-        <!-- Definiranje animacije za promjenu veličine dugmeta -->
-        <Storyboard x:Key="ButtonAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                             To="1.05" Duration="0:0:0.3" />
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                             To="1.05" Duration="0:0:0.3" />
-        </Storyboard>
-        <Storyboard x:Key="ButtonResetAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                             To="1" Duration="0:0:0.3" />
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                             To="1" Duration="0:0:0.3" />
-        </Storyboard>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+       
     </Page.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,60 +30,48 @@
         <!-- Buttons -->
         <DockPanel Grid.Row="0" Margin="10">
             <!-- Prvo dugme - docked uz lijevu ivicu -->
-            <Button Background="{StaticResource OwnerButtonColor2}" Content="Rate the guest" Click="RateGuestButton_Click" Width="150" Height="30" Margin="0,0,10,0">
-                <Button.RenderTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Button.RenderTransform>
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard Storyboard="{StaticResource ButtonAnimation}"/>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard Storyboard="{StaticResource ButtonResetAnimation}"/>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
+            <Button Content="Rate the guest" Click="RateGuestButton_Click" Width="150" Height="30" Margin="0,0,10,0"/>
+
+
 
             <!-- Drugo dugme - docked uz desnu ivicu -->
-            <Button Background="{StaticResource OwnerButtonColor2}" Content="Requests for reservation changes" Click="Requests_Click" Width="200" Height="30" HorizontalAlignment="Right">
-                <Button.RenderTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Button.RenderTransform>
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard Storyboard="{StaticResource ButtonAnimation}"/>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard Storyboard="{StaticResource ButtonResetAnimation}"/>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
+            <Button Content="Requests for reservation changes" Click="Requests_Click" Width="200" Height="30" HorizontalAlignment="Right"/>
+
+
         </DockPanel>
 
         <!-- Reservation DataGrid -->
         <DataGrid Grid.Row="1"
-                  BorderBrush="Black"
-                  AutoGenerateColumns="False"
-                  SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
-                  x:Name="ReservationDataGrid"
-                  SelectionMode="Single" IsReadOnly="True" Margin="10,0,10,10"
-                  AlternationCount="2" Height="230" VerticalAlignment="Bottom">
+          BorderBrush="{StaticResource WhiteTextColor}"
+          AutoGenerateColumns="False"
+          SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
+          x:Name="ReservationDataGrid"
+          SelectionMode="Single" IsReadOnly="True" Margin="10,0,10,20"
+          AlternationCount="2" Height="230" VerticalAlignment="Bottom"
+          HeadersVisibility="Column" HorizontalGridLinesBrush="{x:Null}">
             <DataGrid.Resources>
                 <!-- Promijenite boju pozadine tabele -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#E1DFE0" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2C3E50" />
                 <!-- Promijenite boju pozadine zaglavlja -->
-
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
                 <!-- Promijenite boju okvira ćelija -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="#8B8386" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="AntiqueWhite" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#001B2E" />
             </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#001B2E" />
+                    <Setter Property="Height" Value="40" />
+                    <!-- Postavite ostale željene setere za zaglavlje kolona ovdje -->
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="#34495E" />
                     <Style.Triggers>
                         <!-- Postavite boju pozadine naizmenično -->
                         <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                            <Setter Property="Background" Value="#FBF8DA" />
+                            <Setter Property="Background" Value="#2C3E50" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -99,5 +85,6 @@
                 <DataGridTextColumn Header="Property" Width="*" Binding="{Binding PropertyName}"/>
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </Page>

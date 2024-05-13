@@ -3,31 +3,73 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      
       xmlns:local="clr-namespace:BookingApp.WPF.ViewModels.OwnerViewModels"
-
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="800"
       Title="RenovationsPage">
-    
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
         <!-- Prvi red -->
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Dugme "Schedule a renovation" -->
-        <Button Click="ScheduleRenovation_Click" Background="{StaticResource OwnerButtonColor2}" Content="Schedule a renovation" Width="200" Height="30" Margin="10,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-
+        <Button Click="ScheduleRenovation_Click" Content="Schedule a renovation" Width="200" Height="30" Margin="10,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        
         <!-- Drugi red sa DataGrid-om -->
-        <DataGrid x:Name="RenovationsDataGrid" Grid.Row="1" AutoGenerateColumns="False" Margin="10,0,10,10" ItemsSource="{Binding Renovations}">
+        <DataGrid x:Name="RenovationsDataGrid" Grid.Row="1" BorderBrush="{StaticResource WhiteTextColor}" 
+                  AutoGenerateColumns="False" Margin="10,0,10,20" AlternationCount="2" ItemsSource="{Binding Renovations}" 
+                  HeadersVisibility="Column" HorizontalGridLinesBrush="{x:Null}" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <!-- Promijenite boju pozadine tabele -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2C3E50" />
+                <!-- Promijenite boju pozadine zaglavlja -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
+                <!-- Promijenite boju okvira ćelija -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="AntiqueWhite" />
+                <!-- Promijenite boju selektovanog reda -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#001B2E" />
+            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#001B2E" />
+                    <Setter Property="Height" Value="40" />
+                   
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#34495E" />
+
+                    <Style.Triggers>
+                       
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#2C3E50" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#001B2E" />
+                        </Trigger>
+                    </Style.Triggers>
+
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Property" Binding="{Binding PropertyName}"/>
                 <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"/>
                 <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <!-- Prva prazna kolona sa dugmetom "Show more details" -->
+              
                 <DataGridTemplateColumn Width="*" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -65,6 +107,5 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Page>
