@@ -7,10 +7,20 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="800"
       Title="DenyRequestPage">
-
-    <Grid>
-        <TextBlock Text="Explanation (optional)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
-        <TextBox x:Name="CommentTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,10,0" Width="300" Height="100" TextWrapping="Wrap"/>
-        <Button Content="Submit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0" Click="SubmitButton_Click"/>
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{StaticResource OwneBackgroundColor}">
+        <TextBlock Text="Explanation (optional)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Foreground="{StaticResource WhiteTextColor}"/>
+        <TextBox x:Name="CommentTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,10,0" Width="300" Height="100" TextWrapping="Wrap" Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1"/>
+        <Button Width="200" Height="30" Content="Submit" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,145,470,0" Click="SubmitButton_Click"/>
     </Grid>
 </Page>
