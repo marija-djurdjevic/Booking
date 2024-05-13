@@ -100,7 +100,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private void Help()
         {
-
+            new HelpComplexTourRequestsPage().Show();
         }
         private void GetMyRequests()
         {

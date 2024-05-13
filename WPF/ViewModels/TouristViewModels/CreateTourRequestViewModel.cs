@@ -6,6 +6,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
 using BookingApp.WPF.ViewModels.TouristViewModels;
+using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -136,7 +137,9 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
 
         private void Help()
-        { }
+        {
+            new HelpCreateTourRequestWindow().Show();
+        }
 
         public void CityComboBoxLostFocus(object parameter)
         {
