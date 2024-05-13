@@ -37,7 +37,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Reservation Card -->
-                                <Border  Grid.Column="0" Background="#fdf3af" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
+                                <Border  Grid.Column="0" Background="#74B1D2" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
                                     <StackPanel>
                                         <TextBlock Margin="0,0,0,5" FontWeight="Bold" Text="Reservation Info" />
                                         <TextBlock FontWeight="Bold">Guest First Name:</TextBlock>
@@ -50,7 +50,7 @@
                                 </Border>
 
                                 <!-- Review Card -->
-                                <Border Grid.Column="1" Background="#fdf3af" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
+                                <Border Grid.Column="1" Background="#74B1D2" Margin="0,0,10,0" Padding="10" BorderBrush="{StaticResource OwnerBorderColor}" BorderThickness="1">
                                     <Grid>
                                         <StackPanel>
                                             <TextBlock Margin="0,0,0,5" FontWeight="Bold" Text="Review Info" />

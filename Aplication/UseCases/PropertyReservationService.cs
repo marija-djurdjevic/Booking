@@ -174,7 +174,7 @@ namespace BookingApp.Aplication.UseCases
         {
             Dictionary<int, double> yearlyOccupancy = new Dictionary<int, double>();
 
-            // Iterirajte kroz sve rezervacije za dati smeštaj
+           
             var reservationsForProperty = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName);
 
             foreach (var reservation in reservationsForProperty)
@@ -190,7 +190,7 @@ namespace BookingApp.Aplication.UseCases
                 yearlyOccupancy[year] = occupancyInYear;
             }
 
-            // Pronađi maksimalnu zauzetost u godini
+           
             int mostOccupiedYear = yearlyOccupancy.OrderByDescending(x => x.Value).FirstOrDefault().Key;
 
             return mostOccupiedYear;
@@ -200,7 +200,7 @@ namespace BookingApp.Aplication.UseCases
         {
             Dictionary<int, double> monthlyOccupancy = new Dictionary<int, double>();
 
-            // Iterirajte kroz sve rezervacije za dati smeštaj u datoj godini
+          
             var reservationsForPropertyInYear = propertyReservationRepository.GetAll().Where(r => r.PropertyName == propertyName && r.StartDate.Year == year);
 
             foreach (var reservation in reservationsForPropertyInYear)
@@ -216,7 +216,7 @@ namespace BookingApp.Aplication.UseCases
                 monthlyOccupancy[month] = occupancyInMonth;
             }
 
-            // Pronađi maksimalnu zauzetost u mjesecu
+          
             int mostOccupiedMonth = monthlyOccupancy.OrderByDescending(x => x.Value).FirstOrDefault().Key;
 
             return mostOccupiedMonth;
