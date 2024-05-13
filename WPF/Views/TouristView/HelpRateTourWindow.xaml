@@ -1,12 +1,100 @@
-﻿<Window x:Class="BookingApp.WPF.Views.TouristView.HelpRateTourWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
-        mc:Ignorable="d"
-        Title="HelpRateTourWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+﻿<Window
+    x:Class="BookingApp.WPF.Views.TouristView.HelpRateTourWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Help"
+    Background="{StaticResource PageColor}"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Margin="0,20,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="600" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="1"
+                Width="554"
+                Source="/Resources/Images/TouristHelpImages/RateHelp.png"
+                Stretch="Uniform" />
+            <TextBlock
+                Grid.Column="0"
+                Margin="20,20,0,20"
+                FontSize="20"
+                TextWrapping="Wrap">
+                <Run
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}">
+                    Rate Tour Help
+                </Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>This page allows you to rate your tour and guide. Here's what you can do:</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1. Rate guide's knowledge:</Run>
+                <Run>Select a rating from 1 to 5 for the guide's knowledge.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">2. Rate guide's language skills:</Run>
+                <Run>Select a rating from 1 to 5 for the guide's language skills.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">3. Rate tour's interestingness:</Run>
+                <Run>Select a rating from 1 to 5 for the tour's interestingness.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">4. Add additional comments:</Run>
+                <Run>Write any additional comments you have about the tour or guide.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">5. Help:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+H " /><Run>or click on the 'Help' button to open this help window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">6. Add images:</Run>
+                <LineBreak />
+                <Run>Press</Run>
+                <Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+N " />
+                <Run>or click on the 'Add Image' button to add any images you took during the tour.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">7. Remove images:</Run>
+                <Run>Press</Run>
+                <Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+D " />
+                <Run>or click on the 'Remove Image' button to remove selected images.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">8. Navigate images:</Run>
+                <Run>Press</Run>
+                <Run Foreground="{StaticResource ValidationMessageColor}" Text=" Left arrow " />
+                <Run>to navigate to the previous image.</Run><LineBreak /><Run>Press</Run>
+                <Run Foreground="{StaticResource ValidationMessageColor}" Text=" Right arrow " />
+                <Run>to navigate to the next image.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">9. Preview image:</Run>
+                <Run>Press</Run>
+                <Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+P " />
+                <Run>or click on the Image to preview the showing image.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">10. Confirm the rating:</Run>
+                <LineBreak />
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+Enter " /><Run>or click on the 'Confirm' button to confirm the rating and close the window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">11. Cancel the rating:</Run>
+                <LineBreak />
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Esc " /><Run>or click on the 'Cancel' button to cancel the rating and close the window.</Run>
+                <LineBreak />
+                <LineBreak />
+            </TextBlock>
+
+        </Grid>
+    </ScrollViewer>
 </Window>

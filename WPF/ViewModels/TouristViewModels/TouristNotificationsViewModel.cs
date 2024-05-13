@@ -18,6 +18,7 @@ using System.Windows;
 using BookingApp.View.TouristView;
 using BookingApp.Aplication.Dto;
 using System.Windows.Input;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -89,7 +90,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpNotificationsWindow().Show();
         }
 
         public void GetMyNotifications()

@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Interactivity;
 using LiveCharts.Definitions.Charts;
 using Xceed.Wpf.AvalonDock.Properties;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -250,6 +251,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 SavePyeChartAsImage(pyeChartPanel);
                 touristPDFExportService = new TouristPDFExportService(LoggedInUser.Id, SelectedYear, AveragePeopleNumber);
             }
+            else
+            {
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("An unexpected error occurred while trying to export, please restart the application and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, style);
+                return;
+            }
         }
         public void SaveLanChartAsImage(StackPanel lanChart)
         {
@@ -377,7 +384,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpTourRequestsPage().Show();
         }
         private void GetMyRequests()
         {

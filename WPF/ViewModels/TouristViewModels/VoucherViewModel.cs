@@ -4,6 +4,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View.TouristView;
+using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
@@ -83,7 +84,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpVoucherPage().Show();
         }
 
         public void GetMyVouchers()
