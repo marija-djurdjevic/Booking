@@ -4,19 +4,12 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repositories;
 using BookingApp.View.TouristView;
 using BookingApp.WPF.Validations;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Markup;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -69,7 +62,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public TourBookingViewModel(TourDto selectedTour, int userId)
         {
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            TouristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             KeyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(),Injector.CreateInstance<ILiveTourRepository>());
 
             SelectedTour = selectedTour;
@@ -101,7 +94,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             get
             {
-
                 if (columnName == "NumberOfReservations")
                 {
                     if (NumberOfReservations < 1)

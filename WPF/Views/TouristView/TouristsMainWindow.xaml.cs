@@ -33,7 +33,7 @@ namespace BookingApp.View.TouristView
         public User LoggedInUser { get; set; }
         public Tourist Tourist { get; set; }
 
-        private readonly TouristService _touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+        private readonly TouristService _touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
 
         private string activeCard;
 

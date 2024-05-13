@@ -20,8 +20,7 @@
             <Grid
                 Height="71"
                 VerticalAlignment="Top"
-                Background="{StaticResource nagivation}"
-                >
+                Background="{StaticResource nagivation}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71" />
                     <ColumnDefinition Width="Auto" />
@@ -42,13 +41,13 @@
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Text="ALL TOURS"  />
+                    Text="ALL TOURS" />
             </Grid>
         </DockPanel>
 
 
-        <DockPanel DockPanel.Dock="Left" Background="{StaticResource pozadina}">
-            <Grid >
+        <DockPanel Background="{StaticResource pozadina}" DockPanel.Dock="Left">
+            <Grid>
                 <Button
                     Width="120"
                     Height="47"
@@ -58,24 +57,30 @@
                     Command="{Binding Path=DataContext.CreateTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     Content="CREATE"
                     FontSize="32"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                    Style="{StaticResource CustomButtonStyle}" />
 
 
-                <TabControl Margin="0,71,15,0" FontSize="28" Background="{StaticResource pozadina}">
+                <TabControl
+                    Margin="0,71,15,0"
+                    Background="{StaticResource pozadina}"
+                    FontSize="28">
                     <!--  Prvi tab  -->
-                    
 
-                    <TabItem Header="Today Tours" >
-                        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" VerticalAlignment="Top" Background="{StaticResource pozadina}" VerticalScrollBarVisibility="Visible" >
+
+                    <TabItem Header="Today Tours">
+                        <ScrollViewer
+                            VerticalAlignment="Top"
+                            Background="{StaticResource pozadina}"
+                            PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                            VerticalScrollBarVisibility="Visible">
                             <ListBox
                                 x:Name="tourListBox0"
                                 Margin="10,10,10,70"
                                 d:ItemsSource="{d:SampleData ItemCount=3}"
                                 ItemsSource="{Binding TodayTours}"
                                 SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                >
-                                
+                                SelectionMode="Single">
+
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="Background" Value="{StaticResource DefaultColor}" />
@@ -117,11 +122,20 @@
                                                 <!--  Informacije o turi  -->
                                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                                     <TextBlock Margin="-1.5,0,0,20">
-                                                        <Run Text="Location: " FontWeight="DemiBold" />
+                                                        <Run FontWeight="DemiBold" Text="Location: " />
                                                         <TextBlock Margin="136,0,0,0">
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.City}" />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="," />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.Country}" />
                                                         </TextBlock>
                                                     </TextBlock>
 
@@ -134,7 +148,7 @@
 
                                                     <TextBlock>
                                                         <Run Text="Start Date and Time: " />
-                                                       <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                                        <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                                     </TextBlock>
                                                     <Button
                                                         Width="138"
@@ -145,7 +159,7 @@
                                                         CommandParameter="{Binding Id}"
                                                         Content="START"
                                                         FontSize="28"
-                                                        Style="{StaticResource CustomButtonStyle}"/>
+                                                        Style="{StaticResource CustomButtonStyle}" />
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -159,7 +173,11 @@
 
                     <!--  Drugi tab  -->
                     <TabItem Header="Upcoming Tours">
-                        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" VerticalAlignment="Top" Background="{StaticResource pozadina}" VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer
+                            VerticalAlignment="Top"
+                            Background="{StaticResource pozadina}"
+                            PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                            VerticalScrollBarVisibility="Visible">
                             <ListBox
                                 x:Name="tourListBox1"
                                 Margin="10,10,10,70"
@@ -207,11 +225,20 @@
                                                 <!--  Informacije o turi  -->
                                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                                     <TextBlock Margin="-1.5,0,0,20">
-                                                        <Run Text="Location: " FontWeight="DemiBold" />
+                                                        <Run FontWeight="DemiBold" Text="Location: " />
                                                         <TextBlock Margin="136,0,0,0">
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
-                                                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.City}" />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="," />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.Country}" />
                                                         </TextBlock>
                                                     </TextBlock>
 
@@ -235,8 +262,8 @@
                                                         CommandParameter="{Binding Id}"
                                                         Content="CANCEL"
                                                         FontSize="28"
-                                                        Style="{StaticResource CustomButtonStyle}"/>
-                                                    
+                                                        Style="{StaticResource CustomButtonStyle}" />
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -254,16 +281,19 @@
 
 
 
-                           <TabItem  Header="Finished Tours"  >
-                        <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel" VerticalAlignment="Top" Background="{StaticResource pozadina}" VerticalScrollBarVisibility="Visible">
+                    <TabItem Header="Finished Tours">
+                        <ScrollViewer
+                            VerticalAlignment="Top"
+                            Background="{StaticResource pozadina}"
+                            PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                            VerticalScrollBarVisibility="Visible">
                             <ListBox
-                            x:Name="tourListBox2"
-                        Margin="10,10,10,70"
-                        d:ItemsSource="{d:SampleData ItemCount=3}"
-                        ItemsSource="{Binding FinishedTours}"
-                        SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
-                        SelectionMode="Single"
-                               >
+                                x:Name="tourListBox2"
+                                Margin="10,10,10,70"
+                                d:ItemsSource="{d:SampleData ItemCount=3}"
+                                ItemsSource="{Binding FinishedTours}"
+                                SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
+                                SelectionMode="Single">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="Background" Value="{StaticResource DefaultColor}" />
@@ -276,17 +306,20 @@
                                 </ListBox.ItemContainerStyle>
 
                                 <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,10">
-                                <Grid Height="195" Margin="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                    <DataTemplate>
+                                        <Border
+                                            Margin="0,0,0,10"
+                                            BorderBrush="Black"
+                                            BorderThickness="1">
+                                            <Grid Height="195" Margin="5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
 
-                                    <!-- Slika ture -->
-                                                
-                                      <Image
+                                                <!--  Slika ture  -->
+
+                                                <Image
                                                     Grid.Column="0"
                                                     Width="150"
                                                     Height="230"
@@ -294,66 +327,67 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Top"
                                                     Stretch="Fill">
-                                                    
-                                        <Image.Source>
-                                            <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
-                                        </Image.Source>
-                                      </Image>
-                                                
 
-                                                <!-- Informacije o turi -->
-                                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                        <TextBlock Margin="-1.5,0,0,20">
-                        <Run Text="Location: " FontWeight="DemiBold" />
-                        <TextBlock Margin="136,0,0,0">
-                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
-                            <Run FontSize="24" FontWeight="DemiBold" Text="," />
-                            <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
-                        </TextBlock>
-                    </TextBlock>
+                                                    <Image.Source>
+                                                        <Binding Converter="{StaticResource ImagePathConverter}" Path="ImagesPaths[0]" />
+                                                    </Image.Source>
+                                                </Image>
 
-                                        <TextBlock Margin="0,0,0,20">
-                        <Run Text="Language: " />
-                        <TextBlock Margin="125,0,0,0">
-                            <Run FontSize="24" Text="{Binding Language}" />
-                        </TextBlock>
-                    </TextBlock>
 
-                                        <TextBlock>
-                        <Run Text="Start Date and Time: " />
-                        <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
-                                        </TextBlock>
-                                        <Button
-                        Width="138"
-                        Height="42"
-                        Margin="630,0,0,0"
-                        Padding="-10"
-                        Command="{Binding Path=DataContext.ReviewTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                        CommandParameter="{Binding Id}"
-                        Content="REVIEWS"
-                        FontSize="28"
-                        Style="{StaticResource CustomButtonStyle}" />
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                                                <!--  Informacije o turi  -->
+                                                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                                    <TextBlock Margin="-1.5,0,0,20">
+                                                        <Run FontWeight="DemiBold" Text="Location: " />
+                                                        <TextBlock Margin="136,0,0,0">
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.City}" />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="," />
+                                                            <Run
+                                                                FontSize="24"
+                                                                FontWeight="DemiBold"
+                                                                Text="{Binding Location.Country}" />
+                                                        </TextBlock>
+                                                    </TextBlock>
 
-                </ListBox>
-            </ScrollViewer>
-        </TabItem>
+                                                    <TextBlock Margin="0,0,0,20">
+                                                        <Run Text="Language: " />
+                                                        <TextBlock Margin="125,0,0,0">
+                                                            <Run FontSize="24" Text="{Binding Language}" />
+                                                        </TextBlock>
+                                                    </TextBlock>
+
+                                                    <TextBlock>
+                                                        <Run Text="Start Date and Time: " />
+                                                        <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                                    </TextBlock>
+                                                    <Button
+                                                        Width="138"
+                                                        Height="42"
+                                                        Margin="630,0,0,0"
+                                                        Padding="-10"
+                                                        Command="{Binding Path=DataContext.ReviewTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        Content="REVIEWS"
+                                                        FontSize="28"
+                                                        Style="{StaticResource CustomButtonStyle}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+                        </ScrollViewer>
+                    </TabItem>
 
                 </TabControl>
 
-                <Button
-                    Width="146"
-                    Height="51"
-                    Margin="592,19,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Click="LogOutClick"
-                    Content="LOG OUT"
-                    FontSize="32" />
+
 
 
             </Grid>

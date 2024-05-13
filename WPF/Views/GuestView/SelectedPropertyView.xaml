@@ -3,42 +3,120 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.GuestView"
-      mc:Ignorable="d" 
-      Title="SelectedPropertyView">
+      xmlns:local="clr-namespace:BookingApp.GuestView" 
+      xmlns:conv="clr-namespace:BookingApp.WPF.Converters"
+      Title="SelectedPropertyView"
+      Width="430"
+      Height="660"
+      d:DesignHeight="660"
+      d:DesignWidth="450"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <conv:ImagePathConverter x:Key="ImagePathConverter" />
+    </Page.Resources>
 
-    <Grid Height="750" Width="430" Background="#8FB9A8">
+    <Grid Width="430" Background="#8FB9A8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Prilagodi visinu sadržaju -->
-            <RowDefinition Height="Auto"/>
-            <!-- Prilagodi visinu sadržaju -->
-            <RowDefinition Height="17*"/>
-            <RowDefinition Height="33*"/>
+            <RowDefinition Height="281*"/>
+            <RowDefinition Height="232*"/>
+            <RowDefinition Height="147*"/>
         </Grid.RowDefinitions>
 
-        <Image Margin="18,0,360,187" Source="\Resources\Images\location-pin.png"/>
-        <Label Content="{Binding Path=SelectedProperty.Name, UpdateSourceTrigger=PropertyChanged}" Margin="56,10,133,191" FontSize="25"/>
+        <Image Source="\Resources\Images\location-pin.png" Margin="18,5,360,187" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <StackPanel Background="BlanchedAlmond" Orientation="Vertical" Margin="15,64,30,26">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
-                <Label Content="City:" Margin="10, 10, 0, 0" Height="30"  HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="5, 10, 0, 0" Width="90" Height="30"  HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40">
-                <Label Content="Country: " Margin="10, 0, 0, 0" Height="30" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Location.Country, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="100" Height="30" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40">
-                <Label Content="Type: " Margin="10, 0, 0, 0" Height="30" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Type, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="90" Height="30" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40">
-                <Label Content="Cancelation deadline (days before reservation): " Margin="10, 0, 0, 0" Height="30" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.CancellationDeadline, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="100" Height="30" HorizontalAlignment="Left"/>
-            </StackPanel>
-        </StackPanel>
+        <Label Content="{Binding Path=SelectedProperty.Name, UpdateSourceTrigger=PropertyChanged}" 
+               FontFamily="Times New Roman" 
+               FontSize="26" 
+               Margin="65,15,0,0"
+               VerticalAlignment="Top"
+               Grid.Row="0"/>
 
-        <Button Content="Make reservation" Click="MakeReservation_Clik" Margin="50,98,50,165" Grid.Row="3"/>
+        <Border Background="BlanchedAlmond"
+                Margin="15,70,30,26"
+                CornerRadius="10"
+                BorderBrush="DarkGray"
+                BorderThickness="2"
+                Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Label Content="City:" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,10,5,0"
+                           HorizontalAlignment="Left"/>
+                    <Label Content="{Binding Path=SelectedProperty.Location.City, UpdateSourceTrigger=PropertyChanged}" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,10,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Label Content="Country:" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,5,0"
+                           HorizontalAlignment="Left"/>
+                    <Label Content="{Binding Path=SelectedProperty.Location.Country, UpdateSourceTrigger=PropertyChanged}" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Label Content="Type:" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,5,0"
+                           HorizontalAlignment="Left"/>
+                    <Label Content="{Binding Path=SelectedProperty.Type, UpdateSourceTrigger=PropertyChanged}" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Label Content="Cancellation Deadline (days before reservation):" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,5,0"
+                           HorizontalAlignment="Left"/>
+                    <Label Content="{Binding Path=SelectedProperty.CancellationDeadline, UpdateSourceTrigger=PropertyChanged}" 
+                           FontSize="16"
+                           FontFamily="Times New Roman"
+                           Margin="0,5,0,0"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" Margin="10,0,15,117" VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
+            <StackPanel VerticalAlignment="Top" Height="269" Grid.RowSpan="2">
+                <Label Content="Photo gallery:" 
+               FontSize="16" 
+               FontFamily="Times New Roman" 
+               Margin="0,0,0,5"/>
+                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding SelectedProperty.ImagesPaths}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Converter={StaticResource ImagePathConverter}}" Margin="5, 0, 0, 0" Width="170" Height="120" VerticalAlignment="Top"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Content="Make reservation" 
+                Click="MakeReservation_Clik" 
+                Background="#C8CECC"
+                Grid.Row="2" 
+                Height="40" 
+                Width="150"
+                VerticalAlignment="Center" 
+                Margin="115,0,115,0"/>
     </Grid>
 </Page>

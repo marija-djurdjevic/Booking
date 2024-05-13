@@ -51,18 +51,16 @@ namespace BookingApp.Aplication.UseCases
                 if (complexRequest.TourRequests.All(t => t.Status == TourRequestStatus.Accepted))
                 {
                     complexRequest.Status = TourRequestStatus.Accepted;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
                 else if (complexRequest.TourRequests.Any(t => t.Status == TourRequestStatus.Invalid))
                 {
                     complexRequest.Status = TourRequestStatus.Invalid;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
                 else
                 {
                     complexRequest.Status = TourRequestStatus.Pending;
-                    complexTourRequestRepository.Update(complexRequest);
                 }
+                complexTourRequestRepository.Update(complexRequest);
             }
         }
 
@@ -83,10 +81,10 @@ namespace BookingApp.Aplication.UseCases
             var sorted = new List<Tuple<ComplexTourRequest, string>>();
             switch (sortBy)
             {
-                case "System.Windows.Controls.ComboBoxItem: CreationTime - Ascending":
+                case "System.Windows.Controls.ComboBoxItem: Date - Ascending":
                     sorted = unsorted.OrderBy(t => t.Item1.TourRequests[0].StartDate).ThenBy(t => t.Item1.Status).ToList();
                     break;
-                case "System.Windows.Controls.ComboBoxItem: CreationTime - Descending":
+                case "System.Windows.Controls.ComboBoxItem: Date - Descending":
                     sorted = unsorted.OrderByDescending(t => t.Item1.TourRequests[0].StartDate).ThenByDescending(t => t.Item1.Status).ToList();
                     break;
                 case "System.Windows.Controls.ComboBoxItem: Status - Ascending":

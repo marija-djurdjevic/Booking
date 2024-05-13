@@ -10,36 +10,47 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Command;
 using BookingApp.View;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     public class GeneralStatisticsViewModel : BaseViewModel
     {
-       
+        
         private List<TourRequest> tourRequests;
         private TourRequestService tourRequestService;
+        private RequestStatisticService requestStatisticService;
         private RelayCommand sideMenuCommand;
+        private ObservableCollection<string> years;
         public Dictionary<string, int> RequestsPerYear { get; }
         public string Language { get; }
         public string Location { get; }
         public GeneralStatisticsViewModel(string language,string location)
         {
+            requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             tourRequests = new List<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Location = location;
             Language = language;
+            Years = new ObservableCollection<string>(requestStatisticService.GetYears().OrderByDescending(year => year));
             RequestsPerYear = new Dictionary<string, int>();
 
-            // Dodajemo sve godine koje su u opticaju
-            for (int i = 2020; i <= 2024; i++)
+
+            foreach (var year in Years)
             {
-                RequestsPerYear.Add($"{i}", 0);
+                RequestsPerYear.Add(year, 0);
             }
+
 
             UpdateRequestsForYear();
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
         }
 
+        public ObservableCollection<string> Years
+        {
+            get { return years; }
+            set { years = value; OnPropertyChanged(); }
+        }
         public RelayCommand SideManuCommand
         {
             get { return sideMenuCommand; }
@@ -78,7 +89,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 }
             }
 
-            // Obavještavamo o promjeni za sve godine
+           
             foreach (var year in RequestsPerYear.Keys)
             {
                 OnPropertyChanged(year);

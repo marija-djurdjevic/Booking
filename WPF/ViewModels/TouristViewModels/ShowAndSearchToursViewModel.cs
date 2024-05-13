@@ -1,15 +1,6 @@
-﻿using BookingApp.Repositories;
-using BookingApp.View.TouristView;
-using System;
+﻿using BookingApp.View.TouristView;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
@@ -185,11 +176,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 Style style = Application.Current.FindResource("MessageStyle") as Style;
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours from that city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
             }
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

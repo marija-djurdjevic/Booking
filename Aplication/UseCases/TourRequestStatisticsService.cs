@@ -19,7 +19,7 @@ namespace BookingApp.Aplication.UseCases
             var accepted = allRequests.Count(r => r.Status == TourRequestStatus.Accepted);
             var rejected = allRequests.Count(r => r.Status != TourRequestStatus.Accepted);
 
-            if (allRequests.FindAll(t => t.Status == TourRequestStatus.Accepted).Count > 0)
+            if (accepted > 0)
                 averagePeopleNumber = allRequests.FindAll(t => t.Status == TourRequestStatus.Accepted).Average(r => r.Persons.Count());
 
             return (accepted, rejected, averagePeopleNumber);

@@ -8,15 +8,11 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Aplication.UseCases
 {
-
-
     public class RequestStatisticService : TourRequestService
     {
         public RequestStatisticService(ITourRequestRepository tourRequestRepository, ITourRepository tourRepository) : base(tourRequestRepository, tourRepository)
         {
         }
-
-
         public List<string> GetLocations()
         {
             List<string> locations = new List<string>();
@@ -49,6 +45,27 @@ namespace BookingApp.Aplication.UseCases
             return languages;
         }
 
+        public List<string> GetYears()
+        {
+            List<string> years = new List<string>();
+            var requests = GetAllSimpleRequests();
+            foreach (var request in requests)
+            {
+                string startYear = request.StartDate.Year.ToString();
+                if (!years.Contains(startYear))
+                {
+                    years.Add(startYear);
+                }
+
+                string endYear = request.EndDate.Year.ToString();
+                if (!years.Contains(endYear))
+                {
+                    years.Add(endYear);
+                }
+            }
+            return years;
+        }
+
         public string GetMostRequestedLanguage()
         {
             var allRequests = GetAllSimpleRequests();
@@ -79,55 +96,77 @@ namespace BookingApp.Aplication.UseCases
             return string.Empty;
         }
 
-       
-       
 
 
         public List<(DateTime, DateTime)> CalculateFreeDates(List<(DateTime, DateTime)> bookedDates, (DateTime, DateTime) touristsDates, List<DateTime> acceptedDates)
         {
             var freeDates = new List<(DateTime, DateTime)>();
 
-            // Sortiraj bookedDates po početnom datumu
             var sortedBookedDates = bookedDates.OrderBy(d => d.Item1).ToList();
 
-            // Početni slobodni datum je početak turističkog perioda
             DateTime startFreeDate = touristsDates.Item1;
+
+            freeDates = FindFreeDates(sortedBookedDates, startFreeDate, touristsDates);
+
+            AdjustFreeDates(freeDates, touristsDates);
+
+            RemoveAcceptedDates(freeDates, acceptedDates);
+
+            return freeDates;
+        }
+
+        private List<(DateTime, DateTime)> FindFreeDates(List<(DateTime, DateTime)> sortedBookedDates, DateTime startFreeDate, (DateTime, DateTime) touristsDates)
+        {
+            var freeDates = new List<(DateTime, DateTime)>();
 
             foreach (var bookedDate in sortedBookedDates)
             {
-                // Ako je početak zauzetog datuma nakon početnog slobodnog datuma, dodaj slobodni opseg
                 if (bookedDate.Item1 > startFreeDate)
                 {
                     freeDates.Add((startFreeDate, bookedDate.Item1));
                 }
 
-                // Ažuriraj početni slobodni datum ako je kraj zauzetog datuma veći od početnog slobodnog datuma
                 if (bookedDate.Item2 > startFreeDate)
                 {
                     startFreeDate = bookedDate.Item2;
                 }
 
-                // Ako je početni slobodni datum veći ili jednak završnom datumu turističkog perioda, prekini petlju
                 if (startFreeDate >= touristsDates.Item2)
                 {
                     break;
                 }
             }
 
-            // Dodaj poslednji slobodni opseg ako je kraj zauzetog datuma manji od završnog datuma turističkog perioda
             if (startFreeDate < touristsDates.Item2)
             {
                 freeDates.Add((startFreeDate, touristsDates.Item2));
             }
 
+            return freeDates;
+        }
 
+        private void AdjustFreeDates(List<(DateTime, DateTime)> freeDates, (DateTime, DateTime) touristsDates)
+        {
+            foreach (var fd in freeDates.ToList())
+            {
+                if (fd.Item2 > touristsDates.Item2)
+                {
+                    var newFd = fd;
+                    newFd.Item2 = touristsDates.Item2;
+                    freeDates.Remove(fd);
+                    freeDates.Add(newFd);
+                }
+            }
+        }
+
+        private void RemoveAcceptedDates(List<(DateTime, DateTime)> freeDates, List<DateTime> acceptedDates)
+        {
             foreach (var acceptedDate in acceptedDates)
             {
                 freeDates.RemoveAll(d => d.Item1 <= acceptedDate && d.Item2 >= acceptedDate);
             }
-
-            return freeDates;
         }
+
     }
 
 }

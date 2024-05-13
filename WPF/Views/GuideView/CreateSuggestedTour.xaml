@@ -67,6 +67,7 @@
 
                     <TextBox
                 Grid.Row="0"
+                FontSize="20"
                 Height="42"
                 Margin="215,107,629,1364"
                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
@@ -98,6 +99,7 @@
 
                     <TextBox
                     Grid.Row="0"
+                    FontSize="20"
                     Margin="215,291,40,1105"
                     TextWrapping="Wrap"
                     Text="{Binding Description, Mode=TwoWay}" />
@@ -130,6 +132,7 @@
                     <xctk:IntegerUpDown
                 Grid.Row="0"
                 Height="42"
+                FontSize="20"
                 Margin="356,502,489,969"
                 Increment="1"
                 Minimum="0"
@@ -152,7 +155,7 @@
                     Height="42"
                     FontSize="20"
                     Padding="5" 
-                    Margin="356,601,320,872"
+                     Margin="356,601,320,872"
                     Text="{Binding MostRequestedLocation }"
                     IsReadOnly="True"   />
                     
@@ -162,6 +165,7 @@
                     <xctk:IntegerUpDown
                 Grid.Row="0"
                 Height="42"
+                FontSize="20"
                 Margin="357,702,489,769"
                 Increment="1"
                 Minimum="0"
@@ -178,7 +182,7 @@
 
 
                     <Label Margin="24,818,11,562" Content="Key Point:" FontSize="32" />
-                    <TextBox x:Name="KeyPointsTextBox" Height="46" Margin="212,826,550,641" Text="{Binding KeyPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <TextBox x:Name="KeyPointsTextBox" FontSize="20" Height="46" Margin="212,826,550,641" Text="{Binding KeyPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
                         <Validation.ErrorTemplate>
                             <ControlTemplate>
                                 <StackPanel>
@@ -347,34 +351,41 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
 
 
                     <xctk:DateTimePicker
-                    x:Name="StartDateTimePicker"
-                    Grid.Row="0"
-                    Margin="356,1540,424,-72"
-                    Height="45"/>
+    x:Name="StartDateTimePicker"
+    FontSize="20"
+    Grid.Row="0"
+    HorizontalContentAlignment="Left"
+    Margin="356,1541,424,-71"
+    Height="45"
+    Format="Custom" 
+    FormatString="dd.MM.yyyy HH:mm \h"/>
 
 
 
                     <ListBox
-                    x:Name="ListBoxDates"
-                    Margin="357,1643,365,-250"
-                    Height="120"
-                    ItemsSource="{Binding TourDates}">
+    x:Name="ListBoxDates"
+    Margin="357,1644,400,-249"
+    Height="120"
+    ItemsSource="{Binding TourDates}">
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding }" FontSize="20" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding StringFormat='dd.MM.yyyy HH:mm \\h'}" FontSize="20" />
+
                                     <Button
-                                    Width="30"
-                                    Height="30"
-                                    Margin="5"
-                                    Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                    Content="X"
-                                    CommandParameter="{Binding}"
-                                    DataContext="{Binding Path=.}" />
+                    Width="30"
+                    Height="30"
+                    Margin="5"
+                    Command="{Binding DataContext.RemoveDateCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    Content="X"
+                    CommandParameter="{Binding}"
+                    DataContext="{Binding Path=.}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+
 
 
 

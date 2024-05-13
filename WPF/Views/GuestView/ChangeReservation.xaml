@@ -19,19 +19,19 @@
         Margin="0,20,0,17"
         Background="#8FB9A8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="212*" />
-            <RowDefinition Height="301*" />
-            <RowDefinition Height="100*" />
+            <RowDefinition Height="270*" />
+            <RowDefinition Height="251*" />
+            <RowDefinition Height="102*" />
         </Grid.RowDefinitions>
 
-        <Image Margin="10,0,375,154" Source="\Resources\Images\contract.png" />
+        <Image Margin="10,0,375,200" Source="\Resources\Images\contract.png" />
         <Label Margin="55,10,0,157" FontSize="26">Request to change reservation</Label>
 
         <Border
-            Margin="10,64,20,10"
+            Margin="10,64,25,11"
             BorderBrush="Black"
             BorderThickness="1">
-            <StackPanel Background="BlanchedAlmond" Orientation="Vertical">
+            <StackPanel Height="250" Background="BlanchedAlmond" Orientation="Vertical" Margin="0,0,0,0">
                 <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                     <Label
                         Width="170"
@@ -77,19 +77,18 @@
                         FontSize="12" />
                     <StackPanel Orientation="Horizontal">
                         <Label
-                            Margin="5,0,0,0"
+                            Margin="5,20,0,0"
                             HorizontalAlignment="Left"
                             Content="From:"
                             FontSize="12" />
                         <Label
-                            Margin="70,0,0,0"
+                            Margin="70,20,0,0"
                             HorizontalAlignment="Left"
                             Content="To:"
                             FontSize="12" />
                     </StackPanel>
                     <StackPanel
-                        Height="35"
-                        VerticalAlignment="Top"
+                        Height="52"
                         Orientation="Horizontal">
                         <DatePicker
                             Width="110"
@@ -108,6 +107,7 @@
                         <Button
                             Height="30"
                             Margin="80,0,0,0"
+                            Background="#C8CECC"
                             VerticalAlignment="Top"
                             Click="SendRequest_Click"
                             Content="Send request" />
@@ -115,11 +115,11 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
+        <Label Margin="5,0,0,212" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Content="Previous requests:" Grid.Row="1" Height="39"/>
         <ListView
             x:Name="ReservationsListView"
-            Grid.RowSpan="3"
-            Margin="5,215,20,10"
+            Grid.RowSpan="2"
+            Margin="5,29,20,10"
             Padding="0"
             d:ItemsSource="{d:SampleData ItemCount=5}"
             Background="#8FB9A8"
@@ -127,7 +127,7 @@
             ItemsSource="{Binding GuestsRequests}"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             SelectedItem="{Binding SelectedRequest}"
-            SelectionMode="Single">
+            SelectionMode="Single" Grid.Row="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="BlanchedAlmond" />

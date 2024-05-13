@@ -46,5 +46,17 @@ namespace BookingApp.GuestView
             GuestReviewScoreView guestReviewScore = new GuestReviewScoreView(LoggedInGuest);
             NavigationService.Navigate(guestReviewScore);   
         }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            GuestsNotifications guestsNotifications = new GuestsNotifications(LoggedInGuest);
+            NavigationService.Navigate(guestsNotifications);
+        }
+
+        private void Stays_Click(object sender, RoutedEventArgs e)
+        {
+            PropertyView propertyView = new PropertyView(LoggedInGuest);
+            NavigationService.Navigate(propertyView);
+        }
     }
 }
