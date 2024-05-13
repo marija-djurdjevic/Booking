@@ -116,7 +116,7 @@ namespace BookingApp.Aplication.UseCases
 
                 column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(80).PaddingBottom(80).Row(row =>
                 {
-                    row.RelativeItem().AlignLeft().Image(@"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\PyeChart.png");
+                    row.RelativeItem().AlignLeft().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\PyeChart.png"));
                     row.RelativeItem().AlignRight().AlignCenter().PaddingTop(150).Text(text =>
                     {
                         text.Span($"The average number of people").Style(textStyle);
@@ -126,12 +126,12 @@ namespace BookingApp.Aplication.UseCases
                 });
                 column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(40).PaddingBottom(40).AlignLeft().Column(row =>
                 {
-                    row.Item().AlignRight().Image(@"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\LanguageChart.png");
+                    row.Item().AlignRight().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LanguageChart.png"));
                 });
 
                 column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(40).PaddingBottom(40).AlignLeft().Column(row =>
                 {
-                    row.Item().AlignRight().Image(@"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\LocationChart.png");
+                    row.Item().AlignRight().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LocationChart.png"));
                 });
             });
         }
