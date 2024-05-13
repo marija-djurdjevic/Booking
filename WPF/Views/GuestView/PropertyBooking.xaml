@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.GuestView"
-        mc:Ignorable="d"
-        Title="PropertyBooking" Height="660" Width="430">
+        xmlns:local="clr-namespace:BookingApp.GuestView" xmlns:conv="clr-namespace:BookingApp.WPF.Converters"
+      mc:Ignorable="d"
+        Title="PropertyBooking" Height="625" Width="430">
+    <Page.Resources>
+        <conv:ImagePathConverter x:Key="ImagePathConverter" />
+    </Page.Resources>
     <Grid Height="750" Width="430" Background="#8FB9A8">
         <Grid.RowDefinitions>
             <RowDefinition Height="73*"/>
@@ -13,57 +16,97 @@
             <RowDefinition Height="68*"/>
         </Grid.RowDefinitions>
 
-        <Image Margin="0,10,340,160" Source="\Resources\Images\booking.png"/>
-        <Label FontSize="28" Margin="75,10,40,160">Make reservation</Label>
-        <StackPanel Background="BlanchedAlmond" Orientation="Vertical" Margin="15,64,15,0">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
-                <Label Content="City:" Margin="10, 10, 0, 0" Height="25"  HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="5, 10, 0, 0" Width="90" Height="25"  HorizontalAlignment="Left"/>
+        <Image Margin="18,5,365,165" Source="\Resources\Images\pin.png" />
+        <Label Margin="54,15,40,157" FontFamily="Times New Roman"  FontSize="28">Make reservation</Label>
+        <!-- Prvi Border oko prvog StackPanel-a -->
+        <Border
+            Margin="0, 65, 10, 0"
+            Background="BlanchedAlmond"
+            Width="390"
+            Height="150"
+            HorizontalAlignment="Center"
+            BorderBrush="#C8CECC"
+            BorderThickness="3"
+            CornerRadius="20">
+            <StackPanel Orientation="Horizontal">
+                <Image
+                Width="180"
+                Height="140"
+                Margin="10, 10, 0, 0"
+                Source="{Binding SelectedProperty.ImagesPaths[0], Converter={StaticResource ImagePathConverter}}"
+                VerticalAlignment="Top" />
+                <StackPanel Margin="10, 20, 0, 0">
+                    <TextBlock
+            FontSize="24"
+            FontFamily="Times New Roman"
+            FontWeight="Bold"       
+            Text="{Binding SelectedProperty.Name}" Width="142" />
+                    <TextBlock FontSize="16" Text="{Binding SelectedProperty.Location.Country}" />
+                    <TextBlock FontSize="16" Text="{Binding SelectedProperty.Type}" />
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="30">
-                <Label Content="Country: " Margin="10, 0, 0, 0" Height="25" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Location.Country, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="100" Height="25" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="30">
-                <Label Content="Type: " Margin="10, 0, 0, 0" Height="25" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.Type, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="90" Height="25" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="30">
-                <Label Content="Cancelation deadline (days before reservation): " Margin="10, 0, 0, 0" Height="25" HorizontalAlignment="Left"/>
-                <Label Content="{Binding Path=SelectedProperty.CancellationDeadline, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 0, 0" Width="100" Height="25" HorizontalAlignment="Left"/>
-            </StackPanel>
-        </StackPanel>
+        </Border>
 
-        <StackPanel Background="BlanchedAlmond"  Orientation="Vertical"  Grid.Row="1" Margin="15,10,15,164">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
-                <Label Content="Start date:" Margin="10, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
-                <Label Content="End date:" Margin="0, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
-                <DatePicker Margin="5, 10, 0, 0" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
-                SelectedDateChanged="DatePicker_SelectedDate1Changed"/>
-                <DatePicker Margin="5, 10, 0, 0" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
-                SelectedDateChanged="DatePicker_SelectedDate2Changed"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" Margin="0, 15, 0, 0">
-                <Label Content="Number of days:" Margin="10, 10, 0, 0" Height="25" Width="110"/>
-                <TextBox Text="{Binding Path=PropertyReservation.Days, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 10, 0, 0" Height="25" Width="110"/>
-                <Button Content="Search" Click ="Search_Click" Margin="50, 10, 0, 0" Height="24" Width="110"></Button>
+        <!-- Drugi Border oko drugog StackPanel-a -->
+        <Border
+            Margin="15,0,25,164"
+            Background="BlanchedAlmond"
+            Width="390"
+            Height="150"
+            HorizontalAlignment="Center"
+            BorderBrush="#C8CECC"
+            BorderThickness="3"
+            CornerRadius="20"
+            Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
+                    <Label Content="Start date:" Margin="10, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
+                    <Label Content="End date:" Margin="0, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
+                    <DatePicker Margin="5, 5, 0, 0" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    SelectedDateChanged="DatePicker_SelectedDate1Changed"/>
+                    <DatePicker Margin="5, 5, 0, 0" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    SelectedDateChanged="DatePicker_SelectedDate2Changed"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" Margin="0, 15, 0, 0">
+                    <Label Content="Number of days:" Margin="10, 10, 0, 0" Height="25" Width="110"/>
+                    <TextBox Text="{Binding Path=PropertyReservation.Days, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 10, -5, 0" Height="25" Width="110"/>
+                    <Button Background="#C8CECC" Content="Search" Click ="Search_Click" Margin="40, 10, 0, 0" Height="24" Width="110"></Button>
 
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <DataGrid HorizontalAlignment="Center" VerticalAlignment="Top" Background="BlanchedAlmond" Height="131" Width="400" BorderBrush="Black"
-        AutoGenerateColumns="False"
-        x:Name="DateDataGrid"
-        SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
-        SelectionMode="Single" IsReadOnly="True" Margin="0,196,0,0" Grid.Row="1">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Check-in date" Width="200" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <DataGridTextColumn Header="Check-out date" Width="200" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        </Border>
+
+        <!-- Treći Border oko DataGrid-a -->
+        <Border
+            Background="BlanchedAlmond"
+            Width="400"
+            Height="150"
+            HorizontalAlignment="Center"
+            BorderBrush="#C8CECC"
+            BorderThickness="3"
+            Margin="0,160,10,0"
+            Grid.Row="1">
+            <DataGrid 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="BlanchedAlmond"
+                Height="150" Width="400"
+                BorderBrush="Black"
+                AutoGenerateColumns="False"
+                x:Name="DateDataGrid"
+                SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Single"
+                IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Check-in date" Width="200" Binding="{Binding Start, StringFormat={}{0:dd/MM/yyyy}}"/>
+                    <DataGridTextColumn Header="Check-out date" Width="200" Binding="{Binding End, StringFormat={}{0:dd/MM/yyyy}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
         <Label Content="Number of guests:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="154" Width="110" Margin="10,0,0,0" Grid.Row="2"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top"  Height="22" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,30,0,0" Grid.Row="2"/>
-        <Button Content="Confirm reservation" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="302,30,0,0" Grid.Row="2" Width="108"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top"  Height="22" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,25,0,0" Grid.Row="2"/>
+        <Button Content="Confirm reservation" Background="#C8CECC" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="150" Margin="250,20,0,0" Grid.Row="2"/>
     </Grid>
 </Page>

@@ -20,6 +20,9 @@ namespace BookingApp.GuestView
         public static ReservedDateRepository ReservedDateRepository = new ReservedDateRepository();
         public static GuestRepository GuestRepository = new GuestRepository();
         public static GuestNotificationsRepository GuestNotificationRepository = new GuestNotificationsRepository();
+        public static RenovationRepository RenovationRepository = new RenovationRepository();
+        public static List<Renovation> Renovations {  get; set; }
+        public static List<DateTime> RenovationDates {  get; set; }
         public List<PropertyReservation> GuestsReservations { get; set; }
         public PropertyReservationDto PropertyReservation { get; set; }
         public ReservedDate ReservedDate { get; set; }
@@ -40,10 +43,15 @@ namespace BookingApp.GuestView
             GuestRepository = new GuestRepository();
             ReservedDateRepository = new ReservedDateRepository();
             GuestNotificationRepository = new GuestNotificationsRepository();
+            RenovationRepository = new RenovationRepository();
             GuestsReservations = new List<PropertyReservation>();
+            Renovations = new List<Renovation>();
+            RenovationDates = new List<DateTime>();
             AvailableDateRanges = new List<DateRange>();
             GuestNotification = new GuestNotification();
             SelectedProperty = selectedProperty;
+            Renovations = RenovationRepository.GetAllRenovations().FindAll(r => r.PropertyId == selectedProperty.Id);
+            GetRenovationsDates(Renovations);
             SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
             LoggedInGuest = guest;
             PropertyReservation = new PropertyReservationDto
@@ -57,6 +65,19 @@ namespace BookingApp.GuestView
             DateDataGrid.ItemsSource = this.AvailableDateRanges;
         }
 
+        private void GetRenovationsDates(List<Renovation> Renovations)
+        {
+            foreach(Renovation renovation in Renovations)
+            {
+                DateTime Date = renovation.StartDate;
+                while (Date <= renovation.EndDate)
+                {
+                    RenovationDates.Add(Date);
+                    Date = Date.AddDays(1);
+                }
+                
+            }
+        }
         private void DatePicker_SelectedDate1Changed(object sender, SelectionChangedEventArgs e)
         { 
             if (sender is DatePicker datePicker)
@@ -139,7 +160,7 @@ namespace BookingApp.GuestView
             for (int i = 0; i < PropertyReservation.Days; i++)
             {
                 DateTime currentDate = start.AddDays(i);
-                if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null)
+                if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null || RenovationDates.Contains(currentDate) == true)
                 {
                     found = false;
                     break;
