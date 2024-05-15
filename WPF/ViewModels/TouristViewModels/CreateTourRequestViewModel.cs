@@ -10,6 +10,7 @@ using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -46,7 +47,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
         }
         public User LoggedInUser { get; set; }
-        private TourRequestViewModel tourRequestViewModel { get; set; }
+
+        private TourRequestViewModel tourRequestViewModel;
         public TourRequestViewModel TourRequestViewModel
         {
             get => tourRequestViewModel;
@@ -59,6 +61,27 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
             }
         }
+
+        private DateTime minStartDate;
+        public DateTime MinStartDate
+        {
+            get { return minStartDate; }
+            set
+            {
+                minStartDate = value;
+                OnPropertyChanged(nameof(MinStartDate));
+            }
+        }
+        private DateTime minEndDate;
+        public DateTime MinEndDate
+        {
+            get { return minEndDate; }
+            set
+            {
+                minEndDate = value;
+                OnPropertyChanged(nameof(MinEndDate));
+            }
+        }
         public bool IsComplex { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
 
@@ -68,8 +91,10 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand CityComboBoxCommand { get; set; }
         public RelayCommand CountryComboBoxCommand { get; set; }
         public RelayCommand<object> OpenDropDownCommand { get; set; }
+        public RelayCommand<DatePicker> StartDatePickerOpenedCommand { get; private set; }
+        public RelayCommand<DatePicker> EndDatePickerOpenedCommand { get; private set; }
 
-        public CreateTourRequestViewModel(User loggedInUser,bool isComplex,ComplexTourRequest complexTourRequest)
+        public CreateTourRequestViewModel(User loggedInUser, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             LoggedInUser = loggedInUser;
             TourRequestViewModel = new TourRequestViewModel();
@@ -84,6 +109,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Languages = GlobalLanguagesService.GetAll();
             AllCities = GlobalLocationsService.GetAllCities();
             oldCity = "";
+            MinStartDate = DateTime.Today.AddDays(3);
+            MinEndDate = DateTime.Today.AddDays(3);
 
             UpdateCitiesFromList(AllCities);
             ConfirmCommand = new RelayCommand(Confirm);
@@ -92,6 +119,8 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             CityComboBoxCommand = new RelayCommand(CityComboBoxLostFocus);
             CountryComboBoxCommand = new RelayCommand(CountryComboBoxChanged);
             OpenDropDownCommand = new RelayCommand<object>(OpenDropDownClick);
+            StartDatePickerOpenedCommand = new RelayCommand<DatePicker>(StartDatePickerClosed);
+            EndDatePickerOpenedCommand = new RelayCommand<DatePicker>(EndDatePickerOpened);
         }
         public RelayCommand<object> FocusUpCommand => new RelayCommand<object>(FocusToComboBox);
         public RelayCommand<object> FocusDownCommand => new RelayCommand<object>(FocusToBox);
@@ -111,6 +140,45 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 comboBox.Focus();
         }
 
+        private void StartDatePickerClosed(DatePicker datePicker)
+        {
+            datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.AddDays(2)));
+            foreach (var request in ComplexTourRequest.TourRequests)
+            {
+                datePicker.BlackoutDates.Add(new CalendarDateRange(request.StartDate, request.EndDate));
+            }
+            List<TourRequest> requestsWithBiggerDatesOdStartDate = ComplexTourRequest.TourRequests.FindAll(t => t.StartDate > TourRequestViewModel.StartDate);
+            if (requestsWithBiggerDatesOdStartDate.Count > 0)
+                TourRequestViewModel.MaxValidDate = requestsWithBiggerDatesOdStartDate.Min(t => t.StartDate);
+            else
+                TourRequestViewModel.MaxValidDate = DateTime.MaxValue;
+        }
+        private void EndDatePickerOpened(DatePicker datePicker)
+        {
+            foreach (var request in ComplexTourRequest.TourRequests)
+            {
+                datePicker.BlackoutDates.Add(new CalendarDateRange(request.StartDate, request.EndDate));
+            }
+            List<TourRequest> requestsWithBiggerDatesOdStartDate = ComplexTourRequest.TourRequests.FindAll(t => t.StartDate > TourRequestViewModel.StartDate);
+            if (requestsWithBiggerDatesOdStartDate.Count > 0 && TourRequestViewModel.StartDate > DateTime.Now.AddDays(2))
+            {
+                //Ima problema
+                DateTime minDate = requestsWithBiggerDatesOdStartDate.Min(t => t.StartDate).AddDays(-1);
+                datePicker.DisplayDateEnd = minDate;
+                if (TourRequestViewModel.EndDate > minDate)
+                    TourRequestViewModel.EndDate = DateTime.Now;
+            }
+            else
+            {
+                datePicker.DisplayDateEnd = DateTime.MaxValue;
+            }
+            if (TourRequestViewModel.EndDate < TourRequestViewModel.StartDate)
+            {
+                datePicker.SelectedDate = TourRequestViewModel.StartDate;
+                TourRequestViewModel.EndDate = TourRequestViewModel.StartDate;
+            }
+            datePicker.DisplayDateStart = TourRequestViewModel.StartDate > DateTime.Now.AddDays(3) ? TourRequestViewModel.StartDate : DateTime.Now.AddDays(3);
+        }
         private void CloseWindow()
         {
             // Slanje poruke za zatvaranje prozora koristeći MVVM Light Messaging
@@ -133,7 +201,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("All fields must be filled correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error, style);
                 return;
             }
-            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel,IsComplex,ComplexTourRequest).ShowDialog();
+            new TouristsDataWindow(TourRequestViewModel.TouristNumber, new TourDto(), LoggedInUser.Id, true, TourRequestViewModel, IsComplex, ComplexTourRequest).ShowDialog();
         }
 
         private void Help()

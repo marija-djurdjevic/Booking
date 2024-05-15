@@ -184,8 +184,8 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Stretch"
+                        Margin="-50,0,-50,0"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         FontSize="20"
                         Foreground="{StaticResource BackgroundColor}"
@@ -193,6 +193,7 @@
                         Text="{Binding TourRequestViewModel.DateMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
                         Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
                     <DatePicker
+                        x:Name="startDatePicker"
                         Grid.Row="1"
                         Grid.Column="0"
                         Width="150"
@@ -203,15 +204,26 @@
                         VerticalContentAlignment="Center"
                         BorderThickness="0"
                         CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                        DisplayDateStart="{Binding MinStartDate}"
                         FirstDayOfWeek="Monday"
                         FontSize="20"
                         InputScope="DateYear"
                         SelectedDate="{Binding TourRequestViewModel.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnDataErrors=True}"
                         SelectedDateFormat="Short"
-                        Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
+                        Validation.ErrorTemplate="{StaticResource DateFieldValidationTemplate}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding DataContext.StartDatePickerOpenedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=startDatePicker}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{Binding DataContext.StartDatePickerOpenedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=startDatePicker}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DatePicker>
 
 
                     <DatePicker
+                        x:Name="endDatePicker"
                         Grid.Row="1"
                         Grid.Column="1"
                         Width="150"
@@ -222,12 +234,22 @@
                         VerticalContentAlignment="Center"
                         BorderThickness="0"
                         CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                        DisplayDateStart="{Binding MinEndDate}"
                         FirstDayOfWeek="Monday"
                         FontSize="20"
                         InputScope="DateYear"
                         SelectedDate="{Binding TourRequestViewModel.EndDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedDateFormat="Short"
-                        Validation.ErrorTemplate="{StaticResource DateValidationTemplate}" />
+                        Validation.ErrorTemplate="{StaticResource DateFieldValidationTemplate}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding DataContext.EndDatePickerOpenedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=endDatePicker}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{Binding DataContext.EndDatePickerOpenedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=endDatePicker}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DatePicker>
 
                 </Grid>
 
