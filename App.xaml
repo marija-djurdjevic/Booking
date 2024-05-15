@@ -16,12 +16,12 @@
         <SolidColorBrush x:Key="OwnerButtonColor2" Color="#001B2E" />
         <SolidColorBrush x:Key="PageBackgroundColor" Color="#001B2E" />
 
-       
+
 
         <SolidColorBrush x:Key="WhiteTextColor" Color="AntiqueWhite" />
         <SolidColorBrush x:Key="OwnerTabColor" Color="#294C60" />
         <SolidColorBrush x:Key="OwnerBorderColor" Color="#8B8386" />
-        <SolidColorBrush x:Key="OwnerToolBarColor" Color="#001B2E" /> 
+        <SolidColorBrush x:Key="OwnerToolBarColor" Color="#001B2E" />
         <!--  STilovi za turistu  -->
 
         <SolidColorBrush x:Key="BackgroundColor" Color="#00896F" />
@@ -82,9 +82,28 @@
                 <!--  Placeholder for the TextBox itself  -->
                 <AdornedElementPlaceholder x:Name="textBox" />
                 <TextBlock
+                    Width="320"
+                    Height="auto"
+                    Margin="-60,-8,0,0"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    Foreground="{StaticResource ValidationMessageColor}"
+                    Text="{Binding [0].ErrorContent}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="DateFieldValidationTemplate">
+            <StackPanel>
+                <!--  Placeholder for the TextBox itself  -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock
+                    Width="320"
                     Height="auto"
                     MaxWidth="140"
                     Margin="-30,-8,0,0"
+                    HorizontalAlignment="Center"
                     FontSize="14"
                     Foreground="{StaticResource ValidationMessageColor}"
                     Text="{Binding [0].ErrorContent}"
@@ -859,21 +878,38 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="LightGray" Offset="0.0"/>
-                        <GradientStop Color="DarkGray" Offset="1.0"/>
+                        <GradientStop Offset="0.0" Color="LightGray" />
+                        <GradientStop Offset="1.0" Color="DarkGray" />
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Foreground" Value="Red"/>
-            <Setter Property="Width" Value="10"/>
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Width" Value="10" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
                         <Grid>
-                            <Rectangle x:Name="RectangleTrack" RadiusX="5" RadiusY="5" Fill="{TemplateBinding Background}"/>
-                            <RepeatButton x:Name="PageUp" Opacity="0" Content="{TemplateBinding Tag}" Focusable="False"/>
-                            <RepeatButton x:Name="PageDown" Opacity="0" Content="{TemplateBinding Tag}" Focusable="False"/>
-                            <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Cursor="Hand" Margin="2" Opacity="0.5" />
+                            <Rectangle
+                                x:Name="RectangleTrack"
+                                Fill="{TemplateBinding Background}"
+                                RadiusX="5"
+                                RadiusY="5" />
+                            <RepeatButton
+                                x:Name="PageUp"
+                                Content="{TemplateBinding Tag}"
+                                Focusable="False"
+                                Opacity="0" />
+                            <RepeatButton
+                                x:Name="PageDown"
+                                Content="{TemplateBinding Tag}"
+                                Focusable="False"
+                                Opacity="0" />
+                            <Thumb
+                                x:Name="Thumb"
+                                Margin="2"
+                                Background="{TemplateBinding Foreground}"
+                                Cursor="Hand"
+                                Opacity="0.5" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -883,9 +919,9 @@
 
 
 
-        
 
-       
+
+
 
         <!--  .  -->
     </Application.Resources>

@@ -341,10 +341,4 @@
     <Folder Include="Resources\Images\TourImages\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="WPF\Views\TouristView\ComplexTourRequestsPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
 </Project>

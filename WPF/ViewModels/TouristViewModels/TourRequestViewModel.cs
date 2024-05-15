@@ -26,6 +26,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private List<Tuple<string, string, int>> persons;
         private TourRequestStatus status;
         private DateTime acceptedDate;
+        private DateTime maxValidDate;
         private int complexId;
 
         public string Error => null;
@@ -37,6 +38,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             status = TourRequestStatus.Pending;
             Location = new Location();
             Persons = new List<Tuple<string, string, int>>();
+            MaxValidDate = DateTime.MaxValue;
         }
         //Verifikation
         public Verifications verifications = new Verifications();
@@ -73,6 +75,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 {
                     if (EndDate.Date <= DateTime.Now.AddHours(48).Date)
                         return "End date must be 2 days from now.";
+
+                }
+                if (columnName == "DateMessage")
+                {
+                    if (maxValidDate<EndDate)
+                        return "The selected dates overlap with an existing range. Please select different dates.";
 
                 }
                 if (columnName == "DateMessage")
@@ -116,6 +124,19 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 if (value != StartDate.ToString())
                 {
                     DateMessage = value;
+                    OnPropertyChanged(nameof(DateMessage));
+                }
+            }
+        }
+
+        public DateTime MaxValidDate
+        {
+            get => maxValidDate;
+            set
+            {
+                if (value != maxValidDate)
+                {
+                    maxValidDate = value;
                     OnPropertyChanged(nameof(DateMessage));
                 }
             }
@@ -251,6 +272,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     startDate = value;
                     OnPropertyChanged(nameof(StartDate));
                     OnPropertyChanged(nameof(DateMessage));
+                    OnPropertyChanged(nameof(MaxValidDate));
                 }
             }
         }
@@ -264,6 +286,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     endDate = value;
                     OnPropertyChanged(nameof(DateMessage));
                     OnPropertyChanged(nameof(EndDate));
+                    OnPropertyChanged(nameof(MaxValidDate));
                 }
             }
         }
