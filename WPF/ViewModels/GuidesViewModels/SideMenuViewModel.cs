@@ -20,15 +20,18 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand tourSuggestedCommand;
         private RelayCommand tourRequestStatisticCommand;
         private RelayCommand homeCommand;
-
-        public SideMenuViewModel()
+        private RelayCommand navigateToMyAccountCommand;
+        public User LoggedInUser { get; set; }
+        public SideMenuViewModel(User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             tourStatisticCommand = new RelayCommand(TourStatisticCommand);
             tourRequestCommand = new RelayCommand(TourRequestCommand);
             tourSuggestedCommand = new RelayCommand(ExecuteSuggestedTourCommand);
             tourRequestStatisticCommand = new RelayCommand(ExecuteTourRequestStatisticCpmmand);
             homeCommand = new RelayCommand(ExecuteHomeCommand);
+            navigateToMyAccountCommand = new RelayCommand(ExecuteNavigateToMyAccountCommand);
         }
 
         
@@ -95,7 +98,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void ExecuteSuggestedTourCommand()
         {
-            var suggestedTour= new CreateSuggestedTour();
+            var suggestedTour= new CreateSuggestedTour(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(suggestedTour);
 
         }
@@ -137,12 +140,32 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
 
         }
+        public RelayCommand NavigateToMyAccountCommand
+        {
+            get { return navigateToMyAccountCommand; }
+            set
+            {
+                if (navigateToMyAccountCommand != value)
+                {
+                    navigateToMyAccountCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+       private void ExecuteNavigateToMyAccountCommand()
+        {
+            var account = new GuideAccount(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(account);
+
+        }
 
 
         private void TourStatisticCommand()
         {
 
-            var tourStatistic = new TourStatistic();
+            var tourStatistic = new TourStatistic(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(tourStatistic);
         }
 
@@ -150,13 +173,13 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void TourRequestCommand()
         {
-            var tourRequests = new TourRequests();
+            var tourRequests = new TourRequests(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(tourRequests);
         }
 
         private void ExecuteTourRequestStatisticCpmmand()
         {
-            var tourRequestStatistics = new TourRequestsStatistic();
+            var tourRequestStatistics = new TourRequestsStatistic(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(tourRequestStatistics);
 
         }
@@ -164,7 +187,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void ExecuteHomeCommand()
         {
-            var homePage=new GuideMainPage();
+            var homePage=new GuideMainPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(homePage);
         }
 

@@ -28,7 +28,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private ObservableCollection<Tour> sortedTours;
         private RelayCommand touristsButtonClickCommand;
         private RelayCommand sideMenuCommand;
-        public TourStatisticViewModel()
+        public User LoggedInUser { get; set; }
+        public TourStatisticViewModel(User loggedInUser)
         {
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
@@ -36,7 +37,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             touristsButtonClickCommand = new RelayCommand(ExecuteTouristsButtonClick);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            LoggedInUser = loggedInUser;
             LoadData();
+            
         }
         private void LoadData()
         {
@@ -46,7 +49,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             foreach (var tour in finishedLiveTours)
             {
                 var finishedTour = tourService.GetTourById(tour.TourId);
-                finishedTours.Add(finishedTour);
+
+                if (finishedTour.GuideId == LoggedInUser.Id)
+                {
+                    finishedTours.Add(finishedTour);
+                }
             }
             sortedTours = new ObservableCollection<Tour>(finishedTours.OrderByDescending(t => tourReservationService.GetTouristsForTour(t.Id)));
         }
@@ -126,7 +133,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         {
             if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
             {
-                var touristsNumberPage1 = new TouristsNumber(tourId);
+                var touristsNumberPage1 = new TouristsNumber(tourId,LoggedInUser);
                 GuideMainWindow.MainFrame.Navigate(touristsNumberPage1);
             }
         }
@@ -148,7 +155,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

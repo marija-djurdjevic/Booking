@@ -1,7 +1,4 @@
-﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
-using BookingApp.WPF.ViewModels.GuidesViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +16,13 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.GuideView
 {
     /// <summary>
-    /// Interaction logic for CreateSuggestedTour.xaml
+    /// Interaction logic for ComplexTourRequests.xaml
     /// </summary>
-    public partial class CreateSuggestedTour : Page
+    public partial class ComplexTourRequests : Page
     {
-        public CreateSuggestedTour(User user)
+        public ComplexTourRequests()
         {
             InitializeComponent();
-            DataContext = new CreateSuggestedTourViewModel(user);
         }
     }
 }

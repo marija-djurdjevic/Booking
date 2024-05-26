@@ -40,6 +40,7 @@ namespace BookingApp.Aplication.UseCases
                 MaxTouristsNumber = tourDto.MaxTouristNumber,
                 Duration = tourDto.Duration,
                 StartDateTime = tourDate,
+                GuideId= tourDto.GuideId,
                 Location = new Location
                 {
                     City = tourDto.LocationDto.City,

@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModels.GuidesViewModels;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace BookingApp.WPF.Views.GuideView
     /// </summary>
     public partial class TourRequests : Page
     {
-        public TourRequests()
+        public TourRequests(User user)
         {
             InitializeComponent();
-            DataContext = new TourRequestViewModel();
+            DataContext = new TourRequestViewModel(user);
         }
 
         private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)

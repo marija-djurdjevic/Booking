@@ -31,19 +31,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public (DateTime, DateTime) TouristsDates { get; set; }
 
         private RelayCommand acceptTourCommand;
-        public AcceptTourViewModel(int id)
+        public User LoggedInUser { get; set; }
+        public AcceptTourViewModel(int id, User loggedInUser)
         {
             this.id = id;
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
-            requestStatisticService=new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             SelectedTour = tourRequestService.GetRequestById(id);
             LoadBookedDates();
-            TouristsDates=tourRequestService.GetDateSlotById(id);
-            FreeDates = new ObservableCollection<(DateTime, DateTime)>(requestStatisticService.CalculateFreeDates(BookedDates.ToList(), TouristsDates,tourRequestService.GetAllAcceptedDates()));
+            TouristsDates = tourRequestService.GetDateSlotById(id);
+            FreeDates = new ObservableCollection<(DateTime, DateTime)>(requestStatisticService.CalculateFreeDates(BookedDates.ToList(), TouristsDates, tourRequestService.GetAllAcceptedDates()));
             acceptTourCommand = new RelayCommand(ExecuteAcceptTourCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
-
+            LoggedInUser = loggedInUser;
         }
 
 
@@ -77,7 +78,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

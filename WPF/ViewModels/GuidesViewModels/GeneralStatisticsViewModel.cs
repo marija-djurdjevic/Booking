@@ -25,7 +25,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public Dictionary<string, int> RequestsPerYear { get; }
         public string Language { get; }
         public string Location { get; }
-        public GeneralStatisticsViewModel(string language,string location)
+        public User LoggedInUser { get; set; }
+        public GeneralStatisticsViewModel(string language,string location, User loggedInUser)
         {
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
@@ -44,6 +45,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
             UpdateRequestsForYear();
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            LoggedInUser = loggedInUser;
         }
 
         public ObservableCollection<string> Years
@@ -68,7 +70,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

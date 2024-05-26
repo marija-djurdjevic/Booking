@@ -16,15 +16,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using BookingApp.Domain.Models;
 
 namespace BookingApp.View
 {
     public partial class CreateTourPage : Page
     {
-        public CreateTourPage()
+        public CreateTourPage(User loggedInUser)
         {
             InitializeComponent();
-            DataContext = new CreateTourViewModel();
+            DataContext = new CreateTourViewModel(loggedInUser);
            
         }
         

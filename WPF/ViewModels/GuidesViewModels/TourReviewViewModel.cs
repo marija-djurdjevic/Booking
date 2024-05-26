@@ -6,6 +6,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
+using BookingApp.WPF.Views.GuideView;
 using Microsoft.Build.Framework;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,10 +26,13 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand navigateBackCommand;
         private RelayCommand reportReviewCommand;
         private RelayCommand sideMenuCommand;
+        private RelayCommand showDetailsCommand;
         private ObservableCollection<TouristExperience> touristExperiences;
+        public User LoggedInUser { get; set; }
 
-        public TourReviewViewModel(int tourId)
+        public TourReviewViewModel(int tourId, User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             this.tourId = tourId;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             SelectedTour = tourService.GetTourById(tourId);
@@ -37,6 +41,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             reportReviewCommand = new RelayCommand(ExecuteReportReview);
+            showDetailsCommand = new RelayCommand(ExecuteShowDetailsCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             TouristExperiences = new ObservableCollection<TouristExperience>();
             LoadTouristExperiences();
@@ -84,7 +89,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
         private void ExecuteNavigateBack()
         {
-            var mainPage = new GuideMainPage();
+            var mainPage = new GuideMainPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
@@ -100,6 +105,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             }
         }
 
+
+
+
+
+
         private void ExecuteReportReview(object parameter)
         {
 
@@ -110,6 +120,30 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
                 LoadTouristExperiences();
             }
+        }
+
+
+
+        public RelayCommand ShowDetailsCommand
+        {
+            get { return showDetailsCommand; }
+            set
+            {
+                if (showDetailsCommand != value)
+                {
+                    showDetailsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private void ExecuteShowDetailsCommand()
+        {
+           
+                var tourDetailsPage = new TourDetails(tourId); 
+                GuideMainWindow.MainFrame.Navigate(tourDetailsPage);
+            
         }
 
 
@@ -129,7 +163,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

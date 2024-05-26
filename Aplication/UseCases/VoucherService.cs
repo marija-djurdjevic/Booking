@@ -35,6 +35,19 @@ namespace BookingApp.Aplication.UseCases
             return false;
         }
 
+
+        public List<Voucher> GetVouchersForGuide(int guideId)
+        {
+            return voucherRepository.GetAll().Where(v => v.GuideId == guideId && v.IsUsed==false).ToList();
+        }
+
+
+        public bool Update(Voucher updatedVoucher)
+        {
+            return voucherRepository.Update(updatedVoucher);
+        }
+
+
         public List<Voucher> GetByToueristId(int Id)
         {
             var vouchers = voucherRepository.GetAll();

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
 
@@ -23,10 +24,10 @@ namespace BookingApp.View.GuideView
     /// </summary>
     public partial class TouristsNumber : Page
     {
-        public TouristsNumber(int tourId)
+        public TouristsNumber(int tourId,User user)
         {
             InitializeComponent();
-            DataContext = new TouristsNumberPageViewModel(tourId);
+            DataContext = new TouristsNumberPageViewModel(tourId,user);
         }
 
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)

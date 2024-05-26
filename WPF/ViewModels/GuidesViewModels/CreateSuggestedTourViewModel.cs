@@ -57,13 +57,13 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public ObservableCollection<string> Langugages { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> CitiesCountries { get; set; } = new ObservableCollection<string>();
 
-
-        public CreateSuggestedTourViewModel()
+        public User LoggedInUser { get; set; }
+        public CreateSuggestedTourViewModel(User loggedInUser)
         {
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             MostRequestedLanguage = requestStatisticService.GetMostRequestedLanguage();
-            MostRequestedLocation= requestStatisticService.GetMostRequestedLocation();
+            MostRequestedLocation = requestStatisticService.GetMostRequestedLocation();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -84,6 +84,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             SelectedLocation = MostRequestedLocation;
             LoadLanguages();
             LoadCitiesCountries();
+            LoggedInUser = loggedInUser;
         }
 
 
@@ -422,7 +423,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -556,7 +557,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 }
                 LocationDto newLocationDto = GetLocationDto();
                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
-              
+                newTourDto.GuideId = LoggedInUser.Id;
                 createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
               
                 foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))

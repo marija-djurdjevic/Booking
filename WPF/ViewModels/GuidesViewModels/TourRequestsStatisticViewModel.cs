@@ -38,11 +38,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand monthStatisticsCommand;
         private RelayCommand sideMenuCommand;
         private RelayCommand resetSearchCommand;
-
-        public TourRequestsStatisticViewModel()
+        public User LoggedInUser { get; set; }
+        public TourRequestsStatisticViewModel(User loggedInUser)
         {
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
-            requestStatisticService= new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests());
             Locations = new ObservableCollection<string>(requestStatisticService.GetLocations());
             Languages = new ObservableCollection<string>(requestStatisticService.GetLanguages());
@@ -55,6 +55,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             monthStatisticsCommand = new RelayCommand(ExecuteMonthStatisticsCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             resetSearchCommand = new RelayCommand(ExecuteResetSearchCommand);
+            LoggedInUser = loggedInUser;
         }
 
         public ObservableCollection<TourRequest> TourRequests
@@ -173,7 +174,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteGeneralStatisticsCommand()
         {
 
-            var generalStat = new GeneralStatistics(Language, Location);
+            var generalStat = new GeneralStatistics(Language, Location,LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(generalStat);
 
 
@@ -186,7 +187,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             if (parameter is string selectedYearItem)
             {
                 
-                var montStat = new MonthStatistics(selectedYearItem, Language, Location);
+                var montStat = new MonthStatistics(selectedYearItem, Language, Location,LoggedInUser);
                 GuideMainWindow.MainFrame.Navigate(montStat);
 
             }
@@ -244,7 +245,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

@@ -72,6 +72,12 @@ namespace BookingApp.Aplication.UseCases
         }
 
 
+        public List<TourRequest> GetAllComplexRequests()
+        {
+            return tourRequestRepository.GetAll().FindAll(r => r.ComplexId != -1);
+        }
+
+
         public List<TourRequest>GetAllRequests()
         {
             return tourRequestRepository.GetAll();
