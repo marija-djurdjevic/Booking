@@ -99,7 +99,7 @@
                 <Button
                     Background="#C8CECC"
                     Width="100"
-                    Height="35"
+                    Height="30"
                     Margin="10,30,0,0"
                     Click="Search_Click"
                     Content="Search" />

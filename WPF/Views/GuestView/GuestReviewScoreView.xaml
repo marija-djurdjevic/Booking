@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Image Margin="10,0,375,206" Source="\Resources\Images\star (2).png"/>
-        <Label FontSize="26" Margin="55,10,198,213">Review score</Label>
+        <Label FontFamily="Times New Roman" FontSize="26" Margin="55,10,198,213">Review score</Label>
         <StackPanel Orientation="Vertical" Margin="10,59,256,113" Background="BlanchedAlmond">
             <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
                 <TextBlock Text="{Binding LoggedInGuest.FirstName}" Margin="5, 5" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left"/>

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Aplication.Dto;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.Views.GuestView;
 using System;
@@ -198,10 +199,40 @@ namespace BookingApp.GuestView
             {
                 UpdateSuperGuestPoints();
             }
+            else
+            {
+                CheckSuperGuestStatus(LoggedInGuest, GuestsReservations);
+            }
             GuestRepository.Update(LoggedInGuest);
             PropertyReservationRepository.AddPropertyReservation(PropertyReservation.ToPropertyReservation());
             MessageBox.Show("Successfully reserved!");
         }
+
+        public void CheckSuperGuestStatus(Guest Guest, List<PropertyReservation> GuestsReservations)
+        {
+            GuestsReservations = PropertyReservationRepository.GetAll().FindAll(r => r.StartDate >= DateTime.Now.AddDays(-365) && r.GuestId == Guest.Id);
+            if (GuestsReservations.Count() >= 10)
+            {
+                Guest.IsSuperGuest = true;
+                Guest.SuperGuestStartDate = DateTime.Now;
+                Guest.Points = 5;
+                GuestNotification GuestNotification = new GuestNotification()
+                {
+                    GuestId = Guest.Id,
+                    Message = "Congratulations! You have become a Super Guest. You have won 5 points that you can use as a discount on bookings in the next year!",
+                    Read = false
+                };
+                GuestNotificationRepository.AddNotification(GuestNotification);
+            }
+            else
+            {
+                Guest.IsSuperGuest = false;
+                Guest.Points = 0;
+            }
+            GuestRepository.Update(Guest);
+
+        }
+
 
         public void UpdateSuperGuestPoints()
         {

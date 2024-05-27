@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Image Margin="10,0,375,206" Source="\Resources\Images\star (1).png"/>
-        <Label FontSize="26" Margin="55,10,0,157">Make review</Label>
+        <Label FontFamily="Times New Roman" FontSize="26" Margin="55,10,0,157">Make review</Label>
 
         <GroupBox Header="Criteria" BorderBrush="Black" BorderThickness="1" Background="BlanchedAlmond" VerticalAlignment="Top" Height="200" Margin="10,60,20,0">
             <Grid>
