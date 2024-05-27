@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
+using BookingApp.WPF.ViewModels.TouristViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,17 @@ namespace BookingApp.WPF.Views.GuideView
     /// </summary>
     public partial class ComplexTourRequests : Page
     {
-        public ComplexTourRequests()
+        public ComplexTourRequests(User user)
         {
             InitializeComponent();
+            DataContext=new ComplexTourRequestViewModel(user);
+        }
+
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
     }
 }

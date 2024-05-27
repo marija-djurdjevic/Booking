@@ -48,7 +48,7 @@ namespace BookingApp.Domain.Models
             Language = values[7];
             ToursLastYear = Convert.ToInt32(values[8]);
             AverageRatingLastYear = Convert.ToDouble(values[9]);
-            UpdateSuperGuideStatus();
+          
         }
     }
 }

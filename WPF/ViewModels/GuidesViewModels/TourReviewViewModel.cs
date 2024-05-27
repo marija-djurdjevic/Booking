@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
@@ -28,7 +29,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand sideMenuCommand;
         private RelayCommand showDetailsCommand;
         private ObservableCollection<TouristExperience> touristExperiences;
+       
+
         public User LoggedInUser { get; set; }
+
+       
 
         public TourReviewViewModel(int tourId, User loggedInUser)
         {

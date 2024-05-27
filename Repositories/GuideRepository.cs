@@ -25,6 +25,8 @@ namespace BookingApp.Repositories
             guides = _serializer.FromCSV(FilePath);
         }
 
+
+
         public void Add(Guide guide)
         {
             guides = GetAll().ToList();

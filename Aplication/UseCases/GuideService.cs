@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,10 +9,11 @@ namespace BookingApp.UseCases
     public class GuideService
     {
         private readonly IGuideRepository _guideRepository;
-
+        private readonly UserRepository userRepository;
         public GuideService(IGuideRepository guideRepository)
         {
             _guideRepository = guideRepository;
+            userRepository= new UserRepository();   
         }
 
         public IEnumerable<Guide> GetSuperGuides()
@@ -42,6 +44,22 @@ namespace BookingApp.UseCases
         {
             var guide = _guideRepository.GetById(guideId);
             return guide != null && guide.IsSuperGuide;
+        }
+
+
+        public void RemoveGuide(int guideId)
+        {
+           
+             _guideRepository.Delete(guideId);
+             userRepository.Delete(guideId);
+        }
+
+
+        public void setStatus(int guideId,bool status)
+        {
+            var guide = _guideRepository.GetById(guideId);
+            guide.IsSuperGuide = status;
+            _guideRepository.Update(guide);
         }
 
     }

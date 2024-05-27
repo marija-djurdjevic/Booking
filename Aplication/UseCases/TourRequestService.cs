@@ -83,22 +83,23 @@ namespace BookingApp.Aplication.UseCases
             return tourRequestRepository.GetAll();
         }
         
-        public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates()
+        public List<(DateTime StartDate, DateTime EndDate)> GetUpcomingToursDates(int guideId)
         {
-            var upcomingTours = tourRepository.GetAll().Where(t => t.StartDateTime >= DateTime.Today).ToList();
+            var upcomingTours = tourRepository.GetAll().Where(t => t.StartDateTime >= DateTime.Today && t.GuideId==guideId).ToList();
             var tourDates = upcomingTours.Select(t => (t.StartDateTime, t.StartDateTime.AddHours(t.Duration))).ToList();
 
             return tourDates;
         }
 
 
-        public void UpdateRequestById(int requestId, DateTime newAcceptedDate)
+        public void UpdateRequestById(int requestId, DateTime newAcceptedDate,User user)
         {
             var request = tourRequestRepository.GetById(requestId);
             if (request != null)
             {
                 request.AcceptedDate = newAcceptedDate;
                 request.Status= TourRequestStatus.Accepted;
+                request.GuideId = user.Id;
                 tourRequestRepository.Update(request);
             }
         }
@@ -109,13 +110,13 @@ namespace BookingApp.Aplication.UseCases
         }
 
 
-        public List<DateTime> GetAllAcceptedDates()
+        public List<DateTime> GetAllAcceptedDates(int guideId)
         {
             var allrequests=tourRequestRepository.GetAll();
             var acceptedDates = new List<DateTime>();
             foreach(var request in allrequests)
             {
-                if (request.Status == TourRequestStatus.Accepted)
+                if (request.Status == TourRequestStatus.Accepted && request.GuideId==guideId)
                 {
                     acceptedDates.Add(request.AcceptedDate);
                 }

@@ -16,13 +16,14 @@ using BookingApp.Command;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
-   public class ComplexTourRequestViewModel:BaseViewModel
+    public class ComplexTourRequestViewModel : BaseViewModel
     {
+        private ObservableCollection<ComplexTourRequest> complexRequests;
+        private TourRequest selectedTour;
+        private readonly TourRequestService tourRequestService;
+        private readonly ComplexTourRequestService complexTourRequestService;
+        private readonly RequestStatisticService requestStatisticService;
 
-
-        private ObservableCollection<TourRequest> tourRequests;
-        private TourRequestService tourRequestService;
-        private RequestStatisticService requestStatisticService;
         private string language;
         private string location;
         private RelayCommand acceptCommand;
@@ -32,8 +33,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public ComplexTourRequestViewModel(User loggedInUser)
         {
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            complexTourRequestService = new ComplexTourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<IComplexTourRequestRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
-            ComplexRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllComplexRequests().Where(request => request.Status == TourRequestStatus.Pending));
+            ComplexRequests = new ObservableCollection<ComplexTourRequest>(complexTourRequestService.GetAllPendingComplexRequests());
             acceptCommand = new RelayCommand(ExecuteAcceptCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             LoggedInUser = loggedInUser;
@@ -52,24 +54,23 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-
         private void ExecuteSideMenuClick()
         {
-
             var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
-
         }
 
-
-
-        public ObservableCollection<TourRequest> ComplexRequests
+        public ObservableCollection<ComplexTourRequest> ComplexRequests
         {
-            get { return tourRequests; }
-            set { tourRequests = value; OnPropertyChanged(); }
+            get { return complexRequests; }
+            set { complexRequests = value; OnPropertyChanged(); }
         }
 
-      
+        public TourRequest SelectedTour
+        {
+            get { return selectedTour; }
+            set { selectedTour = value; OnPropertyChanged(); }
+        }
 
         public string Language
         {
@@ -77,15 +78,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { language = value; OnPropertyChanged(); }
         }
 
-
         public string Location
         {
             get { return location; }
             set { location = value; OnPropertyChanged(); }
         }
 
-
-      
         private DateTime endDateTime;
         public DateTime EndDateTime
         {
@@ -93,16 +91,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { endDateTime = value; OnPropertyChanged(); }
         }
 
-
         private DateTime startDateTime;
         public DateTime StartDateTime
         {
             get { return startDateTime; }
             set { startDateTime = value; OnPropertyChanged(); }
         }
-
-
-       
 
         public RelayCommand AcceptTourClickCommand
         {
@@ -117,21 +111,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-
-
-
         private void ExecuteAcceptCommand(object parameter)
         {
             int id = Convert.ToInt32(parameter);
-            var acceptTour = new AcceptTourRequest(id,LoggedInUser);
+            var acceptTour = new AcceptTourRequest(id, LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(acceptTour);
-
         }
-
-
-        
-
-
-
-}
+    }
 }

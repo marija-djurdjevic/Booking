@@ -47,8 +47,8 @@ namespace BookingApp.Aplication.UseCases
             liveTourService.RemoveLiveTour(tour.Id);
             tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
-            GenerateVouchersForCanceledTourists(tour.Id, tourReservations, guideId);
-            MessageBox.Show("Tour canceled successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            GenerateVouchersForQuitJob(tour.Id, tourReservations, guideId);
+            
         }
 
 
@@ -79,9 +79,46 @@ namespace BookingApp.Aplication.UseCases
 
             foreach (var userId in usersToReceiveVoucher)
             {
-                GenerateVoucherQuitJob(userId,guideId);
+                GenerateVoucher(userId,guideId);
             }
         }
+
+
+
+
+
+
+
+        private void GenerateVouchersForQuitJob(int tourId, List<TourReservation> tourReservations, int guideId)
+        {
+            var usersToReceiveVoucher = new List<int>();
+
+            foreach (var reservation in tourReservations)
+            {
+                int userId = reservation.UserId;
+                var tourist = touristService.GetByUserId(userId);
+
+                if (tourist != null && IsTouristReservationMatch(tourist, reservation))
+                {
+                    usersToReceiveVoucher.Add(userId);
+                }
+            }
+
+            foreach (var userId in usersToReceiveVoucher)
+            {
+                GenerateVoucherQuitJob(userId, guideId);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         private bool IsTouristReservationMatch(Tourist tourist, TourReservation reservation)
         {

@@ -21,6 +21,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand tourRequestStatisticCommand;
         private RelayCommand homeCommand;
         private RelayCommand navigateToMyAccountCommand;
+        private RelayCommand navigateToComplexRequestsCommand;
         public User LoggedInUser { get; set; }
         public SideMenuViewModel(User loggedInUser)
         {
@@ -32,6 +33,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             tourRequestStatisticCommand = new RelayCommand(ExecuteTourRequestStatisticCpmmand);
             homeCommand = new RelayCommand(ExecuteHomeCommand);
             navigateToMyAccountCommand = new RelayCommand(ExecuteNavigateToMyAccountCommand);
+            navigateToComplexRequestsCommand = new RelayCommand(ExecuteNavigateToComplexRequestsCommand);
         }
 
         
@@ -44,6 +46,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 if (sideMenuCommand != value)
                 {
                     sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public RelayCommand NavigateToComplexRequestsCommand
+        {
+            get { return navigateToComplexRequestsCommand; }
+            set
+            {
+                if (navigateToComplexRequestsCommand != value)
+                {
+                    navigateToComplexRequestsCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -191,7 +207,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             GuideMainWindow.MainFrame.Navigate(homePage);
         }
 
+        private void ExecuteNavigateToComplexRequestsCommand()
+        {
+            var complexTourRequests = new ComplexTourRequests(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(complexTourRequests);
 
+        }
 
     }
 }
