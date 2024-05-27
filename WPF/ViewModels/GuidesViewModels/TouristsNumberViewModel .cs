@@ -32,9 +32,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand navigateHomeCommand;
         private RelayCommand navigateBackCommand;
         private RelayCommand sideMenuCommand;
+        public User LoggedInUser { get; set; }
 
-        public TouristsNumberPageViewModel(int tourId)
+        public TouristsNumberPageViewModel(int tourId, User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             this.tourId = tourId;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             SelectedTour=tourService.GetTourById(tourId);
@@ -176,14 +178,14 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
         private void ExecuteNavigateHome()
         {
-            var mainPage = new GuideMainPage();
+            var mainPage = new GuideMainPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(mainPage);
 
         }
 
         private void ExecuteNavigateBack()
         {
-            var tourStatisticPage = new TourStatistic();
+            var tourStatisticPage = new TourStatistic(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(tourStatisticPage);
         }
 
@@ -204,7 +206,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

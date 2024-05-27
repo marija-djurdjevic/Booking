@@ -26,8 +26,8 @@
                     Source="/Resources/Images/TouristHelpImages/MyToursHelp.png"
                     Stretch="Uniform" />
                 <Image
-                    Height="400"
                     Grid.Column="1"
+                    Height="400"
                     Source="/Resources/Images/TouristHelpImages/MyToursHelp1.png"
                     Stretch="Uniform" />
             </Grid>
@@ -67,7 +67,7 @@
                 <LineBreak />
                 <LineBreak />
                 <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">2. Sort tours:</Run>
-                <LineBreak />
+
                 <Run>Use the 'Sort by' dropdown to sort your tours by date or rate status, in ascending or descending order.</Run>
                 <LineBreak />
                 <LineBreak />

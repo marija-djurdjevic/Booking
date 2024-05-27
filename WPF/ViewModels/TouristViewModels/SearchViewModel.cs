@@ -11,6 +11,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Xceed.Wpf.Toolkit;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -100,7 +101,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private void Help()
         {
-
+            new HelpSearchWindow().Show();
         }
         private void UpdateCitiesFromList(List<string> cities)
         {

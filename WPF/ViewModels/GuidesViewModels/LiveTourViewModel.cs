@@ -33,7 +33,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand checkCommand;
         private LiveTour liveTour;
         private RelayCommand sideMenuCommand;
-        public LiveTourViewModel(int tourId)
+        public User LoggedInUser { get; set; }
+        public LiveTourViewModel(int tourId, User loggedInUser)
         {
             this.tourId = tourId;
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
@@ -50,6 +51,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
             checkCommand = new RelayCommand(Check);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            LoggedInUser = loggedInUser;
         }
         public ObservableCollection<TourReservation> Tourists
         {
@@ -126,7 +128,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }

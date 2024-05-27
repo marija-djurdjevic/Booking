@@ -296,6 +296,29 @@
                 </Button.BorderBrush>
             </Button>
             <Button
+                Margin="150,0,20,0"
+                VerticalAlignment="Top"
+                Background="{StaticResource SelectedCardColor}"
+                Click="SkipButtonClick"
+                Style="{StaticResource ConfirmButton}"
+                Visibility="{Binding ShowingImage, Converter={cvt:WizardNavigationsConverter}, ConverterParameter=next}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="40"
+                            Margin="10,0,10,0"
+                            Source="/Resources/Icons/TouristIcons/skip.png" />
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            FontWeight="Bold"
+                            Text="Skip" />
+                    </StackPanel>
+                </Button.Content>
+                <Button.BorderBrush>
+                    <SolidColorBrush Opacity="0" Color="White" />
+                </Button.BorderBrush>
+            </Button>
+            <Button
                 Margin="0,0,20,0"
                 VerticalAlignment="Top"
                 Background="{StaticResource SelectedCardColor}"

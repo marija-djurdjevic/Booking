@@ -32,26 +32,28 @@ namespace BookingApp.View
         private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
         private readonly LiveTourRepository liveTourRepository;
         private readonly TourReservationRepository tourReservationRepository;
-        public LiveTourPage(int tourId)
+        private User loggedInUser;
+        public LiveTourPage(int tourId, User loggedInUser)
         {
 
             InitializeComponent();
             keyPointRepository = new KeyPointRepository();
-            DataContext = new LiveTourViewModel(tourId);
-            
+            DataContext = new LiveTourViewModel(tourId,loggedInUser);
+            this.loggedInUser = loggedInUser;
+
         }
 
 
         private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
         {
-            GuideMainPage guideMainPage = new GuideMainPage();
+            GuideMainPage guideMainPage = new GuideMainPage(loggedInUser);
             this.NavigationService.Navigate(guideMainPage);
         }
 
 
         private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
         {
-            SideMenuPage sideMenuPage = new SideMenuPage();
+            SideMenuPage sideMenuPage = new SideMenuPage(loggedInUser);
             this.NavigationService.Navigate(sideMenuPage);
         }
     }

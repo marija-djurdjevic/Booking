@@ -160,6 +160,19 @@
                                                         Content="START"
                                                         FontSize="28"
                                                         Style="{StaticResource CustomButtonStyle}" />
+
+
+                                                    <Button
+         Width="130"
+         Height="42"
+         Margin="335,-43,0,0"
+         Padding="-1"
+         Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+         CommandParameter="{Binding Id}"
+         Content="Details"
+         FontSize="28"
+         Style="{StaticResource CustomButtonStyle}" />
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -260,9 +273,21 @@
                                                         Padding="-1"
                                                         Command="{Binding Path=DataContext.CancelTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                                         CommandParameter="{Binding Id}"
-                                                        Content="CANCEL"
+                                                        Content="Cancel"
                                                         FontSize="28"
                                                         Style="{StaticResource CustomButtonStyle}" />
+
+
+                                                    <Button
+                                                            Width="130"
+                                                            Height="42"
+                                                            Margin="335,-43,0,0"
+                                                            Padding="-1"
+                                                            Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                            CommandParameter="{Binding Id}"
+                                                            Content="Details"
+                                                            FontSize="28"
+                                                            Style="{StaticResource CustomButtonStyle}" />
 
                                                 </StackPanel>
                                             </Grid>

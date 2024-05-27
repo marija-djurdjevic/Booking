@@ -17,22 +17,25 @@ namespace BookingApp.Domain.Models
         public DateTime ExpirationDate { get; set; }
         public bool IsUsed { get; set; }
 
+        public int GuideId { get; set; }
+
         public Voucher()
         {
             IsUsed = false;
         }
 
-        public Voucher(int tourist_id, string reason, DateTime expirationDate)
+        public Voucher(int tourist_id, string reason, DateTime expirationDate, int guideId)
         {
             TouristId = tourist_id;
             Reason = reason;
             ExpirationDate = expirationDate;
             IsUsed = false;
+            GuideId = guideId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), Reason, ExpirationDate.ToString("dd.MM.yyyy HH:mm:ss"), IsUsed.ToString() };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), Reason, ExpirationDate.ToString("dd.MM.yyyy HH:mm:ss"), IsUsed.ToString(),GuideId.ToString() };
             return csvValues;
         }
 
@@ -43,6 +46,7 @@ namespace BookingApp.Domain.Models
             Reason = values[2];
             ExpirationDate = DateTime.ParseExact(values[3], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
             IsUsed = Convert.ToBoolean(values[4]);
+            GuideId= Convert.ToInt32(values[5]);
         }
     }
 }

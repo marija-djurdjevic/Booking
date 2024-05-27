@@ -26,10 +26,10 @@ namespace BookingApp.View.GuideView
     public partial class TourReview : Page
     {
         
-        public TourReview(int tourId)
+        public TourReview(int tourId,User user)
         {
             InitializeComponent();
-            DataContext = new TourReviewViewModel(tourId);
+            DataContext = new TourReviewViewModel(tourId, user);
         }
 
 

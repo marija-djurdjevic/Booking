@@ -42,9 +42,9 @@ namespace BookingApp.Aplication.UseCases
             if (saveFileDialog.ShowDialog() == true)
             {
                 filePath = saveFileDialog.FileName;
+                Generate();
             }
 
-            Generate();
         }
         public void Generate()
         {
@@ -62,12 +62,17 @@ namespace BookingApp.Aplication.UseCases
                         page.Header().Element(ComposeHeader);
                         page.Content().Element(ComposeContent);
 
-                        page.Footer().PaddingBottom(10).AlignCenter()
+                        page.Footer().BorderTop(2).BorderColor(Colors.Green.Medium).PaddingBottom(10).AlignCenter()
                             .Text(x => { x.Span("Page "); x.CurrentPageNumber(); });
                     });
                 }).GeneratePdf(filePath);
 
-                Process.Start("explorer.exe", filePath);
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Pdf generated! Do you want to open file now?", "Open", MessageBoxButton.YesNo, MessageBoxImage.Warning, style);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Process.Start("explorer.exe", filePath);
+                }
             }
             catch (IOException)
             {
@@ -79,14 +84,26 @@ namespace BookingApp.Aplication.UseCases
         }
         void ComposeHeader(IContainer container)
         {
-            var titleStyle = TextStyle.Default.FontSize(25).Bold().FontColor(Colors.Green.Darken2);
+            var titleStyle = TextStyle.Default.FontSize(20).Bold().FontColor(Colors.Green.Darken2);
             var textStyle = TextStyle.Default.FontSize(18).SemiBold().FontColor(Colors.Black);
 
-            container.PaddingTop(10).Column(column =>
+            container.PaddingTop(0).BorderBottom(2).BorderColor(Colors.Green.Medium).Column(column =>
             {
+                column.Item().PaddingTop(5).AlignLeft().Row(row =>
+                {
+                    row.AutoItem().Width(55).AlignLeft().MaxWidth(50).ScaleToFit().Column(column =>
+                    {
+                        column.Item().AlignLeft().Height(50).Width(50).Image(ImageService.GetAbsolutePath(@"Resources\Icons\TouristIcons\mobile.png"));
+                    });
+                    row.RelativeItem().AlignLeft().Column(column =>
+                    {
+                        column.Item().AlignLeft().Text("BOOKING APP").Style(titleStyle).FontSize(28).FontFamily(Fonts.SegoeSD).FontColor(Colors.BlueGrey.Medium);
+                    });
+                });
+
                 column.Item().AlignCenter().Text("Statistics on tour requests").Style(titleStyle);
 
-                column.Item().PaddingTop(20).AlignLeft().Row(row =>
+                column.Item().PaddingTop(2).AlignLeft().Row(row =>
                 {
                     row.RelativeItem().Column(column =>
                     {
@@ -114,9 +131,9 @@ namespace BookingApp.Aplication.UseCases
             container.PaddingTop(0).PaddingBottom(0).AlignMiddle().Column(column =>
             {
 
-                column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(80).PaddingBottom(80).Row(row =>
+                column.Item().PaddingTop(5).PaddingBottom(5).Row(row =>
                 {
-                    row.RelativeItem().AlignLeft().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\PyeChart.png"));
+                    row.RelativeItem().Height(270).ScaleToFit().AlignLeft().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\PyeChart.png")).FitHeight();
                     row.RelativeItem().AlignRight().AlignCenter().PaddingTop(150).Text(text =>
                     {
                         text.Span($"The average number of people").Style(textStyle);
@@ -124,12 +141,12 @@ namespace BookingApp.Aplication.UseCases
                         text.Span($" {averageNumberOfPeople:F2}").SemiBold().Style(textStyle).FontColor(Colors.Red.Medium);
                     });
                 });
-                column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(40).PaddingBottom(40).AlignLeft().Column(row =>
+                column.Item().AlignMiddle().BorderTop(1).BorderColor(Colors.Red.Medium).PaddingTop(5).PaddingBottom(5).AlignLeft().Column(row =>
                 {
-                    row.Item().AlignRight().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LanguageChart.png"));
+                    row.Item().Height(270).ScaleToFit().AlignRight().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LanguageChart.png")).FitHeight();
                 });
 
-                column.Item().BorderBottom(2).BorderTop(2).BorderColor(Colors.Green.Medium).PaddingTop(40).PaddingBottom(40).AlignLeft().Column(row =>
+                column.Item().PaddingTop(5).PaddingBottom(5).AlignLeft().Column(row =>
                 {
                     row.Item().AlignRight().Image(ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LocationChart.png"));
                 });

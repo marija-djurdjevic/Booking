@@ -9,6 +9,7 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using GalaSoft.MvvmLight.Messaging;
 using BookingApp.Command;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -103,7 +104,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private void Help()
         {
-
+            new HelpShowAndSearchToursPage().Show();
         }
 
         public void GetAllTours()

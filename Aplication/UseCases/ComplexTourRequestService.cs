@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -75,6 +75,31 @@ namespace BookingApp.Aplication.UseCases
 
             return allComplexRequests;
         }
+
+
+        public List<ComplexTourRequest> GetAllPendingComplexRequests()
+        {
+            var allComplexRequests = complexTourRequestRepository.GetAll();
+            foreach (var complexRequest in allComplexRequests)
+            {
+                complexRequest.TourRequests = tourRequestRepository.GetByComplexId(complexRequest.Id);
+            }
+
+            // Ukloni prihvaćene zahteve
+            foreach (var complexRequest in allComplexRequests)
+            {
+                complexRequest.TourRequests = complexRequest.TourRequests.Where(tr => tr.Status != TourRequestStatus.Accepted).ToList();
+            }
+
+            // Provera statusa nakon filtriranja
+            CheckStatus(allComplexRequests);
+
+            // Filtriraj samo zahteve koji imaju ne-prihvaćene zahteve
+            var pendingRequests = allComplexRequests.Where(ct => ct.TourRequests.Any(tr => tr.Status != TourRequestStatus.Accepted)).ToList();
+
+            return pendingRequests;
+        }
+
 
         public void SortTours(ObservableCollection<Tuple<ComplexTourRequest, string>> unsorted, string sortBy)
         {

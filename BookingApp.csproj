@@ -46,6 +46,7 @@
     <None Remove="Resources\Icons\TouristIcons\invalid.png" />
     <None Remove="Resources\Icons\TouristIcons\mainWindow.png" />
     <None Remove="Resources\Icons\TouristIcons\middle.png" />
+    <None Remove="Resources\Icons\TouristIcons\mobile.png" />
     <None Remove="Resources\Icons\TouristIcons\pdf.png" />
     <None Remove="Resources\Icons\TouristIcons\pending.png" />
     <None Remove="Resources\Icons\TouristIcons\previous.png" />
@@ -54,6 +55,7 @@
     <None Remove="Resources\Icons\TouristIcons\round.png" />
     <None Remove="Resources\Icons\TouristIcons\show.png" />
     <None Remove="Resources\Icons\TouristIcons\showall.png" />
+    <None Remove="Resources\Icons\TouristIcons\skip.png" />
     <None Remove="Resources\Icons\TouristIcons\start.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Icons\TouristIcons\unarrived.png" />
@@ -96,6 +98,16 @@
     <None Remove="Resources\Images\TouristHelpImages\CreateTourRequestWindowHelp.png" />
     <None Remove="Resources\Images\TouristHelpImages\MyToursHelp.png" />
     <None Remove="Resources\Images\TouristHelpImages\MyToursHelp1.png" />
+    <None Remove="Resources\Images\TouristHelpImages\NotificationsHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\RateHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\SearchHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\ShowAndSearchHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\StatisticsHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\TourBookingWindowHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\TouristsDataHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\TourRequestHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\VoucherHelp.png" />
+    <None Remove="Resources\Images\TouristHelpImages\VouchersForReservationHelp.png" />
     <None Remove="Resources\Images\TouristWizardImages\1.1.png" />
     <None Remove="Resources\Images\TouristWizardImages\1.2.png" />
     <None Remove="Resources\Images\TouristWizardImages\1.3.mp4" />
@@ -126,6 +138,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\TouristIcons\mobile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\TouristIcons\skip.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -149,6 +167,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\TouristHelpImages\MyToursHelp1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\NotificationsHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\RateHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\SearchHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\ShowAndSearchHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\StatisticsHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\TourBookingWindowHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\TouristsDataHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\TourRequestHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\VoucherHelp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\TouristHelpImages\VouchersForReservationHelp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\TouristWizardImages\1.1.png">
@@ -291,12 +339,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\TourImages\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="WPF\Views\TouristView\ComplexTourRequestsPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>

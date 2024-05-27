@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Domain.Models;
 using BookingApp.View;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
@@ -23,10 +24,10 @@ namespace BookingApp.View.GuideView
     /// </summary>
     public partial class GuideMainPage : Page
     {
-        public GuideMainPage()
+        public GuideMainPage(User user)
         {
             InitializeComponent();
-            DataContext = new GuideMainPageViewModel();
+            DataContext = new GuideMainPageViewModel(user);
         }
 
        

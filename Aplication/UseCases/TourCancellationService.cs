@@ -25,7 +25,7 @@ namespace BookingApp.Aplication.UseCases
             this.touristService = touristService;
         }
 
-        public void CancelTour(Tour tour, List<KeyPoint> keyPoints, List<TourReservation> tourReservations)
+        public void CancelTour(Tour tour, List<KeyPoint> keyPoints, List<TourReservation> tourReservations,int guideId)
         {
             if ((tour.StartDateTime - DateTime.Now).TotalHours <= 48)
             {
@@ -35,9 +35,26 @@ namespace BookingApp.Aplication.UseCases
             liveTourService.RemoveLiveTour(tour.Id);
             tourReservationService.DeleteByTourId(tour.Id);
             DeleteTourAndKeyPoints(tour.Id);
-            GenerateVouchersForCanceledTourists(tour.Id, tourReservations);
+            GenerateVouchersForCanceledTourists(tour.Id, tourReservations,guideId);
             MessageBox.Show("Tour canceled successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+
+
+        public void QuitJob(Tour tour, List<KeyPoint> keyPoints, List<TourReservation> tourReservations, int guideId)
+        {
+           
+            liveTourService.RemoveLiveTour(tour.Id);
+            tourReservationService.DeleteByTourId(tour.Id);
+            DeleteTourAndKeyPoints(tour.Id);
+            GenerateVouchersForQuitJob(tour.Id, tourReservations, guideId);
+            
+        }
+
+
+
+
+
 
         private void DeleteTourAndKeyPoints(int tourId)
         {
@@ -45,7 +62,7 @@ namespace BookingApp.Aplication.UseCases
             keyPointService.DeleteKeyPoints(tourId);
         }
 
-        private void GenerateVouchersForCanceledTourists(int tourId, List<TourReservation> tourReservations)
+        private void GenerateVouchersForCanceledTourists(int tourId, List<TourReservation> tourReservations,int guideId)
         {
             var usersToReceiveVoucher = new List<int>();
 
@@ -62,9 +79,46 @@ namespace BookingApp.Aplication.UseCases
 
             foreach (var userId in usersToReceiveVoucher)
             {
-                GenerateVoucher(userId);
+                GenerateVoucher(userId,guideId);
             }
         }
+
+
+
+
+
+
+
+        private void GenerateVouchersForQuitJob(int tourId, List<TourReservation> tourReservations, int guideId)
+        {
+            var usersToReceiveVoucher = new List<int>();
+
+            foreach (var reservation in tourReservations)
+            {
+                int userId = reservation.UserId;
+                var tourist = touristService.GetByUserId(userId);
+
+                if (tourist != null && IsTouristReservationMatch(tourist, reservation))
+                {
+                    usersToReceiveVoucher.Add(userId);
+                }
+            }
+
+            foreach (var userId in usersToReceiveVoucher)
+            {
+                GenerateVoucherQuitJob(userId, guideId);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         private bool IsTouristReservationMatch(Tourist tourist, TourReservation reservation)
         {
@@ -73,17 +127,49 @@ namespace BookingApp.Aplication.UseCases
             return fullName == reservationFullName;
         }
 
-        private void GenerateVoucher(int userId)
+        private void GenerateVoucher(int userId,int guideId)
         {
+
+
+
             var newVoucher = new Voucher()
             {
                 TouristId = userId,
                 Reason = "Tour guide cancellation",
                 ExpirationDate = DateTime.Now.AddYears(1),
-                IsUsed = false
+                IsUsed = false,
+                GuideId = guideId
             };
 
             voucherService.Save(newVoucher);
         }
+
+
+
+
+        private void GenerateVoucherQuitJob(int userId, int guideId)
+        {
+            var existingVouchers = voucherService.GetVouchersForGuide(guideId);
+
+            foreach (var existingVoucher in existingVouchers)
+            {
+                existingVoucher.GuideId = -1;
+                voucherService.Update(existingVoucher);
+            }
+
+            var newVoucher = new Voucher()
+            {
+                TouristId = userId,
+                Reason = "Guide quit job",
+                ExpirationDate = DateTime.Now.AddYears(2),
+                IsUsed = false,
+                GuideId = guideId
+            };
+
+            voucherService.Save(newVoucher);
+        }
+
+
+
     }
 }

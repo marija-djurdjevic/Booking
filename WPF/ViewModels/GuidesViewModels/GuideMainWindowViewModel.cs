@@ -1,4 +1,5 @@
 ﻿using BookingApp.Command;
+using BookingApp.Domain.Models;
 using BookingApp.View;
 using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
@@ -14,10 +15,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
     public class GuideMainWindowViewModel:BaseViewModel
     {
         private RelayCommand goBackCommand; 
-        private RelayCommand goHomeCommand;  
-
-        public GuideMainWindowViewModel()
+        private RelayCommand goHomeCommand;
+        public User LoggedInUser { get; set; }
+        public GuideMainWindowViewModel(User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             goBackCommand = new RelayCommand(ExecuteGoBack);
             goHomeCommand = new RelayCommand(ExecuteGoHome);
         }
@@ -63,7 +65,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void ExecuteGoHome()
         {
-            var guideMainPage = new GuideMainPage();
+            var guideMainPage = new GuideMainPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(guideMainPage);
 
         }

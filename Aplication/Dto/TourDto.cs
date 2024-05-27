@@ -41,9 +41,10 @@ namespace BookingApp.Aplication.Dto
             this.locationDto = locationDto;
             this.imagesPaths = imagesPaths;
             keyPoints = new List<KeyPoint>();
+            //GuideId = guideId; // Dodajemo GuideId u konstruktoru
         }
 
-        public TourDto(Tour tour)
+        public TourDto(Tour tour/*, int guideId*/)
         {
             Id = tour.Id;
             language = tour.Language;
@@ -55,6 +56,24 @@ namespace BookingApp.Aplication.Dto
             imagesPaths = tour.ImagesPaths;
             locationDto = new LocationDto(tour.Location);
             keyPoints = tour.KeyPoints;
+            GuideId= tour.GuideId; 
+           // GuideId = guideId; // Dodajemo GuideId prilikom kreiranja TourDto iz Tour objekta
+        }
+
+
+        private int guideId;
+
+        public int GuideId
+        {
+            get { return guideId; }
+            set
+            {
+                if (value != guideId)
+                {
+                    guideId = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public List<KeyPoint> KeyPoints
@@ -178,7 +197,7 @@ namespace BookingApp.Aplication.Dto
         public Tour ToTour()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDateTime, Duration, ImagesPaths, location);
+            return new Tour(Id, Name, Description, Language, MaxTouristNumber, StartDateTime, Duration, ImagesPaths, location, GuideId); // Dodajte GuideId prilikom konverzije u Tour
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -25,10 +25,10 @@ namespace BookingApp.View.GuideView
     /// </summary>
     public partial class TourStatistic : Page
     {
-        public TourStatistic()
+        public TourStatistic(User user)
         {
             InitializeComponent();
-            DataContext = new TourStatisticViewModel();
+            DataContext = new TourStatisticViewModel(user);
         }
 
        

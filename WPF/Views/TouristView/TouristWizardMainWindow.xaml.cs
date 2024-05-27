@@ -164,6 +164,11 @@ namespace BookingApp.WPF.Views.TouristView
             this.Close();
         }
 
+        private void SkipButtonClick(object sender, RoutedEventArgs e)
+        {
+            VouchersButtonClick(sender,e);
+        }
+
         private void ReplayVideo(object sender, RoutedEventArgs e)
         {
             VideoPleyer.Position = TimeSpan.Zero;

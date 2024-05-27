@@ -15,7 +15,10 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="1" Source="/Resources/Images/TouristHelpImages/ComplexTourRequestsHelp.png" />
+            <Image
+                Grid.Row="1"
+                Width="800"
+                Source="/Resources/Images/TouristHelpImages/ComplexTourRequestsHelp.png" />
             <TextBlock
                 Grid.Row="0"
                 Margin="20"

@@ -18,6 +18,7 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -88,7 +89,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpRateTourWindow().Show();
         }
 
         private void CloseWindow()

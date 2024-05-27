@@ -6,6 +6,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View.TouristView;
 using BookingApp.WPF.Validations;
+using BookingApp.WPF.Views.TouristView;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Linq;
@@ -124,7 +125,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         //Verification
         private void Help()
         {
-
+            new HelpTourBookingWindow().Show();
         }
 
         private void CloseWindow()

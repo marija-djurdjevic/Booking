@@ -80,6 +80,9 @@
                         <Run FontSize="24" Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                   </TextBlock>
                         </TextBlock>
+                        <Button Content="Show Details" FontSize="20" Width="140" Height="30" Margin="60,-25,-630,0"  
+        Command="{Binding ShowDetailsCommand}" 
+       />
                     </StackPanel>
                 </Grid>
             </Border>

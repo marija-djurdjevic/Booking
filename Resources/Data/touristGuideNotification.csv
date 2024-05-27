@@ -13,9 +13,20 @@
 13|4|2|21|12.05.2024 18:06:40|TouristJoined|True|Pirot|Test tura|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
 14|15|2|21|12.05.2024 18:06:45|TouristJoined|False|Vranje|Test tura|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
 15|15|2|21|12.05.2024 18:06:49|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mile Todorovic
-16|4|2|21|12.05.2024 18:06:52|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mico Ilic
-17|4|2|21|12.05.2024 18:06:54|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Dragan Ivastanin
-18|4|2|21|12.05.2024 18:06:58|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Drago Sokcevic
-19|4|2|0|13.05.2024 08:56:14|RequestAccepted|True|||Ognjen|3|03.06.2024 08:56:00||
-20|4|2|37|13.05.2024 08:58:03|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00||
-21|15|2|37|13.05.2024 08:58:03|ToursOfInterestCreated|False|||Ognjen|0|01.01.0001 00:00:00||
+16|4|2|21|12.05.2024 18:06:52|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mico Ilic
+17|4|2|21|12.05.2024 18:06:54|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Dragan Ivastanin
+18|4|2|21|12.05.2024 18:06:58|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Drago Sokcevic
+19|4|2|0|26.05.2024 21:32:00|RequestAccepted|False|||Ognjen|4|27.05.2024 21:31:00||
+20|4|2|0|26.05.2024 21:33:00|RequestAccepted|False|||Ognjen|13|27.06.2024 21:32:00||
+21|4|2|0|26.05.2024 22:05:38|RequestAccepted|False|||Ognjen|12|18.05.2024 22:05:00||
+22|4|2|0|26.05.2024 22:06:06|RequestAccepted|False|||Ognjen|14|13.06.2024 22:06:00||
+23|4|2|0|26.05.2024 22:06:29|RequestAccepted|False|||Ognjen|5|07.06.2024 22:06:00||
+24|4|2|0|26.05.2024 22:06:41|RequestAccepted|False|||Ognjen|6|21.05.2024 22:06:00||
+25|4|2|0|27.05.2024 08:52:22|RequestAccepted|False|||Ognjen|15|31.05.2024 00:12:00||
+26|4|2|0|27.05.2024 12:40:02|RequestAccepted|False|||Ognjen|4|06.06.2024 12:39:00||
+27|4|2|0|27.05.2024 12:41:09|RequestAccepted|False|||Ognjen|5|03.06.2024 12:40:00||
+28|4|2|0|27.05.2024 12:49:41|RequestAccepted|False|||Ognjen|1|03.06.2024 12:49:00||
+29|4|2|0|27.05.2024 12:55:07|RequestAccepted|False|||Ognjen|2|12.06.2024 12:55:00||
+30|4|2|0|27.05.2024 12:55:26|RequestAccepted|False|||Ognjen|4|06.06.2024 12:55:00||
+31|4|2|0|27.05.2024 13:22:37|RequestAccepted|False|||Ognjen|4|06.06.2024 13:22:00||
+32|4|2|0|27.05.2024 13:23:03|RequestAccepted|False|||Ognjen|5|03.06.2024 13:22:00||

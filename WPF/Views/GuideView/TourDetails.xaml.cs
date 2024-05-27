@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.WPF.ViewModels.GuidesViewModel;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +12,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views.TouristView
+namespace BookingApp.WPF.Views.GuideView
 {
-    /// <summary>
-    /// Interaction logic for HelpSettingsWindow.xaml
-    /// </summary>
-    public partial class HelpSettingsWindow : Window
+ 
+    public partial class TourDetails : Page
     {
-        public HelpSettingsWindow()
+        public TourDetails(int tourId)
         {
             InitializeComponent();
+            DataContext = new TourDetailsViewModel(tourId);
         }
     }
 }
