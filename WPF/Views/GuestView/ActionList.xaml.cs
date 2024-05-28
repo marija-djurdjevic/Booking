@@ -58,5 +58,11 @@ namespace BookingApp.GuestView
             PropertyView propertyView = new PropertyView(LoggedInGuest);
             NavigationService.Navigate(propertyView);
         }
+
+        private void Forums_Click(object sender, RoutedEventArgs e)
+        {
+            ForumList forumList = new ForumList(LoggedInGuest);
+            NavigationService.Navigate(forumList);
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace BookingApp.Domain.Models
     {
         public int Id { get; set; }
         public int GuestId { get; set; }
-        Location Location { get; set; }
+        public Location Location { get; set; }
         public string Comment;
 
         public Forum()

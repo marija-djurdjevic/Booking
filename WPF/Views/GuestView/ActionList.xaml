@@ -38,7 +38,7 @@
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Review score" Width="222"/>
             </StackPanel>
         </Button>
-        <Button Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,457,0,0">
+        <Button Click="Forums_Click" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,457,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
                 <Image Source="\Resources\Images\chat.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Forums" Width="222"/>
