@@ -11,13 +11,29 @@ using System.Xml.Linq;
 
 namespace BookingApp.Aplication.Dto
 {
-    internal class ForumDto : INotifyPropertyChanged
+    public class ForumDto : INotifyPropertyChanged
     {
         private int guestId;
         private LocationDto locationDto = new LocationDto();
         private string comment;
         private string city;
         private string country;
+        private int comments;
+
+
+        public int Comments
+        {
+
+            get { return comments; }
+            set
+            {
+                if (value != comments)
+                {
+                    comments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public int GuestId
         {
@@ -98,13 +114,14 @@ namespace BookingApp.Aplication.Dto
         {
         }
 
-        public ForumDto(int guestId, LocationDto locationDto, string comment)
+        public ForumDto(int guestId, LocationDto locationDto, string comment, int comments)
         {
             this.guestId = guestId;
             this.comment = comment;
             this.locationDto = locationDto;
             city = locationDto.City;
             country = locationDto.Country;
+            this.comments = comments;
         }
 
         public ForumDto(Forum forum)
@@ -114,13 +131,14 @@ namespace BookingApp.Aplication.Dto
             locationDto = new LocationDto(forum.Location);
             city = forum.Location.City;
             country = forum.Location.Country;
+            comments = forum.Comments;
 
         }
 
         public Forum ToForum()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Forum(guestId, location, comment);
+            return new Forum(guestId, location, comment, comments);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

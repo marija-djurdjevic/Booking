@@ -14,10 +14,14 @@ namespace BookingApp.Aplication.UseCases
     {
         private GlobalLocationsService globalLocationsService;
         private readonly IForumRepository forumRepository;
+        private readonly IGuestRepository guestRepository;
+        private readonly IForumCommentRepository forumCommentRepository;
 
-        public ForumService(IForumRepository ForumRepository)
+        public ForumService(IForumRepository ForumRepository, IGuestRepository GuestRepository, IForumCommentRepository forumCommentRepository)
         {
             this.forumRepository = ForumRepository;
+            this.guestRepository = GuestRepository;
+            this.forumCommentRepository = forumCommentRepository;
             globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
         }
         public void LoadCitiesCountries(ObservableCollection<string> CitiesCountries)
@@ -32,6 +36,55 @@ namespace BookingApp.Aplication.UseCases
         public void AddNewForum(Forum NewForum)
         {
             forumRepository.AddForum(NewForum);
+        }
+
+        public List<Guest> GetAllGuests()
+        {
+            return guestRepository.GetAll();
+        }
+
+        public List<Forum> GetAllForums()
+        {
+            return forumRepository.GetAll();
+        }
+
+        public void MakeForumGuestsPairs(List<Forum> Forums, List<Guest> Guests, ObservableCollection<KeyValuePair<Forum, Guest>> ForumGuests)
+        {
+            foreach (Forum forum in Forums)
+            {
+                foreach (Guest guest in Guests)
+                {
+                    if (forum.GuestId == guest.Id)
+                    {
+                        var forumGuest = new KeyValuePair<Forum, Guest>(forum, guest);
+                        ForumGuests.Add(forumGuest);
+                    }
+                }
+            }
+        }
+
+        public ObservableCollection<KeyValuePair<ForumComment, Guest>> MakePairs(KeyValuePair<Forum, Guest> SelectedForum)
+        {
+            ObservableCollection<KeyValuePair<ForumComment, Guest>> HelpfulVar = new ObservableCollection<KeyValuePair<ForumComment, Guest>>();
+
+            foreach (ForumComment fc in forumCommentRepository.GetAll())
+            {
+                foreach (Guest g in guestRepository.GetAll())
+                {
+                    if (fc.AuthorId == g.Id && fc.ForumId == SelectedForum.Key.Id)
+                    {
+                        var forumcommentGuest = new KeyValuePair<ForumComment, Guest>(fc, g);
+                        HelpfulVar.Add(forumcommentGuest);
+                    }
+                }
+            }
+
+            return HelpfulVar;
+        }
+
+        public void SendComment(ForumComment forumComment)
+        {
+            forumCommentRepository.AddForumComment(forumComment);
         }
     }
 }
