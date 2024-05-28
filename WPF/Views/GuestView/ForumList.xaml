@@ -10,19 +10,103 @@
       d:DesignHeight="660"
       d:DesignWidth="450"
       mc:Ignorable="d">
+    
 
     <Grid
      Width="430"
      Margin="0,20,0,17"
      Background="#8FB9A8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="212*" />
-            <RowDefinition Height="301*" />
-            <RowDefinition Height="100*" />
+            <RowDefinition Height="90*" />
+            <RowDefinition Height="515*" />
+            <RowDefinition Height="18*" />
         </Grid.RowDefinitions>
 
-        <Image Margin="10,0,375,154" Source="\Resources\Images\chat.png" />
-        <Label FontFamily="Times New Roman" Margin="60,10,196,157" FontSize="26">Forums</Label>
-        <Button Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,10,30,157" Height="40" Width="150"></Button>
+        <Image Margin="10,0,375,10" Source="\Resources\Images\chat.png" />
+        <Label FontFamily="Times New Roman" Margin="65,0,196,0" FontSize="26" Height="54" VerticalAlignment="Center">Forums</Label>
+        <Button Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,10,30,28" Height="40" Width="150"/>
+
+        <ListBox
+        x:Name="forumsData"
+        Grid.Row="1"
+        Margin="0,0,10,0"
+        ItemsSource="{Binding ForumGuests}"
+        ScrollViewer.VerticalScrollBarVisibility="Auto"
+        SelectedItem="{Binding SelectedForum}"
+        d:ItemsSource="{d:SampleData ItemCount=5}"
+        Background="#8FB9A8"
+        SelectionChanged="forumData_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                <Border
+                Margin="5"
+                Background="BlanchedAlmond"
+                Width="380"
+                Height="150"
+                HorizontalAlignment="Left"
+                BorderBrush="#C8CECC"
+                BorderThickness="3"
+                CornerRadius="20">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10, 10, 0, 0">
+                    <TextBlock
+                    FontSize="24"
+                    FontFamily="Times New Roman"
+                    FontWeight="Bold"       
+                    Text="{Binding Key.Location.City}" />
+                                <Label Content=", "
+                                FontSize="20"
+                                FontFamily="Times New Roman"
+                                FontWeight="Bold"> 
+                                </Label>
+                                <TextBlock
+                                FontSize="24"
+                                FontFamily="Times New Roman"
+                                FontWeight="Bold"   
+                                Text="{Binding Key.Location.Country}" />
+                                <Label
+                                Margin="135, 0, 0, 0"
+                                 VerticalAlignment="Top"
+                                 FontFamily="Times New Roman"
+                                 Content="Comments: "/>
+                                <TextBlock
+                                FontSize="20"
+                                Margin="0, 0, 0, 0"
+                                FontFamily="Times New Roman"
+                                Text="{Binding Key.Comments}" />
+                                <Image
+                                Margin="10, 5, 0, 0"
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"/>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" Height="60" Margin="5,0,5,5" Width="380">
+                                <TextBlock
+                                Width="380"
+                                Height="60"
+                                TextWrapping="Wrap"
+                                FontSize="16"
+                                FontFamily="Times New Roman"
+                                Text="{Binding Key.Comment}" />    
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Width="270" Margin="90, 0, 0, 0">
+                                <Label FontFamily="Times New Roman" Margin="105, -3, 0, 0" VerticalAlignment="Top" Content="Author: "></Label>
+                                <TextBlock
+                                FontSize="16"
+                                FontFamily="Times New Roman"
+                                Text="{Binding Value.FirstName}" />
+                                <Label Content="">
+                                </Label>
+                                <TextBlock
+                                FontSize="16"
+                                FontFamily="Times New Roman"
+                                Text="{Binding Value.LastName}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>
