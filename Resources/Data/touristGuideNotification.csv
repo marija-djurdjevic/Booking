@@ -3,30 +3,34 @@
 3|4|2|17|12.05.2024 00:52:03|TouristJoined|True|Trebinje|Put na selo|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
 4|4|2|17|12.05.2024 00:52:06|TouristJoined|True|Trebinje|Put na selo|Ognjen|0|01.01.0001 00:00:00||Petar Marković
 5|15|2|17|12.05.2024 00:53:37|TouristJoined|True|Trebinje|Put na selo|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
-6|15|0|0|12.05.2024 00:56:01|VoucherWon|False||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.|
-7|15|2|1|12.05.2024 00:56:02|TouristJoined|False|Nova Topola|Izlet|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
-8|15|2|1|12.05.2024 00:56:07|TouristJoined|False|Nova Topola|Izlet|Ognjen|0|01.01.0001 00:00:00||Baba Ana
+6|15|0|0|12.05.2024 00:56:01|VoucherWon|True||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.|
+7|15|2|1|12.05.2024 00:56:02|TouristJoined|True|Nova Topola|Izlet|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
+8|15|2|1|12.05.2024 00:56:07|TouristJoined|True|Nova Topola|Izlet|Ognjen|0|01.01.0001 00:00:00||Baba Ana
 9|4|2|0|12.05.2024 01:07:22|RequestAccepted|True|||Ognjen|2|24.05.2024 01:07:00||
 10|4|2|34|12.05.2024 01:13:59|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00||
 11|4|2|35|12.05.2024 01:14:00|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00||
 12|4|2|36|12.05.2024 01:14:01|ToursOfInterestCreated|True|||Ognjen|0|01.01.0001 00:00:00||
 13|4|2|21|12.05.2024 18:06:40|TouristJoined|True|Pirot|Test tura|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
-14|15|2|21|12.05.2024 18:06:45|TouristJoined|False|Vranje|Test tura|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
-15|15|2|21|12.05.2024 18:06:49|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mile Todorovic
-16|4|2|21|12.05.2024 18:06:52|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mico Ilic
-17|4|2|21|12.05.2024 18:06:54|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Dragan Ivastanin
-18|4|2|21|12.05.2024 18:06:58|TouristJoined|False|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Drago Sokcevic
-19|4|2|0|26.05.2024 21:32:00|RequestAccepted|False|||Ognjen|4|27.05.2024 21:31:00||
-20|4|2|0|26.05.2024 21:33:00|RequestAccepted|False|||Ognjen|13|27.06.2024 21:32:00||
-21|4|2|0|26.05.2024 22:05:38|RequestAccepted|False|||Ognjen|12|18.05.2024 22:05:00||
-22|4|2|0|26.05.2024 22:06:06|RequestAccepted|False|||Ognjen|14|13.06.2024 22:06:00||
-23|4|2|0|26.05.2024 22:06:29|RequestAccepted|False|||Ognjen|5|07.06.2024 22:06:00||
-24|4|2|0|26.05.2024 22:06:41|RequestAccepted|False|||Ognjen|6|21.05.2024 22:06:00||
-25|4|2|0|27.05.2024 08:52:22|RequestAccepted|False|||Ognjen|15|31.05.2024 00:12:00||
-26|4|2|0|27.05.2024 12:40:02|RequestAccepted|False|||Ognjen|4|06.06.2024 12:39:00||
-27|4|2|0|27.05.2024 12:41:09|RequestAccepted|False|||Ognjen|5|03.06.2024 12:40:00||
-28|4|2|0|27.05.2024 12:49:41|RequestAccepted|False|||Ognjen|1|03.06.2024 12:49:00||
-29|4|2|0|27.05.2024 12:55:07|RequestAccepted|False|||Ognjen|2|12.06.2024 12:55:00||
-30|4|2|0|27.05.2024 12:55:26|RequestAccepted|False|||Ognjen|4|06.06.2024 12:55:00||
-31|4|2|0|27.05.2024 13:22:37|RequestAccepted|False|||Ognjen|4|06.06.2024 13:22:00||
-32|4|2|0|27.05.2024 13:23:03|RequestAccepted|False|||Ognjen|5|03.06.2024 13:22:00||
+14|15|2|21|12.05.2024 18:06:45|TouristJoined|True|Vranje|Test tura|Ognjen|0|01.01.0001 00:00:00||Marko Markovic
+15|15|2|21|12.05.2024 18:06:49|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mile Todorovic
+16|4|2|21|12.05.2024 18:06:52|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Mico Ilic
+17|4|2|21|12.05.2024 18:06:54|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Dragan Ivastanin
+18|4|2|21|12.05.2024 18:06:58|TouristJoined|True|Kragujevac|Test tura|Ognjen|0|01.01.0001 00:00:00||Drago Sokcevic
+19|4|2|0|26.05.2024 21:32:00|RequestAccepted|True|||Ognjen|4|27.05.2024 21:31:00||
+20|4|2|0|26.05.2024 21:33:00|RequestAccepted|True|||Ognjen|13|27.06.2024 21:32:00||
+21|4|2|0|26.05.2024 22:05:38|RequestAccepted|True|||Ognjen|12|18.05.2024 22:05:00||
+22|4|2|0|26.05.2024 22:06:06|RequestAccepted|True|||Ognjen|14|13.06.2024 22:06:00||
+23|4|2|0|26.05.2024 22:06:29|RequestAccepted|True|||Ognjen|5|07.06.2024 22:06:00||
+24|4|2|0|26.05.2024 22:06:41|RequestAccepted|True|||Ognjen|6|21.05.2024 22:06:00||
+25|4|2|0|27.05.2024 08:52:22|RequestAccepted|True|||Ognjen|15|31.05.2024 00:12:00||
+26|4|2|0|27.05.2024 12:40:02|RequestAccepted|True|||Ognjen|4|06.06.2024 12:39:00||
+27|4|2|0|27.05.2024 12:41:09|RequestAccepted|True|||Ognjen|5|03.06.2024 12:40:00||
+28|4|2|0|27.05.2024 12:49:41|RequestAccepted|True|||Ognjen|1|03.06.2024 12:49:00||
+29|4|2|0|27.05.2024 12:55:07|RequestAccepted|True|||Ognjen|2|12.06.2024 12:55:00||
+30|4|2|0|27.05.2024 12:55:26|RequestAccepted|True|||Ognjen|4|06.06.2024 12:55:00||
+31|4|2|0|27.05.2024 13:22:37|RequestAccepted|True|||Ognjen|4|06.06.2024 13:22:00||
+32|4|2|0|27.05.2024 13:23:03|RequestAccepted|True|||Ognjen|5|03.06.2024 13:22:00||
+33|4|1|59|28.05.2024 15:36:21|TouristJoined|True|b|1|Ognjen|0|01.01.0001 00:00:00||Душко Пилиповић
+34|4|1|0|28.05.2024 15:43:08|RequestAccepted|True|||Ognjen Papovic|6|23.12.2024 15:43:00||
+35|4|0|0|28.05.2024 15:44:30|VoucherWon|True||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.|
+36|4|1|60|28.05.2024 15:44:32|TouristJoined|True|b|1|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић

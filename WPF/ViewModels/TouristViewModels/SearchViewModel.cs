@@ -12,6 +12,7 @@ using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Xceed.Wpf.Toolkit;
 using BookingApp.WPF.Views.TouristView;
+using BookingApp.UseCases;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -27,6 +28,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private List<string> cities;
 
         private readonly TourService TourService;
+        private readonly GuideService guideService;
         private readonly GlobalLanguagesService GlobalLanguagesService;
         private readonly SearchTourService SearchTourService;
         private readonly GlobalLocationsService GlobalLocationsService;
@@ -58,6 +60,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             SelectedLocation = new LocationDto();
 
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
+            guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             GlobalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             GlobalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
 
@@ -121,7 +124,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             {
                 Style style = Application.Current.FindResource("MessageStyle") as Style;
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours with that parameters!", "Search", MessageBoxButton.OK, MessageBoxImage.Information, style);
-                UpdateCollection(TourService.GetAll());
+                UpdateCollection(TourService.GetAllSorted());
             }
             Messenger.Default.Send(new NotificationMessage("CloseSearchWindowMessage"));
         }
@@ -131,7 +134,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Tours.Clear();
             foreach (var tour in tours)
             {
-                Tours.Add(new TourDto(tour));
+                TourDto tourDto = new TourDto(tour);
+                if (guideService.IsSuperGuideById(tourDto.GuideId))
+                {
+                    tourDto.IsCreatedBySuperGuide = true;
+                }
+                Tours.Add(tourDto);
             }
         }
 

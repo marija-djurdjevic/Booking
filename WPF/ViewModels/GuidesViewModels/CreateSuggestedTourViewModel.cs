@@ -562,7 +562,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
               
                 foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
                 {
-                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,2,newTourDto.Id,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,"Ognjen");
+                    IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                    var Guide= guideRepository.GetById(LoggedInUser.Id);
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,Guide.Id,newTourDto.Id,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,Guide.FirstName+' '+Guide.LastName);
                     notificationService.Save(touristGuideNotification);
                 }
                 MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

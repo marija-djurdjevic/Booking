@@ -10,6 +10,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using GalaSoft.MvvmLight.Messaging;
 using BookingApp.Command;
 using BookingApp.WPF.Views.TouristView;
+using BookingApp.UseCases;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -32,6 +33,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
+        private readonly GuideService guideService;
         private readonly TouristGuideNotificationService notificationService;
 
         private bool _isShowAllButtonVisible;
@@ -51,6 +53,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
+            guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
@@ -112,7 +115,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Tours.Clear();
             foreach (var tour in tourService.GetAllSorted())
             {
-                Tours.Add(new TourDto(tour));
+                TourDto tourDto = new TourDto(tour);
+                if (guideService.IsSuperGuideById(tourDto.GuideId))
+                {
+                    tourDto.IsCreatedBySuperGuide = true;
+                }
+                Tours.Add(tourDto);
             }
         }
 
@@ -137,7 +145,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             if (message.Notification == "ShowAllButtonMessage")
             {
-                IsShowAllButtonVisible=true;
+                IsShowAllButtonVisible = true;
             }
         }
 
@@ -169,7 +177,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 Tours.Clear();
                 foreach (var tour in unBookedToursInCity)
                 {
-                    Tours.Add(new TourDto(tour));
+                    TourDto tourDto = new TourDto(tour);
+                    if (guideService.IsSuperGuideById(tourDto.GuideId))
+                    {
+                        tourDto.IsCreatedBySuperGuide = true;
+                    }
+                    Tours.Add(tourDto);
                 }
             }
             else

@@ -190,9 +190,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
             if (tourReservationService.IsUserOnTour(selectedTourist.UserId, selectedTourist.TourId))
             {
+                IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                var Guide = guideRepository.GetById(LoggedInUser.Id);
                 List<string> addedPersons = new List<string>();
                 addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
-                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
+                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, Guide.Id, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, Guide.FirstName+' '+Guide.LastName, SelectedTour.Name));
             }
             var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
             Tourists = new ObservableCollection<TourReservation>(tourists);

@@ -56,6 +56,7 @@
     <None Remove="Resources\Icons\TouristIcons\show.png" />
     <None Remove="Resources\Icons\TouristIcons\showall.png" />
     <None Remove="Resources\Icons\TouristIcons\skip.png" />
+    <None Remove="Resources\Icons\TouristIcons\star.png" />
     <None Remove="Resources\Icons\TouristIcons\start.png" />
     <None Remove="Resources\Icons\TouristIcons\tooltip.png" />
     <None Remove="Resources\Icons\TouristIcons\unarrived.png" />
@@ -142,6 +143,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\TouristIcons\skip.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\TouristIcons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\add.png">

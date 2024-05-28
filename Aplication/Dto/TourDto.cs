@@ -18,6 +18,7 @@ namespace BookingApp.Aplication.Dto
         private string language;
         private int maxTouristsNumber;
         private DateTime startDateTime;
+        private Boolean isCreatedBySuperGuide;
         private double duration;
         private LocationDto locationDto = new LocationDto();
         private List<string> imagesPaths = new List<string>();
@@ -28,6 +29,7 @@ namespace BookingApp.Aplication.Dto
             locationDto = new LocationDto();
             imagesPaths = new List<string>();
             keyPoints = new List<KeyPoint>();
+            isCreatedBySuperGuide = false;
         }
 
         public TourDto(string name, string description, string language, int maxTouristsNumber, DateTime startTime, double duration, LocationDto locationDto, List<string> imagesPaths)
@@ -41,6 +43,7 @@ namespace BookingApp.Aplication.Dto
             this.locationDto = locationDto;
             this.imagesPaths = imagesPaths;
             keyPoints = new List<KeyPoint>();
+            isCreatedBySuperGuide = false;
             //GuideId = guideId; // Dodajemo GuideId u konstruktoru
         }
 
@@ -57,6 +60,7 @@ namespace BookingApp.Aplication.Dto
             locationDto = new LocationDto(tour.Location);
             keyPoints = tour.KeyPoints;
             GuideId= tour.GuideId; 
+            isCreatedBySuperGuide= false;
            // GuideId = guideId; // Dodajemo GuideId prilikom kreiranja TourDto iz Tour objekta
         }
 
@@ -71,6 +75,19 @@ namespace BookingApp.Aplication.Dto
                 if (value != guideId)
                 {
                     guideId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsCreatedBySuperGuide
+        {
+            get { return isCreatedBySuperGuide; }
+            set
+            {
+                if (value != isCreatedBySuperGuide)
+                {
+                    isCreatedBySuperGuide = value;
                     OnPropertyChanged();
                 }
             }

@@ -168,7 +168,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 {
                     tourRequestService.UpdateRequestById(id, SelectedDateTime, LoggedInUser);
                     IsAccepted = true;
-                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, 2, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, "Ognjen", SelectedDateTime);
+                    IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                    var Guide = guideRepository.GetById(LoggedInUser.Id);
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, Guide.Id, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, Guide.FirstName+' '+Guide.LastName, SelectedDateTime);
                     notificationService.Save(touristGuideNotification);
                     MessageBox.Show("Tour request successfully accepted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
