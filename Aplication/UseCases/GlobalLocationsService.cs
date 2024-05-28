@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace BookingApp.Aplication.UseCases
     public class GlobalLocationsService
     {
         private IGlobalLocationsRepository globalLocationsRepository;
+        private PropertyRepository propertyRepository;
         public GlobalLocationsService(IGlobalLocationsRepository globalLocationsRepository) 
         {
             this.globalLocationsRepository = globalLocationsRepository;
+            propertyRepository = new PropertyRepository();
         }
         public List<string> GetAllCities()
         {
@@ -35,7 +38,38 @@ namespace BookingApp.Aplication.UseCases
             return globalLocationsRepository.GetCountryForCity(city);
         }
 
+        public List<(string, string)> GetAllLocations()
+        {
+            List<(string, string)> allCitiesAndCountries = new List<(string, string)>();
 
+            List<string> allCities = GetAllCities();
+            foreach (var city in allCities)
+            {
+                string country = GetCountryForCity(city);
+                allCitiesAndCountries.Add((city, country));
+
+            }
+
+            return allCitiesAndCountries;
+        }
+
+        public List<string> GetPropertiesLocations()
+        {
+            List<string> Locations = new List<string>();
+            List<(string, string)> allPropertiesCitiesAndCountries = new List<(string, string)>();
+            List<Property> properties = new List<Property>();
+            properties = propertyRepository.GetAllProperties();
+            foreach (Property p in properties){
+                allPropertiesCitiesAndCountries.Add((p.Location.City, p.Location.Country));
+            }
+
+            foreach ((string, string) loc in allPropertiesCitiesAndCountries)
+            {
+                Locations.Add($"{loc.Item1}, {loc.Item2}");
+            }
+
+            return Locations;
+        }
 
         public List<string> GetRandomCitiesAndCountries()
         {
@@ -49,7 +83,6 @@ namespace BookingApp.Aplication.UseCases
             {
                 string country = GetCountryForCity(city);
                 allCitiesAndCountries.Add((city, country));
-
             }
 
             List<int> randomIndexes = new List<int>();

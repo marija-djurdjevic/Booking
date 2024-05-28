@@ -37,6 +37,8 @@ namespace BookingApp.Aplication
         { typeof(IGuestRepository), new GuestRepository() },
         { typeof(IGuideRepository), new GuideRepository() },
         { typeof(IGuestNotificationRepository), new GuestNotificationsRepository() },
+        { typeof(IForumRepository), new ForumRepository() },
+
 
 
 

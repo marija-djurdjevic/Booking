@@ -86,6 +86,7 @@
     <None Remove="Resources\Images\logout.png" />
     <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
+    <None Remove="Resources\Images\notepad.png" />
     <None Remove="Resources\Images\star %282%29.png" />
     <None Remove="Resources\Images\TouristExperienceImages\add.png" />
     <None Remove="Resources\Images\menu5.png" />
@@ -332,6 +333,7 @@
     <Resource Include="Resources\Images\logout.png" />
     <Resource Include="Resources\Images\menu-burger.png" />
     <Resource Include="Resources\Images\menu5.png" />
+    <Resource Include="Resources\Images\notepad.png" />
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />
     <Resource Include="Resources\Images\question.png" />
