@@ -1,4 +1,5 @@
-﻿using BookingApp.View.GuideView;
+﻿using BookingApp.Domain.Models;
+using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,23 @@ namespace BookingApp.View
     /// </summary>
     public partial class SideMenuPage : Page
     {
-        public SideMenuPage()
+        public SideMenuPage(User user)
         {
             InitializeComponent();
-            DataContext = new SideMenuViewModel();
+            DataContext = new SideMenuViewModel(user);
         }
 
-       
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+
+            SignInForm signInWindow = new SignInForm();
+            signInWindow.Show();
+
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Close();
+
+
+
+        }
     }
 }

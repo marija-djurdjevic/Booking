@@ -32,12 +32,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private int maxTouristNumber;
         private TourDto tourDto;
         private BitmapImage currentImage;
-        private readonly TourService tourService;
-        private readonly KeyPointService keyPointService;
-        private readonly TourRepository tourRepository;
-        private readonly KeyPointRepository keyPointRepository;
         private readonly ImageService imageService;
-        private TourRequestService tourRequestService;
+        private readonly CreateTourService createTourService;
+        private TourRequestService tourRequestService; 
         private RequestStatisticService requestStatisticService;
         private GlobalLanguagesService globalLanguagesService;
         private TouristGuideNotificationService notificationService;
@@ -60,21 +57,18 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public ObservableCollection<string> Langugages { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> CitiesCountries { get; set; } = new ObservableCollection<string>();
 
-
-        public CreateSuggestedTourViewModel()
+        public User LoggedInUser { get; set; }
+        public CreateSuggestedTourViewModel(User loggedInUser)
         {
-            tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            tourRepository = new TourRepository();
-            keyPointRepository = new KeyPointRepository();
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             MostRequestedLanguage = requestStatisticService.GetMostRequestedLanguage();
-            MostRequestedLocation= requestStatisticService.GetMostRequestedLocation();
+            MostRequestedLocation = requestStatisticService.GetMostRequestedLocation();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             globalLocationsService = new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
+            createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
             uploadImageCommand = new RelayCommand(UploadImage);
             removeKeyPointCommand = new RelayCommand(RemoveKeyPoint);
             addKeyPointCommand = new RelayCommand(AddKeyPoint);
@@ -90,6 +84,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             SelectedLocation = MostRequestedLocation;
             LoadLanguages();
             LoadCitiesCountries();
+            LoggedInUser = loggedInUser;
         }
 
 
@@ -428,7 +423,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -562,21 +557,17 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 }
                 LocationDto newLocationDto = GetLocationDto();
                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
-                CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
-                (bool success,int tourId) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
-                if (success)
+                newTourDto.GuideId = LoggedInUser.Id;
+                createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
+              
+                foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
                 {
-                    foreach (var touristId in tourRequestService.GetTouristIdsInterestedForTour(newTourDto.Language, newTourDto.LocationDto.City))
-                    {
-                        TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId, 2, tourId, DateTime.Now, Domain.Models.Enums.NotificationType.ToursOfInterestCreated, "Ognjen");
-                        notificationService.Save(touristGuideNotification);
-                    }
-                    MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                    var Guide= guideRepository.GetById(LoggedInUser.Id);
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(touristId,Guide.Id,newTourDto.Id,DateTime.Now,Domain.Models.Enums.NotificationType.ToursOfInterestCreated,Guide.FirstName+' '+Guide.LastName);
+                    notificationService.Save(touristGuideNotification);
                 }
-                else
-                {
-                    MessageBox.Show("Failed to create tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

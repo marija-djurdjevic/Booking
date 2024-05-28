@@ -29,8 +29,10 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private List<TourRequest> allRequests;
         private RelayCommand sideMenuCommand;
         private RelayCommand resetSearchCommand;
-        public TourRequestViewModel()
+        public User LoggedInUser { get; set; }
+        public TourRequestViewModel(User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             TourRequests = new ObservableCollection<TourRequest>(tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending));
@@ -43,6 +45,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             acceptCommand = new RelayCommand(ExecuteAcceptCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             resetSearchCommand = new RelayCommand(ExecuteResetSearchCommand);
+            LoggedInUser = loggedInUser;
         }
 
         public RelayCommand SideManuCommand
@@ -62,7 +65,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -188,7 +191,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteAcceptCommand(object parameter)
         {
             int id = Convert.ToInt32(parameter);
-            var acceptTour = new AcceptTourRequest(id);
+            var acceptTour = new AcceptTourRequest(id,LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(acceptTour);
 
         }

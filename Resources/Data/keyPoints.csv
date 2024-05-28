@@ -1,144 +1,151 @@
-1|1|Novi Sad|Begining|1|False
-2|1|Ruma|Middle|2|False
-3|1|Mitrovica|Middle|3|False
-4|1|Beograd|Middle|4|False
-5|1|Raca|Middle|5|False
-6|1|Zvornik|Middle|6|False
-7|1|Trebinje|End|7|False
-8|2|Novi Sad|Begining|1|False
-9|2|Ruma|Middle|2|False
-10|2|Mitrovica|Middle|3|False
-11|2|Beograd|Middle|4|False
-12|2|Raca|Middle|5|False
-13|2|Zvornik|Middle|6|False
-14|2|Trebinje|End|7|False
-22|4|Novi Sad|Begining|1|False
-23|4|Ruma|Middle|2|False
-25|4|Batrovci|Middle|3|False
-26|4|Gradiska|Middle|4|False
-27|4|Nova Topola|Middle|5|False
-28|4|Aleksandrovac|Middle|6|False
-29|4|Miljevici|End|7|False
-30|5|Novi Sad|Begining|1|False
-31|5|Ruma|Middle|2|False
-32|5|Batrovci|Middle|3|False
-33|5|Gradiska|Middle|4|False
-34|5|Nova Topola|Middle|5|False
-35|5|Aleksandrovac|Middle|6|False
-36|5|Miljevici|End|7|False
-37|8|Linz|Begining|1|False
-38|8|Banja Luka|Middle|2|False
-39|8|Sarajevo|Middle|3|False
-40|8|Leskovac|Middle|4|False
-41|8|Gornji Milanovac|Middle|5|False
-42|8|Beograd|Middle|6|False
-43|8|Novi Sad|Middle|7|False
-44|8|Subotica|End|8|False
-45|9|Linz|Begining|1|False
-46|9|Banja Luka|Middle|2|False
-47|9|Sarajevo|Middle|3|False
-48|9|Leskovac|Middle|4|False
-49|9|Gornji Milanovac|Middle|5|False
-50|9|Beograd|Middle|6|False
-51|9|Novi Sad|Middle|7|False
-52|9|Subotica|End|8|False
-53|10|Vienna|Begining|1|False
-54|10|Banja Luka|Middle|2|False
-55|10|Beograd|Middle|3|False
-56|10|Novi Sad|End|4|False
-57|11|Vienna|Begining|1|False
-58|11|Banja Luka|Middle|2|False
-59|11|Beograd|Middle|3|False
-60|11|Novi Sad|End|4|False
-61|12|adfadf|Begining|1|False
-62|12|adfadfadf|End|2|False
-63|13|sdsD|Begining|1|False
-64|13|sdsDsdSD|End|2|False
-65|14|aaaaa|Begining|1|False
-66|14|ssssss|Middle|2|False
-67|14|ddddd|Middle|3|False
-68|14|fffffff|End|4|False
-69|15|aaaaa|Begining|1|False
-70|15|ssssss|Middle|2|False
-71|15|ddddd|Middle|3|False
-72|15|fffffff|End|4|False
-73|16|jedan|Begining|1|True
-74|16|dva|Middle|2|True
-75|16|tri|Middle|3|False
-76|16|cetiri|Middle|4|False
-77|16|pet|End|5|False
-78|17|asasas|Begining|1|True
-79|17|asasasasd|Middle|2|False
-80|17|asasasasdasdasd|Middle|3|False
-81|17|asa|End|4|False
-82|18|tacka1|Begining|1|True
-83|18|tacka2|Middle|2|False
-84|18|tacka3|Middle|3|False
-85|18|tacka4|Middle|4|False
-86|18|tacka5|Middle|5|False
-87|18|tacka6|Middle|6|False
-88|18|tacka7|End|7|False
-89|19|AAAA|Begining|1|True
-90|19|AAAASSSS|Middle|2|False
-91|19|AAAASSSSDDDD|Middle|3|False
-92|19|AAAASSSSDDDDFFFF|Middle|4|False
-93|19|AAAASSSSDDDDFFFFGGGG|Middle|5|False
-94|19|AAAASSSSDDDDFFFFGGGGHHHH|End|6|False
-95|20|afadfadf|Begining|1|True
-96|20|afadfadfafadf|End|2|False
-97|21|AFAFADF|Begining|1|True
-98|21|AFAFADFADF|Middle|2|True
-99|21|AFAFADFADF|Middle|3|True
-100|21|AFAFADFADF|Middle|4|True
-101|21|AFAFADFADF|Middle|5|True
-102|21|AFAFADFADF|End|6|True
-103|21|ssss|Begining|1|True
-104|21|ssssdddd|Middle|2|True
-105|21|ssssddddfff|End|3|True
-106|22|ssss|Begining|1|False
-107|22|ssssdddd|Middle|2|False
-108|22|ssssddddfff|End|3|False
-109|23|ssss|Begining|1|False
-110|23|ssssdddd|Middle|2|False
-111|23|ssssddddfff|End|3|False
-112|24|ssss|Begining|1|False
-113|24|ssssdddd|Middle|2|False
-114|24|ssssddddfff|End|3|False
-115|25|ssss|Begining|1|False
-116|25|ssssdddd|Middle|2|False
-117|25|ssssddddfff|End|3|False
-118|26|Start point|Begining|1|True
-119|26|Middle point 1|Middle|2|True
-120|26|Middle point 2|Middle|3|True
-121|26|Middle point 3|Middle|4|True
-122|26|Middle point 4|Middle|5|True
-123|26|End point|End|6|True
-118|26|adfdf|Begining|1|False
-119|26|adfdfadf|End|2|False
-124|27|aaa|Begining|1|False
-125|27|dddd|End|2|False
-126|28|AAA|Begining|1|False
-127|28|SSSS|End|2|False
-128|29|adf|Begining|1|False
-129|29|adf|End|2|False
-130|30|aaaa|Begining|1|False
-131|30|sssss|End|2|False
-132|31|aaaa|Begining|1|False
-133|31|sssss|End|2|False
-134|32|sa|Begining|1|False
-135|32|adfadf|End|2|False
-136|33|afadf|Begining|1|False
-137|33|sfsfgsfg|End|2|False
-138|34|ddd|Begining|1|False
-139|34|fffff|End|2|False
-140|35|pariz|Begining|1|False
-141|35|london|Middle|2|False
-142|35|lisabon|End|3|False
-143|36|f|Begining|1|False
-144|36|ggg|End|2|False
-145|37|1|Begining|1|True
-146|37|2|Middle|2|True
-147|37|3|End|3|True
-148|38|1|Begining|1|True
-149|38|2|Middle|2|True
-150|38|3|End|3|True
+11|3|Banja Luka|Begining|1|False
+12|3|Nova Topola|Middle|2|False
+13|3|Gradiška|Middle|3|False
+14|3|Zagreb|Middle|4|False
+15|3|Rim|End|5|False
+16|4|Novi Sad|Begining|1|False
+17|4|Beograd|Middle|2|False
+18|4|Bijeljina|Middle|3|False
+19|4|Zagreb|Middle|4|False
+20|4|Rim|Middle|5|False
+21|4|Pariz|Middle|6|False
+22|4|Madrid|Middle|7|False
+23|4|Barselona|End|8|False
+32|6|Novi Sad|Begining|1|False
+33|6|Beograd|Middle|2|False
+34|6|Bijeljina|Middle|3|False
+35|6|Zagreb|Middle|4|False
+36|6|Rim|Middle|5|False
+37|6|Pariz|Middle|6|False
+38|6|Madrid|Middle|7|False
+39|6|Barselona|End|8|False
+40|7|Novi Sad|Begining|1|False
+41|7|Beograd|Middle|2|False
+42|7|Bijeljina|Middle|3|False
+43|7|Zagreb|Middle|4|False
+44|7|Rim|Middle|5|False
+45|7|Pariz|Middle|6|False
+46|7|Madrid|Middle|7|False
+47|7|Barselona|End|8|False
+56|9|Novi Sad|Begining|1|False
+57|9|Beograd|Middle|2|False
+58|9|Bijeljina|Middle|3|False
+59|9|Zagreb|Middle|4|False
+60|9|Rim|Middle|5|False
+61|9|Pariz|Middle|6|False
+62|9|Madrid|Middle|7|False
+63|9|Barselona|End|8|False
+64|10|Sarajevo|Begining|1|True
+65|10|Foca|Middle|2|True
+66|10|Bijeljina|Middle|3|True
+67|10|Beograd|Middle|4|True
+68|10|Pirot|Middle|5|True
+69|10|Atina|End|6|True
+70|11|Sarajevo|Begining|1|False
+71|11|Foca|Middle|2|False
+72|11|Bijeljina|Middle|3|False
+73|11|Beograd|Middle|4|False
+74|11|Pirot|Middle|5|False
+75|11|Atina|End|6|False
+76|12|Sarajevo|Begining|1|False
+77|12|Foca|Middle|2|False
+78|12|Bijeljina|Middle|3|False
+79|12|Beograd|Middle|4|False
+80|12|Pirot|Middle|5|False
+81|12|Atina|End|6|False
+82|13|Novi Sad|Begining|1|False
+83|13|Bijeljina|Middle|2|False
+84|13|Trebinje|Middle|3|False
+85|13|Miljevići|End|4|False
+86|14|Novi Sad|Begining|1|False
+87|14|Bijeljina|Middle|2|False
+88|14|Trebinje|Middle|3|False
+89|14|Miljevići|End|4|False
+90|15|Novi Sad|Begining|1|False
+91|15|Bijeljina|Middle|2|False
+92|15|Trebinje|Middle|3|False
+93|15|Miljevići|End|4|False
+94|16|Novi Sad|Begining|1|False
+95|16|Bijeljina|Middle|2|False
+96|16|Trebinje|Middle|3|False
+97|16|Miljevići|End|4|False
+98|17|Novi Sad|Begining|1|True
+99|17|Bijeljina|Middle|2|True
+100|17|Trebinje|Middle|3|True
+101|17|Miljevići|End|4|True
+102|18|Novi Sad|Begining|1|False
+103|18|Bijeljina|Middle|2|False
+104|18|Trebinje|Middle|3|False
+105|18|Miljevići|End|4|False
+106|19|Novi Sad|Begining|1|False
+107|19|Bijeljina|Middle|2|False
+108|19|Trebinje|Middle|3|False
+109|19|Miljevići|End|4|False
+110|20|Novi Sad|Begining|1|False
+111|20|Bijeljina|Middle|2|False
+112|20|Trebinje|Middle|3|False
+113|20|Miljevići|End|4|False
+114|21|Pirot|Begining|1|True
+115|21|Vranje|Middle|2|True
+116|21|Kragujevac|Middle|3|True
+117|21|Novi Sad|End|4|True
+118|22|Pirot|Begining|1|False
+119|22|Vranje|Middle|2|False
+120|22|Kragujevac|Middle|3|False
+121|22|Novi Sad|End|4|False
+122|23|Pirot|Begining|1|False
+123|23|Vranje|Middle|2|False
+124|23|Kragujevac|Middle|3|False
+125|23|Novi Sad|End|4|False
+126|24|Pirot|Begining|1|False
+127|24|Vranje|Middle|2|False
+128|24|Kragujevac|Middle|3|False
+129|24|Novi Sad|End|4|False
+130|25|Pirot|Begining|1|False
+131|25|Vranje|Middle|2|False
+132|25|Kragujevac|Middle|3|False
+133|25|Novi Sad|End|4|False
+134|26|Pirot|Begining|1|False
+135|26|Vranje|Middle|2|False
+136|26|Kragujevac|Middle|3|False
+137|26|Novi Sad|End|4|False
+138|27|Pirot|Begining|1|False
+139|27|Vranje|Middle|2|False
+140|27|Kragujevac|Middle|3|False
+141|27|Novi Sad|End|4|False
+146|29|Pirot|Begining|1|True
+147|29|Vranje|Middle|2|True
+148|29|Kragujevac|Middle|3|True
+149|29|Novi Sad|End|4|True
+150|30|Pirot|Begining|1|False
+151|30|Vranje|Middle|2|False
+152|30|Kragujevac|Middle|3|False
+153|30|Novi Sad|End|4|False
+154|31|Pirot|Begining|1|False
+155|31|Vranje|Middle|2|False
+156|31|Kragujevac|Middle|3|False
+157|31|Novi Sad|End|4|False
+162|33|Pirot|Begining|1|False
+163|33|Vranje|Middle|2|False
+164|33|Kragujevac|Middle|3|False
+165|33|Novi Sad|End|4|False
+166|34|Beograd|Begining|1|True
+167|34|Ruma|Middle|2|True
+168|34|Mitrovica|End|3|True
+169|35|Beograd|Begining|1|False
+170|35|Ruma|Middle|2|False
+171|35|Mitrovica|End|3|False
+172|36|Beograd|Begining|1|False
+173|36|Ruma|Middle|2|False
+174|36|Mitrovica|End|3|False
+175|37|wwww|Begining|1|False
+176|37|qqqq|Middle|2|False
+177|37|eeee|End|3|False
+178|38|sa|Begining|1|False
+179|38|sa|End|2|False
+180|59|a|Begining|1|True
+181|59|b|Middle|2|True
+182|59|c|End|3|True
+183|60|a|Begining|1|True
+184|60|b|Middle|2|True
+185|60|c|End|3|True

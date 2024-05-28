@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Domain.Models;
 using BookingApp.View;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
@@ -23,31 +24,16 @@ namespace BookingApp.View.GuideView
     /// </summary>
     public partial class GuideMainPage : Page
     {
-        public GuideMainPage()
+        public GuideMainPage(User user)
         {
             InitializeComponent();
-            DataContext = new GuideMainPageViewModel();
+            DataContext = new GuideMainPageViewModel(user);
         }
 
        
-        private void NavigateToTourStatistic(object sender, MouseButtonEventArgs e)
-        {
-            TourStatistic ts=new TourStatistic();
-            this.NavigationService.Navigate(ts);
-        }
+       
 
-        private void LogOutClick(object sender, RoutedEventArgs e)
-        {
-
-            SignInForm signInWindow = new SignInForm();
-            signInWindow.Show();
-           
-            Window mainWindow = Window.GetWindow(this);
-            mainWindow.Close();
-
-            
-           
-        }
+      
 
         private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

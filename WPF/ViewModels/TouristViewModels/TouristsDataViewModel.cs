@@ -16,6 +16,7 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -48,7 +49,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public TouristsDataViewModel(int touristNumber, TourDto selectedTour, int userId, bool isRequest, TourRequestViewModel tourRequest, bool isComplex, ComplexTourRequest complexTourRequest)
         {
             Tourists = new ObservableCollection<Tuple<TourReservationViewModel, string, bool>>();
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             reservationDataService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             TourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
@@ -110,7 +111,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpTouristsDataWindow().Show();
         }
 
         private void CloseWindow()
@@ -135,29 +136,34 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             }
             if (IsRequest)
             {
-                foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
-                {
-                    Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
-                    TourRequestViewModel.Persons.Add(person);
-                }
-                if (!IsComplex)
-                {
-                    TourRequestViewModel.ComplexId = -1;
-                    requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
-                    Style style = Application.Current.FindResource("MessageStyle") as Style;
-                    MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
-                }
-                else
-                {
-                    ComplexTourRequest.TourRequests.Add(TourRequestViewModel.ToTourRequest());
-                }
-                Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
-                Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
+                ConfirmRequestCreation();
             }
             else
             {
                 UseVouchers();
             }
+        }
+
+        public void ConfirmRequestCreation()
+        {
+            foreach (Tuple<TourReservationViewModel, string, bool> data in Tourists)
+            {
+                Tuple<string, string, int> person = new Tuple<string, string, int>(data.Item1.TouristFirstName, data.Item1.TouristLastName, data.Item1.TouristAge);
+                TourRequestViewModel.Persons.Add(person);
+            }
+            if (!IsComplex)
+            {
+                TourRequestViewModel.ComplexId = -1;
+                requestService.CreateRequest(TourRequestViewModel.ToTourRequest());
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("Tour request successfully created!", "Request", MessageBoxButton.OK, MessageBoxImage.Information, style);
+            }
+            else
+            {
+                ComplexTourRequest.TourRequests.Add(TourRequestViewModel.ToTourRequest());
+            }
+            Messenger.Default.Send(new NotificationMessage("CloseTouristsDataWindowMessage"));
+            Messenger.Default.Send(new NotificationMessage("CloseCreateTourRequestWindowMessage"));
         }
 
         public void UseVouchers()

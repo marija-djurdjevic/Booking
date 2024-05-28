@@ -76,65 +76,8 @@ namespace BookingApp.WPF.Views.TouristView
                         else if (Stats.IsSelected)
                             StatsSkrol.ScrollToVerticalOffset(newOffsetUp);
                         break;
-                    case "SaveCharts":
-                        SaveLanChartAsImage();
-                        SaveLocChartAsImage();
-                        SavePyeChartAsImage();
-                        break;
                 }
             });
         }
-
-        public void SaveLanChartAsImage()
-        {
-            var filePath = @"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\LanguageChart.png";
-            var width = (int)lanChart.ActualWidth+50;
-            var height = (int)lanChart.ActualHeight+50;
-            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
-            bitmap.Render(lanChart);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                encoder.Save(stream);
-            }
-        }
-
-        public void SaveLocChartAsImage()
-        {
-            var filePath = @"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\LocationChart.png";
-            var width = (int)locChart.ActualWidth + 50;
-            var height = (int)locChart.ActualHeight + 50;
-            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
-            bitmap.Render(locChart);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                encoder.Save(stream);
-            }
-        }
-
-        public void SavePyeChartAsImage()
-        {
-            var filePath = @"C:\Users\User\Desktop\Sims\Projekat\sims-ra-2024-group-1-team-a\Resources\Images\TourImages\PyeChart.png";
-            var width = (int)PyeChart.ActualWidth + 50;
-            var height = (int)PyeChart.ActualHeight + 50;
-            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
-            bitmap.Render(PyeChart);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                encoder.Save(stream);
-            }
-        }
-
     }
 }

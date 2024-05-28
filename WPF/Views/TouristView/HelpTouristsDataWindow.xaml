@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="BookingApp.WPF.Views.TouristView.HelpTouristsDataWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Help"
+    Background="{StaticResource PageColor}"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Margin="0,20,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="600" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="1"
+                Margin="50,0,0,0"
+                Source="/Resources/Images/TouristHelpImages/TouristsDataHelp.png"
+                Stretch="Uniform" />
+            <TextBlock
+                Grid.Column="0"
+                Margin="20,20,0,20"
+                FontSize="20"
+                TextWrapping="Wrap">
+                <Run
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}">
+                    Tourists Data Help
+                </Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>This window allows you to manage tourist data. Here's what you can do:</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1. Enter tourist details:</Run>
+                <LineBreak />
+                <Run>You need to enter the first name, last name, and age for each tourist.</Run><LineBreak /><Run>The first tourist is always predefined as you and cannot be changed.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">2. Scroll through the list:</Run>
+                <LineBreak />
+                <Run>Use the Up and Down arrow keys or the scroll bar to navigate through the list of tourists.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">3. Confirm the data:</Run>
+                <LineBreak />
+                <Run>Click on the 'Confirm' button or press Ctrl+Enter to confirm the tourist data and proceed.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">4. Cancel and close the window:</Run>
+                <LineBreak />
+                <Run>Click on the 'Cancel' button or press Escape to cancel the operation and close the window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">5. Help:</Run>
+                <LineBreak />
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+H " /><Run>or click on the 'Help' button to open this help window.</Run>
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
+</Window>

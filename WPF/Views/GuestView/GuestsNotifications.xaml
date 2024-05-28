@@ -1,0 +1,47 @@
+﻿<Page x:Class="BookingApp.WPF.Views.GuestView.GuestsNotifications"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestView"
+      Title="ChangeReservation"
+      Width="430"
+      Height="660"
+      d:DesignHeight="660"
+      d:DesignWidth="450"
+      mc:Ignorable="d">
+
+    <Grid
+     Width="430"
+     Margin="0,20,0,17"
+     Background="#8FB9A8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="212*" />
+            <RowDefinition Height="301*" />
+            <RowDefinition Height="100*" />
+        </Grid.RowDefinitions>
+
+        <Image Margin="10,0,375,154" Source="\Resources\Images\bell (1).png" />
+        <Label FontFamily="Times New Roman" Margin="55,10,0,157" FontSize="26">Notifications</Label>
+
+        <ListBox Background="#8FB9A8" x:Name="NotificationsListBox" Width="410" Margin="0,65,0,0" HorizontalAlignment="Center" Grid.RowSpan="3" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="NotificationsListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="BlanchedAlmond"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Read}" Value="False">
+                                        <Setter Property="Background" Value="#e3b79a"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" TextTrimming="None" Height="60" Width="370" FontSize="14" Text="{Binding Message}" Margin="5"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

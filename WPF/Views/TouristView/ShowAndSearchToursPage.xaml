@@ -230,11 +230,35 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="70" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
+
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="2"
+                                        Width="50"
+                                        Height="50"
+                                        Margin="0,10,-10,0"
+                                        VerticalAlignment="Top"
+                                        Visibility="{Binding IsCreatedBySuperGuide, Converter={cvt:ButtonVisibilityConverter}}">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="/Resources/Icons/TouristIcons/star.png" />
+                                            </Style>
+                                        </Image.Style>
+                                        <Image.ToolTip>
+                                            <ToolTip Style="{StaticResource Tooltips}" Visibility="{Binding Source={x:Static Application.Current}, Path=StaticGlobalVariables.ShowTooltips, Converter={cvt:ButtonVisibilityConverter}}">
+                                                <TextBlock TextAlignment="Center">
+                                                    Created by super guide
+                                                </TextBlock>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
 
                                     <Image
                                         Grid.Row="0"

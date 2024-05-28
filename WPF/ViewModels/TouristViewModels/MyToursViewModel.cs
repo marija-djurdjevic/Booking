@@ -1,13 +1,9 @@
-using BookingApp.Repositories;
 using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
 using BookingApp.Aplication.Dto;
@@ -15,6 +11,7 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Command;
 using GalaSoft.MvvmLight.Messaging;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -164,7 +161,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private void Help()
         {
-
+            new HelpMyToursPage().Show();
         }
 
         public void FillCollections()

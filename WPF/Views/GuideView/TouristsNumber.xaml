@@ -54,10 +54,10 @@
                     </Image>
 
                     <!-- Informacije -->
-                    <TextBlock FontSize="24" FontWeight="Bold" Text="About tour" Margin="15,0,0,117"/>
+                    <TextBlock FontSize="24" FontWeight="Bold" Text="About tour" Margin="13,0,0,117"/>
                     <StackPanel Grid.Column="1" Margin="10,20,10,9">
-                        <TextBlock Margin="0,10,0,0">
-                <Run FontSize="24" FontWeight="DemiBold" Text="Location:                  " />
+                        <TextBlock Margin="2,10,0,0">
+                <Run FontSize="24" FontWeight="DemiBold" Text="Location:                 " />
                 <TextBlock>
                     <Run FontSize="24" FontWeight="DemiBold" Text="{Binding SelectedTour.Location.City}" />
                     <Run FontSize="24" FontWeight="DemiBold" Text="," />

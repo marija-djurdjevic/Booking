@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModels.GuidesViewModels;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace BookingApp.WPF.Views.GuideView
     /// </summary>
     public partial class GeneralStatistics : Page
     {
-        public GeneralStatistics(string language,string location)
+        public GeneralStatistics(string language,string location,User user)
         {
             InitializeComponent();
-            DataContext=new GeneralStatisticsViewModel(language,location);
+            DataContext=new GeneralStatisticsViewModel(language,location,user);
         }
     }
 }

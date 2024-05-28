@@ -1,0 +1,61 @@
+﻿<Window
+    x:Class="BookingApp.WPF.Views.TouristView.HelpNotificationsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Help"
+    Background="{StaticResource PageColor}"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Margin="0,20,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="600" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="1"
+                Width="554"
+                Source="/Resources/Images/TouristHelpImages/NotificationsHelp.png"
+                Stretch="Uniform" />
+            <TextBlock
+                Grid.Column="0"
+                Margin="20,20,0,20"
+                FontSize="20"
+                TextWrapping="Wrap">
+                <Run
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}">
+                    Notifications Help
+                </Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>This page allows you to manage your notifications. Here's what you can do:</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1. View notifications:</Run>
+                <Run>Each notification is displayed with its message.</Run><LineBreak /> <Run>Unread notifications are in green color while read notifications are in white.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">2. View tour details:</Run>
+                <Run>For notifications about tours of interest, there is a 'View Details' button.</Run><LineBreak /> <Run>Clicking on this button will show you the details of the tour and allow you to make a reservation.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">3. Close the window:</Run>
+                <Run>Click on the 'Close' button or press 'Esc' to close the notifications window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">4. Help:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+H " /><Run>or click on the 'Help' button to open this help window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">5. Scroll:</Run>
+                <Run>Pressing</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+U " /><Run>scrolls to the top, while using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Up arrow " /><Run>scrolls upward.</Run><LineBreak /> <Run /><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+D " /><Run>navigates to the bottom, and using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Down arrow " /><Run>scrolls downward.</Run>
+
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
+</Window>

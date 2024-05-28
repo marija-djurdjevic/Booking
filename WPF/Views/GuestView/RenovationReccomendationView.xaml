@@ -16,7 +16,7 @@
 
         <Image Margin="10,0,375,206" Source="\Resources\Images\hammer.png"/>
         <Label FontSize="26" Margin="55,10,0,157">Renovation reccomendation</Label>
-        <Label Margin="5,50,0,157" Content="Check the level of the urgency of the renovation"/>
+        <Label Margin="5,50,0,157" FontFamily="Times New Roman" Content="Check the level of the urgency of the renovation"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10,75,20,0">
             <Grid Background="BlanchedAlmond" VerticalAlignment="Top" Height="250" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
@@ -93,6 +93,6 @@
         <TextBox Text="{Binding Path=RenovationReccomendation.Comment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Background="BlanchedAlmond" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Width="400" Height="262">
         </TextBox>
 
-        <Button Content="Save" Click="SaveReccomendation_Click" VerticalAlignment="Top" Height="30" Grid.Row="2" Width="100" HorizontalAlignment="Center"></Button>
+        <Button Background="#C8CECC" Content="Save" Click="SaveReccomendation_Click" VerticalAlignment="Top" Height="30" Grid.Row="2" Width="150" HorizontalAlignment="Center"></Button>
     </Grid>
 </Page>

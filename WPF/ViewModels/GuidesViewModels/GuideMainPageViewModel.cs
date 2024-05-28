@@ -6,6 +6,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
+using BookingApp.WPF.Views.GuideView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModel
 {
@@ -38,22 +40,28 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand cancelTourClickCommand;
         private LiveTourRepository liveTourRepository;
         private RelayCommand sideMenuCommand;
-        public GuideMainPageViewModel()
+        private RelayCommand tourDetails;
+        public User LoggedInUser { get; set; }
+        public GuideMainPageViewModel(User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
             liveTourRepository = new LiveTourRepository();
             tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
-            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>());
+            touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             tourCancellationService = new TourCancellationService(liveTourService, tourReservationService, tourService, keyPointService, voucherService, touristService);
             createTourClickCommand = new RelayCommand(ExecuteCreateTourClick);
             startTourClickCommand = new RelayCommand(ExecuteStartTourClick);
             reviewTourClickCommand = new RelayCommand(ExecuteReviewTourClick);
             cancelTourClickCommand = new RelayCommand(ExecuteCancelTourClick);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            tourDetails = new RelayCommand(ExecuteTourDetails);
+            LoggedInUser = loggedInUser;
             LoadTours();
+           
         }
         public ObservableCollection<Tour> TodayTours
         {
@@ -73,14 +81,21 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         public Tour SelectedTour
         {
             get { return selectedTour; }
-            set { selectedTour = value; OnPropertyChanged(); }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged();
+                
+            }
         }
+
+        
         private void LoadTours()
         {
-            TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours());
-            UpcomingTours = new ObservableCollection<Tour>(tourService.GetUpcomingTours());
+            TodayTours = new ObservableCollection<Tour>(tourService.GetTodayTours().Where(tour => tour.GuideId == LoggedInUser.Id));
+            UpcomingTours = new ObservableCollection<Tour>(tourService.GetUpcomingTours().Where(tour => tour.GuideId == LoggedInUser.Id)); 
             var finishedLiveTours = liveTourRepository.GetFinishedTours();
-            FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)));
+            FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)).Where(tour => tour.GuideId == LoggedInUser.Id));
         }
         public RelayCommand CreateTourClickCommand
         {
@@ -90,6 +105,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 if (createTourClickCommand != value)
                 {
                     createTourClickCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public RelayCommand TourDetails
+        {
+            get { return tourDetails; }
+            set
+            {
+                if (tourDetails != value)
+                {
+                    tourDetails = value;
                     OnPropertyChanged();
                 }
             }
@@ -148,7 +177,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideManuPage=new SideMenuPage();
+            var sideManuPage=new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideManuPage);
 
         }
@@ -158,9 +187,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
 
         private void ExecuteCreateTourClick()
         {
-            var createTourPage = new CreateTourPage();
+            var createTourPage = new CreateTourPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(createTourPage);
         }
+
+
+        private void ExecuteTourDetails(object parameter)
+        {
+            if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
+            {
+                var details = new TourDetails(tourId);
+                GuideMainWindow.MainFrame.Navigate(details);
+            }
+        }
+
         private void ExecuteStartTourClick(object parameter)
         {
             if (parameter != null && parameter is int tourId)
@@ -171,15 +211,17 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                     liveTourService.ActivateTour(tourId);
                     liveTourService.CheckFirstKeyPoint(tourId);
                     liveTourService.SaveChanges();
-                    LiveTourPage liveTourPage = new LiveTourPage(tourId);
+                    System.Windows.MessageBox.Show("Tour successfully started.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    LiveTourPage liveTourPage = new LiveTourPage(tourId,LoggedInUser);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
                 }
 
                 else
                 {
-                    MessageBox.Show("Zavrsi zapocetu turu");
-                    int id=liveTourService.GetLiveTourId();
-                    LiveTourPage liveTourPage = new LiveTourPage(id);
+                    System.Windows.MessageBox.Show("Completed the previously started tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    int id =liveTourService.GetLiveTourId();
+                    LiveTourPage liveTourPage = new LiveTourPage(id, LoggedInUser);
                     GuideMainWindow.MainFrame.Navigate(liveTourPage);
 
                 }
@@ -189,7 +231,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         {
             if (parameter != null && parameter is int tourId)
             {
-                TourReview touristsReviewPage = new TourReview(tourId);
+                TourReview touristsReviewPage = new TourReview(tourId,LoggedInUser);
                 GuideMainWindow.MainFrame.Navigate(touristsReviewPage);
             }
         }
@@ -200,7 +242,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 var tour = tourService.GetTourById(tourId);
                 var tourKeyPoints = keyPointService.GetTourKeyPoints(tourId);
                 var tourReservation = tourReservationService.GetByTourId(tourId);
-                tourCancellationService.CancelTour(tour, tourKeyPoints, tourReservation);
+                tourCancellationService.CancelTour(tour, tourKeyPoints, tourReservation,LoggedInUser.Id);
+               
                 LoadTours();
             }
         }

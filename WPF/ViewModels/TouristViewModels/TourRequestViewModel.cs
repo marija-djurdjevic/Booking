@@ -26,6 +26,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         private List<Tuple<string, string, int>> persons;
         private TourRequestStatus status;
         private DateTime acceptedDate;
+        private DateTime maxValidDate;
         private int complexId;
 
         public string Error => null;
@@ -37,6 +38,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             status = TourRequestStatus.Pending;
             Location = new Location();
             Persons = new List<Tuple<string, string, int>>();
+            MaxValidDate = DateTime.MaxValue;
         }
         //Verifikation
         public Verifications verifications = new Verifications();
@@ -65,19 +67,25 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 }
                 if (columnName == "StartDate")
                 {
-                    if (StartDate.Date < DateTime.Now.AddHours(48).Date)
+                    if (StartDate.Date <= DateTime.Now.AddHours(48).Date)
                         return "Start date must be 2 days from now.";
 
                 }
                 if (columnName == "EndDate")
                 {
-                    if (EndDate.Date < DateTime.Now.AddHours(48).Date)
+                    if (EndDate.Date <= DateTime.Now.AddHours(48).Date)
                         return "End date must be 2 days from now.";
 
                 }
                 if (columnName == "DateMessage")
                 {
-                    if (EndDate.Date < StartDate.Date && StartDate.Date >= DateTime.Now.AddHours(48).Date && EndDate.Date > DateTime.Now.AddHours(48).Date)
+                    if (maxValidDate<EndDate)
+                        return "The selected dates overlap with an existing range. Please select different dates.";
+
+                }
+                if (columnName == "DateMessage")
+                {
+                    if (EndDate.Date < StartDate.Date && StartDate.Date > DateTime.Now.AddHours(48).Date && EndDate.Date > DateTime.Now.AddHours(48).Date)
                         return "End date is less than the start date.";
 
                 }
@@ -116,6 +124,19 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 if (value != StartDate.ToString())
                 {
                     DateMessage = value;
+                    OnPropertyChanged(nameof(DateMessage));
+                }
+            }
+        }
+
+        public DateTime MaxValidDate
+        {
+            get => maxValidDate;
+            set
+            {
+                if (value != maxValidDate)
+                {
+                    maxValidDate = value;
                     OnPropertyChanged(nameof(DateMessage));
                 }
             }
@@ -251,6 +272,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     startDate = value;
                     OnPropertyChanged(nameof(StartDate));
                     OnPropertyChanged(nameof(DateMessage));
+                    OnPropertyChanged(nameof(MaxValidDate));
                 }
             }
         }
@@ -264,6 +286,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                     endDate = value;
                     OnPropertyChanged(nameof(DateMessage));
                     OnPropertyChanged(nameof(EndDate));
+                    OnPropertyChanged(nameof(MaxValidDate));
                 }
             }
         }

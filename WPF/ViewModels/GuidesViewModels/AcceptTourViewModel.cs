@@ -2,6 +2,7 @@
 using BookingApp.Aplication.UseCases;
 using BookingApp.Command;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.Models.Enums;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.View;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
@@ -31,19 +32,21 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public (DateTime, DateTime) TouristsDates { get; set; }
 
         private RelayCommand acceptTourCommand;
-        public AcceptTourViewModel(int id)
+        public User LoggedInUser { get; set; }
+        public AcceptTourViewModel(int id, User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             this.id = id;
-            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(),Injector.CreateInstance<ITourRepository>());
-            requestStatisticService=new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
+            requestStatisticService = new RequestStatisticService(Injector.CreateInstance<ITourRequestRepository>(), Injector.CreateInstance<ITourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
             SelectedTour = tourRequestService.GetRequestById(id);
             LoadBookedDates();
-            TouristsDates=tourRequestService.GetDateSlotById(id);
-            FreeDates = new ObservableCollection<(DateTime, DateTime)>(requestStatisticService.CalculateFreeDates(BookedDates.ToList(), TouristsDates,tourRequestService.GetAllAcceptedDates()));
+            TouristsDates = tourRequestService.GetDateSlotById(id);
+            FreeDates = new ObservableCollection<(DateTime, DateTime)>(requestStatisticService.CalculateFreeDates(BookedDates.ToList(), TouristsDates, tourRequestService.GetAllAcceptedDates(loggedInUser.Id)));
             acceptTourCommand = new RelayCommand(ExecuteAcceptTourCommand);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
-
+         
         }
 
 
@@ -77,7 +80,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -94,10 +97,10 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         }
 
 
-        
+
         private void LoadBookedDates()
         {
-            BookedDates = new ObservableCollection<(DateTime, DateTime)>(tourRequestService.GetUpcomingToursDates());
+            BookedDates = new ObservableCollection<(DateTime, DateTime)>(tourRequestService.GetUpcomingToursDates(LoggedInUser.Id));
 
         }
 
@@ -128,7 +131,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         }
 
 
-
         private bool isAccepted;
 
         public bool IsAccepted
@@ -141,37 +143,68 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-
-
-
-
-
-
         private void ExecuteAcceptTourCommand()
         {
             if (FreeDates.Any(dateRange => SelectedDateTime >= dateRange.Item1 && SelectedDateTime <= dateRange.Item2))
             {
-                tourRequestService.UpdateRequestById(id,SelectedDateTime);
+
+                if (SelectedTour.ComplexId != -1)
+                {
+                    var acceptedToursByGuide = tourRequestService.GetAllRequests()
+                            .Where(tr => tr.ComplexId == SelectedTour.ComplexId && tr.Status == TourRequestStatus.Accepted && tr.GuideId == LoggedInUser.Id)
+                            .ToList();
+
+                    if (acceptedToursByGuide.Any())
+                    {
+                        MessageBox.Show("You have already accepted a part of this complex tour request and cannot accept another part.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+
+
+
+                tourRequestService.UpdateRequestById(id,SelectedDateTime,LoggedInUser);
                 if (!IsAccepted)
                 {
-                    tourRequestService.UpdateRequestById(id, SelectedDateTime);
+                    tourRequestService.UpdateRequestById(id, SelectedDateTime, LoggedInUser);
                     IsAccepted = true;
-                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, 2, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, "Ognjen", SelectedDateTime);
+                    IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                    var Guide = guideRepository.GetById(LoggedInUser.Id);
+                    TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, Guide.Id, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, Guide.FirstName+' '+Guide.LastName, SelectedDateTime);
                     notificationService.Save(touristGuideNotification);
-                    MessageBox.Show("Tour request successfully accepted.");
+                    MessageBox.Show("Tour request successfully accepted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    if (SelectedTour.ComplexId != -1)
+                    {
+
+                        ComplexTourRequests complex = new ComplexTourRequests(LoggedInUser);
+                        GuideMainWindow.MainFrame.Navigate(complex);
+                    }
+
+
+                    else
+                    {
+                        TourRequests requests = new TourRequests(LoggedInUser);
+                        GuideMainWindow.MainFrame.Navigate(requests);
+
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.");
+                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    
+
                 }
             }
             else
             {
-                MessageBox.Show("Selected date is not available for booking.");
+                MessageBox.Show("Selected date is not available for booking.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
 
+      
 
 
 

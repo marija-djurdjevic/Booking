@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModels.GuidesViewModels;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace BookingApp.WPF.Views.GuideView
     /// </summary>
     public partial class MonthStatistics : Page
     {
-        public MonthStatistics(string selectedYear, string language, string location)
+        public MonthStatistics(string selectedYear, string language, string location,User user)
         {
             InitializeComponent();
-            DataContext = new MonthStatisticsViewModel(selectedYear,language,location);
+            DataContext = new MonthStatisticsViewModel(selectedYear,language,location,user);
         }
     }
 }

@@ -33,7 +33,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private RelayCommand checkCommand;
         private LiveTour liveTour;
         private RelayCommand sideMenuCommand;
-        public LiveTourViewModel(int tourId)
+        public User LoggedInUser { get; set; }
+        public LiveTourViewModel(int tourId, User loggedInUser)
         {
             this.tourId = tourId;
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
@@ -50,6 +51,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             addTouristClickCommand = new RelayCommand(ExecuteAddTouristClick);
             checkCommand = new RelayCommand(Check);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            LoggedInUser = loggedInUser;
         }
         public ObservableCollection<TourReservation> Tourists
         {
@@ -126,7 +128,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -170,6 +172,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 keyPointService.Update(keyPoint);
             }
             liveTourService.FinishTour(tourId);
+            MessageBox.Show("Tour successfully finished.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+           
+
         }
         public TourReservation SelectedTourist
         {
@@ -185,9 +190,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             MessageBox.Show($"Tourist {selectedTourist.TouristFirstName} added to tour at {keyPoint.Name}.");
             if (tourReservationService.IsUserOnTour(selectedTourist.UserId, selectedTourist.TourId))
             {
+                IGuideRepository guideRepository = Injector.CreateInstance<IGuideRepository>();
+                var Guide = guideRepository.GetById(LoggedInUser.Id);
                 List<string> addedPersons = new List<string>();
                 addedPersons.Add(selectedTourist.TouristFirstName + " " + selectedTourist.TouristLastName);
-                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, 2, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, "Ognjen", SelectedTour.Name));
+                touristGuideNotificationRepository.Save(new TouristGuideNotification(selectedTourist.UserId, Guide.Id, selectedTourist.TourId, addedPersons, System.DateTime.Now, NotificationType.TouristJoined, keyPoint.Name, Guide.FirstName+' '+Guide.LastName, SelectedTour.Name));
             }
             var tourists = liveTourService.GetTouristsByTourId(tourId).Where(t => !t.IsOnTour).ToList();
             Tourists = new ObservableCollection<TourReservation>(tourists);

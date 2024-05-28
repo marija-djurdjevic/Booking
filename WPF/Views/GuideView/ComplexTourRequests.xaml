@@ -1,0 +1,157 @@
+﻿<Page x:Class="BookingApp.WPF.Views.GuideView.ComplexTourRequests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.GuideView"
+      mc:Ignorable="d" 
+      Title="ComplexTourRequests" Height="768" Width="1024">
+
+    <Grid Background="{StaticResource pozadina}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="71"/>
+                <RowDefinition Height="600"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Gornja navigaciona traka -->
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="71"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Slika u prvoj koloni -->
+                <Button Grid.Column="0"
+                        Command="{Binding SideManuCommand}"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Image Source="/Resources/Images/menu5.png"
+                           Stretch="Uniform"
+                           Width="71"
+                           Height="71" />
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Account Info" Margin="6,0,37,0"/>
+            </Grid>
+
+            <ScrollViewer VerticalScrollBarVisibility="visible" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="588" Margin="-13,0,0,0" Width="1021" >
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding ComplexRequests}">
+
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <GroupBox  Margin="10,25,0,50" Height="480" MaxWidth="970">
+
+                                <GroupBox.Header>
+                                    <Label>
+                                        <TextBlock>
+                                        <Run FontWeight="DemiBold" FontSize="28" Text="Complex request " />
+                                        <Run FontWeight="DemiBold"  FontSize="28" Text="{Binding Id}" />
+                                        </TextBlock>
+                                    </Label>
+                                </GroupBox.Header>
+
+
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"  PreviewMouseWheel="UIElement_OnPreviewMouseWheel">
+                                    <ListBox VerticalAlignment="Top" ItemsSource="{Binding TourRequests}"  
+                                         x:Name="tourListBox"
+                                         Margin="10"
+                                         SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
+                                         SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="Background" Value="{StaticResource DefaultColor}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource MouseOverColor}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <Border
+                                                    Margin="0,5,0,10"
+                                                    BorderBrush="Black"
+                                                    BorderThickness="1">
+                                                    <Grid Height="195" Width="900">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!--  Slika ture  -->
+                                                        <Image
+                                                            Grid.Column="0"
+                                                            Width="150"
+                                                            Height="230"
+                                                            Margin="0,-13,10,18"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Top"
+                                                            Stretch="Fill">
+                                                            <Image.Source>
+                                                                <BitmapImage UriSource="/Resources/Icons/TouristIcons/broken-image.png" />
+                                                            </Image.Source>
+                                                        </Image>
+
+                                                        <!--  Informacije o turi  -->
+                                                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+
+                                                            <TextBlock Margin="-1.5,0,0,15">
+                    <Run FontSize="24" FontWeight="DemiBold" Text="Location: " />
+                    <TextBlock Margin="164,0,0,0">
+                        <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.City}" />
+                        <Run FontSize="24" FontWeight="DemiBold" Text="," />
+                        <Run FontSize="24" FontWeight="DemiBold" Text="{Binding Location.Country}" />
+                    </TextBlock>
+                </TextBlock>
+
+                                                            <TextBlock Margin="0,0,0,13">
+                    <Run FontSize="24" Text="Language: " />
+                    <TextBlock Margin="153,0,0,0">
+                        <Run FontSize="24" Text="{Binding Language}" />
+                    </TextBlock>
+                </TextBlock>
+
+                                                            <TextBlock Margin="0,0,0,15">
+                    <Run FontSize="24" Text="Start date and time:         " />
+                    <Run FontSize="24" Text="{Binding StartDate, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                                                            </TextBlock>
+
+
+                                                            <TextBlock>
+                    <Run FontSize="24" Text="End date and time:          " />
+                    <TextBlock Margin="4,0,0,0">
+                        <Run FontSize="24" Text="{Binding EndDate, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
+                    </TextBlock>
+                </TextBlock>
+
+                                                            <Button
+                    Width="138"
+                    Height="43"
+                    Margin="580,-32,5,0"
+                    Padding="-6"
+                    Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding Id}"
+                    Content="ACCEPT"
+                    FontSize="28"
+                    Style="{StaticResource AcceptButtonStyle}"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

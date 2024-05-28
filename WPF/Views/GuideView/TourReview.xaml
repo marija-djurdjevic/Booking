@@ -80,6 +80,9 @@
                         <Run FontSize="24" Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                   </TextBlock>
                         </TextBlock>
+                        <Button Content="Show Details" FontSize="20" Width="140" Height="30" Margin="60,-25,-630,0"  
+        Command="{Binding ShowDetailsCommand}" 
+       />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -163,7 +166,7 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="  Review status: " Margin="0,5,0,0" />
-                                        <TextBlock Grid.Column="1" Text="{Binding CommentStatus}" Margin="0,5,0,0" />
+                                        <TextBlock Grid.Column="1" FontWeight="DemiBold" Text="{Binding CommentStatus}" Margin="0,5,0,0" />
                                     </Grid>
 
                                     <Grid Grid.Row="5" Margin="0,0,0,60">

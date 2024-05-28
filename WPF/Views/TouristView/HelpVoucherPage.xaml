@@ -1,0 +1,60 @@
+﻿<Window
+    x:Class="BookingApp.WPF.Views.TouristView.HelpVoucherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Help"
+    Background="{StaticResource PageColor}"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="1"
+                Width="800"
+                Source="/Resources/Images/TouristHelpImages/VoucherHelp.png" />
+            <TextBlock
+                Grid.Row="0"
+                Margin="20"
+                FontSize="20"
+                TextWrapping="Wrap">
+                <Run
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}">
+                    Voucher Page Help
+                </Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>This page allows you to manage your vouchers. Here's what you can do:</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1. View all active vouchers:</Run>
+                <Run>
+                    All your active vouchers are displayed here. You can see the reason for receiving the voucher and its
+                </Run><Run
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}"
+                    Text=" 2. expiration date." />
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">3. Help:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+H " /><Run>or click on the 'Help' button to open this help window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">4. Inbox:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+I " /><Run>or click on the 'Inbox' button to view your notifications. The badge shows the number of unread notifications.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">5. Scroll:</Run>
+                <Run>Pressing</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+U " /><Run>scrolls to the top, while using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Up arrow " /><Run>scrolls upward.</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+D " /><Run>navigates to the bottom, and using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Down arrow " /><Run>scrolls downward.</Run>
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
+</Window>

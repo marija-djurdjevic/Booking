@@ -35,8 +35,6 @@ namespace BookingApp.WPF.ViewModels
         private BitmapImage currentImage;
         private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
-        private readonly TourRepository tourRepository;
-        private readonly KeyPointRepository keyPointRepository;
         private readonly ImageService imageService;
         private GlobalLanguagesService globalLanguagesService;
         private GlobalLocationsService globalLocationsService;
@@ -59,16 +57,20 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<string> CitiesCountries { get; set; } = new ObservableCollection<string>();
 
 
-
+      
         public RelayCommand ValidateNameCommand { get; private set; }
 
 
-        public CreateTourViewModel()
+
+
+        public User LoggedInUser { get; set; }
+
+
+        public CreateTourViewModel(User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
-            tourRepository = new TourRepository();
-            keyPointRepository = new KeyPointRepository();
             imageService = new ImageService();
             globalLanguagesService = new GlobalLanguagesService(Injector.CreateInstance<IGlobalLanguagesRepository>());
             globalLocationsService=new GlobalLocationsService(Injector.CreateInstance<IGlobalLocationsRepository>());
@@ -97,11 +99,6 @@ namespace BookingApp.WPF.ViewModels
               }
           }
         */
-
-
-       
-
-
 
 
         public string this[string columnName]
@@ -431,7 +428,7 @@ namespace BookingApp.WPF.ViewModels
         private void ExecuteSideMenuClick()
         {
 
-            var sideMenuPage = new SideMenuPage();
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
             GuideMainWindow.MainFrame.Navigate(sideMenuPage);
 
         }
@@ -565,28 +562,22 @@ namespace BookingApp.WPF.ViewModels
 
         private void CreateTour()
         {
-             foreach (var startDate in TourDates)
-             {
+            foreach (var startDate in TourDates)
+            {
                 if (!ValidateAll())
                 {
                     MessageBox.Show("Tour cannot be created. Please correct the errors.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return; 
+                    return;
                 }
-
                 LocationDto newLocationDto = GetLocationDto();
-                 TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
-                 CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
-                 (bool success,int id) = createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
-                if (success)
-                {
-                    MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Failed to create tour.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                TourDto newTourDto = CreateNewTourDto(newLocationDto, startDate, SelectedLanguage);
+                newTourDto.GuideId=LoggedInUser.Id;
+                CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
+                createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
+                MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
 
         private LocationDto GetLocationDto()
         {  

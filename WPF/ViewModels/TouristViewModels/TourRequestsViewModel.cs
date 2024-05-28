@@ -12,7 +12,16 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Windows.Interactivity;
+using LiveCharts.Definitions.Charts;
+using Xceed.Wpf.AvalonDock.Properties;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -164,13 +173,14 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         public RelayCommand SortingRequeststCommand { get; set; }
         public RelayCommand SelectedStatisticYearCommand { get; set; }
         public RelayCommand CreateCommand { get; set; }
-        public RelayCommand ExportCommand { get; set; }
         public RelayCommand ScrollToTopCommand { get; private set; }
         public RelayCommand ScrollToBottomCommand { get; private set; }
         public RelayCommand ScrollDownCommand { get; private set; }
         public RelayCommand ScrollUpCommand { get; private set; }
         public RelayCommand ChangeTabRightCommand { get; private set; }
         public RelayCommand ChangeTabLeftCommand { get; private set; }
+        public RelayCommand ExportCommand => new RelayCommand(param => Export(param));
+
 
         public TourRequestsViewModel(User loggedInUser)
         {
@@ -186,7 +196,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             InboxCommand = new RelayCommand(OpenInbox);
             CreateCommand = new RelayCommand(CreateTourRequest);
             HelpCommand = new RelayCommand(Help);
-            ExportCommand = new RelayCommand(Export);
             SortingRequeststCommand = new RelayCommand(SortingSelectionChanged);
             SelectedStatisticYearCommand = new RelayCommand(SelectedStatisticYear);
             ScrollToTopCommand = new RelayCommand(ScrollToTop);
@@ -228,10 +237,76 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Messenger.Default.Send(new NotificationMessage("ScrollRequestsToTop"));
         }
 
-        private void Export()
+        private void Export(object param)
         {
-            Messenger.Default.Send(new NotificationMessage("SaveCharts"));
-            touristPDFExportService = new TouristPDFExportService(LoggedInUser.Id, SelectedYear, AveragePeopleNumber);
+            var grid = param as Grid;
+            if (grid != null)
+            {
+                var pyeChartPanel = grid.FindName("PyeChart") as StackPanel;
+                var locChart = grid.FindName("locChart") as StackPanel;
+                var lanChart = grid.FindName("lanChart") as StackPanel;
+
+                SaveLanChartAsImage(lanChart);
+                SaveLocChartAsImage(locChart);
+                SavePyeChartAsImage(pyeChartPanel);
+                touristPDFExportService = new TouristPDFExportService(LoggedInUser.Id, SelectedYear, AveragePeopleNumber);
+            }
+            else
+            {
+                Style style = Application.Current.FindResource("MessageStyle") as Style;
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("An unexpected error occurred while trying to export, please restart the application and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning, style);
+                return;
+            }
+        }
+        public void SaveLanChartAsImage(StackPanel lanChart)
+        {
+            var filePath = ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LanguageChart.png");
+            var width = (int)lanChart.ActualWidth + 50;
+            var height = (int)lanChart.ActualHeight + 50;
+            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(lanChart);
+
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                encoder.Save(stream);
+            }
+        }
+
+        public void SaveLocChartAsImage(StackPanel locChart)
+        {
+            var filePath = ImageService.GetAbsolutePath(@"Resources\Images\TourImages\LocationChart.png");
+            var width = (int)locChart.ActualWidth + 50;
+            var height = (int)locChart.ActualHeight + 50;
+            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(locChart);
+
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                encoder.Save(stream);
+            }
+        }
+
+        public void SavePyeChartAsImage(StackPanel PyeChart)
+        {
+            var filePath = ImageService.GetAbsolutePath(@"Resources\Images\TourImages\PyeChart.png");
+            var width = (int)PyeChart.ActualWidth + 50;
+            var height = (int)PyeChart.ActualHeight + 50;
+            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(PyeChart);
+
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using (var stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                encoder.Save(stream);
+            }
         }
 
         private void FillRequestYears()
@@ -309,7 +384,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private void Help()
         {
-
+            new HelpTourRequestsPage().Show();
         }
         private void GetMyRequests()
         {

@@ -1,0 +1,87 @@
+﻿<Window
+    x:Class="BookingApp.WPF.Views.TouristView.HelpMyToursPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Help"
+    Background="{StaticResource PageColor}"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    Height="600"
+                    Source="/Resources/Images/TouristHelpImages/MyToursHelp.png"
+                    Stretch="Uniform" />
+                <Image
+                    Grid.Column="1"
+                    Height="400"
+                    Source="/Resources/Images/TouristHelpImages/MyToursHelp1.png"
+                    Stretch="Uniform" />
+            </Grid>
+            <TextBlock
+                Grid.Row="0"
+                Margin="20"
+                FontSize="20"
+                TextWrapping="Wrap">
+                <Run
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource BackgroundColor}">
+                    My Tours Help
+                </Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>This page allows you to manage your tours. Here's what you can do:</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1. View tour details:</Run>
+                <Run>Each tour is displayed with its details. You can see the location, start date and time, duration, language, and other information for each tour.</Run>
+                <LineBreak />
+                <Run>Use the tabs to navigate between different sections of the tour details. Use</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Alt+Right " /><Run>and</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Alt+Left " /><Run>to switch between tabs.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1.1 All Tab:</Run>
+                <LineBreak />
+                <Run>Displays all your booked tours.</Run>
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1.2 Active Tab:</Run>
+                <LineBreak />
+                <Run>Here you can track your currently active tour and see up to which key point it has reached.</Run>
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">1.3 Finished Tab:</Run>
+                <LineBreak />
+                <Run>Displays your completed tours. For each tour, the status is shown. If the tour is finished and you attended, you can click on the 'Rate' button to open a window for rating the tour and guide.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">2. Sort tours:</Run>
+
+                <Run>Use the 'Sort by' dropdown to sort your tours by date or rate status, in ascending or descending order.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">3. Help:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+H " /><Run>or click on the 'Help' button to open this help window.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">4. Inbox:</Run>
+                <Run>Press</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+I " /><Run>or click on the 'Inbox' button to view your notifications. The badge shows the number of unread notifications.</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run FontWeight="Bold" Foreground="{StaticResource BackgroundColor}">5. Scroll:</Run>
+                <Run>Pressing</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+U " /><Run>scrolls to the top, while using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Up arrow " /><Run>scrolls upward.</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Ctrl+D " /><Run>navigates to the bottom, and using the</Run><Run Foreground="{StaticResource ValidationMessageColor}" Text=" Down arrow " /><Run>scrolls downward.</Run>
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
+</Window>

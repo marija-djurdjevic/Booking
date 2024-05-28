@@ -89,7 +89,7 @@ namespace BookingApp.View
 
                         case UserRole.Guide:
                             {
-                                GuideMainWindow guide = new GuideMainWindow();
+                                GuideMainWindow guide = new GuideMainWindow(user);
                                 guide.Show(); Close();
                                 break;
                             }

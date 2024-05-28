@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.IO;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.UseCases;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -19,12 +20,14 @@ namespace BookingApp.Aplication.UseCases
         private ITouristExperienceRepository touristExperienceRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
+        private readonly GuideService guideService;
         public TourService(ITourRepository tourRepository, ILiveTourRepository liveTourRepository)
         {
             this.tourRepository = tourRepository;
             this.liveTourRepository = liveTourRepository;
             this.keyPointRepository = Injector.CreateInstance<IKeyPointRepository>();
             this.touristExperienceRepository = Injector.CreateInstance<ITouristExperienceRepository>();
+            this.guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             keyPointService = new KeyPointService(keyPointRepository, liveTourRepository);
             touristExperienceService = new TouristExperienceService(touristExperienceRepository);
         }
@@ -54,6 +57,7 @@ namespace BookingApp.Aplication.UseCases
         {
             var sorted = unsorted
                 .OrderBy(t => t.StartDateTime.Date < DateTime.Now.Date) // Ture sa datumom manjim od trenutnog dolaze prvo
+                .ThenBy(t => !guideService.IsSuperGuideById(t.GuideId))
                 .ThenByDescending(t => t.StartDateTime.Date < DateTime.Now.Date ? t.StartDateTime : DateTime.MaxValue) // Sortiraj ture sa datumom manjim od trenutnog u rastucem redosledu
                 .ThenBy(t => t.StartDateTime.Date >= DateTime.Now.Date ? t.StartDateTime : DateTime.MinValue) // Sortiraj ture sa datumom vecim ili jednakim trenutnom u opadajucem redosledu
                 .ToList();
@@ -124,7 +128,7 @@ namespace BookingApp.Aplication.UseCases
                 .Where(t => t.Location.City.Equals(City, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             unBookedToursInCity.RemoveAll(t => t.MaxTouristsNumber <= 0);
-            return unBookedToursInCity;
+            return SortByDate(unBookedToursInCity);
         }
 
     }

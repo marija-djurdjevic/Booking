@@ -1,15 +1,6 @@
-﻿using BookingApp.Repositories;
-using BookingApp.View.TouristView;
-using System;
+﻿using BookingApp.View.TouristView;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
@@ -18,6 +9,8 @@ using BookingApp.Aplication;
 using BookingApp.Domain.RepositoryInterfaces;
 using GalaSoft.MvvmLight.Messaging;
 using BookingApp.Command;
+using BookingApp.WPF.Views.TouristView;
+using BookingApp.UseCases;
 
 namespace BookingApp.WPF.ViewModels.TouristViewModels
 {
@@ -40,6 +33,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
 
         private readonly TourService tourService;
         private readonly KeyPointService keyPointService;
+        private readonly GuideService guideService;
         private readonly TouristGuideNotificationService notificationService;
 
         private bool _isShowAllButtonVisible;
@@ -59,6 +53,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             notificationService = new TouristGuideNotificationService(Injector.CreateInstance<ITouristGuideNotificationRepository>());
+            guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             Tours = new ObservableCollection<TourDto>();
             SelectedTour = new TourDto();
 
@@ -112,7 +107,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         }
         private void Help()
         {
-
+            new HelpShowAndSearchToursPage().Show();
         }
 
         public void GetAllTours()
@@ -120,7 +115,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
             Tours.Clear();
             foreach (var tour in tourService.GetAllSorted())
             {
-                Tours.Add(new TourDto(tour));
+                TourDto tourDto = new TourDto(tour);
+                if (guideService.IsSuperGuideById(tourDto.GuideId))
+                {
+                    tourDto.IsCreatedBySuperGuide = true;
+                }
+                Tours.Add(tourDto);
             }
         }
 
@@ -145,7 +145,7 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
         {
             if (message.Notification == "ShowAllButtonMessage")
             {
-                IsShowAllButtonVisible=true;
+                IsShowAllButtonVisible = true;
             }
         }
 
@@ -177,7 +177,12 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 Tours.Clear();
                 foreach (var tour in unBookedToursInCity)
                 {
-                    Tours.Add(new TourDto(tour));
+                    TourDto tourDto = new TourDto(tour);
+                    if (guideService.IsSuperGuideById(tourDto.GuideId))
+                    {
+                        tourDto.IsCreatedBySuperGuide = true;
+                    }
+                    Tours.Add(tourDto);
                 }
             }
             else
@@ -185,11 +190,6 @@ namespace BookingApp.WPF.ViewModels.TouristViewModels
                 Style style = Application.Current.FindResource("MessageStyle") as Style;
                 MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("There are no tours from that city!", "Booking", MessageBoxButton.OK, MessageBoxImage.Information, style);
             }
-        }
-
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
