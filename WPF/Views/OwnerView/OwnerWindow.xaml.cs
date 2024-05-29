@@ -48,6 +48,7 @@ namespace BookingApp.View
             GuestReviewsFrame.Navigate(new GuestReviewsPage());
             RenovationsFrame.Navigate(new RenovationsPage(LoggedInUser));
             AnalyticsFrame.Navigate(new AnalyticsPage(LoggedInUser));
+            RecommendationsFrame.Navigate(new RecommendationsPage());
 
         }
 

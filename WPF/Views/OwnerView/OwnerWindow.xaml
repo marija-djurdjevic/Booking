@@ -91,6 +91,7 @@
                 <!-- Forums Tab Content -->
             </TabItem>
             <TabItem Header="Recommendations">
+                <Frame x:Name="RecommendationsFrame" NavigationUIVisibility="Hidden"/>
                 <!-- Recommendations Tab Content -->
             </TabItem>
         </TabControl>
