@@ -20,11 +20,13 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ForumComment ForumComment { get; set; }
         public Guest LoggedInGuest { get; set; }
         public ForumService forumService;
+        public PropertyReservationService reservationService;
 
         public ForumCommentingViewModel(Guest guest, KeyValuePair<Forum, Guest> selectedForum)
         {
             LoggedInGuest = guest;
             forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), Injector.CreateInstance<IGuestRepository>(), Injector.CreateInstance<IForumCommentRepository>());
+            reservationService = new PropertyReservationService(Injector.CreateInstance<IPropertyRepository>(), Injector.CreateInstance<IPropertyReservationRepository>(), Injector.CreateInstance<IReservedDateRepository>());
             SelectedForumComments = new ObservableCollection<KeyValuePair<ForumComment, Guest>>();
             ForumComment = new ForumComment();
             SelectedForum = selectedForum;
@@ -40,6 +42,9 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumComment.GuestId = LoggedInGuest.Id;
             ForumComment.ForumId = SelectedForum.Key.Id;
             ForumComment.AuthorId = SelectedForum.Key.GuestId;
+            CheckGuestVisitedStatus();
+            SelectedForum.Key.Comments++;
+            forumService.UpdateForum(SelectedForum.Key);
             forumService.SendComment(ForumComment);
             SelectedForumComments.Clear();
             foreach (var item in MakeForumCommentGuestPairs())
@@ -49,6 +54,15 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
                     SelectedForumComments.Add(item);
                 }
             }
+        }
+
+        public void CheckGuestVisitedStatus()
+        {
+            if (reservationService.CheckIfGuestVisited(LoggedInGuest, SelectedForum.Key.Location))
+            {
+                ForumComment.GuestVisited = true;
+            }
+
         }
 
     }

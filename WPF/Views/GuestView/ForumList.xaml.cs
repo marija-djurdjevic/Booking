@@ -37,6 +37,19 @@ namespace BookingApp.WPF.Views.GuestView
                 NavigationService.Navigate(forumCommenting);
             }
         }
-        
+
+        private void AllForums_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.GetAllForums();
+            TypeTextBlock.Text = "All forums";
+            TypePopup.IsOpen = false;
+        }
+
+        private void MyForums_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.GetMyForums();
+            TypeTextBlock.Text = "My forums";
+            TypePopup.IsOpen = false;
+        }
     }
 }

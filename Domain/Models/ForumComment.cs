@@ -14,23 +14,25 @@ namespace BookingApp.Domain.Models
         public int ForumId { get; set; }
         public int AuthorId {  get; set; }
         public string Comment { get; set; }
+        public bool GuestVisited { get; set; }
 
         public ForumComment()
         {
             
         }
 
-        public ForumComment(int guestId, int forumId, string comment, int authorId)
+        public ForumComment(int guestId, int forumId, string comment, int authorId, bool guestVisited)
         {
             GuestId = guestId;
             ForumId = forumId;
             Comment = comment;
             AuthorId = authorId;
+            GuestVisited = guestVisited;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString() };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString(), GuestVisited.ToString()  };
             return csvValues;
         }
 
@@ -41,6 +43,7 @@ namespace BookingApp.Domain.Models
             ForumId = Convert.ToInt32(values[2]);
             Comment = values[3];
             AuthorId = Convert.ToInt32(values[4]);
+            GuestVisited = Convert.ToBoolean(values[5]);
         }
     }
 }

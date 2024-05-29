@@ -10,11 +10,16 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Repositories;
 using BookingApp.WPF.Views.GuestView;
+using System.ComponentModel;
+using System.Windows.Input;
+using BookingApp.Command;
+using System.Windows.Controls;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModels
 {
-    public class ForumListViewModel
+    public class ForumListViewModel : INotifyPropertyChanged
     {
+        public ICommand CloseForumCommand { get; }
         public Guest LoggedInGuest { get; set; }
         public List<Forum> Forums { get; set; }
         public List<Guest> Guests { get; set; }
@@ -26,12 +31,37 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ForumListViewModel(Guest guest)
         {
             ForumGuests = new ObservableCollection<KeyValuePair<Forum, Guest>>();
+            CloseForumCommand = new SimpleRelayCommand(CloseForum, CanCloseForum);
             SelectedForum = new KeyValuePair<Forum, Guest>();
             forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), Injector.CreateInstance<IGuestRepository>(), Injector.CreateInstance<IForumCommentRepository>());
             Forums = forumService.GetAllForums();
             Guests = forumService.GetAllGuests();
             LoggedInGuest = guest;
             MakeForumGuestsPairs();
+        }
+
+        private bool CanCloseForum(object parameter)
+        {
+            if (parameter is KeyValuePair<Forum, Guest> forumGuest)
+            {
+                return forumGuest.Key.GuestId == LoggedInGuest.Id;
+            }
+            return false;
+        }
+
+        private void CloseForum(object parameter)
+        {
+            if (parameter is KeyValuePair<Forum, Guest> forumGuest)
+            {
+                forumGuest.Key.IsClosed = true;
+                forumService.UpdateForum(forumGuest.Key);
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public OpenNewForum OpenForum()
@@ -49,5 +79,16 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             return new ForumCommenting(LoggedInGuest, SelectedForum);
         }
 
+        public void GetAllForums()
+        {
+            ForumGuests.Clear();
+            forumService.MakeForumGuestsPairs(Forums, Guests, ForumGuests);
+        }
+
+        public void GetMyForums()
+        {
+            ForumGuests.Clear();
+            forumService.MakeMyForumGuestsPairs(Forums, LoggedInGuest, ForumGuests);
+        }
     }
 }

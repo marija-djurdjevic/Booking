@@ -10,7 +10,10 @@
       d:DesignHeight="660"
       d:DesignWidth="450"
       mc:Ignorable="d">
-    
+
+    <Page.Resources>
+        <local:EqualityMultiConverter x:Key="EqualityMultiConverter"/>
+    </Page.Resources>
 
     <Grid
      Width="430"
@@ -24,12 +27,24 @@
 
         <Image Margin="10,0,375,10" Source="\Resources\Images\chat.png" />
         <Label FontFamily="Times New Roman" Margin="65,0,196,0" FontSize="26" Height="54" VerticalAlignment="Center">Forums</Label>
-        <Button Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,10,30,28" Height="40" Width="150"/>
-
+        <Button Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,0,30,28" Height="40" Width="150"/>
+        <ToggleButton IsChecked="False" HorizontalAlignment="Left" Margin="10,0,0,467" Height="40" Width="150" Grid.Row="1">
+            <StackPanel>
+                <TextBlock x:Name="TypeTextBlock" Text="All" Margin="0,0,5,0"/>
+                <Popup x:Name="TypePopup" PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}"
+        IsOpen="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Mode=TwoWay}"
+       StaysOpen="False">
+                    <StackPanel>
+                        <Button Content="All forums" Width="100" Click="AllForums_Click" Height="25"/>
+                        <Button Content="My forums" Width="100" Click="MyForums_Click" Height="25"/>
+                    </StackPanel>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
         <ListBox
         x:Name="forumsData"
         Grid.Row="1"
-        Margin="0,0,10,0"
+        Margin="0,53,10,0"
         ItemsSource="{Binding ForumGuests}"
         ScrollViewer.VerticalScrollBarVisibility="Auto"
         SelectedItem="{Binding SelectedForum}"
@@ -38,7 +53,7 @@
         SelectionChanged="forumData_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                <Border
+                    <Border
                 Margin="5"
                 Background="BlanchedAlmond"
                 Width="380"
@@ -47,9 +62,9 @@
                 BorderBrush="#C8CECC"
                 BorderThickness="3"
                 CornerRadius="20">
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10, 10, 0, 0">
-                    <TextBlock
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10, 10, 0, 0">
+                                <TextBlock
                     FontSize="24"
                     FontFamily="Times New Roman"
                     FontWeight="Bold"       
@@ -57,7 +72,7 @@
                                 <Label Content=", "
                                 FontSize="20"
                                 FontFamily="Times New Roman"
-                                FontWeight="Bold"> 
+                                FontWeight="Bold">
                                 </Label>
                                 <TextBlock
                                 FontSize="24"
@@ -88,10 +103,31 @@
                                 TextWrapping="Wrap"
                                 FontSize="16"
                                 FontFamily="Times New Roman"
-                                Text="{Binding Key.Comment}" />    
+                                Text="{Binding Key.Comment}" />
                             </StackPanel>
-                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Width="270" Margin="90, 0, 0, 0">
-                                <Label FontFamily="Times New Roman" Margin="105, -3, 0, 0" VerticalAlignment="Top" Content="Author: "></Label>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Width="360" Margin="0, -3, 0, 0">
+                                <Button Content="Close"
+                                  Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                   CommandParameter="{Binding}"
+                                     Width="100" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <MultiBinding Converter="{StaticResource EqualityMultiConverter}">
+                                                            <Binding Path="Key.GuestId"/>
+                                                            <Binding Path="DataContext.LoggedInGuest.Id" RelativeSource="{RelativeSource AncestorType={x:Type Page}}"/>
+                                                        </MultiBinding>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Label FontFamily="Times New Roman" Margin="95, -3, 0, 0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Author: "></Label>
                                 <TextBlock
                                 FontSize="16"
                                 FontFamily="Times New Roman"
