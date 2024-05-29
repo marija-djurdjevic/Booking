@@ -11,13 +11,59 @@ using System.Xml.Linq;
 
 namespace BookingApp.Aplication.Dto
 {
-    internal class ForumDto : INotifyPropertyChanged
+    public class ForumDto : INotifyPropertyChanged
     {
         private int guestId;
         private LocationDto locationDto = new LocationDto();
         private string comment;
         private string city;
         private string country;
+        private int guestsComments;
+        private int ownersComments;
+        private bool isClosed;
+
+
+        public int GuestsComments
+        {
+
+            get { return guestsComments; }
+            set
+            {
+                if (value != guestsComments)
+                {
+                    guestsComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int OwnersComments
+        {
+
+            get { return ownersComments; }
+            set
+            {
+                if (value != ownersComments)
+                {
+                    ownersComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsClosed
+        {
+
+            get { return isClosed; }
+            set
+            {
+                if (value != isClosed)
+                {
+                    isClosed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public int GuestId
         {
@@ -98,13 +144,16 @@ namespace BookingApp.Aplication.Dto
         {
         }
 
-        public ForumDto(int guestId, LocationDto locationDto, string comment)
+        public ForumDto(int guestId, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
         {
             this.guestId = guestId;
             this.comment = comment;
             this.locationDto = locationDto;
             city = locationDto.City;
             country = locationDto.Country;
+            this.GuestsComments = guestsComments;
+            this.isClosed = isClosed;
+            OwnersComments = ownersComments;
         }
 
         public ForumDto(Forum forum)
@@ -114,13 +163,16 @@ namespace BookingApp.Aplication.Dto
             locationDto = new LocationDto(forum.Location);
             city = forum.Location.City;
             country = forum.Location.Country;
+            guestsComments = forum.GuestsComments;
+            isClosed = forum.IsClosed;
+            ownersComments = forum.OwnersComments;
 
         }
 
         public Forum ToForum()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Forum(guestId, location, comment);
+            return new Forum(guestId, location, comment, guestsComments, isClosed, ownersComments);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

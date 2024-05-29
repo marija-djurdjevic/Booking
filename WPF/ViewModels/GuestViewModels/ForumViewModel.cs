@@ -24,7 +24,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ForumViewModel(Guest guest)
         {
             LoggedInGuest = guest;
-            forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
+            forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), Injector.CreateInstance<IGuestRepository>(), Injector.CreateInstance<IForumCommentRepository>());
             CitiesCountries = new ObservableCollection<string>();
             forumService.LoadCitiesCountries(CitiesCountries);
         }

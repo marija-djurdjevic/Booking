@@ -12,23 +12,33 @@ namespace BookingApp.Domain.Models
         public int Id { get; set; }
         public int GuestId { get; set; }
         public Location Location { get; set; }
-        public string Comment;
+        public string Comment {  get; set; }
+        public int GuestsComments {  get; set; }
+        public int OwnersComments {  get; set; }
+        public bool IsClosed { get; set; }
 
         public Forum()
         {
-            
+
+            Location = new Location();
+            GuestsComments = 0;
+            IsClosed = false;
+
         }
 
-        public Forum(int guestId, Location location, string comment)
+        public Forum(int guestId, Location location, string comment, int guestcomments, bool isClosed, int ownersComments)
         {
             GuestId = guestId;
             Location = location;
             Comment = comment;
+            GuestsComments = guestcomments;
+            IsClosed = isClosed;
+            OwnersComments = ownersComments;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), Location.Country, Location.City, Comment };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), Location.Country, Location.City, Comment, GuestsComments.ToString(), IsClosed.ToString(), OwnersComments.ToString() };
             return csvValues;
         }
 
@@ -39,6 +49,9 @@ namespace BookingApp.Domain.Models
             Location.Country = values[2];
             Location.City = values[3];
             Comment = values[4];
+            GuestsComments = Convert.ToInt32(values[5]);
+            IsClosed = Convert.ToBoolean(values[6]);
+            OwnersComments = Convert.ToInt32(values[7]);
         }
     }
 }

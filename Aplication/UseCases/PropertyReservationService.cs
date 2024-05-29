@@ -319,5 +319,19 @@ namespace BookingApp.Aplication.UseCases
         }
 
 
+        public bool CheckIfGuestVisited(Guest guest, Location location)
+        {
+            foreach (PropertyReservation propertyReservation in propertyReservationRepository.GetAll())
+            {
+                foreach(Property property in propertyRepository.GetAllProperties()){
+                    if(propertyReservation.PropertyId == property.Id && propertyReservation.GuestId == guest.Id && location.City == property.Location.City && location.Country == property.Location.Country)
+                    {
+                        return true;
+                    } 
+                }
+            }
+
+            return false;
+        }
     }
 }

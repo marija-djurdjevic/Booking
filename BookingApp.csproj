@@ -78,6 +78,7 @@
     <None Remove="Resources\Images\delete-button.png" />
     <None Remove="Resources\Images\earth.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\feather.png" />
     <None Remove="Resources\Images\hammer.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\home4.png" />
@@ -87,6 +88,7 @@
     <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\notepad.png" />
+    <None Remove="Resources\Images\route.png" />
     <None Remove="Resources\Images\star %282%29.png" />
     <None Remove="Resources\Images\TouristExperienceImages\add.png" />
     <None Remove="Resources\Images\menu5.png" />
@@ -325,6 +327,7 @@
     <Resource Include="Resources\Images\decline.png" />
     <Resource Include="Resources\Images\delete-button.png" />
     <Resource Include="Resources\Images\earth.png" />
+    <Resource Include="Resources\Images\feather.png" />
     <Resource Include="Resources\Images\hammer.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\home4.png" />
@@ -337,6 +340,7 @@
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />
     <Resource Include="Resources\Images\question.png" />
+    <Resource Include="Resources\Images\route.png" />
     <Resource Include="Resources\Images\star (1).png" />
     <Resource Include="Resources\Images\star (2).png" />
     <Resource Include="Resources\Images\star.png" />
