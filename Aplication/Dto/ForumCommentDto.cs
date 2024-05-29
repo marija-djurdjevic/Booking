@@ -15,7 +15,21 @@ namespace BookingApp.Aplication.Dto
         private int forumId;
         private string comment;
         private int authorId;
+        private bool guestVisited;
 
+        public bool GuestVisited
+        {
+
+            get { return guestVisited; }
+            set
+            {
+                if (value != guestVisited)
+                {
+                    guestVisited = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public int GuestId
         {
 
@@ -78,13 +92,13 @@ namespace BookingApp.Aplication.Dto
         {
         }
 
-        public ForumCommentDto(int guestId, int forumId, string comment, int authorId)
+        public ForumCommentDto(int guestId, int forumId, string comment, int authorId, bool guestVisited)
         {
             this.guestId = guestId;
             this.guestId = forumId;
             this.comment = comment;
             this.authorId = authorId;
-            
+            this.guestVisited = guestVisited;
         }
 
         public ForumCommentDto(ForumComment forumcomment)
@@ -93,11 +107,12 @@ namespace BookingApp.Aplication.Dto
             forumId = forumcomment.ForumId;
             comment = forumcomment.Comment;
             authorId = forumcomment.AuthorId;
+            guestVisited = forumcomment.GuestVisited;
         }
 
         public ForumComment ToForumComment()
         {
-            return new ForumComment(guestId, forumId, comment, authorId);
+            return new ForumComment(guestId, forumId, comment, authorId, guestVisited);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

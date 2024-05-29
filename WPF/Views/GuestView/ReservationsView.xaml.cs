@@ -35,8 +35,8 @@ namespace BookingApp.GuestView
 
         private void Change_Button(object sender, RoutedEventArgs e)
         {
-            ChangeReservation changeReservatin = viewModel.ChangeReservation(sender);
-            NavigationService.Navigate(changeReservatin);
+            ChangeReservation changeReservation = viewModel.ChangeReservation(sender);
+            NavigationService.Navigate(changeReservation);
         }
 
         private void MakeReview_Button(object sender, RoutedEventArgs e)

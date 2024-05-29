@@ -63,6 +63,20 @@ namespace BookingApp.Aplication.UseCases
             }
         }
 
+        public void MakeMyForumGuestsPairs(List<Forum> forums, Guest loggedInGuest, ObservableCollection<KeyValuePair<Forum, Guest>> forumGuests)
+        {
+            foreach (Forum forum in forums)
+            {
+                
+                if (forum.GuestId == loggedInGuest.Id)
+                {
+                    var forumGuest = new KeyValuePair<Forum, Guest>(forum, loggedInGuest);
+                    forumGuests.Add(forumGuest);
+                }
+                
+            }
+        }
+
         public ObservableCollection<KeyValuePair<ForumComment, Guest>> MakePairs(KeyValuePair<Forum, Guest> SelectedForum)
         {
             ObservableCollection<KeyValuePair<ForumComment, Guest>> HelpfulVar = new ObservableCollection<KeyValuePair<ForumComment, Guest>>();
@@ -71,7 +85,7 @@ namespace BookingApp.Aplication.UseCases
             {
                 foreach (Guest g in guestRepository.GetAll())
                 {
-                    if (fc.AuthorId == g.Id && fc.ForumId == SelectedForum.Key.Id)
+                    if (fc.GuestId == g.Id && fc.ForumId == SelectedForum.Key.Id)
                     {
                         var forumcommentGuest = new KeyValuePair<ForumComment, Guest>(fc, g);
                         HelpfulVar.Add(forumcommentGuest);
@@ -86,5 +100,11 @@ namespace BookingApp.Aplication.UseCases
         {
             forumCommentRepository.AddForumComment(forumComment);
         }
+
+        public void UpdateForum(Forum forum)
+        {
+            forumRepository.Update(forum);
+        }
+
     }
 }

@@ -109,10 +109,29 @@
                     BorderThickness="3"
                     CornerRadius="10">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel>
-                                <TextBlock Margin="5" Height="30" FontSize="14"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Height="30" Width="260" FontSize="14"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Key.Comment}"/>
+                                <TextBlock
+                                Width="120"
+                                FontSize="8"
+                                Height="20"
+                                Margin="0,5,5,5"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Text="This user has visited the location!">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Key.GuestVisited}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Margin="300, 0, 5, 0"
@@ -133,19 +152,65 @@
          Content="Your comment:"
          FontFamily="TimesNewRoman"
          Grid.Row="1" 
-         Margin="10,347,0,0"
-            ></Label>
-        <Border 
-            Grid.Row="1" 
-            Margin="10,370,20,37"
-            Width="400"
-            BorderThickness="2"
-            BorderBrush="#C8CECC"
-            CornerRadius="10" 
-            Background="BlanchedAlmond">
-            <TextBox TextWrapping="Wrap" Text="{Binding Path=ForumComment.Comment, UpdateSourceTrigger=PropertyChanged}" Background="BlanchedAlmond" Margin="6"/>
+         Margin="10,347,0,0">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedForum.Key.IsClosed}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Border Grid.Row="1" 
+        Margin="10,370,20,37"
+        Width="400"
+        BorderThickness="2"
+        BorderBrush="#C8CECC"
+        CornerRadius="10" 
+        Background="BlanchedAlmond">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedForum.Key.IsClosed}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <TextBox TextWrapping="Wrap" 
+             Text="{Binding Path=ForumComment.Comment, UpdateSourceTrigger=PropertyChanged}" 
+             Background="BlanchedAlmond" Margin="6"/>
         </Border>
-        <Button Click="Send_Click" Grid.Row="1" Width="150" Height="40"
-         Margin="135,482,145,9"  Content="Send" Grid.RowSpan="2"/>
+
+        <Button Click="Send_Click" 
+        Grid.Row="1" Width="150" Height="40"
+        Margin="135,482,145,9"  Content="Send" Grid.RowSpan="2">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedForum.Key.IsClosed}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <TextBlock Grid.Row="1" Margin="10,490,10,5" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="Red">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedForum.Key.IsClosed}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        This forum is closed!
+        </TextBlock>
     </Grid>
 </Page>
