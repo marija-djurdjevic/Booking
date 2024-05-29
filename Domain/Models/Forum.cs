@@ -16,6 +16,7 @@ namespace BookingApp.Domain.Models
 
         public Forum()
         {
+            
         }
 
         public Forum(int guestId, Location location, string comment)
