@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using MahApps.Metro.Controls;
 using System.Windows.Navigation;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.UseCases;
@@ -26,7 +27,7 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for Owner.xaml
     /// </summary>
-    public partial class OwnerWindow : Window
+    public partial class OwnerWindow : MetroWindow
     {
         public List<PropertyReservationDto> PropertyReservations { get; set; }
         public PropertyReservation SelectedReservation { get; set; }
@@ -64,7 +65,7 @@ namespace BookingApp.View
             }
         }
 
-        private void NotificationsButton_Click(object sender, RoutedEventArgs e)
+        /*private void NotificationsButton_Click(object sender, RoutedEventArgs e)
         {
              NotificationService notificationManager = new NotificationService();
              var unratedGuests = notificationManager.GetUnratedGuests();
@@ -76,6 +77,25 @@ namespace BookingApp.View
              NotificationWindow notificationsWindow = new NotificationWindow(allNotifications);
              notificationsWindow.ShowDialog();
            
+        }*/
+       
+        private void NotificationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationService notificationManager = new NotificationService();
+            var unratedGuests = notificationManager.GetUnratedGuests();
+            var canceledReservations = notificationManager.GetCanceledReservations();
+
+            var allNotifications = new List<Notification>();
+            allNotifications.AddRange(unratedGuests);
+            allNotifications.AddRange(canceledReservations);
+
+            NotificationListBox.ItemsSource = allNotifications;
+            NotificationFlyout.IsOpen = true;
+        }
+
+        private void CloseNotifications_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationFlyout.IsOpen = false;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
