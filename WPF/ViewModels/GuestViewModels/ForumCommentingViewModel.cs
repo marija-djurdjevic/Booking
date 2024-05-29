@@ -43,7 +43,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumComment.ForumId = SelectedForum.Key.Id;
             ForumComment.AuthorId = SelectedForum.Key.GuestId;
             CheckGuestVisitedStatus();
-            SelectedForum.Key.Comments++;
+            SelectedForum.Key.GuestsComments++;
             forumService.UpdateForum(SelectedForum.Key);
             forumService.SendComment(ForumComment);
             SelectedForumComments.Clear();
