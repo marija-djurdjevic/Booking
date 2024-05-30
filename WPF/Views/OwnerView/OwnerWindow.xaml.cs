@@ -84,10 +84,12 @@ namespace BookingApp.View
             NotificationService notificationManager = new NotificationService();
             var unratedGuests = notificationManager.GetUnratedGuests();
             var canceledReservations = notificationManager.GetCanceledReservations();
+            var newForumPosts = notificationManager.GetNewForumPosts();
 
             var allNotifications = new List<Notification>();
             allNotifications.AddRange(unratedGuests);
             allNotifications.AddRange(canceledReservations);
+            allNotifications.AddRange(newForumPosts);
 
             NotificationListBox.ItemsSource = allNotifications;
             NotificationFlyout.IsOpen = true;

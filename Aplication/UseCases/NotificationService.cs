@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.Dto;
 using BookingApp.Repositories;
+using BookingApp.Domain.RepositoryInterfaces;
 
 
 namespace BookingApp.Aplication.UseCases
 {
     public class NotificationService
     {
+        private static int _lastNotifiedForumId = 0;
         ReviewRepository reviewRepository = new ReviewRepository();
+        private readonly ForumRepository _forumRepository = new ForumRepository();
+        private readonly GuestRepository _guestRepository = new GuestRepository();
         PropertyReservationRepository propertyReservationRepository = new PropertyReservationRepository();
         public List<Notification> GetUnratedGuests()
         {
@@ -59,6 +63,39 @@ namespace BookingApp.Aplication.UseCases
             }
 
             return notifications;
+        }
+        /* public List<Notification> GetNewForumPosts()
+         {
+             var newForumPosts = _forumRepository.GetAll()
+                 .Where(f => f.Id > _lastNotifiedForumId && !f.IsClosed)
+                 .Select(f => new Notification($"New forum post by guest {f.GuestId} in {f.Location.City}, {f.Location.Country}", f.GuestId, f.Comment))
+                 .ToList();
+
+             if (newForumPosts.Any())
+             {
+                 _lastNotifiedForumId = _forumRepository.GetAll().Max(f => f.Id);
+             }
+
+             return newForumPosts;
+         }*/
+        public List<Notification> GetNewForumPosts()
+        {
+            var newForumPosts = _forumRepository.GetAll()
+                .Where(f => f.Id > _lastNotifiedForumId && !f.IsClosed)
+            .Select(f =>
+            {
+                    var guest = _guestRepository.GetByUserId(f.GuestId);
+                    var guestName = guest != null ? $"{guest.FirstName} {guest.LastName}" : $"Guest {f.GuestId}";
+                    return new Notification($"New forum post by {guestName} in {f.Location.City}, {f.Location.Country}", f.GuestId, f.Comment);
+                })
+                .ToList();
+
+            if (newForumPosts.Any())
+            {
+                _lastNotifiedForumId = _forumRepository.GetAll().Max(f => f.Id);
+            }
+
+            return newForumPosts;
         }
         public Notification CreateCancellationNotification(PropertyReservation reservation)
         {
