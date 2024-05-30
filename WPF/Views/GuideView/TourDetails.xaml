@@ -56,11 +56,11 @@
                     <Grid Margin="0,0,0,9">
                         <TextBlock Text="Basic informations" FontWeight="Bold" FontSize="28" HorizontalAlignment="Left" Margin="8,0,0,234"  />
                         <TextBlock Text="Name: "  FontSize="24" Margin="10,54,412,0" Height="46" VerticalAlignment="Top" />
-                        <TextBlock Text="{Binding Tour.Name}" FontSize="24" Margin="159,52,10,190" />
+                        <TextBlock Text="{Binding Tour.Name}" FontSize="24" Margin="159,56,10,174" />
                         <TextBlock Text="Language: "  FontSize="24" Margin="10,110,366,129" />
-                        <TextBlock Text="{Binding Tour.Language}" FontSize="24" Margin="159,106,10,133" />
+                        <TextBlock Text="{Binding Tour.Language}" FontSize="24" Margin="159,111,10,113" />
                         <TextBlock Text="Description: "  FontSize="24" Margin="10,168,332,66" />
-                        <TextBlock Text="{Binding Tour.Description}" FontSize="24" Margin="159,168,10,10" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Tour.Description}" FontSize="24" Margin="159,170,10,10" TextWrapping="Wrap" />
                     </Grid>
                 </Border>
 
@@ -70,17 +70,17 @@
                     <Grid>
                         <TextBlock Text="Details" FontWeight="Bold" FontSize="28" HorizontalAlignment="Left" Margin="10,0,0,248" />
                         <TextBlock Text="Duration: " FontSize="24" Margin="10,52,337,201" />
-                        <TextBlock Text="{Binding Tour.Duration}" FontSize="24" Margin="250,52,0,196" />
-                        <TextBlock Text="Location: " FontSize="24" Margin="10,106,384,142" />
+                        <TextBlock Text="{Binding Tour.Duration}" FontSize="24" Margin="250,55,10,190" />
+                        <TextBlock Text="Location: " FontSize="24" Margin="10,106,371,142" />
                         <TextBlock FontSize="24" Margin="250,106,0,142">
                              <Run Text="{Binding Tour.Location.City}" />
                              <Run Text=", " />
                                <Run Text="{Binding Tour.Location.Country}" />
                         </TextBlock>
                         <TextBlock Text="Max tourists number: " FontSize="24" Margin="10,160,250,93" />
-                        <TextBlock Text="{Binding Tour.MaxTouristsNumber}" FontSize="24" Margin="250,171,53,82" />
+                        <TextBlock Text="{Binding Tour.MaxTouristsNumber}" FontSize="24" Margin="250,162,53,82" />
                         <TextBlock Text="Start date and time: " FontSize="24" Margin="10,216,250,39" />
-                        <TextBlock Text="{Binding Tour.StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" FontSize="24" Margin="250,233,10,15" />
+                        <TextBlock Text="{Binding Tour.StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" FontSize="24" Margin="250,216,10,15" />
                 
                     </Grid>
                 </Border>
@@ -92,16 +92,24 @@
                             <RowDefinition Height="248.04" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+
+                        <TextBlock Margin="10,3,0,0" Text="Images" FontWeight="Bold" FontSize="28"></TextBlock>
+                        
                         <Image Grid.Row="0"
                
-               Stretch="Fill" Margin="137,56,130,17">
+                          Stretch="Fill" Margin="137,56,130,17">
                             <Image.Source>
                                 <Binding Path="CurrentImage" />
                             </Image.Source>
                         </Image>
                         <Grid Grid.Row="1" >
-                            <Button Command="{Binding PreviousImageCommand}" Content="Previous" Margin="55,-119,367,97" />
-                            <Button Command="{Binding NextImageCommand}" Content="Next" Margin="376,-129,57,97" />
+                            <Button Command="{Binding PreviousImageCommand}" Margin="41,-119,381,87" Style="{StaticResource CustomButtonStyle}">
+                                <TextBlock Text="&#x25C0;"  FontSize="24"/>
+                                </Button>
+
+                            <Button Command="{Binding NextImageCommand}"  Margin="392,-117,41,85" Style="{StaticResource CustomButtonStyle}">
+                                <TextBlock Text="&#x25B6;"  FontSize="24"/>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Border>
@@ -114,8 +122,8 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontSize="24">
-                                        <Run Text="{Binding Type}" />
-                                        <Run Text=":"/>
+                                        <Run Text="{Binding OrdinalNumber}" />
+                                        <Run Text=". "/>
                                         <Run Text="{Binding Name}" />
                                     </TextBlock>
                                 </DataTemplate>

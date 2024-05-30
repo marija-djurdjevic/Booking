@@ -16,6 +16,70 @@
 
   <ItemGroup>
 
+    <None Remove="Resources\Icons\GuideIcons\accept.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\account.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\add.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\add_tourist.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\all.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\cance_tour.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\complexity.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\confrim.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\create.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\delte.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\details.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\end-of-life-product.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\finish_tour.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\general.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\log_out.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\mont_stat.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\otkaz.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\pdf.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\pie-cart.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\power.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\report.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\request.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\request_pravi.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\request_stat.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\reste_search.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\review.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\search.htm" />
+
+    <None Remove="Resources\Icons\GuideIcons\ssearch.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\start_tour.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\suggest.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\tourists_stat.png" />
+
+    <None Remove="Resources\Icons\GuideIcons\upload.png" />
+
     <None Remove="Resources\Icons\OwnerIcons\account.jpeg" />
     <None Remove="Resources\Icons\OwnerIcons\account.png" />
     <None Remove="Resources\Icons\OwnerIcons\logout.png" />
@@ -253,6 +317,70 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <Resource Include="Resources\Icons\GuideIcons\accept.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\account.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\add.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\add_tourist.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\all.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\cance_tour.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\complexity.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\confrim.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\create.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\delte.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\details.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\end-of-life-product.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\finish_tour.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\general.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\log_out.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\mont_stat.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\otkaz.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\pdf.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\pie-cart.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\power.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\report.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\request.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\request_pravi.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\request_stat.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\reste_search.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\review.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\search.htm" />
+
+    <Resource Include="Resources\Icons\GuideIcons\ssearch.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\start_tour.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\suggest.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\tourists_stat.png" />
+
+    <Resource Include="Resources\Icons\GuideIcons\upload.png" />
 
     <Resource Include="Resources\Icons\OwnerIcons\account.jpeg" />
     <Resource Include="Resources\Icons\OwnerIcons\account.png" />

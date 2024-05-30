@@ -11,11 +11,9 @@
     <Grid Background="{StaticResource pozadina}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="71"/>
-                <RowDefinition Height="600"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
 
             <!-- Gornja navigaciona traka -->
             <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
@@ -36,51 +34,92 @@
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Account Info" Margin="6,0,37,0"/>
             </Grid>
 
-
+            <!-- Sadržaj -->
             <Grid Grid.Row="1" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
                 <!-- Prvi Border -->
-                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="-10,-9,0,10">
-                    <Grid>
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="-10,-10,6,99" Grid.RowSpan="2">
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Username:" Margin="26,50,309,-10" FontSize="28" RenderTransformOrigin="0.5,0.5" Grid.Row="2" />
-                        <TextBlock Grid.Row="2" Margin="239,56,90,-14" Text="{Binding Username}" />
-                        <TextBlock Grid.Row="2" Text="Password:" Margin="27,145,348,-118" FontSize="28"/>
-                        <TextBlock Grid.Row="2" Margin="239,148,90,-106" Text="{Binding Password}" />
-                        <Button Grid.Row="2" Content="Quit Job" FontSize="28" Command="{Binding QuitJobCommand}" Margin="176,241,208,-213" />
+                        <TextBlock Text="Username:" Margin="10,34,10,33" FontSize="28" Grid.Row="0" Grid.RowSpan="2" />
+                        <TextBlock Grid.Row="1" Margin="170,25,0,20"  FontSize="28" Text="{Binding Username}" />
+                        <TextBlock Grid.Row="2" Text="Password:" Margin="10,21,10,5" FontSize="28"/>
+                        <TextBlock Grid.Row="2" Margin="170,20,0,-21"  FontSize="28" Text="{Binding Password}" />
+
+                        <Button
+    Grid.Row="2"
+    Content="Quit Job"
+    FontSize="28"
+    Command="{Binding QuitJobCommand}"
+    Margin="201,134,109,-114"
+    Style="{StaticResource CustomButtonStyle}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\otkaz.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Quit Job"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+
+
+
+                        <Button
+    Grid.Row="2"
+    Content="Log Out"
+    FontSize="28"
+    Click="LogOutClick"
+    Margin="10,134,326,-114"
+    Style="{StaticResource CustomButtonStyle}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\log_out.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Log Out"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+
+
+
+
+
                     </Grid>
                 </Border>
 
-
                 <!-- Drugi Border -->
-                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="0,-9,-10,10">
-                    <Grid>
+                <Border Grid.Row="0" BorderBrush="Black" Margin="494,-10,4,99" BorderThickness="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Guide Type:" Margin="26,52,309,-12" FontSize="28" RenderTransformOrigin="0.5,0.5" Grid.Row="2" />
-                        <TextBlock Grid.Row="2" Margin="239,56,90,-14" Text="{Binding GuideType}" />
-                        <TextBlock Grid.Row="2" Text="Guide Rating:" Margin="27,142,307,-115" FontSize="28"/>
-                        <TextBlock Grid.Row="2" Margin="239,145,90,-103" Text="{Binding GuideRating}" />
+                        <TextBlock Text="Guide Type:" Margin="10,36,10,33" FontSize="28" Grid.Row="0" Grid.RowSpan="2" />
+                        <TextBlock Grid.Row="1" Margin="190,25,0,19" FontSize="28" Text="{Binding GuideType}" />
+                        <TextBlock Grid.Row="2" Text="Guide Rating:" Margin="10,17,10,20" FontSize="28"/>
+                        <TextBlock Grid.Row="1" Margin="190,112,0,-4" FontSize="28" Text="{Binding GuideRating}" Grid.RowSpan="2" />
 
 
 
 
-
-
-                        <lvc:CartesianChart Margin="22,273,24,-461" Grid.Row="2">
+                        <lvc:CartesianChart Margin="30,85,14,-332" Grid.Row="2">
                             <lvc:CartesianChart.Series>
-                                <lvc:ColumnSeries Title="Average Grade" Values="{Binding AverageGrade}" DataLabels="True"/>
+                                <lvc:ColumnSeries Title="Average Grade" Values="{Binding AverageGrade}" />
                             </lvc:CartesianChart.Series>
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis Title="Year" Labels="{Binding Year}"/>
@@ -89,19 +128,9 @@
                                 <lvc:Axis Title="Average Grade"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
-
-
-
                     </Grid>
                 </Border>
             </Grid>
-
-
-
-
-
-
-
         </Grid>
     </Grid>
 </Page>

@@ -193,7 +193,22 @@
                         </Validation.ErrorTemplate>
                     </TextBox>
 
-                    <Button Style="{StaticResource CustomButtonStyle}" Height="48" Margin="530,826,347,641" Command="{Binding AddKeyPointCommand}"  CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}" Content="ADD" FontSize="20" />
+                    <Button
+    Style="{StaticResource CustomButtonStyle}"
+    Height="48"
+    Margin="530,826,347,641"
+    Command="{Binding AddKeyPointCommand}"
+    CommandParameter="{Binding ElementName=KeyPointsTextBox, Path=Text}"
+    FontSize="20">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Icons/GuideIcons/add.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Add"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
 
 
 
@@ -269,12 +284,23 @@
 
                     <Border BorderBrush="Black" BorderThickness="1" Height="100"  CornerRadius="30" Margin="588,1232,168,183">
                         <Button
-                        Height="43"
-                        Padding="-2"
-                        Command="{Binding UploadImageCommand}"
-                        Content="UPLOAD"
-                        FontSize="24" Margin="54,29,51,26"
-                        Style="{StaticResource CustomButtonStyle}"/>
+    Height="43"
+    Padding="-2"
+    Command="{Binding UploadImageCommand}"
+    Content="Upload"
+    FontSize="24"
+    Margin="54,29,51,26"
+    Style="{StaticResource CustomButtonStyle}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/Icons/GuideIcons/upload.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Upload"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+
                     </Border>
 
 
@@ -287,7 +313,7 @@ x:Name="ImagePreview"
 Grid.Column="0"
 Width="187"
 Height="157"
-Margin="177,1189,0,0"
+Margin="180,1191,0,0"
 HorizontalAlignment="Left"
 VerticalAlignment="Top"
 Stretch="Fill"
@@ -317,7 +343,24 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
                                 <TextBlock Text="&#x25B6;" FontSize="24"/>
                             </Button>
 
-                            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding DeleteImageCommand}" Padding="5" FontSize="24" Content="Delete" Margin="-205,120,247,-113"/>
+                            <Button
+    Style="{StaticResource CustomButtonStyle}"
+    Command="{Binding DeleteImageCommand}"
+    Padding="5"
+    FontSize="24"
+    Content="Delete"
+    Margin="-205,120,247,-124">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\delte.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                            <TextBlock Text="Delete"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+
+
                         </Grid>
                     </Grid>
 
@@ -336,13 +379,21 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
 
 
                     <Button
-                    Height="48"
-                    Margin="706,1540,171,-73"
-                    Command="{Binding AddDateCommand}"
-                    CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
-                    Content="ADD"
-                    FontSize="24"
-                    Style="{StaticResource CustomButtonStyle}" />
+    Height="48"
+    Margin="706,1540,171,-73"
+    Command="{Binding AddDateCommand}"
+    CommandParameter="{Binding ElementName=StartDateTimePicker, Path=Value}"
+    FontSize="24"
+    Style="{StaticResource CustomButtonStyle}">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Icons/GuideIcons/add.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Add"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
 
                     <Label
                     Margin="18,1536,384,-178"
@@ -391,11 +442,20 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
 
 
                     <Button
-                    Margin="359,1861,475,-402"
-                     Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                    Content="CONFRIM"
-                    FontSize="24"
-                    Style="{StaticResource CustomButtonStyle}"/>
+    Margin="359,1861,475,-402"
+    Command="{Binding Path=DataContext.CreateTourCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    FontSize="24"
+    Style="{StaticResource CustomButtonStyle}">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\confrim.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Confirm"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
+
 
                     <Label
      Margin="203,431,435,1033"
@@ -478,7 +538,7 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
                     Height="71" />
                 </Button>
 
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="CREATE SUGGESTED TOUR"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Create Suggested Tour"/>
 
             </Grid>
 

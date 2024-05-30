@@ -38,7 +38,7 @@
                         Width="71"
                         Height="71" />
             </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="START TOUR"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Start Tour"/>
         </Grid>
 
         <!-- Centralni sadržaj -->
@@ -133,9 +133,42 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button  Style="{StaticResource CustomButtonStyle}" Content="ADD" FontSize="28" Width="Auto" Command="{Binding Path=DataContext.AddTouristClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="420,-261,12,508" />
+                <Button 
+    Style="{StaticResource CustomButtonStyle}"
+    Content="Add"
+    FontSize="28"
+    Width="Auto"
+    Command="{Binding Path=DataContext.AddTouristClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    Margin="420,-261,12,508">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/add_tourist.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                <TextBlock Text="Add"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+
             </Grid>
-            <Button Style="{StaticResource CustomButtonStyle}" Content="Finish Tour" Margin="92,-257,19,512" FontSize="28" Command="{Binding Path=DataContext.FinishTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
+
+            <Button 
+    Style="{StaticResource CustomButtonStyle}"
+    Content="Finish Tour"
+    Margin="92,-257,19,512"
+    FontSize="28"
+    Command="{Binding Path=DataContext.FinishTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Icons/GuideIcons/finish_tour.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                            <TextBlock Text="Finish Tour"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+
 
         </Grid>
     </Grid>

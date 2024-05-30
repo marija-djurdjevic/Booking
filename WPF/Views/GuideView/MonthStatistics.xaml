@@ -37,7 +37,7 @@
              Width="71"
              Height="71" />
                 </Button>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="{Binding SelectedYear, StringFormat='STATISTIC PER MONTHS IN {0} YEAR'}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="{Binding SelectedYear, StringFormat='Statistic Per Months In {0} Year'}"/>
 
             </Grid>
 

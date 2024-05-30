@@ -19,6 +19,10 @@ namespace BookingApp.Aplication.UseCases
         private ITouristExperienceRepository touristExperienceRepository;
         private readonly KeyPointService keyPointService;
         private readonly TouristExperienceService touristExperienceService;
+
+
+
+
         public TourService(ITourRepository tourRepository, ILiveTourRepository liveTourRepository)
         {
             this.tourRepository = tourRepository;
