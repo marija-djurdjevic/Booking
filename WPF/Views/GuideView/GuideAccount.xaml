@@ -68,7 +68,7 @@
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\otkaz.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                        <Image Source="/Resources/Icons/GuideIcons/otkaz.png" Width="32" Height="32" Margin="0,0,5,0"/>
                                         <TextBlock Text="Quit Job"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -87,7 +87,7 @@
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="C:\Users\Ognjen\Documents\GitHub\sims-ra-2024-group-1-team-a\Resources\Icons\GuideIcons\log_out.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                        <Image Source="/Resources/Icons/GuideIcons/log_out.png" Width="32" Height="32" Margin="0,0,5,0"/>
                                         <TextBlock Text="Log Out"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -117,17 +117,41 @@
 
 
 
-                        <lvc:CartesianChart Margin="30,85,14,-332" Grid.Row="2">
+                        <lvc:CartesianChart Margin="30,85,44,-332" Grid.Row="2">
                             <lvc:CartesianChart.Series>
-                                <lvc:ColumnSeries Title="Average Grade" Values="{Binding AverageGrade}" />
+                                <lvc:LineSeries 
+                        Title="Average Grade" 
+                        FontSize="32"  
+                        Values="{Binding SeriesCollection[0].Values}" 
+                        PointGeometry="{x:Null}" 
+                        Stroke="DarkBlue"
+                        LineSmoothness="0.5" 
+                        Fill="Transparent"/>
                             </lvc:CartesianChart.Series>
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Year" Labels="{Binding Year}"/>
+                                <lvc:Axis 
+                                    Title="Month" 
+                                    FontSize="20" 
+                                    Foreground="Black" 
+                                    Labels="{Binding Labels}">
+                                </lvc:Axis>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Average Grade"/>
+                                <lvc:Axis 
+                                    Title="Average Grade" 
+                                    FontSize="20" 
+                                     Foreground="Black" 
+                                    MinValue="0" 
+                                    MaxValue="5" 
+                                    LabelFormatter="{Binding YLabelFormatter}">
+                                </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
+
+
+
+
+
                     </Grid>
                 </Border>
             </Grid>

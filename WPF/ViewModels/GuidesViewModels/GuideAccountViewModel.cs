@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using LiveCharts;
+using LiveCharts.Wpf;
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     public class GuideAccountViewModel : BaseViewModel
@@ -44,6 +45,28 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             set { language = value; OnPropertyChanged(); }
         }
 
+        private SeriesCollection _seriesCollection;
+        public SeriesCollection SeriesCollection
+        {
+            get { return _seriesCollection; }
+            set
+            {
+                _seriesCollection = value;
+                OnPropertyChanged(nameof(SeriesCollection));
+            }
+        }
+
+        private string[] _labels;
+        public string[] Labels
+        {
+            get { return _labels; }
+            set
+            {
+                _labels = value;
+                OnPropertyChanged(nameof(Labels));
+            }
+        }
+
 
         public ObservableCollection<double> AverageGrade { get; set; }
         public ObservableCollection<string> Year { get; set; }
@@ -64,7 +87,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
             AverageGrade = new ObservableCollection<double>();
             Year = new ObservableCollection<string>();
-           
+            SeriesCollection = new SeriesCollection();
+            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
             LoadData();
             GuideRating = Math.Round(CountAverage(), 2);
             LoadChartData();
@@ -75,39 +100,54 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void LoadChartData()
         {
-            var oneYearAgo = DateTime.Today.AddYears(-1);
+            var random = new Random();
+            var series = new LineSeries
+            {
+                Title = "Average Grade",
+                Values = new ChartValues<double>()
+            };
 
-            var filteredTours = FinishedTours
-                .Where(tour => tour.StartDateTime >= oneYearAgo)
-                .OrderBy(tour => tour.StartDateTime)
-                .ToList();
-
-            foreach (var monthGroup in filteredTours.GroupBy(tour => new { tour.StartDateTime.Year, tour.StartDateTime.Month }))
+            for (var i = 0; i < 12; i++)
             {
                 var totalRating = 0.0;
+                
+
+                var oneYearAgo = DateTime.Today.AddYears(-1);
+
+
+                var filteredTours = FinishedTours
+                    .Where(tour => tour.StartDateTime >= oneYearAgo)
+                    .OrderBy(tour => tour.StartDateTime)
+                    .ToList();
+
+
+                int total =filteredTours.Count();
                 var totalTours = 0;
 
-                foreach (var tour in monthGroup)
+                    for (var j = 0; j < total; j++)
                 {
-                    var touristExperiences = touristExperienceService.GetTouristExperiencesForTour(tour.Id);
+                    var touristExperiences = touristExperienceService.GetTouristExperiencesForTour(filteredTours[j].Id);
                     foreach (var review in touristExperiences)
                     {
                         double srvr = review.GuideLanguageRating + review.GuideKnowledgeRating + review.TourInterestingesRating;
                         totalRating += srvr / 3;
                         totalTours++;
                     }
+
+                    //var fakeRating = random.Next(1, 6);
+                    //totalRating += fakeRating;
                 }
 
-                if (totalTours > 0)
-                {
-                    double averageRating = totalRating / totalTours;
-                    AverageGrade.Add(Math.Round(averageRating, 2));
-                    Year.Add($"{monthGroup.Key.Month}/{monthGroup.Key.Year}");
-                }
+                var averageRating = totalRating / totalTours;
+                series.Values.Add(Math.Round(averageRating, 2));
             }
+
+            SeriesCollection.Add(series);
         }
-        public SeriesCollection AverageGradeData { get; set; }
-        public string[] AverageGradeLabels { get; set; }
+
+
+
+
 
         public String Langugage { get; set; }
 
