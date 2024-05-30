@@ -10,12 +10,29 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Repositories;
 using System.Windows;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModels
 {
-    public class ForumCommentingViewModel
+    public class ForumCommentingViewModel : INotifyPropertyChanged
+
     {
-        public KeyValuePair<Forum, Guest> SelectedForum { get; set; }
+        private KeyValuePair<Forum, Guest> selectedForum;
+        public KeyValuePair<Forum, Guest> SelectedForum
+        {
+            get => selectedForum;
+            set
+            {
+                if (selectedForum.Key != value.Key || selectedForum.Value != value.Value)
+                {
+                    selectedForum = value;
+                    OnPropertyChanged(nameof(SelectedForum));
+                }
+            }
+        }
+
+        
         public ObservableCollection<KeyValuePair<ForumComment, Guest>> SelectedForumComments { get; set; }
         public ForumComment ForumComment { get; set; }
         public Guest LoggedInGuest { get; set; }
@@ -44,7 +61,9 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumComment.AuthorId = SelectedForum.Key.GuestId;
             CheckGuestVisitedStatus();
             SelectedForum.Key.GuestsComments++;
+            SelectedForum.Key.Comments++;
             forumService.UpdateForum(SelectedForum.Key);
+            OnPropertyChanged(nameof(SelectedForum));
             forumService.SendComment(ForumComment);
             SelectedForumComments.Clear();
             foreach (var item in MakeForumCommentGuestPairs())
@@ -63,6 +82,12 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
                 ForumComment.GuestVisited = true;
             }
 
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

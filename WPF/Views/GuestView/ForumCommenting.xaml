@@ -21,8 +21,8 @@
             <RowDefinition Height="18*" />
         </Grid.RowDefinitions>
 
-        <Image Margin="10,0,375,10" Source="\Resources\Images\feather.png" />
-        <Label FontFamily="Times New Roman" Margin="65,0,92,0" FontSize="26" Height="54" VerticalAlignment="Center">Leave your impression</Label>
+        <Image Margin="15,0,375,10" Source="\Resources\Images\feather-pen.png" />
+        <Label FontFamily="Times New Roman" Margin="63,0,92,0" FontSize="26" Height="54" VerticalAlignment="Center">Leave your impression</Label>
         <Border
         Margin="8,77,0,382"
         Width="400"
@@ -57,7 +57,7 @@
                 FontSize="20"
                 Margin="0, 0, 0, 0"
                 FontFamily="Times New Roman"
-                Text="{Binding SelectedForum.Key.Comments}" />
+                Text="{Binding SelectedForum.Key.Comments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     <Image
                 Margin="10, 5, 0, 0"
                 Width="20"
@@ -102,15 +102,15 @@
                     <Border
                     Margin="0, 0, 0, 0"
                     Background="BlanchedAlmond"
-                    Width="395"
-                    Height="60"
+                    Width="385"
+                    Height="62"
                     HorizontalAlignment="Left"
                     BorderBrush="#C8CECC"
                     BorderThickness="3"
                     CornerRadius="10">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="5" Height="30" Width="260" FontSize="14"
+                                <TextBlock Margin="5" Height="30" Width="250" FontSize="14"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Key.Comment}"/>
                                 <TextBlock
@@ -134,7 +134,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="300, 0, 5, 0"
+                                <TextBlock Margin="290, 0, 5, 0"
                                 HorizontalAlignment="Right"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Value.FirstName}"/>

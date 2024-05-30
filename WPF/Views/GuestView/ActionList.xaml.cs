@@ -64,5 +64,24 @@ namespace BookingApp.GuestView
             ForumList forumList = new ForumList(LoggedInGuest);
             NavigationService.Navigate(forumList);
         }
+
+        private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
+        {
+            AnywhereAnytime anywhereAnytime = new AnywhereAnytime(LoggedInGuest);
+            NavigationService.Navigate(anywhereAnytime);
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                PropertyView propertyView = new PropertyView(LoggedInGuest);
+                NavigationService.Navigate(propertyView);
+            }
+        }
     }
 }

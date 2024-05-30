@@ -20,7 +20,7 @@
             </Button>
 
         </ToolBar>
-        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,45,0,44" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,42,0,44" NavigationUIVisibility="Hidden"/>
         <DockPanel VerticalAlignment="Bottom" Background="#C8CECC" Height="45" Width="430">
             <Button Background="#C8CECC" Click="Back_Click" BorderBrush="#C8CECC" Margin="20, 0, 0, 0" Width="60">
                 <Image Source="\Resources\Images\back (1).png" Width="60"></Image>
@@ -35,7 +35,4 @@
         Height="Auto">
         </Frame>
     </Grid>
-
-    
-    
 </Window>

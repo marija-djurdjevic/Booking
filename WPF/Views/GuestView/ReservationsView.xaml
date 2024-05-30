@@ -14,7 +14,7 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
 
-        <Image Margin="18,0,360,154" Source="\Resources\Images\paper-plane.png"/>
+        <Image Margin="18,0,360,154" Source="\Resources\Images\paper-plane (1).png"/>
         <Label FontFamily="Times New Roman" FontSize="28" Margin="70,10,40,157">Reservations</Label>
 
         <StackPanel Background="BlanchedAlmond"  Orientation="Horizontal" Margin="15,64,30,82"/>
