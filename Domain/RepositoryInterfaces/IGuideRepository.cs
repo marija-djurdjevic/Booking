@@ -16,8 +16,9 @@ namespace BookingApp.Domain.RepositoryInterfaces
         Guide GetById(int guideId);
         IEnumerable<Guide> GetAll();
 
-       
+        string GetFullNameById(int guideId);
 
-       
+
+
     }
 }

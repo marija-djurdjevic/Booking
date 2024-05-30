@@ -67,8 +67,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
 
            
-            nextImageCommand = new RelayCommand(NextImage, () => CanExecuteNextImage());
-            previousImageCommand = new RelayCommand(PreviousImage, () => CanExecutePreviousImage());
+            nextImageCommand = new RelayCommand(NextImage);
+            previousImageCommand = new RelayCommand(PreviousImage);
 
           
             LoadTourDetails(tourId);
@@ -100,7 +100,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             {
                 currentImageIndex++;
                 UpdateImage();
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -110,19 +109,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             {
                 currentImageIndex--;
                 UpdateImage();
-                CommandManager.InvalidateRequerySuggested();
             }
         }
-
-        private bool CanExecuteNextImage()
-        {
-            return currentImageIndex < TourImages.Count - 1;
-        }
-
-        private bool CanExecutePreviousImage()
-        {
-            return currentImageIndex > 0;
-        }
+       
 
         private void UpdateImage()
         {

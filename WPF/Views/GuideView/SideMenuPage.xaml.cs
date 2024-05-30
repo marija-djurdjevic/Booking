@@ -29,17 +29,6 @@ namespace BookingApp.View
             DataContext = new SideMenuViewModel(user);
         }
 
-        private void LogOutClick(object sender, RoutedEventArgs e)
-        {
-
-            SignInForm signInWindow = new SignInForm();
-            signInWindow.Show();
-
-            Window mainWindow = Window.GetWindow(this);
-            mainWindow.Close();
-
-
-
-        }
+        
     }
 }

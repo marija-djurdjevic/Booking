@@ -38,7 +38,7 @@
                     Width="71"
                     Height="71" />
             </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURISTS REVIEWS"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Tourists Reviews"/>
         </Grid>
 
         <Grid  Background="{StaticResource pozadina}" Grid.Row="1">
@@ -80,9 +80,6 @@
                         <Run FontSize="24" Text="{Binding SelectedTour.StartDateTime,StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                   </TextBlock>
                         </TextBlock>
-                        <Button Content="Show Details" FontSize="20" Width="140" Height="30" Margin="60,-25,-630,0"  
-        Command="{Binding ShowDetailsCommand}" 
-       />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -177,8 +174,29 @@
                                         <TextBlock Grid.Column="0" Text="  Review: " Margin="0,5,0,0" />
                                         <TextBlock Text="{Binding Comment}" TextWrapping="Wrap" Margin="185,5,221,0" Grid.Column="1"  />
                                     </Grid>
-                                    <Button Style="{StaticResource CustomButtonStyle}"  Grid.Row="5"  Width="190" Height="53" Margin="0,20,10,12" FontSize="24" Content="REPORT REVIEW"
-                                    Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" CommandParameter="{Binding  }" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+
+                                    <Button 
+    Style="{StaticResource CustomButtonStyle}"
+    Grid.Row="5"
+    Width="210"
+    Height="55"
+    Margin="0,20,10,12"
+    FontSize="24"
+    Content="Report Review"
+    Command="{Binding Path=DataContext.ReportReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding}"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Bottom">
+                                        <Button.ContentTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Resources/Icons/GuideIcons/report.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="Report Review"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Button.ContentTemplate>
+                                    </Button>
+
 
 
                                 </Grid>

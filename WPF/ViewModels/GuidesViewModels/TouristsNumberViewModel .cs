@@ -14,6 +14,11 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Aplication;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using BookingApp.UseCases;
+using System.Windows.Controls;
 
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModel
@@ -26,18 +31,22 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private int between18And50Count;
         private int over50Count;
         private readonly TouristService touristService;
+        private readonly GuideService guideService;
         private readonly TourService tourService;
         private readonly TourReservationService tourReservationService;
         private readonly TouristExperienceService touristExperienceService;
         private RelayCommand navigateHomeCommand;
         private RelayCommand navigateBackCommand;
         private RelayCommand sideMenuCommand;
+        private RelayCommand generateTourStatsPdfCommand;
+       
         public User LoggedInUser { get; set; }
 
         public TouristsNumberPageViewModel(int tourId, User loggedInUser)
         {
             LoggedInUser = loggedInUser;
             this.tourId = tourId;
+            guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             SelectedTour=tourService.GetTourById(tourId);
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
@@ -46,29 +55,33 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             navigateHomeCommand = new RelayCommand(ExecuteNavigateHome);
             navigateBackCommand = new RelayCommand(ExecuteNavigateBack);
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
+            generateTourStatsPdfCommand=new RelayCommand(ExecuteGenerateTourStatsPdfCommand);
             CountTouristsByAge();
 
 
             HistogramData = new SeriesCollection
-{
-    new ColumnSeries
-    {
-        Title = "Under 18",
-        Values = new ChartValues<int> { Under18Count }
-    },
-    new ColumnSeries
-    {
-        Title = "Between 18 and 50",
-        Values = new ChartValues<int> { Between18And50Count }
-    },
-    new ColumnSeries
-    {
-        Title = "Over 50",
-        Values = new ChartValues<int> { Over50Count }
-    }
-};
+            {
+                new ColumnSeries
+                {
+                    Title = "Under 18",
+                    Values = new ChartValues<int> { Under18Count }
+                },
+                new ColumnSeries
+                {
+                    Title = "Between 18 and 50",
+                    Values = new ChartValues<int> { Between18And50Count }
+                },
+                new ColumnSeries
+                {
+                    Title = "Over 50",
+                    Values = new ChartValues<int> { Over50Count }
+                }
+            };
 
-            Labels = new[] { "Age Groups" };
+                        Labels = new[] { "Age Groups" };
+
+
+           
 
         }
 
@@ -175,6 +188,51 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
                 }
             }
         }
+
+        public RelayCommand GenerateTourStatsPdfCommand
+        {
+            get { return generateTourStatsPdfCommand; }
+            set
+            {
+                if (generateTourStatsPdfCommand != value)
+                {
+                    generateTourStatsPdfCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteGenerateTourStatsPdfCommand()
+        {
+
+            int id = LoggedInUser.Id;
+            string fullName=guideService.GetFullNameById(id);
+
+            TourPDFExportService exportService = new TourPDFExportService(tourId, Under18Count, Between18And50Count, Over50Count, 50,fullName);
+            exportService.Generate();
+        }
+
+
+      
+        private void SaveChartAsImage(StackPanel chartPanel)
+        {
+            var filePath = @"putanja_do_vaše_slike.png";
+            var width = (int)chartPanel.ActualWidth;
+            var height = (int)chartPanel.ActualHeight;
+            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(chartPanel);
+
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                encoder.Save(stream);
+            }
+        }
+
+
+
 
         private void ExecuteNavigateHome()
         {

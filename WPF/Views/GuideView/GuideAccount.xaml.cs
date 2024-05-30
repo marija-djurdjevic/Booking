@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.View;
 using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,19 @@ namespace BookingApp.WPF.Views.GuideView
             InitializeComponent();
             DataContext = new GuideAccountViewModel(user);
         }
+
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+
+            SignInForm signInWindow = new SignInForm();
+            signInWindow.Show();
+
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Close();
+
+
+
+        }
+
     }
 }

@@ -30,14 +30,181 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  ALL TOURS" Height="84" FontSize="28" Command="{Binding HomeCommand}" BorderThickness="0"  Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540"  Grid.Row="0" Margin="-10,-29,0,48" Grid.ColumnSpan="3" Grid.RowSpan="7"/>
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  CREATE SUGGESTED TOUR" Height="84" FontSize="28" Command="{Binding NavigateToSuggestedTourCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540" Grid.Row="6" Margin="-10,391,0,-372" Grid.ColumnSpan="3"/>
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  COMPLEX TOUR REQUESTS" Height="84" FontSize="28" Command="{Binding NavigateToComplexRequestsCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540" Grid.Row="6" Margin="-10,307,0,-288" Grid.ColumnSpan="3"/>
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  TOUR REQUESTS STATISTIC" Height="84" FontSize="28" Command="{Binding NavigateToTourRequestsStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540"  Grid.Row="6" Margin="-10,139,0,-120" Grid.ColumnSpan="3"/>
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  TOURS STATISTIC" Height="84" FontSize="28" Command="{Binding NavigateToTourStatisticCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540"  Grid.Row="6" Margin="-10,55,0,-36" Grid.ColumnSpan="3" />
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  TOUR REQUESTS" Height="84" FontSize="28" Command="{Binding NavigateToTourRequestCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540"  Grid.Row="6" Margin="-10,223,0,-204" Grid.ColumnSpan="3"/>
-                <Button Style="{StaticResource SideManuuttonStyle}" Content="  MY ACCOUNT" Height="84"  FontSize="28" Command="{Binding NavigateToMyAccountCommand}" BorderThickness="0" Background="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="540" Grid.Row="6" Margin="-10,475,0,-456" Grid.ColumnSpan="3"/>
-               
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  All Tours"
+    Height="84"
+    FontSize="28"
+    Command="{Binding HomeCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="0"
+    Margin="-10,-29,0,48"
+    Grid.ColumnSpan="3"
+    Grid.RowSpan="7">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/all.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="All Tours"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  Tours Statistic"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToTourStatisticCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,55,0,-36"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/pie-cart.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="Tours Statistic"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  Tour Requests Statistic"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToTourRequestsStatisticCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,139,0,-120"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/request_stat.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="Tour Requests Statistic"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  Tour Requests"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToTourRequestCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,223,0,-204"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/request_pravi.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="Tour Requests"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  Complex Tour Requests"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToComplexRequestsCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,307,0,-288"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/complexity.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="Complex Tour Requests"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+
+
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  Create Suggested Tour"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToSuggestedTourCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,391,0,-372"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/suggest.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="Create Suggested Tour"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+
+
+                <Button 
+    Style="{StaticResource SideManuuttonStyle}"
+    Content="  My Account"
+    Height="84"
+    FontSize="28"
+    Command="{Binding NavigateToMyAccountCommand}"
+    BorderThickness="0"
+    Background="White"
+    HorizontalContentAlignment="Left"
+    HorizontalAlignment="Left"
+    Width="540"
+    Grid.Row="6"
+    Margin="-10,475,0,-456"
+    Grid.ColumnSpan="3">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/account.png" Width="32" Height="32" Margin="10,0,5,0"/>
+                                <TextBlock Text="My Account"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
 
             </Grid>
         </Grid>

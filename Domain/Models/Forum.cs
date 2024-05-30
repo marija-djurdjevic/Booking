@@ -20,11 +20,13 @@ namespace BookingApp.Domain.Models
 
         public Forum()
         {
+
             Location = new Location();
             GuestsComments = 0;
             OwnersComments = 0;
             Comments = 0;
             IsClosed = false;
+
         }
 
         public Forum(int guestId, Location location, string comment, int guestcomments, bool isClosed, int ownersComments, int comments)
