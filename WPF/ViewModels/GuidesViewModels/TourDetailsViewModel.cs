@@ -9,6 +9,7 @@ using System;
 using System.Windows.Input;
 using BookingApp.Command;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
+using BookingApp.View;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -24,9 +25,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private RelayCommand previousImageCommand;
         private int currentImageIndex;
         private BitmapImage currentImage;
-
+        private RelayCommand sideMenuCommand;
         public ObservableCollection<BitmapImage> TourImages { get; set; } = new ObservableCollection<BitmapImage>();
-
+        public User LoggedInUser { get; set; }
         public Tour Tour
         {
             get { return tour; }
@@ -60,17 +61,18 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
-        public TourDetailsViewModel(int tourId)
+        public TourDetailsViewModel(int tourId,User loggedInUser)
         {
+            LoggedInUser = loggedInUser;
             tourService = new TourService(Injector.CreateInstance<ITourRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             keyPointService = new KeyPointService(Injector.CreateInstance<IKeyPointRepository>(), Injector.CreateInstance<ILiveTourRepository>());
             liveTourService = new LiveTourService(Injector.CreateInstance<ILiveTourRepository>(), Injector.CreateInstance<IKeyPointRepository>());
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
 
-           
             nextImageCommand = new RelayCommand(NextImage);
             previousImageCommand = new RelayCommand(PreviousImage);
 
-          
+           
             LoadTourDetails(tourId);
             LoadTourImages();
 
@@ -119,6 +121,27 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             {
                 CurrentImage = TourImages[currentImageIndex];
             }
+        }
+
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideManuPage = new SideMenuPage(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(sideManuPage);
+
         }
     }
 }

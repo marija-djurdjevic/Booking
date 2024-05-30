@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <!-- Gornja navigaciona traka -->
-            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="{StaticResource nagivation}">
+            <Grid Grid.Row="0" Height="71" VerticalAlignment="Top" Background="#baa1b0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71"/>
                     <ColumnDefinition Width="*"/>
@@ -63,7 +63,7 @@
     Content="Quit Job"
     FontSize="28"
     Command="{Binding QuitJobCommand}"
-    Margin="201,134,109,-114"
+    Margin="197,134,131,-114"
     Style="{StaticResource CustomButtonStyle}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
@@ -82,7 +82,7 @@
     Content="Log Out"
     FontSize="28"
     Click="LogOutClick"
-    Margin="10,134,326,-114"
+    Margin="8,134,328,-114"
     Style="{StaticResource CustomButtonStyle}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
