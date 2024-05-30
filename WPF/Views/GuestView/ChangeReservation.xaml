@@ -24,7 +24,7 @@
             <RowDefinition Height="102*" />
         </Grid.RowDefinitions>
 
-        <Image Margin="10,0,375,200" Source="\Resources\Images\contract.png" />
+        <Image Margin="10,0,375,200" Source="\Resources\Images\note.png" />
         <Label FontFamily="Times New Roman" Margin="55,10,0,157" FontSize="26">Request to change reservation</Label>
 
         <Border

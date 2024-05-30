@@ -161,6 +161,7 @@ namespace BookingApp.GuestView
             for (int i = 0; i < PropertyReservation.Days; i++)
             {
                 DateTime currentDate = start.AddDays(i);
+                SelectedProperty.ReservedDates = ReservedDateRepository.GetReservedDatesByPropertyId(SelectedProperty.Id);
                 if (SelectedProperty.ReservedDates.Find(r => r.Value == currentDate) != null || RenovationDates.Contains(currentDate) == true)
                 {
                     found = false;
@@ -230,7 +231,6 @@ namespace BookingApp.GuestView
                 Guest.Points = 0;
             }
             GuestRepository.Update(Guest);
-
         }
 
 
