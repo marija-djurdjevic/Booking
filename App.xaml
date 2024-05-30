@@ -764,7 +764,7 @@
 
 
         <!--  BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE  -->
-        <SolidColorBrush x:Key="MouseOverButtonColor" Color="LightGoldenrodYellow" />
+        <SolidColorBrush x:Key="MouseOverButtonColor" Color="#FF0000"/>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />

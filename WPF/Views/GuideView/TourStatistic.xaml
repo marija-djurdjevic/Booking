@@ -47,21 +47,10 @@
                     Width="71"
                     Height="71" />
             </Button>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="TOURS STATISTIC"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Tours Statistic"/>
         </Grid>
 
-        <Grid Grid.Row="1">
-            <Button
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="763,0,0,0"
-                Content="Generate Tour Stats PDF"
-                Command="{Binding GenerateTourStatsPdfCommand}"
-                FontSize="20"
-                Padding="10"
-                Style="{StaticResource CustomButtonStyle}" Height="40" Width="224"/>
-
-        </Grid>
+        <Grid Grid.Row="1"/>
 
 
 
@@ -167,15 +156,23 @@
 
                             <!-- Button -->
                             <Button 
-                        Width="220"
-                        Height="39"
-                        Margin="737,141,3,85"
-                        Padding="1"
-                        Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                        CommandParameter="{Binding Id}"
-                        Content="TOURISTS STATS"
-                        FontSize="28" Grid.Row="1"
-                                Style="{StaticResource CustomButtonStyle}"/>
+    Width="220"
+    Height="39"
+    Margin="737,141,3,85"
+    Padding="1"
+    Command="{Binding Path=DataContext.TouristsButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28" Grid.Row="1"
+    Style="{StaticResource CustomButtonStyle}">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Resources/Icons/GuideIcons/tourists_stat.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                            <TextBlock Text="Tourists Stat"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">

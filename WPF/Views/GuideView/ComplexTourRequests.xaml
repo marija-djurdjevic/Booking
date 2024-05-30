@@ -31,7 +31,7 @@
                            Width="71"
                            Height="71" />
                 </Button>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Account Info" Margin="6,0,37,0"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="32" Text="Complex Tour Requests" Margin="6,0,37,0"/>
             </Grid>
 
             <ScrollViewer VerticalScrollBarVisibility="visible" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="588" Margin="-13,0,0,0" Width="1021" >
@@ -129,15 +129,24 @@
                 </TextBlock>
 
                                                             <Button
-                    Width="138"
-                    Height="43"
-                    Margin="580,-32,5,0"
-                    Padding="-6"
-                    Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                    CommandParameter="{Binding Id}"
-                    Content="ACCEPT"
-                    FontSize="28"
-                    Style="{StaticResource AcceptButtonStyle}"/>
+    Width="138"
+    Height="43"
+    Margin="580,-32,5,0"
+    Padding="-6"
+    Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource AcceptButtonStyle}">
+                                                                <Button.ContentTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <Image Source="/Resources/Icons/GuideIcons/accept.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                            <TextBlock Text="Accept"/>
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </Button.ContentTemplate>
+                                                            </Button>
+
                                                         </StackPanel>
                                                     </Grid>
                                                 </Border>

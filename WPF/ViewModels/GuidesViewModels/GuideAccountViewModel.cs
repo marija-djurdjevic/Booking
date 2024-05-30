@@ -15,6 +15,7 @@ using BookingApp.Command;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using LiveCharts;
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     public class GuideAccountViewModel : BaseViewModel
@@ -42,8 +43,13 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             get { return language; }
             set { language = value; OnPropertyChanged(); }
         }
-        public GuideAccountViewModel(User loggedInUser) { 
-        
+
+
+        public ObservableCollection<double> AverageGrade { get; set; }
+        public ObservableCollection<string> Year { get; set; }
+        public GuideAccountViewModel(User loggedInUser) {
+
+           
             LoggedInUser = loggedInUser;
             guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             quitJobCommand = new RelayCommand(ExecuteQuitJobCommand);
@@ -56,11 +62,52 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             touristService = new TouristService(Injector.CreateInstance<ITouristRepository>(), Injector.CreateInstance<ITouristGuideNotificationRepository>(), Injector.CreateInstance<IVoucherRepository>());
             tourCancellationService = new TourCancellationService(liveTourService, tourReservationService, tourService, keyPointService, voucherService, touristService);
             touristExperienceService = new TouristExperienceService(Injector.CreateInstance<ITouristExperienceRepository>());
+            AverageGrade = new ObservableCollection<double>();
+            Year = new ObservableCollection<string>();
+           
             LoadData();
-            GuideRating = CountAverage();
+            GuideRating = Math.Round(CountAverage(), 2);
+            LoadChartData();
+
 
         }
 
+
+        private void LoadChartData()
+        {
+            var oneYearAgo = DateTime.Today.AddYears(-1);
+
+            var filteredTours = FinishedTours
+                .Where(tour => tour.StartDateTime >= oneYearAgo)
+                .OrderBy(tour => tour.StartDateTime)
+                .ToList();
+
+            foreach (var monthGroup in filteredTours.GroupBy(tour => new { tour.StartDateTime.Year, tour.StartDateTime.Month }))
+            {
+                var totalRating = 0.0;
+                var totalTours = 0;
+
+                foreach (var tour in monthGroup)
+                {
+                    var touristExperiences = touristExperienceService.GetTouristExperiencesForTour(tour.Id);
+                    foreach (var review in touristExperiences)
+                    {
+                        double srvr = review.GuideLanguageRating + review.GuideKnowledgeRating + review.TourInterestingesRating;
+                        totalRating += srvr / 3;
+                        totalTours++;
+                    }
+                }
+
+                if (totalTours > 0)
+                {
+                    double averageRating = totalRating / totalTours;
+                    AverageGrade.Add(Math.Round(averageRating, 2));
+                    Year.Add($"{monthGroup.Key.Month}/{monthGroup.Key.Year}");
+                }
+            }
+        }
+        public SeriesCollection AverageGradeData { get; set; }
+        public string[] AverageGradeLabels { get; set; }
 
         public String Langugage { get; set; }
 
