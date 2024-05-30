@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.GuestView"
       mc:Ignorable="d" 
-          Title="ActionList" Height="705" Width="300">
+      Title="ActionList" Height="710" Width="300">
     <Grid Background="LightSteelBlue" Margin="0,0,0,43">
+        
         <ToolBar Background="#dddddd" VerticalAlignment="Top" Height="45" Width="300">
-            <Button HorizontalAlignment="Left">
+            <Button Click="Back_Click" HorizontalAlignment="Left">
                 <Image Width="25" Height="25" Source="\Resources\Images\back (2).png"></Image>
             </Button>
             <Label Margin="175, 0, 0, 0" VerticalAlignment="Center" FontSize="16">Booking</Label>
@@ -20,35 +21,36 @@
             </StackPanel>
         </Button>
 
-        <Button Background="#8FB9A8" Height="103" VerticalAlignment="Top" Margin="0,148,0,0">
+        <Button Click="AnywhereAnytime_Click" Background="#8FB9A8" Height="103" VerticalAlignment="Top" Margin="0,148,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
-                <Image Source="\Resources\Images\earth.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <Image Source="\Resources\Images\earth-globe.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Anywhere-Anytime" Width="222"/>
             </StackPanel>
         </Button>
         <Button Click="Reservations_Click" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,251,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
-                <Image Source="\Resources\Images\paper-plane.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <Image Source="\Resources\Images\paper-plane (1).png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Reservations" Width="222"/>
             </StackPanel>
         </Button>
         <Button Click="ReviewScore_Click" Background="#8FB9A8" Height="103" VerticalAlignment="Top" Margin="0,354,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
-                <Image Source="\Resources\Images\star (1).png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <Image Source="\Resources\Images\star (3).png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Review score" Width="222"/>
             </StackPanel>
         </Button>
         <Button Click="Forums_Click" Background="BlanchedAlmond" Height="103" VerticalAlignment="Top" Margin="0,457,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
-                <Image Source="\Resources\Images\chat.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <Image Source="\Resources\Images\forum.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Forums" Width="222"/>
             </StackPanel>
         </Button>
         <Button Click="Notifications_Click" Background="#8FB9A8" Height="105" VerticalAlignment="Top" Margin="0,560,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="273">
-                <Image Source="\Resources\Images\bell.png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
+                <Image Source="\Resources\Images\bell (1).png" Margin="2, 0, 0 ,20" Width="50" Height="50"/>
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Notifications" Width="222"/>
             </StackPanel>
         </Button>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Page>

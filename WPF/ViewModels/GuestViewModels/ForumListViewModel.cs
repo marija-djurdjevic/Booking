@@ -24,7 +24,20 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public List<Forum> Forums { get; set; }
         public List<Guest> Guests { get; set; }
         public ObservableCollection<KeyValuePair<Forum, Guest>> ForumGuests { get; set; }
-        public KeyValuePair<Forum, Guest> SelectedForum {  get; set; }
+
+        private KeyValuePair<Forum, Guest> selectedForum;
+        public KeyValuePair<Forum, Guest> SelectedForum
+        {
+            get => selectedForum;
+            set
+            {
+                if (selectedForum.Key != value.Key || selectedForum.Value != value.Value)
+                {
+                    selectedForum = value;
+                    OnPropertyChanged(nameof(SelectedForum));
+                }
+            }
+        }
 
         public ForumService forumService;
 

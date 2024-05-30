@@ -20,6 +20,7 @@ namespace BookingApp.Aplication.Dto
         private string country;
         private int guestsComments;
         private int ownersComments;
+        private int comments;
         private bool isClosed;
 
 
@@ -32,6 +33,20 @@ namespace BookingApp.Aplication.Dto
                 if (value != guestsComments)
                 {
                     guestsComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Comments
+        {
+
+            get { return comments; }
+            set
+            {
+                if (value != comments)
+                {
+                    comments = value;
                     OnPropertyChanged();
                 }
             }
@@ -172,7 +187,7 @@ namespace BookingApp.Aplication.Dto
         public Forum ToForum()
         {
             Location location = LocationDto != null ? locationDto.ToLocation() : new Location();
-            return new Forum(guestId, location, comment, guestsComments, isClosed, ownersComments);
+            return new Forum(guestId, location, comment, guestsComments, isClosed, ownersComments, comments);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

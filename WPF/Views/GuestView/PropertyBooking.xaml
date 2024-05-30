@@ -106,7 +106,7 @@
             </DataGrid>
         </Border>
         <Label Content="Number of guests:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="154" Width="110" Margin="10,0,0,0" Grid.Row="2"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top"  Height="22" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,25,0,0" Grid.Row="2"/>
-        <Button Content="Confirm reservation" Background="#C8CECC" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="150" Margin="250,20,0,0" Grid.Row="2"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top"  Height="35" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,25,0,0" Grid.Row="2"/>
+        <Button Content="Confirm reservation" Background="#C8CECC" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="150" Margin="250,20,0,0" Grid.Row="2"/>
     </Grid>
 </Page>

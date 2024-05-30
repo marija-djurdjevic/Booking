@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace BookingApp.GuestView
@@ -28,6 +29,7 @@ namespace BookingApp.GuestView
 
         public User LoggedInUser { get; set; }
         public Guest Guest { get; set; }
+        private Stack<Page> pageStack = new Stack<Page>();
         public GuestMainWindow(User user)
         {
             InitializeComponent();
@@ -64,7 +66,14 @@ namespace BookingApp.GuestView
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (frame.CanGoBack)
+            var currentFrameContent = frame.Content as Page;
+            var currentActionFrameContent = ActionFrame.Content as Page;
+
+            if (currentFrameContent is ForumCommenting || currentActionFrameContent is ForumCommenting)
+            {
+                ActionFrame.Navigate(new ForumList(Guest));
+            }
+            else if (frame.CanGoBack)
             {
                 frame.GoBack();
             }
