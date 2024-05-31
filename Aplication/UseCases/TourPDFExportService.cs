@@ -68,7 +68,7 @@ namespace BookingApp.Aplication.UseCases
                         page.Header().Element(ComposeHeader);
                         page.Content().Element(ComposeContent);
 
-                        page.Footer().BorderTop(2).BorderColor(Colors.Green.Medium).PaddingBottom(10).AlignCenter()
+                        page.Footer().BorderTop(2).BorderColor(Colors.BlueGrey.Medium).PaddingBottom(10).AlignCenter()
                             .Text(x => { x.Span("Page "); x.CurrentPageNumber(); });
                     });
                 }).GeneratePdf(FilePath);
@@ -92,7 +92,7 @@ namespace BookingApp.Aplication.UseCases
             var titleStyle = TextStyle.Default.FontSize(20).Bold().FontColor(Colors.Black);
             var textStyle = TextStyle.Default.FontSize(18).SemiBold().FontColor(Colors.Black);
 
-            container.PaddingTop(0).BorderBottom(2).BorderColor(Colors.Green.Medium).Column(column =>
+            container.PaddingTop(0).BorderBottom(2).BorderColor(Colors.BlueGrey.Medium).Column(column =>
             {
                 column.Item().PaddingTop(5).AlignLeft().Row(row =>
                 {
@@ -115,14 +115,14 @@ namespace BookingApp.Aplication.UseCases
                         column.Item().Text($"Guide:").Style(textStyle);
 
                         column.Item().Text(text =>
-                        { text.Span($"{Fullname}").FontColor(Colors.Green.Medium).SemiBold(); });
+                        { text.Span($"{Fullname}").FontColor(Colors.BlueGrey.Medium).SemiBold(); });
                     });
                     row.RelativeItem().AlignRight().Column(column =>
                     {
                         column.Item().Text($"Export date:").Style(textStyle);
 
                         column.Item().AlignCenter().Text(text =>
-                        { text.Span($"{DateTime.Now:dd/MM/yyyy}").FontColor(Colors.Green.Medium).SemiBold(); });
+                        { text.Span($"{DateTime.Now:dd/MM/yyyy}").FontColor(Colors.BlueGrey.Medium).SemiBold(); });
                     });
                 });
             });

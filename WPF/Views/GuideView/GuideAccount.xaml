@@ -117,7 +117,7 @@
 
 
 
-                        <lvc:CartesianChart Margin="30,85,44,-332" Grid.Row="2">
+                        <lvc:CartesianChart Margin="30,142,44,-389" Grid.Row="2">
                             <lvc:CartesianChart.Series>
                                 <lvc:LineSeries 
                         Title="Average Grade" 
@@ -147,6 +147,7 @@
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
+                        <TextBlock Grid.Row="2" Text="Rating in previous year" FontWeight="DemiBold"  Margin="97,95,72,-58" TextDecorations="Underline" FontSize="28"/>
 
 
 
