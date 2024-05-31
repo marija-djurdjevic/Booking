@@ -21,7 +21,24 @@ namespace BookingApp.Aplication.Dto
         private int guestsComments;
         private int ownersComments;
         private bool isClosed;
+        private string username;
 
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (value != username)
+                {
+                    username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int CommentsCount
+        {
+            get { return guestsComments + ownersComments; }
+        }
 
         public int GuestsComments
         {
@@ -156,6 +173,15 @@ namespace BookingApp.Aplication.Dto
             OwnersComments = ownersComments;
         }
 
+        public ForumDto(int guestId, string username, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
+        {
+            this.username = username;
+            this.locationDto = locationDto;
+            this.comment = comment;
+            this.guestsComments = guestsComments;
+            this.isClosed = isClosed;
+            this.ownersComments = ownersComments;
+        }
         public ForumDto(Forum forum)
         {
             guestId = forum.GuestId;

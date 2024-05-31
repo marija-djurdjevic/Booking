@@ -105,6 +105,19 @@ namespace BookingApp.Aplication.UseCases
         {
             forumRepository.Update(forum);
         }
+        public string GetCityForForum(Forum forum)
+        {
+            return forum.Location.City;
+        }
 
+        public string GetCountryForForum(Forum forum)
+        {
+            return forum.Location.Country;
+        }
+        public string GetUsernameForGuestId(int guestId)
+        {
+            var guest = guestRepository.GetByUserId(guestId);
+            return guest != null ? guest.Username : "Unknown"; // Ako gost nije pronađen, vratiti "Unknown"
+        }
     }
 }

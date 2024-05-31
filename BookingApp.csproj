@@ -18,6 +18,8 @@
 
     <None Remove="Resources\Icons\OwnerIcons\account.jpeg" />
     <None Remove="Resources\Icons\OwnerIcons\account.png" />
+    <None Remove="Resources\Icons\OwnerIcons\CommentIcon.png" />
+    <None Remove="Resources\Icons\OwnerIcons\LocationIcon.png" />
     <None Remove="Resources\Icons\OwnerIcons\logout.png" />
     <None Remove="Resources\Icons\OwnerIcons\notificationf.png" />
     <None Remove="Resources\Icons\OwnerIcons\notifications.png" />
@@ -264,6 +266,8 @@
 
     <Resource Include="Resources\Icons\OwnerIcons\account.jpeg" />
     <Resource Include="Resources\Icons\OwnerIcons\account.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\CommentIcon.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\LocationIcon.png" />
     <Resource Include="Resources\Icons\OwnerIcons\logout.png" />
     <Resource Include="Resources\Icons\OwnerIcons\notificationf.png" />
     <Resource Include="Resources\Icons\OwnerIcons\notifications.png" />

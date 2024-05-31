@@ -50,6 +50,7 @@ namespace BookingApp.View
             RenovationsFrame.Navigate(new RenovationsPage(LoggedInUser));
             AnalyticsFrame.Navigate(new AnalyticsPage(LoggedInUser));
             RecommendationsFrame.Navigate(new RecommendationsPage());
+            ForumFrame.Navigate(new ForumPage(LoggedInUser));
 
         }
 

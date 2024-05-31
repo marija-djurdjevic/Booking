@@ -103,6 +103,7 @@
             </TabItem>
             <TabItem Header="Forums">
                 <!-- Forums Tab Content -->
+                <Frame x:Name="ForumFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
             <TabItem Header="Recommendations">
                 <Frame x:Name="RecommendationsFrame" NavigationUIVisibility="Hidden"/>
