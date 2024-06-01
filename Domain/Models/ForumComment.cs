@@ -10,7 +10,7 @@ namespace BookingApp.Domain.Models
     public class ForumComment : ISerializable
     {
         public int Id { get; set; }
-        public int GuestId { get; set; }
+        public int UserId { get; set; }
         public int ForumId { get; set; }
         public int AuthorId {  get; set; }
         public string Comment { get; set; }
@@ -23,7 +23,7 @@ namespace BookingApp.Domain.Models
 
         public ForumComment(int guestId, int forumId, string comment, int authorId, bool guestVisited)
         {
-            GuestId = guestId;
+            UserId = guestId;
             ForumId = forumId;
             Comment = comment;
             AuthorId = authorId;
@@ -32,14 +32,14 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString(), GuestVisited.ToString()  };
+            string[] csvValues = { Id.ToString(), UserId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString(), GuestVisited.ToString()  };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[1]);
             ForumId = Convert.ToInt32(values[2]);
             Comment = values[3];
             AuthorId = Convert.ToInt32(values[4]);
