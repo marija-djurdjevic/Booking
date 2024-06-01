@@ -69,7 +69,18 @@ namespace BookingApp.Repositories
             return _serializer.FromCSV(FilePath);
         }
 
-       
+
+
+        public string GetFullNameById(int guideId)
+        {
+            Guide guide = GetById(guideId);
+            if (guide != null)
+            {
+                return $"{guide.FirstName}  {guide.LastName}";
+            }
+            return null;
+        }
+
 
         public void Save(Guide guide)
         {

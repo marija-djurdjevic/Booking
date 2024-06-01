@@ -196,7 +196,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         {
             if (parameter != null && int.TryParse(parameter.ToString(), out int tourId))
             {
-                var details = new TourDetails(tourId);
+                var details = new TourDetails(tourId,LoggedInUser);
                 GuideMainWindow.MainFrame.Navigate(details);
             }
         }

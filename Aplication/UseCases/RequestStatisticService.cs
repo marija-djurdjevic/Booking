@@ -68,8 +68,11 @@ namespace BookingApp.Aplication.UseCases
 
         public string GetMostRequestedLanguage()
         {
-            var allRequests = GetAllSimpleRequests();
-            var languageCounts = allRequests.GroupBy(r => r.Language)
+            var oneYearAgo = DateTime.Now.AddYears(-1);
+            var filteredRequests = GetAllSimpleRequests()
+                .Where(request => request.Status == Domain.Models.Enums.TourRequestStatus.Pending && request.StartDate > oneYearAgo);
+
+            var languageCounts = filteredRequests.GroupBy(r => r.Language)
                                              .Select(g => new { Language = g.Key, Count = g.Count() })
                                              .OrderByDescending(x => x.Count);
 
@@ -83,7 +86,8 @@ namespace BookingApp.Aplication.UseCases
 
         public string GetMostRequestedLocation()
         {
-            var allRequests = GetAllSimpleRequests();
+            var oneYearAgo = DateTime.Now.AddYears(-1);
+            var allRequests = GetAllSimpleRequests().Where(request => request.Status == Domain.Models.Enums.TourRequestStatus.Pending && request.StartDate > oneYearAgo);
             var locationCounts = allRequests.GroupBy(r => $"{r.Location.City}, {r.Location.Country}")
                                             .Select(g => new { Location = g.Key, Count = g.Count() })
                                             .OrderByDescending(x => x.Count);

@@ -41,7 +41,7 @@
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Text="ALL TOURS" />
+                    Text="All Tours" />
             </Grid>
         </DockPanel>
 
@@ -49,15 +49,24 @@
         <DockPanel Background="{StaticResource pozadina}" DockPanel.Dock="Left">
             <Grid>
                 <Button
-                    Width="120"
-                    Height="47"
-                    Margin="0,21,27,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Command="{Binding Path=DataContext.CreateTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                    Content="CREATE"
-                    FontSize="32"
-                    Style="{StaticResource CustomButtonStyle}" />
+    Width="148"
+    Height="47"
+    Margin="0,21,37,0"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Top"
+    Command="{Binding Path=DataContext.CreateTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    FontSize="32"
+    Style="{StaticResource CustomButtonStyle}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/create.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                <TextBlock Text="Create"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
 
 
                 <TabControl
@@ -150,28 +159,44 @@
                                                         <Run Text="Start Date and Time: " />
                                                         <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                                     </TextBlock>
-                                                    <Button
-                                                        Width="138"
-                                                        Height="42"
-                                                        Margin="630,0,0,0"
-                                                        Padding="-1"
-                                                        Command="{Binding Path=DataContext.StartTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                                        CommandParameter="{Binding Id}"
-                                                        Content="START"
-                                                        FontSize="28"
-                                                        Style="{StaticResource CustomButtonStyle}" />
+                                                    <Button 
+    Width="138"
+    Height="42"
+    Margin="630,0,0,0"
+    Padding="-1"
+    Command="{Binding Path=DataContext.StartTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/start_tour.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Start"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
 
 
                                                     <Button
-         Width="130"
-         Height="42"
-         Margin="335,-43,0,0"
-         Padding="-1"
-         Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-         CommandParameter="{Binding Id}"
-         Content="Details"
-         FontSize="28"
-         Style="{StaticResource CustomButtonStyle}" />
+    Width="130"
+    Height="42"
+    Margin="335,-43,0,0"
+    Padding="-1"
+    Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/details.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Details"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
 
                                                 </StackPanel>
                                             </Grid>
@@ -267,27 +292,43 @@
                                                         <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                                     </TextBlock>
                                                     <Button
-                                                        Width="138"
-                                                        Height="42"
-                                                        Margin="630,0,0,0"
-                                                        Padding="-1"
-                                                        Command="{Binding Path=DataContext.CancelTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                                        CommandParameter="{Binding Id}"
-                                                        Content="Cancel"
-                                                        FontSize="28"
-                                                        Style="{StaticResource CustomButtonStyle}" />
+    Width="138"
+    Height="42"
+    Margin="630,0,0,0"
+    Padding="-1"
+    Command="{Binding Path=DataContext.CancelTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/cance_tour.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Cancel"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
 
 
                                                     <Button
-                                                            Width="130"
-                                                            Height="42"
-                                                            Margin="335,-43,0,0"
-                                                            Padding="-1"
-                                                            Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                                            CommandParameter="{Binding Id}"
-                                                            Content="Details"
-                                                            FontSize="28"
-                                                            Style="{StaticResource CustomButtonStyle}" />
+    Width="130"
+    Height="42"
+    Margin="335,-43,0,0"
+    Padding="-1"
+    Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/details.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Details"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
 
                                                 </StackPanel>
                                             </Grid>
@@ -391,15 +432,49 @@
                                                         <Run FontSize="24" Text="{Binding StartDateTime, StringFormat='dd.MM.yyyy HH:mm \\h'}" />
                                                     </TextBlock>
                                                     <Button
-                                                        Width="138"
-                                                        Height="42"
-                                                        Margin="630,0,0,0"
-                                                        Padding="-10"
-                                                        Command="{Binding Path=DataContext.ReviewTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                                        CommandParameter="{Binding Id}"
-                                                        Content="REVIEWS"
-                                                        FontSize="28"
-                                                        Style="{StaticResource CustomButtonStyle}" />
+    Width="138"
+    Height="42"
+    Margin="630,0,0,0"
+    Padding="-10"
+    Command="{Binding Path=DataContext.ReviewTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/review.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Reviews"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
+
+
+
+                                                    <Button
+    Width="130"
+    Height="42"
+    Margin="335,-43,0,0"
+    Padding="-1"
+    Command="{Binding Path=DataContext.TourDetails, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    FontSize="28"
+    Style="{StaticResource CustomButtonStyle}">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="/Resources/Icons/GuideIcons/details.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                                    <TextBlock Text="Details"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
+
+
+
+
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

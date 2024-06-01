@@ -47,6 +47,12 @@ namespace BookingApp.UseCases
         }
 
 
+
+        public string GetFullNameById(int guideId)
+        {
+            return _guideRepository.GetFullNameById(guideId);
+        }
+
         public void RemoveGuide(int guideId)
         {
            

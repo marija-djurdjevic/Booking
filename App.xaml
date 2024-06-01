@@ -752,9 +752,9 @@
 
 
         <!--  Stilovi za vodiča  -->
-        <SolidColorBrush x:Key="pozadina" Color="#80DFE0" />
+        <SolidColorBrush x:Key="pozadina" Color="#80cfe0" />
         <SolidColorBrush x:Key="gropuBox" Color="#A5F7A6" />
-        <SolidColorBrush x:Key="nagivation" Color="#95B0B0" />
+        <SolidColorBrush x:Key="nagivation" Color="#baa1b0" />
 
 
         <!--  BOJE KAD JE LISTBOX ITEM HOVER-OVAN I KADA NIJE  -->
@@ -764,7 +764,7 @@
 
 
         <!--  BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE  -->
-        <SolidColorBrush x:Key="MouseOverButtonColor" Color="LightGoldenrodYellow" />
+        <SolidColorBrush x:Key="MouseOverButtonColor" Color="#C5E3F5"/>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />

@@ -108,18 +108,18 @@
         </Border>
 
         <ListBox
-    x:Name="propertiesData"
-    Grid.Row="1"
-            Margin="0, 0, 10, 0"
-    d:ItemsSource="{d:SampleData ItemCount=5}"
-    Background="#8FB9A8"
-    SelectionChanged="propertiesData_SelectionChanged">
+        x:Name="propertiesData"
+        Grid.Row="1"
+         Margin="0, 0, 14, 0"
+        d:ItemsSource="{d:SampleData ItemCount=5}"
+        Background="#8FB9A8"
+        SelectionChanged="propertiesData_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border
                 Margin="5"
                 Background="BlanchedAlmond"
-                Width="380"
+                Width="375"
                 Height="150"
                 HorizontalAlignment="Center"
                 BorderBrush="#C8CECC"
@@ -138,14 +138,18 @@
                             FontFamily="Times New Roman"
                             FontWeight="Bold"       
                             Text="{Binding Name}" />
-                             <TextBlock FontSize="16" Text="{Binding Location.Country}" />
-                             <TextBlock FontSize="16" Text="{Binding Type}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="{Binding Location.City}" />
+                                    <Label FontSize="13" HorizontalAlignment="Left" Content="," />
+                                    <TextBlock FontSize="16" Text="{Binding Location.Country}" />
+                                </StackPanel>
+                                <TextBlock FontSize="16" Text="{Binding Type}" />
                             </StackPanel>
                             <StackPanel>
                                 <Image
                                 Width="20"
                                 Height="20"
-                                Margin="95,5,5,5"
+                                Margin="90,5,5,5"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Source="{Binding OwnerId, Converter={StaticResource BoolToVisibilityConverter}}" /> 

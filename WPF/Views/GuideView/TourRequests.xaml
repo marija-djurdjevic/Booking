@@ -49,7 +49,7 @@
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Text="TOUR REQUESTS" />
+                    Text="Tour Requests" />
             </Grid>
 
 
@@ -173,29 +173,50 @@
                     Value="{Binding EndDateTime, Mode=TwoWay}" />
 
 
-                <Button
-                    FontSize="20"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Height="50"
-                    Margin="274,0,4,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding SearchCommand}"
-                    Content="Search"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                <Button 
+    FontSize="20"
+    Grid.Row="2"
+    Grid.Column="1"
+    Height="50"
+    Margin="274,0,4,0"
+    VerticalAlignment="Center"
+    Command="{Binding SearchCommand}"
+    Content="Search"
+    Style="{StaticResource CustomButtonStyle}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/ssearch.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                <TextBlock Text="Search"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
 
 
-                <Button
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Width="158"
-                    Height="50"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Command="{Binding ResetSearchCommand}"
-                    Content="Reset search"
-                    FontSize="20"
-                    Style="{StaticResource CustomButtonStyle}" Margin="20,0,0,0"/>
+
+                <Button 
+    Grid.Row="2"
+    Grid.Column="1"
+    Width="168"
+    Height="50"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Center"
+    Command="{Binding ResetSearchCommand}"
+    Content="Reset Search"
+    FontSize="20"
+    Style="{StaticResource CustomButtonStyle}"
+    Margin="20,0,0,0">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/Icons/GuideIcons/reste_search.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                <TextBlock Text="Reset Search"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
 
 
 
@@ -282,16 +303,26 @@
                                             </TextBlock>
                                         </TextBlock>
 
-                                        <Button
-                                            Width="138"
-                                            Height="43"
-                                            Margin="630,-30,5,0"
-                                            Padding="-6"
-                                            Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                            CommandParameter="{Binding Id}"
-                                            Content="ACCEPT"
-                                            FontSize="28"
-                                            Style="{StaticResource AcceptButtonStyle}"/>
+                                        <Button 
+    Width="138"
+    Height="43"
+    Margin="630,-30,5,0"
+    Padding="-6"
+    Command="{Binding Path=DataContext.AcceptTourClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding Id}"
+    Content="Accept"
+    FontSize="28"
+    Style="{StaticResource AcceptButtonStyle}">
+                                            <Button.ContentTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="/Resources/Icons/GuideIcons/accept.png" Width="32" Height="32" Margin="0,0,5,0"/>
+                                                        <TextBlock Text="Accept"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Button.ContentTemplate>
+                                        </Button>
+
                                     </StackPanel>
                                 </Grid>
                             </Border>
