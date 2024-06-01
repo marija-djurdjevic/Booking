@@ -48,6 +48,12 @@ namespace BookingApp.Domain.Models
             Message = $"Guest {GuestName} is not rated, {daysRemaining} days remaining.";
 
         }
+        public Notification(string message, int guestId, string guestName)
+        {
+            Message = message;
+            GuestId = guestId;
+            GuestName = guestName;
+        }
 
 
     }

@@ -82,6 +82,8 @@
 
     <None Remove="Resources\Icons\OwnerIcons\account.jpeg" />
     <None Remove="Resources\Icons\OwnerIcons\account.png" />
+    <None Remove="Resources\Icons\OwnerIcons\CommentIcon.png" />
+    <None Remove="Resources\Icons\OwnerIcons\LocationIcon.png" />
     <None Remove="Resources\Icons\OwnerIcons\logout.png" />
     <None Remove="Resources\Icons\OwnerIcons\notificationf.png" />
     <None Remove="Resources\Icons\OwnerIcons\notifications.png" />
@@ -320,6 +322,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.Build" Version="17.9.5" />
     <PackageReference Include="Microsoft.Build.Framework" Version="17.9.5" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.3" />
@@ -398,6 +401,8 @@
 
     <Resource Include="Resources\Icons\OwnerIcons\account.jpeg" />
     <Resource Include="Resources\Icons\OwnerIcons\account.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\CommentIcon.png" />
+    <Resource Include="Resources\Icons\OwnerIcons\LocationIcon.png" />
     <Resource Include="Resources\Icons\OwnerIcons\logout.png" />
     <Resource Include="Resources\Icons\OwnerIcons\notificationf.png" />
     <Resource Include="Resources\Icons\OwnerIcons\notifications.png" />
