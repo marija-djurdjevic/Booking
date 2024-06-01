@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Aplication.Dto;
+using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
@@ -41,6 +42,10 @@ namespace BookingApp.Aplication.UseCases
         public List<Guest> GetAllGuests()
         {
             return guestRepository.GetAll();
+        }
+        public List<ForumComment> GetAllComments()
+        {
+            return forumCommentRepository.GetAll();
         }
 
         public List<Forum> GetAllForums()
@@ -117,7 +122,39 @@ namespace BookingApp.Aplication.UseCases
         public string GetUsernameForGuestId(int guestId)
         {
             var guest = guestRepository.GetByUserId(guestId);
-            return guest != null ? guest.Username : "Unknown"; // Ako gost nije pronađen, vratiti "Unknown"
+            return guest != null ? guest.Username : "Unknown"; 
         }
+       /* public List<ForumCommentDto> GetCommentsForForum(int forumId)
+        {
+           
+            var allComments = forumCommentRepository.GetAll();
+
+            var commentsForForum = allComments
+                .Where(c => c.ForumId == forumId)
+                .Select(c => new ForumCommentDto
+                {
+                    Id = c.Id,
+                    GuestId = c.GuestId,
+                    ForumId = c.ForumId,
+                    Comment = c.Comment,
+                    GuestVisited = c.GuestVisited
+                })
+                .ToList();
+
+            return commentsForForum;
+        }*/
+        public List<ForumComment> GetCommentsForForum(int forumId)
+        {
+            // Dobavljanje svih komentara iz repozitorijuma
+            var allComments = forumCommentRepository.GetAll();
+
+            // Filtriranje komentara samo za odabrani forum
+            var commentsForForum = allComments
+                .Where(c => c.ForumId == forumId)
+                .ToList();
+
+            return commentsForForum;
+        }
+
     }
 }

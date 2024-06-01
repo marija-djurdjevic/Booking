@@ -26,7 +26,7 @@
     </Page.Resources>
 
     <Grid>
-        <ListBox ItemsSource="{Binding AllForums}" Grid.Row="0" Margin="5">
+        <ListBox ItemsSource="{Binding AllForums}" SelectionChanged="ListBox_SelectionChanged" Grid.Row="0" Margin="5">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Margin" Value="0 0 0 5"/>

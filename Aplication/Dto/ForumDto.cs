@@ -156,13 +156,14 @@ namespace BookingApp.Aplication.Dto
         }
 
         public int Id { get; set; }
-
+       
         public ForumDto()
         {
         }
 
         public ForumDto(int guestId, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
         {
+            
             this.guestId = guestId;
             this.comment = comment;
             this.locationDto = locationDto;
@@ -172,7 +173,16 @@ namespace BookingApp.Aplication.Dto
             this.isClosed = isClosed;
             OwnersComments = ownersComments;
         }
-
+        public ForumDto(int id, int guestId, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
+        {
+            Id = id;
+            GuestId = guestId;
+            LocationDto = locationDto;
+            Comment = comment;
+            GuestsComments = guestsComments;
+            IsClosed = isClosed;
+            OwnersComments = ownersComments;
+        }
         public ForumDto(int guestId, string username, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
         {
             this.username = username;
@@ -184,6 +194,7 @@ namespace BookingApp.Aplication.Dto
         }
         public ForumDto(Forum forum)
         {
+            Id = forum.Id;
             guestId = forum.GuestId;
             comment = forum.Comment;
             locationDto = new LocationDto(forum.Location);
@@ -194,6 +205,7 @@ namespace BookingApp.Aplication.Dto
             ownersComments = forum.OwnersComments;
 
         }
+
 
         public Forum ToForum()
         {

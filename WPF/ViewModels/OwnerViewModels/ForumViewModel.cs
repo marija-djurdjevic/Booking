@@ -4,6 +4,8 @@ using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
+using BookingApp.WPF.Views.OwnerView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,10 +13,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class ForumViewModel
+    public class ForumViewModel 
     {
         private readonly User _loggedInUser;
         private ForumRepository _forumRepository;
@@ -83,5 +87,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 AllForums.Add(forumDto);
             }
         }
+       
+
     }
 }

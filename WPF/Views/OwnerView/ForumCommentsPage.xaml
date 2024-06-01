@@ -1,0 +1,99 @@
+﻿<Page x:Class="BookingApp.WPF.Views.OwnerView.ForumCommentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="ForumCommentsPage">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="#383838"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <!-- Fixed height for the forum details card -->
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Height for the comment input box and submit button -->
+        </Grid.RowDefinitions>
+
+        <!-- Detalji izabranog foruma -->
+        <Border Grid.Row="0" Background="#007ACC" CornerRadius="10" Padding="10" Margin="10,10,10,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Icon and Username -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/Resources/Icons/OwnerIcons/user2.png" Width="30" Height="30" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding SelectedForum.Username}" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Right side: Comment, Location, and Comments count -->
+                <StackPanel Grid.Column="1">
+                    <!-- Comment -->
+                    <TextBlock Text="{Binding SelectedForum.Comment}" FontWeight="Bold" FontSize="18" Margin="0,10,0,0"/>
+
+                    <!-- Location and Comments count -->
+                    <StackPanel Orientation="Horizontal" Margin="10,-20,0,0">
+                        <!-- Location -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                            <Image Source="/Resources/Icons/OwnerIcons/LocationIcon.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding SelectedForum.City}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding SelectedForum.Country}"/>
+                        </StackPanel>
+
+                        <!-- Comments count -->
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Icons/OwnerIcons/CommentIcon.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding SelectedForum.CommentsCount}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Lista komentara -->
+        <ListBox ItemsSource="{Binding ForumComments}" Margin="10,0,10,0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- Prikaz komentara -->
+                    <Border Background="#2A2A2A" Padding="10" CornerRadius="10" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Comment}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Username}" FontWeight="Bold" FontStyle="Italic" Foreground="LightGray" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- TextBox za unos komentara i Submit dugme -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <TextBox Width="600" Height="30" Margin="0,0,10,0" Text="{Binding NewComment, UpdateSourceTrigger=PropertyChanged}" Background="#2A2A2A" Foreground="White"/>
+            <Button Content="Submit" Width="100" Height="30" Background="#007ACC" Foreground="White" Click="SubmitButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

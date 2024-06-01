@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Aplication.Dto;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,30 @@ namespace BookingApp.WPF.Views.OwnerView
             LoggedInUser = loggedInUser;
             DataContext = new ForumViewModel(LoggedInUser);
         }
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ListBox listBox && listBox.SelectedItem != null)
+            {
+                if (listBox.SelectedItem is ForumDto selectedForum)
+                {
+                    this.NavigationService.Navigate(new ForumCommentsPage(LoggedInUser, selectedForum));
+                }
+            }
+        }
+        /*private void ForumItem_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Dobijamo odabrani forum
+            var selectedForum = (sender as ListBox).SelectedItem as Forum;
+
+            // Proveravamo da li je forum odabran
+            if (selectedForum != null)
+            {
+                // Kreiramo novu instancu ForumDetailsPage i prosleđujemo odabrani forum kao parametar
+                ForumCommentsPage forumDetailsPage = new ForumCommentsPage(LoggedInUser, selectedForum);
+
+                this.NavigationService.Navigate(new ForumCommentsPage(LoggedInUser, selectedForum));
+            }
+        }*/
     }
+
 }
