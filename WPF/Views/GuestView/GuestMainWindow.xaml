@@ -20,12 +20,12 @@
             </Button>
 
         </ToolBar>
-        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,42,0,44" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="frame" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,42,0,45" NavigationUIVisibility="Hidden"/>
         <DockPanel VerticalAlignment="Bottom" Background="#C8CECC" Height="45" Width="430">
             <Button Background="#C8CECC" Click="Back_Click" BorderBrush="#C8CECC" Margin="20, 0, 0, 0" Width="60">
                 <Image Source="\Resources\Images\back (1).png" Width="60"></Image>
             </Button>
-            <Button Background="#C8CECC" BorderBrush="#C8CECC" Margin="115, 0, 0, 0" HorizontalAlignment="Center">
+            <Button Click="Home_Click" Background="#C8CECC" BorderBrush="#C8CECC" Margin="115, 0, 0, 0" HorizontalAlignment="Center">
                 <Image Source="\Resources\Images\home.png"></Image>
             </Button>
             <Button Content="DEMO" BorderThickness="2" FontWeight="Bold" FontSize="18" BorderBrush="Black" Margin="60, 0, 0, 0" Background="#C8CECC" Height="40" Width="70"/>

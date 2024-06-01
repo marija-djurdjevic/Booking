@@ -6,6 +6,9 @@ using BookingApp.Repositories;
 using System.Windows.Controls;
 using BookingApp.Domain.Models;
 using BookingApp.Aplication.Dto;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
+using BookingApp.WPF.Views.GuestView;
 
 namespace BookingApp.GuestView
 {
@@ -46,6 +49,24 @@ namespace BookingApp.GuestView
             propertiesData.ItemsSource = sortedProperties;
         }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            return !regex.IsMatch(text);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter || e.Key == Key.Escape)
+            {
+                e.Handled = false;
+            }
+        }
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             string name = SearchByName.Text.Trim();
@@ -111,6 +132,12 @@ namespace BookingApp.GuestView
                 SelectedPropertyView selectedPropertyView = new SelectedPropertyView(SelectedProperty, LoggedInGuest, PropertyRepository, PropertyReservationRepository);
                 NavigationService.Navigate(selectedPropertyView);
             }
+        }
+
+        private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
+        {
+            AnywhereAnytime anywhereAnytime = new AnywhereAnytime(LoggedInGuest);
+            NavigationService.Navigate(anywhereAnytime);
         }
     }
 
