@@ -22,7 +22,24 @@ namespace BookingApp.Aplication.Dto
         private int ownersComments;
         private int comments;
         private bool isClosed;
+        private string username;
 
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (value != username)
+                {
+                    username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int CommentsCount
+        {
+            get { return guestsComments + ownersComments; }
+        }
 
         public int GuestsComments
         {
@@ -154,13 +171,14 @@ namespace BookingApp.Aplication.Dto
         }
 
         public int Id { get; set; }
-
+       
         public ForumDto()
         {
         }
 
         public ForumDto(int guestId, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
         {
+            
             this.guestId = guestId;
             this.comment = comment;
             this.locationDto = locationDto;
@@ -170,9 +188,28 @@ namespace BookingApp.Aplication.Dto
             this.isClosed = isClosed;
             OwnersComments = ownersComments;
         }
-
+        public ForumDto(int id, int guestId, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
+        {
+            Id = id;
+            GuestId = guestId;
+            LocationDto = locationDto;
+            Comment = comment;
+            GuestsComments = guestsComments;
+            IsClosed = isClosed;
+            OwnersComments = ownersComments;
+        }
+        public ForumDto(int guestId, string username, LocationDto locationDto, string comment, int guestsComments, bool isClosed, int ownersComments)
+        {
+            this.username = username;
+            this.locationDto = locationDto;
+            this.comment = comment;
+            this.guestsComments = guestsComments;
+            this.isClosed = isClosed;
+            this.ownersComments = ownersComments;
+        }
         public ForumDto(Forum forum)
         {
+            Id = forum.Id;
             guestId = forum.GuestId;
             comment = forum.Comment;
             locationDto = new LocationDto(forum.Location);
@@ -183,6 +220,7 @@ namespace BookingApp.Aplication.Dto
             ownersComments = forum.OwnersComments;
 
         }
+
 
         public Forum ToForum()
         {

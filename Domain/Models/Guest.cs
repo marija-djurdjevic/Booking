@@ -35,7 +35,7 @@ namespace BookingApp.Domain.Models
         }
         public override string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FirstName, LastName, IsSuperGuest.ToString(), Points.ToString(), SuperGuestStartDate.ToString() };
+            string[] csvValues = { Id.ToString(), FirstName, LastName, IsSuperGuest.ToString(), Points.ToString(), SuperGuestStartDate.ToString("dd.MM.yyyy HH:mm:ss") };
             return csvValues;
         }
 
@@ -46,7 +46,7 @@ namespace BookingApp.Domain.Models
             LastName = values[2];
             IsSuperGuest = Convert.ToBoolean(values[3]);
             Points = Convert.ToInt32(values[4]);    
-            SuperGuestStartDate = Convert.ToDateTime(values[5]);
+            SuperGuestStartDate = DateTime.ParseExact(values[5],"dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }
