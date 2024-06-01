@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
@@ -92,6 +94,27 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 OnPropertyChanged(nameof(NewComment));
             }
         }
+        /* private Dictionary<int, int> _reportCounts = new Dictionary<int, int>();
+         public Dictionary<int, int> ReportCounts
+         {
+             get { return _reportCounts; }
+             set
+             {
+                 _reportCounts = value;
+                 OnPropertyChanged(nameof(ReportCounts));
+             }
+         }*/
+
+        private int reportsCount;
+        public  int ReportsCount
+        {
+            get { return reportsCount; }
+            set
+            {
+                reportsCount = value;
+                OnPropertyChanged(nameof(ReportsCount));
+            }
+        }
 
         public ForumCommentsViewModel(User loggedInUser, ForumDto selectedForum)
         {
@@ -125,6 +148,23 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
                 // Clear the new comment field
                 NewComment = string.Empty;
+            }
+        }
+
+        public void ReportComment(ForumComment comment)
+        {
+            if (!comment.GuestVisited)
+            {
+                // Ažuriranje broja prijava komentara
+                comment.ReportsCount++;
+                _forumService.UpdateComment(comment);
+                MessageBox.Show("Comment reported!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else
+            {
+                // Prikaz poruke da gost nije prijavljen jer je već posjetio lokaciju
+                MessageBox.Show("Guest has visited the location and cannot be reported.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

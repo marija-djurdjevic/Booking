@@ -155,6 +155,21 @@ namespace BookingApp.Aplication.UseCases
 
             return commentsForForum;
         }
-
+        public void UpdateComment(ForumComment updatedComment)
+        {
+            forumCommentRepository.Update(updatedComment);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

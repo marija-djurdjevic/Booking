@@ -80,14 +80,17 @@
         </Border>
 
         <!-- Lista komentara -->
+        <!-- Lista komentara -->
         <ListBox ItemsSource="{Binding ForumComments}" Margin="10,0,10,0" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <!-- Prikaz komentara -->
-                    <Border Background="#2A2A2A" Padding="10" CornerRadius="10" Margin="0,0,0,10">
+                    <Border Background="LightGray" Padding="10" CornerRadius="10" Margin="0,0,0,10">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="550"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
@@ -95,6 +98,8 @@
                                 <TextBlock Text="{Binding Username}" FontWeight="Bold" FontStyle="Italic" Foreground="LightGray" Margin="0,5,0,0"/>
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="{Binding GuestId, Converter={StaticResource GuestIdToOwnerLabelConverter}}" FontWeight="Bold" Foreground="Yellow" Margin="10,0,0,0"/>
+                            <Button Grid.Column="2" Content="Report" Width="60" Height="30" Click="ReportButton_Click" Tag="{Binding}" />
+                            <TextBlock x:Name="ReportsCountTextBlock" Grid.Column="3" Text="{Binding ReportsCount}" FontWeight="Bold" Foreground="Red"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
