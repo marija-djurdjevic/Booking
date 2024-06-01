@@ -27,61 +27,62 @@ namespace BookingApp.GuestView
     {
         public GuestRepository GuestRepository { get; set; }
         public Guest LoggedInGuest { get; set; }
-
-        public ActionList(User loggedInUser)
+        private Frame Frame;
+        public ActionList(User loggedInUser, Frame frame)
         {
             InitializeComponent();
             GuestRepository = new GuestRepository();
             LoggedInGuest = GuestRepository.GetByUserId(loggedInUser.Id);
+            Frame = frame;
         }
 
         private void Reservations_Click(object sender, RoutedEventArgs e)
         {
             ReservationsView reservationsView = new ReservationsView(LoggedInGuest);
-            NavigationService.Navigate(reservationsView);
+            Frame.Navigate(reservationsView);
+            NavigationService.Navigate(null);
         }
 
         private void ReviewScore_Click(object sender, RoutedEventArgs e)
         {
             GuestReviewScoreView guestReviewScore = new GuestReviewScoreView(LoggedInGuest);
-            NavigationService.Navigate(guestReviewScore);   
+            Frame.Navigate(guestReviewScore);
+            NavigationService.Navigate(null);
+
         }
 
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
             GuestsNotifications guestsNotifications = new GuestsNotifications(LoggedInGuest);
-            NavigationService.Navigate(guestsNotifications);
+            Frame.Navigate(guestsNotifications);
+            NavigationService.Navigate(null);
+
         }
 
         private void Stays_Click(object sender, RoutedEventArgs e)
         {
             PropertyView propertyView = new PropertyView(LoggedInGuest);
-            NavigationService.Navigate(propertyView);
+            Frame.Navigate(propertyView);
+            NavigationService.Navigate(null);
         }
 
         private void Forums_Click(object sender, RoutedEventArgs e)
         {
             ForumList forumList = new ForumList(LoggedInGuest);
-            NavigationService.Navigate(forumList);
+            Frame.Navigate(forumList);
+            NavigationService.Navigate(null);
         }
 
         private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
         {
             AnywhereAnytime anywhereAnytime = new AnywhereAnytime(LoggedInGuest);
-            NavigationService.Navigate(anywhereAnytime);
+            Frame.Navigate(anywhereAnytime);
+            NavigationService.Navigate(null);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
-            else
-            {
-                PropertyView propertyView = new PropertyView(LoggedInGuest);
-                NavigationService.Navigate(propertyView);
-            }
+            NavigationService.Navigate(null);
         }
     }
 }
