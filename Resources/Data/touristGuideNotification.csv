@@ -34,3 +34,9 @@
 34|4|1|0|28.05.2024 15:43:08|RequestAccepted|True|||Ognjen Papovic|6|23.12.2024 15:43:00||
 35|4|0|0|28.05.2024 15:44:30|VoucherWon|True||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.|
 36|4|1|60|28.05.2024 15:44:32|TouristJoined|True|b|1|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић
+37|4|1|60|01.06.2024 18:43:48|TouristJoined|True|Tacka 2|Tura pomocna|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић
+38|4|1|61|01.06.2024 18:53:33|TouristJoined|True|dva|Ime|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић
+39|4|1|62|01.06.2024 18:54:36|TouristJoined|True|dva|Ime|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић
+40|17|1|63|01.06.2024 18:56:40|TouristJoined|False|dva|Ime|Ognjen Papovic|0|01.01.0001 00:00:00||Ана Бабић
+41|4|0|0|01.06.2024 18:56:41|VoucherWon|True||||0|01.01.0001 00:00:00|Congratulations! You've won a voucher for attending 5 tours. You can redeem it within the next 6 months.|
+42|4|1|63|01.06.2024 18:56:42|TouristJoined|True|dva|Ime|Ognjen Papovic|0|01.01.0001 00:00:00||Душко Пилиповић
