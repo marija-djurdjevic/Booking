@@ -1,20 +1,20 @@
-1|1|3|5|6|Jana|Jankovic|4/7/2024 12:00:00 AM|4/11/2024 12:00:00 AM|Take a break|False|5
-2|2|10|10|6|Jana|Jankovic|4/2/2024 12:00:00 AM|4/11/2024 12:00:00 AM|Drina|True|5
-3|6|5|16|6|Jana|Jankovic|6/11/2023 12:00:00 AM|6/12/2023 12:00:00 AM|Heat|True|10
-4|3|5|5|6|Jana|Jankovic|4/6/2024 12:00:00 AM|4/10/2024 12:00:00 AM|Jezero|True|7
-5|4|5|5|6|Jana|Jankovic|4/5/2024 12:00:00 AM|4/9/2024 12:00:00 AM|Sunshine|False|8
-6|5|5|10|6|Jana|Jankovic|4/3/2023 12:00:00 AM|4/12/2023 12:00:00 AM|Dream|False|9
-7|3|4|5|6|Jana|Jankovic|4/11/2024 12:00:00 AM|5/11/2024 12:00:00 AM|Jezero|False|7
-8|6|5|16|6|Jana|Jankovic|4/11/2024 12:00:00 AM|4/11/2024 12:00:00 AM|Heat|True|10
-9|6|5|16|6|Jana|Jankovic|4/11/2024 12:00:00 AM|4/11/2024 12:00:00 AM|Heat|True|10
-10|3|5|5|6|Jana|Jankovic|1/25/2024 12:00:00 AM|1/29/2024 12:00:00 AM|Jezero|False|7
-11|3|5|5|6|Jana|Jankovic|3/9/2024 12:00:00 AM|3/13/2024 12:00:00 AM|Jezero|False|7
-12|3|5|5|6|Jana|Jankovic|5/9/2024 12:00:00 AM|5/12/2024 12:00:00 AM|Jezero|False|7
-13|3|5|5|6|Jana|Jankovic|3/17/2024 12:00:00 AM|3/21/2024 12:00:00 AM|Jezero|False|7
-14|0|5|5|6|Jana|Jankovic|6/2/2024 5:34:33 PM|6/6/2024 5:34:33 PM|Sunshine|False|0
-15|6|5|5|6|Jana|Jankovic|6/1/2024 5:41:14 PM|6/5/2024 5:41:14 PM|Heat|False|10
-16|6|5|5|6|Jana|Jankovic|6/1/2024 6:19:08 PM|6/5/2024 6:19:08 PM|Heat|False|10
-17|6|5|5|6|Jana|Jankovic|6/1/2024 6:29:58 PM|6/5/2024 6:29:58 PM|Heat|False|10
-18|6|6|6|6|Jana|Jankovic|6/8/2024 12:00:00 AM|6/13/2024 12:00:00 AM|Heat|False|10
-19|6|10|20|6|Jana|Jankovic|6/16/2024 12:00:00 AM|7/5/2024 12:00:00 AM|Heat|False|10
-20|6|3|3|6|Jana|Jankovic|5/30/2024 12:00:00 AM|6/1/2024 12:00:00 AM|Heat|False|10
+1|1|3|5|6|Jana|Jankovic|07.04.2024 00:00:00|11.04.2024 00:00:00|Take a break|False|5
+2|2|10|10|6|Jana|Jankovic|02.04.2024 00:00:00|11.04.2024 00:00:00|Drina|True|5
+3|6|5|16|6|Jana|Jankovic|11.06.2023 00:00:00|12.06.2023 00:00:00|Heat|True|10
+4|3|5|5|6|Jana|Jankovic|06.04.2024 00:00:00|10.04.2024 00:00:00|Jezero|True|7
+5|4|5|5|6|Jana|Jankovic|05.04.2024 00:00:00|09.04.2024 00:00:00|Sunshine|False|8
+6|5|5|10|6|Jana|Jankovic|03.04.2023 00:00:00|12.04.2023 00:00:00|Dream|False|9
+7|3|4|5|6|Jana|Jankovic|11.04.2024 00:00:00|11.05.2024 00:00:00|Jezero|False|7
+8|6|5|16|6|Jana|Jankovic|11.04.2024 00:00:00|11.04.2024 00:00:00|Heat|True|10
+9|6|5|16|6|Jana|Jankovic|11.04.2024 00:00:00|11.04.2024 00:00:00|Heat|True|10
+10|3|5|5|6|Jana|Jankovic|25.01.2024 00:00:00|29.01.2024 00:00:00|Jezero|False|7
+11|3|5|5|6|Jana|Jankovic|09.03.2024 00:00:00|13.03.2024 00:00:00|Jezero|False|7
+12|3|5|5|6|Jana|Jankovic|09.05.2024 00:00:00|12.05.2024 00:00:00|Jezero|False|7
+13|3|5|5|6|Jana|Jankovic|17.03.2024 00:00:00|21.03.2024 00:00:00|Jezero|False|7
+14|0|5|5|6|Jana|Jankovic|02.06.2024 17:34:33|06.06.2024 17:34:33|Sunshine|False|0
+15|6|5|5|6|Jana|Jankovic|01.06.2024 17:41:14|05.06.2024 17:41:14|Heat|False|10
+16|6|5|5|6|Jana|Jankovic|01.06.2024 18:19:08|05.06.2024 18:19:08|Heat|False|10
+17|6|5|5|6|Jana|Jankovic|01.06.2024 18:29:58|05.06.2024 18:29:58|Heat|False|10
+18|6|6|6|6|Jana|Jankovic|08.06.2024 00:00:00|13.06.2024 00:00:00|Heat|False|10
+19|6|10|20|6|Jana|Jankovic|16.06.2024 00:00:00|05.07.2024 00:00:00|Heat|False|10
+20|6|3|3|6|Jana|Jankovic|30.05.2024 00:00:00|01.06.2024 00:00:00|Heat|False|10

@@ -81,7 +81,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), ReservationId.ToString(), OldStartDate.ToString(), OldEndDate.ToString(), NewStartDate.ToString(), NewEndDate.ToString(), RequestStatus.ToString(), GuestId.ToString(), PropertyName, Comment };
+            string[] csvValues = { Id.ToString(), ReservationId.ToString(), OldStartDate.ToString("dd.MM.yyyy HH:mm:ss"), OldEndDate.ToString("dd.MM.yyyy HH:mm:ss"), NewStartDate.ToString("dd.MM.yyyy HH:mm:ss"), NewEndDate.ToString("dd.MM.yyyy HH:mm:ss"), RequestStatus.ToString(), GuestId.ToString(), PropertyName, Comment };
             return csvValues;
         }
 
@@ -89,10 +89,10 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             ReservationId = Convert.ToInt32(values[1]);
-            OldStartDate = DateTime.Parse(values[2]);
-            OldEndDate = DateTime.Parse(values[3]);
-            NewStartDate = DateTime.Parse(values[4]);
-            NewEndDate = DateTime.Parse(values[5]);
+            OldStartDate = DateTime.ParseExact(values[2], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            OldEndDate = DateTime.ParseExact(values[3], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            NewStartDate = DateTime.ParseExact(values[4], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            NewEndDate = DateTime.ParseExact(values[5], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
             RequestStatus = (RequestStatus)Enum.Parse(typeof(RequestStatus), values[6]);
             GuestId = Convert.ToInt32(values[7]);
             PropertyName = values[8];
