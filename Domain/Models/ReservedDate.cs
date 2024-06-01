@@ -27,14 +27,14 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { PropertyId.ToString(), Value.ToString(), ReservationId.ToString() };
+            string[] csvValues = { PropertyId.ToString(), Value.ToString("dd.MM.yyyy HH:mm:ss"), ReservationId.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             PropertyId = Convert.ToInt32(values[0]);
-            Value = Convert.ToDateTime(values[1]);
+            Value = DateTime.ParseExact(values[1], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
             ReservationId = Convert.ToInt32(values[2]);
         }
     }

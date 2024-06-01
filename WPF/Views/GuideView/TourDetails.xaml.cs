@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModels.GuidesViewModel;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuidesViewModel;
 using BookingApp.WPF.ViewModels.GuidesViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,10 @@ namespace BookingApp.WPF.Views.GuideView
  
     public partial class TourDetails : Page
     {
-        public TourDetails(int tourId)
+        public TourDetails(int tourId, User user)
         {
             InitializeComponent();
-            DataContext = new TourDetailsViewModel(tourId);
+            DataContext = new TourDetailsViewModel(tourId,user);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), OwnerId.ToString(), PropertyId.ToString(), StartDate.ToString(), EndDate.ToString(), Description, Duration.ToString() };
+            string[] csvValues = { Id.ToString(), OwnerId.ToString(), PropertyId.ToString(), StartDate.ToString("dd.MM.yyyy HH:mm:ss"), EndDate.ToString("dd.MM.yyyy HH:mm:ss"), Description, Duration.ToString() };
             return csvValues;
         }
 
@@ -50,8 +50,8 @@ namespace BookingApp.Domain.Models
             Id = Convert.ToInt32(values[0]);
             OwnerId = Convert.ToInt32(values[1]);
             PropertyId = Convert.ToInt32(values[2]);
-            StartDate = DateTime.Parse(values[3]);
-            EndDate = DateTime.Parse(values[4]);
+            StartDate = DateTime.ParseExact(values[3], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            EndDate = DateTime.ParseExact(values[4], "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
             Description = values[5];
             Duration = Convert.ToInt32(values[6]);
             

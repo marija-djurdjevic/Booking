@@ -146,7 +146,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         private void ExecuteShowDetailsCommand()
         {
            
-                var tourDetailsPage = new TourDetails(tourId); 
+                var tourDetailsPage = new TourDetails(tourId,LoggedInUser); 
                 GuideMainWindow.MainFrame.Navigate(tourDetailsPage);
             
         }

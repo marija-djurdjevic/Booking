@@ -657,6 +657,15 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
 
 
+            foreach (var date in TourDates)
+            {
+                if (date < DateTime.Now)
+                {
+                    isValid = false;
+                }
+            }
+
+
             return isValid;
         }
 

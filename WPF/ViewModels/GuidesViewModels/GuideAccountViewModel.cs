@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Wpf;
+using BookingApp.View;
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     public class GuideAccountViewModel : BaseViewModel
@@ -39,6 +40,12 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private ObservableCollection<Tour> finishedTours;
         private readonly TouristExperienceService touristExperienceService;
         private string language;
+
+
+
+        private RelayCommand sideMenuCommand;
+
+
         public string Language
         {
             get { return language; }
@@ -72,7 +79,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public ObservableCollection<string> Year { get; set; }
         public GuideAccountViewModel(User loggedInUser) {
 
-           
+            
             LoggedInUser = loggedInUser;
             guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             quitJobCommand = new RelayCommand(ExecuteQuitJobCommand);
@@ -93,10 +100,30 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             LoadData();
             GuideRating = Math.Round(CountAverage(), 2);
             LoadChartData();
-
+            sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
 
         }
 
+        public RelayCommand SideManuCommand
+        {
+            get { return sideMenuCommand; }
+            set
+            {
+                if (sideMenuCommand != value)
+                {
+                    sideMenuCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ExecuteSideMenuClick()
+        {
+
+            var sideMenuPage = new SideMenuPage(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(sideMenuPage);
+
+        }
 
         private void LoadChartData()
         {
