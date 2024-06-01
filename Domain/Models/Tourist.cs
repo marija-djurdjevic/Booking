@@ -14,10 +14,12 @@ namespace BookingApp.Domain.Models
         public int Age { get; set; }
         public bool ShowTooltips { set; get; }
         public bool ShowWizard { set; get; }
-        public int VisitedToursInYear { get; set; }
-        public int YearForVisitedTours { get; set; }
+        public List<DateOnly> VisitedToursDates { get; set; }
 
-        public Tourist() { }
+        public Tourist()
+        {
+            VisitedToursDates = new List<DateOnly>();
+        }
 
         public Tourist(string firstName, string lastName, int age)
         {
@@ -26,8 +28,7 @@ namespace BookingApp.Domain.Models
             Age = age;
             ShowTooltips = true;
             ShowWizard = true;
-            VisitedToursInYear = 0;
-            YearForVisitedTours = -1;
+            VisitedToursDates = new List<DateOnly>();
         }
         public Tourist(string username, string password, string firstName, string lastName, int age, UserRole role, bool showTooltips)
         {
@@ -40,12 +41,14 @@ namespace BookingApp.Domain.Models
             Age = age;
             ShowTooltips = showTooltips;
             ShowWizard = true;
-            VisitedToursInYear = 0;
-            YearForVisitedTours = -1;
+            VisitedToursDates = new List<DateOnly>();
         }
         public override string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FirstName, LastName, Age.ToString(),ShowTooltips.ToString(),ShowWizard.ToString(),VisitedToursInYear.ToString(),YearForVisitedTours.ToString() };
+            List<string> dates = new List<string>();
+            dates.AddRange(VisitedToursDates.Select(t => t.ToString("dd.MM.yyyy")));
+            string strDates = string.Join("|", dates);
+            string[] csvValues = { Id.ToString(), FirstName, LastName, Age.ToString(), ShowTooltips.ToString(), ShowWizard.ToString(), strDates };
             return csvValues;
         }
 
@@ -57,8 +60,12 @@ namespace BookingApp.Domain.Models
             Age = Convert.ToInt32(values[3]);
             ShowTooltips = Convert.ToBoolean(values[4]);
             ShowWizard = Convert.ToBoolean(values[5]);
-            VisitedToursInYear = Convert.ToInt32(values[6]);
-            YearForVisitedTours = Convert.ToInt32(values[7]);
+            VisitedToursDates = new List<DateOnly>();
+            for (int i = 6; i < values.Length; i++)
+            {
+                if (values[i] != "")
+                    VisitedToursDates.Add(DateOnly.ParseExact(values[i], "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture));
+            }
         }
     }
 }

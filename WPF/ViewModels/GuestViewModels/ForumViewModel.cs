@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using BookingApp.WPF.Views.GuestView;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModels
 {
@@ -29,7 +30,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             forumService.LoadCitiesCountries(CitiesCountries);
         }
 
-        public void PostForum()
+        public ForumList PostForum()
         {
             Forum NewForum = new Forum();
             Location Location = new Location();
@@ -42,6 +43,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Location.City = city;
             NewForum.Location = Location;
             forumService.AddNewForum(NewForum);
+            return new ForumList(LoggedInGuest);
         }
     }
 }

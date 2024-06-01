@@ -40,75 +40,86 @@
             <StackPanel Orientation="Vertical" Margin="10">
                 <StackPanel Orientation="Horizontal" Height="40">
                     <Label Content="City:" 
+                           FontFamily="Times New Roman" 
                            FontSize="16"
                            Margin="0,0,5,0"
                            HorizontalAlignment="Left"/>
                     <Label Content="{Binding Path=SelectedProperty.Location.City, UpdateSourceTrigger=PropertyChanged}" 
                            FontSize="16"
-                           Margin="0,0,0,0"/>
+                           FontFamily="Times New Roman" 
+                           Margin="-5, 0, 0, 0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="40">
                     <Label Content="Country:" 
                            FontSize="16"
+                           FontFamily="Times New Roman" 
                            Margin="0,0,5,0"
                            HorizontalAlignment="Left"/>
                     <Label Content="{Binding Path=SelectedProperty.Location.Country, UpdateSourceTrigger=PropertyChanged}" 
                            FontSize="16"
-                           Margin="0,0,0,0"/>
+                           FontFamily="Times New Roman" 
+                           Margin="-5, 0, 0, 0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="40">
                     <Label Content="Type:" 
+                           FontFamily="Times New Roman" 
                            FontSize="16"
                            Margin="0,0,5,0"
                            HorizontalAlignment="Left"/>
                     <Label Content="{Binding Path=SelectedProperty.Type, UpdateSourceTrigger=PropertyChanged}" 
                            FontSize="16"
-                           Margin="0,0,0,0"/>
+                           FontFamily="Times New Roman" 
+                           Margin="-5, 0, 0, 0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="40">
-                    <Label Content="Cancellation Deadline (days before reservation):" 
+                    <Label Content="Cancellation Deadline:" 
                            FontSize="16"
+                           FontFamily="Times New Roman" 
                            Margin="0,0,0,0"
                            HorizontalAlignment="Left"/>
                     <Label Content="{Binding Path=SelectedProperty.CancellationDeadline, UpdateSourceTrigger=PropertyChanged}" 
                            FontSize="16"
+                           FontFamily="Times New Roman" 
                            Margin="0,0,0,0"/>
+                    <Label FontFamily="Times New Roman"  Margin="-5, 0, 0, 0" FontSize="16" Content="days before reservation"></Label>
                 </StackPanel>
 
             </StackPanel>
         </Border>
 
-        <ScrollViewer Grid.Row="1" Margin="10,0,20,117" VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
-            <StackPanel VerticalAlignment="Top" Height="280" Grid.RowSpan="2">
-                <Label Content="Photo gallery:" 
-               FontSize="16" 
-               FontFamily="Times New Roman" 
-               Margin="0,0,0,5"/>
-                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding SelectedProperty.ImagesPaths}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Converter={StaticResource ImagePathConverter}}" Margin="5, 0, 0, 0" Width="170" Height="120" VerticalAlignment="Top"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
+        <StackPanel Grid.Row="1" Margin="10,0,20,74" Height="305" Grid.RowSpan="2">
+            <Label Content="Photo gallery:" 
+                   FontSize="16" 
+                   FontFamily="Times New Roman" 
+                   HorizontalAlignment="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Content="&lt;" Command="{Binding PreviousImageCommand}" Width="30" Height="30" VerticalAlignment="Center"/>
+                <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Gray" BorderThickness="3">
+                    <Image Stretch="UniformToFill" Source="{Binding CurrentImage, Converter={StaticResource ImagePathConverter}}" Width="270" Height="240"/>
+                </Border>
+                <Button Grid.Column="2" Content="&gt;" Command="{Binding NextImageCommand}" Width="30" Height="30" VerticalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
 
         <Button Content="Make reservation" 
-                Click="MakeReservation_Clik" 
+                Click="MakeReservation_Click" 
                 Background="#C8CECC"
                 Grid.Row="2" 
-                Height="40" 
                 Width="150"
+                Height="30"
                 VerticalAlignment="Center" 
-                Margin="115,0,115,0"/>
+                Margin="115,60,115,0"/>
     </Grid>
 </Page>

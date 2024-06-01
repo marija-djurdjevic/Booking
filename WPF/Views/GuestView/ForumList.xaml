@@ -13,11 +13,12 @@
 
     <Page.Resources>
         <local:EqualityMultiConverter x:Key="EqualityMultiConverter"/>
+        <local:ForumVerifiedConverter x:Key="ForumVerifiedConverter"/>
     </Page.Resources>
 
     <Grid
      Width="430"
-     Margin="0,20,0,17"
+     Margin="0,0,0,17"
      Background="#8FB9A8">
         <Grid.RowDefinitions>
             <RowDefinition Height="90*" />
@@ -26,9 +27,9 @@
         </Grid.RowDefinitions>
 
         <Image Margin="10,0,375,10" Source="\Resources\Images\forum.png" />
-        <Label FontFamily="Times New Roman" Margin="65,0,196,0" FontSize="26" Height="54" VerticalAlignment="Center">Forums</Label>
-        <Button Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,0,30,28" Height="40" Width="150"/>
-        <ToggleButton IsChecked="False" HorizontalAlignment="Left" Margin="10,0,0,467" Height="40" Width="150" Grid.Row="1">
+        <Label FontFamily="Times New Roman" Margin="65,15,196,0" FontSize="26" Height="54" VerticalAlignment="Center">Forums</Label>
+        <Button Background="#C8CECC" Content="Open new forum" Click="OpenNewForum_Click" HorizontalAlignment="Right" Margin="0,30,40,28" Height="30" Width="150"/>
+        <ToggleButton Background="#C8CECC" IsChecked="False" HorizontalAlignment="Left" Margin="25,0,0,490" Height="30" Width="100" Grid.Row="1">
             <StackPanel>
                 <TextBlock x:Name="TypeTextBlock" Text="All forums" Margin="0,0,5,0"/>
                 <Popup x:Name="TypePopup" PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}"
@@ -44,7 +45,7 @@
         <ListBox
         x:Name="forumsData"
         Grid.Row="1"
-        Margin="0,53,10,0"
+        Margin="0,40,10,0"
         ItemsSource="{Binding ForumGuests}"
         ScrollViewer.VerticalScrollBarVisibility="Auto"
         SelectedItem="{Binding SelectedForum}"
@@ -56,60 +57,71 @@
                     <Border
                 Margin="5"
                 Background="BlanchedAlmond"
-                Width="380"
+                Width="378"
                 Height="150"
                 HorizontalAlignment="Left"
                 BorderBrush="#C8CECC"
                 BorderThickness="3"
                 CornerRadius="20">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10, 10, 0, 0">
-                                <TextBlock
-                    FontSize="24"
-                    FontFamily="Times New Roman"
-                    FontWeight="Bold"       
-                    Text="{Binding Key.Location.City}" />
-                                <Label Content=", "
-                                FontSize="20"
-                                FontFamily="Times New Roman"
-                                FontWeight="Bold">
-                                </Label>
-                                <TextBlock
-                                FontSize="24"
-                                FontFamily="Times New Roman"
-                                FontWeight="Bold"   
-                                Text="{Binding Key.Location.Country}" />
-                                <Label
-                                Margin="135, 0, 0, 0"
-                                 VerticalAlignment="Top"
-                                 FontFamily="Times New Roman"
-                                 Content="Comments: "/>
-                                <TextBlock
-                                FontSize="20"
-                                Margin="0, 0, 0, 0"
-                                FontFamily="Times New Roman"
-                                Text="{Binding Key.Comments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                <Image
-                                Margin="10, 5, 0, 0"
-                                Width="20"
-                                Height="20"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Right"/>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Height="30" Width="200" VerticalAlignment="Top" Margin="10, 10, 0, 0">
+                                    <TextBlock
+                                    FontSize="24"
+                                    FontFamily="Times New Roman"
+                                    FontWeight="Bold"       
+                                    Text="{Binding Key.Location.City}" />
+                                    <Label Content=", "
+                                    FontSize="20"
+                                    FontFamily="Times New Roman"
+                                    FontWeight="Bold">
+                                    </Label>
+                                    <TextBlock
+                                    FontSize="24"
+                                    FontFamily="Times New Roman"
+                                    FontWeight="Bold"   
+                                    Text="{Binding Key.Location.Country}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Margin="0, 10, 0, 0">
+                                    <Image
+                                    Margin="20, 5, 0, 0"
+                                    Width="20"
+                                    Height="20"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Right">
+                                        <Image.Source>
+                                            <MultiBinding Converter="{StaticResource ForumVerifiedConverter}">
+                                                <Binding Path="GuestsComments" />
+                                                <Binding Path="OwnersComments" />
+                                            </MultiBinding>
+                                        </Image.Source>
+                                    </Image>
+                                    <Label
+                                    Margin="10, 0, 0, 0"
+                                     VerticalAlignment="Top"
+                                        FontFamily="Times New Roman"
+                                         Content="Comments: "/>
+                                    <TextBlock
+                                    FontSize="20"
+                                    Margin="0, 0, 0, 0"
+                                    FontFamily="Times New Roman"
+                                    Text="{Binding Key.Comments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel VerticalAlignment="Top" Height="60" Margin="5,0,5,5" Width="380">
+                            <StackPanel VerticalAlignment="Top" Height="60" Margin="5,0,5,0" Width="380">
                                 <TextBlock
                                 Width="380"
-                                Height="60"
+                                Height="50"
                                 TextWrapping="Wrap"
                                 FontSize="16"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Key.Comment}" />
                             </StackPanel>
-                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Width="360" Margin="0, -3, 0, 0">
-                                <Button Content="Close"
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Width="360" Margin="3, 0, 0, 0">
+                                <Button Content="Close" Background="#C8CECC"
                                   Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                    CommandParameter="{Binding}"
-                                     Width="100" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                     Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Visibility" Value="Hidden"/>
@@ -127,14 +139,16 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
-                                <Label FontFamily="Times New Roman" Margin="95, -3, 0, 0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Author: "></Label>
+                                <Label FontFamily="Times New Roman" Margin="92, 3, 0, 0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Author: "></Label>
                                 <TextBlock
+                                Margin="0, 5, 0, 0"
                                 FontSize="16"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Value.FirstName}" />
                                 <Label Content="">
                                 </Label>
                                 <TextBlock
+                                Margin="0, 5, 0, 0"
                                 FontSize="16"
                                 FontFamily="Times New Roman"
                                 Text="{Binding Value.LastName}" />

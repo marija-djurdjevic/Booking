@@ -117,7 +117,7 @@ namespace BookingApp.Aplication.Dto
 
         public ForumCommentDto(ForumComment forumcomment)
         {
-            guestId = forumcomment.GuestId;
+            guestId = forumcomment.UserId;
             forumId = forumcomment.ForumId;
             comment = forumcomment.Comment;
             authorId = forumcomment.AuthorId;

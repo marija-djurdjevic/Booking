@@ -18,7 +18,6 @@
 
         <Image Margin="18,5,365,165" Source="\Resources\Images\pin.png" />
         <Label Margin="54,15,40,157" FontFamily="Times New Roman"  FontSize="28">Make reservation</Label>
-        <!-- Prvi Border oko prvog StackPanel-a -->
         <Border
             Margin="0, 65, 10, 0"
             Background="BlanchedAlmond"
@@ -30,9 +29,9 @@
             CornerRadius="20">
             <StackPanel Orientation="Horizontal">
                 <Image
-                Width="180"
-                Height="140"
-                Margin="10, 10, 0, 0"
+                Width="220"
+                Height="135"
+                Margin="10, 10, 0, 10"
                 Source="{Binding SelectedProperty.ImagesPaths[0], Converter={StaticResource ImagePathConverter}}"
                 VerticalAlignment="Top" />
                 <StackPanel Margin="10, 20, 0, 0">
@@ -41,13 +40,16 @@
             FontFamily="Times New Roman"
             FontWeight="Bold"       
             Text="{Binding SelectedProperty.Name}" Width="142" />
-                    <TextBlock FontSize="16" Text="{Binding SelectedProperty.Location.Country}" />
+                    <StackPanel Margin="0, 5, 0, 0" Orientation="Horizontal">
+                        <TextBlock FontSize="16" Text="{Binding SelectedProperty.Location.City}" />
+                        <Label FontSize="14" Content="," Margin="-3, 0, 0, 0" />
+                        <TextBlock FontSize="16" Text="{Binding SelectedProperty.Location.Country}" />
+                    </StackPanel>
                     <TextBlock FontSize="16" Text="{Binding SelectedProperty.Type}" />
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <!-- Drugi Border oko drugog StackPanel-a -->
         <Border
             Margin="15,0,25,164"
             Background="BlanchedAlmond"
@@ -60,7 +62,7 @@
             Grid.Row="1">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
-                    <Label Content="Start date:" Margin="10, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
+                    <Label Content="Start date:" Margin="5, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
                     <Label Content="End date:" Margin="0, 10, 0, 0" Height="25" Width="110" HorizontalAlignment="Left"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40">
@@ -70,15 +72,15 @@
                     SelectedDateChanged="DatePicker_SelectedDate2Changed"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" Margin="0, 15, 0, 0">
-                    <Label Content="Number of days:" Margin="10, 10, 0, 0" Height="25" Width="110"/>
-                    <TextBox Text="{Binding Path=PropertyReservation.Days, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 10, -5, 0" Height="25" Width="110"/>
-                    <Button Background="#C8CECC" Content="Search" Click ="Search_Click" Margin="40, 10, 0, 0" Height="24" Width="110"></Button>
+                    <Label Content="Number of days:" Margin="10, 10, 0, 0" Width="100" Height="30"/>
+                    <TextBox Text="{Binding Path=PropertyReservation.Days, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 10, 0, 0" Height="30" Width="100" PreviewTextInput="TextBox_PreviewTextInput"
+    PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                    <Button Background="#C8CECC" Content="Search" Click ="Search_Click" Margin="15, 10, 0, 0" Width="150" Height="30"></Button>
 
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <!-- Treći Border oko DataGrid-a -->
         <Border
             Background="BlanchedAlmond"
             Width="400"
@@ -106,7 +108,8 @@
             </DataGrid>
         </Border>
         <Label Content="Number of guests:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="154" Width="110" Margin="10,0,0,0" Grid.Row="2"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top"  Height="35" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,25,0,0" Grid.Row="2"/>
-        <Button Content="Confirm reservation" Background="#C8CECC" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="150" Margin="250,20,0,0" Grid.Row="2"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" Text="{Binding Path=PropertyReservation.Guests, UpdateSourceTrigger=PropertyChanged}" Margin="10,25,0,0" Grid.Row="2" PreviewTextInput="TextBox_PreviewTextInput"
+    PreviewKeyDown="TextBox_PreviewKeyDown"/>
+        <Button Content="Confirm reservation" Background="#C8CECC" Click="ConfirmReservation_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="150" Margin="250,25,0,0" Grid.Row="2"/>
     </Grid>
 </Page>

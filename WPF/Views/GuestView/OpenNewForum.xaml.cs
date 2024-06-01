@@ -21,7 +21,8 @@ namespace BookingApp.WPF.Views.GuestView
 
         public void Post_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.PostForum();
+            ForumList forumList = viewModel.PostForum();
+            NavigationService.Navigate(forumList);
         }
     }
 }

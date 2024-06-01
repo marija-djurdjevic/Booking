@@ -8,6 +8,7 @@ using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -649,8 +650,14 @@ namespace BookingApp.WPF.ViewModels
                 
                 isValid = false;
             }
-            
 
+            foreach (var date in TourDates)
+            {
+                if (date < DateTime.Now)
+                {
+                    isValid = false;
+                }
+            }
             return isValid;
         }
 

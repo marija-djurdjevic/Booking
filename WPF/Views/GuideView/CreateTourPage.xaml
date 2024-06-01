@@ -437,7 +437,8 @@
                         Margin="356,1541,424,-71"
                         Height="45"
                         Format="Custom" 
-                        FormatString="dd.MM.yyyy HH:mm \h"/>
+                        FormatString="dd.MM.yyyy HH:mm \h"
+                     />
 
 
 

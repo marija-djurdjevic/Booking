@@ -4,6 +4,7 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Models.Enums;
+using System;
 
 namespace BookingApp.Aplication.UseCases
 {
@@ -37,13 +38,9 @@ namespace BookingApp.Aplication.UseCases
             Tourist tourist = GetByUserId(touristId);
             if (tourist != null)
             {
-                if (tourist.YearForVisitedTours != System.DateTime.Now.Year)
-                {
-                    tourist.YearForVisitedTours = System.DateTime.Now.Year;
-                    tourist.VisitedToursInYear = 0;
-                }
+                tourist.VisitedToursDates.Add(DateOnly.FromDateTime(System.DateTime.Now));
 
-                tourist.VisitedToursInYear++;
+                tourist.VisitedToursDates=tourist.VisitedToursDates.FindAll(t => t >= DateOnly.FromDateTime(System.DateTime.Now.AddYears(-1)));
                 Update(tourist);
                 GiveVoucher(tourist);
             }
@@ -52,7 +49,7 @@ namespace BookingApp.Aplication.UseCases
         //method that give voucher to tourist if he has visited 5 tours in a year
         public void GiveVoucher(Tourist tourist)
         {
-            if (tourist.VisitedToursInYear == 5)
+            if (tourist.VisitedToursDates.Count == 5)
             {
                 Voucher voucher = new Voucher
                 {
@@ -62,6 +59,8 @@ namespace BookingApp.Aplication.UseCases
                     IsUsed = false
                 };
                 voucherRepository.Save(voucher);
+                tourist.VisitedToursDates.Clear();
+                Update(tourist);
 
                 TouristGuideNotification touristGuideNotification = new TouristGuideNotification
                 {
@@ -69,7 +68,7 @@ namespace BookingApp.Aplication.UseCases
                     Type = NotificationType.VoucherWon,
                     Seen = false,
                     CreationTime = System.DateTime.Now,
-                    VoucherMessageText = "Congratulations! You've won a voucher for attending 5 tours this year. You can redeem it within the next 6 months.",
+                    VoucherMessageText = "Congratulations! You've won a voucher for attending 5 tours. You can redeem it within the next 6 months.",
                 };
                 touristGuideNotificationRepository.Save(touristGuideNotification);
             }
