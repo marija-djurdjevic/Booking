@@ -24,8 +24,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Image Margin="18,5,360,187" Source="\Resources\Images\pin.png" />
-        <Label Margin="54,10,40,157" FontFamily="Times New Roman"  FontSize="28">Where to go?</Label>
-
+        <Label Margin="60,10,40,157" FontFamily="Times New Roman"  FontSize="28">Where to go?</Label>
+        <Button Click="AnywhereAnytime_Click" Content="Anywhere-Anytime" Margin="210,0,0,170" Background="#C8CECC" Width="150" Height="30"></Button>
         <Border
             Grid.RowSpan="2"
             Margin="15,64,30,400"
@@ -64,12 +64,13 @@
                 <Label
                     Width="108"
                     Margin="10,10,0,0"
-                    Content="Number of guests:" />
+                    Content="Number of guests:"/>
                 <TextBox
                     x:Name="SearchByGuests"
                     Width="100"
                     Height="30"
-                    Margin="10,0,0,0" />
+                    Margin="10,0,0,0" PreviewTextInput="TextBox_PreviewTextInput"
+    PreviewKeyDown="TextBox_PreviewKeyDown"/>
                 <Label
                     Width="100"
                     Margin="5,10,0,0"
@@ -78,7 +79,8 @@
                     x:Name="SearchByDays"
                     Width="100"
                     Height="30"
-                    Margin="10,0,0,0" />
+                    Margin="10,0,0,0" PreviewTextInput="TextBox_PreviewTextInput"
+    PreviewKeyDown="TextBox_PreviewKeyDown"/>
             </StackPanel>
 
             <StackPanel Width="125" Orientation="Vertical">
@@ -92,15 +94,15 @@
                  Width="100"
                  Height="30"
                  Margin="10,0,0,0">
-                <ComboBoxItem Content="Cabin"/>
-                <ComboBoxItem Content="Apartment"/>
-                <ComboBoxItem Content="House"/>
+                        <ComboBoxItem Content="Cabin"/>
+                        <ComboBoxItem Content="Apartment"/>
+                        <ComboBoxItem Content="House"/>
                 </ComboBox>
                 <Button
                     Background="#C8CECC"
                     Width="100"
                     Height="30"
-                    Margin="10,30,0,0"
+                    Margin="10,36,0,0"
                     Click="Search_Click"
                     Content="Search" />
             </StackPanel>
@@ -133,7 +135,7 @@
                         Source="{Binding ImagesPaths[0], Converter={StaticResource ImagePathConverter}}"
                         VerticalAlignment="Center" />
                             <StackPanel Margin="10, 20, 0, 0">
-                            <TextBlock
+                                <TextBlock
                             FontSize="24"
                             FontFamily="Times New Roman"
                             FontWeight="Bold"       
@@ -152,7 +154,7 @@
                                 Margin="90,5,5,5"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Source="{Binding OwnerId, Converter={StaticResource BoolToVisibilityConverter}}" /> 
+                                Source="{Binding OwnerId, Converter={StaticResource BoolToVisibilityConverter}}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

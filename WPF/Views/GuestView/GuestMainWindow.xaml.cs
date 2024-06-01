@@ -29,7 +29,6 @@ namespace BookingApp.GuestView
 
         public User LoggedInUser { get; set; }
         public Guest Guest { get; set; }
-        private Stack<Page> pageStack = new Stack<Page>();
         public GuestMainWindow(User user)
         {
             InitializeComponent();
@@ -48,7 +47,7 @@ namespace BookingApp.GuestView
 
         private void MenuBurger_Click(object sender, RoutedEventArgs e)
         {
-            ActionFrame.Navigate(new ActionList(LoggedInUser));
+            ActionFrame.Navigate(new ActionList(LoggedInUser, frame));
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -71,7 +70,7 @@ namespace BookingApp.GuestView
 
             if (currentFrameContent is ForumCommenting || currentActionFrameContent is ForumCommenting)
             {
-                ActionFrame.Navigate(new ForumList(Guest));
+                frame.Navigate(new ForumList(Guest));
             }
             else if (frame.CanGoBack)
             {
@@ -85,6 +84,11 @@ namespace BookingApp.GuestView
             {
                 frame.Navigate(new PropertyView(LoggedInUser));
             }
+        }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Navigate(new PropertyView(LoggedInUser));
         }
     }
 }

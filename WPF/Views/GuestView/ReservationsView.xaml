@@ -7,7 +7,13 @@
       mc:Ignorable="d" 
       Title="ReservationsView" Height="660" Width="430">
 
-    <Grid Width="430" Margin="0,20,0,17" Background="#8FB9A8">
+    <Page.Resources>
+        <local:ReservationsButtonsVisibilityConverter x:Key="ReservationsButtonsVisibilityConverter"/>
+        <local:DateTimeToVisibilityConverter x:Key="DateTimeToVisibilityConverter"/>
+        <local:CancelButtonVisibilityConverter x:Key="CancelButtonVisibilityConverter"/>
+    </Page.Resources>
+    
+    <Grid Width="430" Margin="0,0,0,17" Background="#8FB9A8">
         <Grid.RowDefinitions>
             <RowDefinition Height="212*"/>
             <RowDefinition Height="301*"/>
@@ -19,16 +25,16 @@
 
         <StackPanel Background="BlanchedAlmond"  Orientation="Horizontal" Margin="15,64,30,82"/>
 
-        <ToggleButton Margin="18,140,334,50" IsChecked="False">
+        <ToggleButton Background="#C8CECC" Margin="18,100,304,0" IsChecked="False" Height="30" Width="100">
             <StackPanel>
                 <TextBlock x:Name="TypeTextBlock" Text="All" Margin="0,0,5,0"/>
                 <Popup x:Name="TypePopup" PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}"
                 IsOpen="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Mode=TwoWay}"
                StaysOpen="False">
                     <StackPanel>
-                        <Button Content="All" Width="100" Click="AllReservations_Click" Height="25"/>
-                        <Button Content="Upcoming" Width="100" Click="Upcoming_Click" Height="25"/>
-                        <Button Content="Completed" Width="100" Click="Completed_Click" Height="25"/>
+                        <Button Content="All" Width="100" Click="AllReservations_Click" Height="30"/>
+                        <Button Content="Upcoming" Width="100" Click="Upcoming_Click" Height="30"/>
+                        <Button Content="Completed" Width="100" Click="Completed_Click" Height="30"/>
                     </StackPanel>
                 </Popup>
             </StackPanel>
@@ -37,7 +43,7 @@
         <ListView
             Background="#8FB9A8"
             x:Name="ReservationsListView"
-            Margin="5,167,20,10"
+            Margin="5,177,20,10"
             Padding="0"
             BorderThickness="0"
             ItemsSource="{Binding GuestsReservations}"
@@ -50,11 +56,6 @@
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="Margin" Value="0,5,5,5" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
@@ -66,16 +67,6 @@
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="BlanchedAlmond" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Beige" />
-                                        <Setter Property="RenderTransform">
-                                            <Setter.Value>
-                                                <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
                             </Style>
                         </Border.Style>
                         <Grid Height="100">
@@ -125,41 +116,77 @@
                                 x:Name="CancelButton"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="80"
-                                Height="25"
-                                Margin="280,25,0,0"
+                                Background="#C8CECC"
+                                Width="100"
+                                Height="30"
+                                Margin="260,10,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 Click="Cancel_Button"
                                 Content="Cancel"
                                 Cursor="Hand"
-                                Tag="{Binding}" />
+                                Tag="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding StartDate, Converter={StaticResource CancelButtonVisibilityConverter}}" Value="Visible">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                             <Button
                                 x:Name="ChangeReservationButton"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="80"
-                                Height="25"
-                                Margin="280,0,0,0"
+                                Background="#C8CECC"
+                                Width="100"
+                                Height="30"
+                                Margin="20,10,5,10"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
+                                VerticalAlignment="Bottom"
                                 Click="Change_Button"
                                 Content="Change"
                                 Cursor="Hand"
-                                Tag="{Binding}" Grid.ColumnSpan="2"/>
+                                Tag="{Binding}" Grid.ColumnSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding StartDate, Converter={StaticResource DateTimeToVisibilityConverter}}" Value="Visible">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                             <Button
                                 x:Name="ReviewButton"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="80"
-                                Height="25"
-                                Margin="20,25,5,10"
+                                Background="#C8CECC"
+                                Width="100"
+                                Height="30"
+                                Margin="260,10,5,10"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
                                 Click="MakeReview_Button"
                                 Content="Make review"
                                 Cursor="Hand"
-                                Tag="{Binding}"/>
+                                Tag="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding EndDate, Converter={StaticResource ReservationsButtonsVisibilityConverter}}" Value="Visible">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
 
                         </Grid>
                     </Border>

@@ -51,6 +51,5 @@
                 <TextBlock FontFamily="Times New Roman" Margin="2, 6" FontSize="25" Text="Notifications" Width="222"/>
             </StackPanel>
         </Button>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Page>

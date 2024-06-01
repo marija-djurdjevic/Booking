@@ -13,7 +13,7 @@
 
     <Grid
      Width="430"
-     Margin="0,20,0,17"
+     Margin="0,0,0,17"
      Background="#8FB9A8">
         <Grid.RowDefinitions>
             <RowDefinition Height="212*" />
@@ -21,10 +21,10 @@
             <RowDefinition Height="100*" />
         </Grid.RowDefinitions>
 
-        <Image Margin="10,0,375,154" Source="\Resources\Images\bell (1).png" />
-        <Label FontFamily="Times New Roman" Margin="55,10,0,157" FontSize="26">Notifications</Label>
+        <Image Margin="15,0,375,154" Source="\Resources\Images\bell (1).png" />
+        <Label FontFamily="Times New Roman" Margin="55,15,0,157" FontSize="26">Notifications</Label>
 
-        <ListBox Background="#8FB9A8" x:Name="NotificationsListBox" Width="410" Margin="0,65,0,0" HorizontalAlignment="Center" Grid.RowSpan="3" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="NotificationsListBox_SelectionChanged">
+        <ListBox Background="#8FB9A8" x:Name="NotificationsListBox" Width="413" Margin="0,65,0,0" HorizontalAlignment="Center" Grid.RowSpan="3" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="NotificationsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1">

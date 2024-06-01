@@ -13,7 +13,7 @@
 
     <Grid
      Width="430"
-     Margin="0,20,0,17"
+     Margin="0,0,0,17"
      Background="#8FB9A8">
         <Grid.RowDefinitions>
             <RowDefinition Height="212*" />
@@ -47,7 +47,7 @@
                 </ComboBox>
             </StackPanel>
         </Border>
-        <Label Margin="20,190,0,0">Comment:</Label>
+        <Label FontFamily="Times New Roman" Margin="20,195,0,0">Comment:</Label>
         <Border
         Margin="15,0,25,0"
         Background="BlanchedAlmond"
@@ -61,6 +61,6 @@
             <TextBox Text="{Binding Path=Comment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin="5" Background="BlanchedAlmond" BorderBrush="BlanchedAlmond">
             </TextBox>
         </Border>
-        <Button Click="Post_Click" Grid.Row="2" Width="150" Height="40" Margin="0, 0, 0, 10" VerticalAlignment="Bottom" Content="Post"></Button>
+        <Button Click="Post_Click" Grid.Row="2" Width="150" Height="30" Margin="0, 0, 0, 30" VerticalAlignment="Bottom" Content="Post"></Button>
     </Grid>
 </Page>

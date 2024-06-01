@@ -1,7 +1,9 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.GuestViewModels;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Views.GuestView
 {
@@ -17,7 +19,25 @@ namespace BookingApp.WPF.Views.GuestView
             InitializeComponent();
             viewModel = new AnywhereAnytimeViewModel(guest);
             DataContext = viewModel;
-        } 
+        }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            return !regex.IsMatch(text);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter || e.Key == Key.Escape)
+            {
+                e.Handled = false;
+            }
+        }
         private void daterangesData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var dataGrid = sender as DataGrid;
