@@ -112,13 +112,16 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             {
                 var newForumComment = new ForumComment
                 {
-                    GuestId = 0,
+                    UserId = LoggedInUser.Id,
                     ForumId = SelectedForum.Id,
                     Comment = NewComment,
-                    AuthorId = LoggedInUser.Id,
+                    AuthorId = SelectedForum.GuestId,
                     GuestVisited = true
                 };
 
+                SelectedForum.Comments++;
+                SelectedForum.OwnersComments++;
+                _forumService.UpdateForum(SelectedForum.ToForum());
                 // Add new comment to the service and the collection
                 _forumService.SendComment(newForumComment);
                 ForumComments.Add(newForumComment);

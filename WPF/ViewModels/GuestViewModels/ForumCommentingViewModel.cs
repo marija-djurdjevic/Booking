@@ -12,6 +12,8 @@ using BookingApp.Repositories;
 using System.Windows;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using BookingApp.WPF.Views.GuestView;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModels
 {
@@ -56,11 +58,10 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
         public void Send_Comment()
         {
-            ForumComment.GuestId = LoggedInGuest.Id;
+            ForumComment.UserId = LoggedInGuest.Id;
             ForumComment.ForumId = SelectedForum.Key.Id;
             ForumComment.AuthorId = SelectedForum.Key.GuestId;
             CheckGuestVisitedStatus();
-            SelectedForum.Key.GuestsComments++;
             SelectedForum.Key.Comments++;
             forumService.UpdateForum(SelectedForum.Key);
             OnPropertyChanged(nameof(SelectedForum));
@@ -80,6 +81,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             if (reservationService.CheckIfGuestVisited(LoggedInGuest, SelectedForum.Key.Location))
             {
                 ForumComment.GuestVisited = true;
+                SelectedForum.Key.GuestsComments++;
             }
 
         }
