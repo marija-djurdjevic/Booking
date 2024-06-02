@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using BookingApp.Aplication.Dto;
+using BookingApp.Domain.Models;
 
 namespace BookingApp.WPF.Converters
 {
-    public class GuestIdToOwnerLabelConverter : IValueConverter
+    public class UsefulConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int userId)
+            if (value is ForumDto forum)
             {
-                return userId == 0 ? "Owner" : string.Empty;
+                if (forum.OwnersComments > 10 && forum.GuestsComments > 20)
+                {
+                    return "Very useful :)";
+                }
             }
             return string.Empty;
         }
