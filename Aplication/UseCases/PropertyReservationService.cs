@@ -324,7 +324,7 @@ namespace BookingApp.Aplication.UseCases
             foreach (PropertyReservation propertyReservation in propertyReservationRepository.GetAll())
             {
                 foreach(Property property in propertyRepository.GetAllProperties()){
-                    if(propertyReservation.PropertyId == property.Id && propertyReservation.GuestId == guest.Id && location.City == property.Location.City && location.Country == property.Location.Country)
+                    if(propertyReservation.PropertyId == property.Id && propertyReservation.Canceled == false && propertyReservation.EndDate < DateTime.Now && propertyReservation.GuestId == guest.Id && location.City == property.Location.City && location.Country == property.Location.Country)
                     {
                         return true;
                     } 

@@ -154,11 +154,13 @@
     <None Remove="Resources\Images\home4.png" />
     <None Remove="Resources\Images\icons8-play-50.png" />
     <None Remove="Resources\Images\location-pin.png" />
+    <None Remove="Resources\Images\logout %281%29.png" />
     <None Remove="Resources\Images\logout.png" />
     <None Remove="Resources\Images\menu-burger.png" />
     <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\note.png" />
     <None Remove="Resources\Images\notepad.png" />
+    <None Remove="Resources\Images\notification-bell.png" />
     <None Remove="Resources\Images\paper-plane %281%29.png" />
     <None Remove="Resources\Images\route.png" />
     <None Remove="Resources\Images\star %282%29.png" />
@@ -231,7 +233,7 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\menu.png" />
+    <Resource Include="Resources\Images\menu.png" />
     <Content Include="Resources\Images\TouristExperienceImages\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -478,11 +480,13 @@
     <Resource Include="Resources\Images\home4.png" />
     <Resource Include="Resources\Images\icons8-play-50.png" />
     <Resource Include="Resources\Images\location-pin.png" />
+    <Resource Include="Resources\Images\logout (1).png" />
     <Resource Include="Resources\Images\logout.png" />
     <Resource Include="Resources\Images\menu-burger.png" />
     <Resource Include="Resources\Images\menu5.png" />
     <Resource Include="Resources\Images\note.png" />
     <Resource Include="Resources\Images\notepad.png" />
+    <Resource Include="Resources\Images\notification-bell.png" />
     <Resource Include="Resources\Images\paper-plane (1).png" />
     <Resource Include="Resources\Images\paper-plane.png" />
     <Resource Include="Resources\Images\pin.png" />

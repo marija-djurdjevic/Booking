@@ -65,7 +65,7 @@
                 CornerRadius="20">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal" Height="30" Width="200" VerticalAlignment="Top" Margin="10, 10, 0, 0">
+                                <StackPanel Orientation="Horizontal" Height="30" Width="250" VerticalAlignment="Top" Margin="10, 10, 0, 0">
                                     <TextBlock
                                     FontSize="24"
                                     FontFamily="Times New Roman"
@@ -83,21 +83,21 @@
                                     Text="{Binding Key.Location.Country}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Margin="0, 10, 0, 0">
-                                    <Image
-                                    Margin="20, 5, 0, 0"
-                                    Width="20"
-                                    Height="20"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Right">
+                                        <Image
+                                        Margin="0, 0, 0, 0"
+                                        Width="20"
+                                        Height="20"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Right">
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource ForumVerifiedConverter}">
-                                                <Binding Path="GuestsComments" />
-                                                <Binding Path="OwnersComments" />
+                                                <Binding Path="Key.GuestsComments" />
+                                                <Binding Path="Key.OwnersComments" />
                                             </MultiBinding>
                                         </Image.Source>
                                     </Image>
                                     <Label
-                                    Margin="10, 0, 0, 0"
+                                    Margin="0, 0, 0, 0"
                                      VerticalAlignment="Top"
                                         FontFamily="Times New Roman"
                                          Content="Comments: "/>
