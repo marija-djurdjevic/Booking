@@ -10,39 +10,32 @@
       Title="ForumCommentsPage">
 
     <Page.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="Border">
-            <Setter Property="BorderBrush" Value="#383838"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Background" Value="#1E1E1E"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
+        <!-- Stilovi -->
+        <SolidColorBrush x:Key="OwnerBackgroundColor" Color="#001B2E" />
+        <SolidColorBrush x:Key="OwnerButtonColor" Color="#FFEBEB" />
+        <SolidColorBrush x:Key="OwnerButtonColor2" Color="#294C60" />
+        <SolidColorBrush x:Key="PageBackgroundColor" Color="#FDF3AF" />
+        <SolidColorBrush x:Key="DarkTextColor" Color="#001B2E" />
+        <SolidColorBrush x:Key="OwnerTabColor" Color="#001B2E" />
+        <SolidColorBrush x:Key="OwnerBorderColor" Color="#8B8386" />
+        <SolidColorBrush x:Key="OwnerToolBarColor" Color="#FDF3AF" />
 
         <!-- Registracija konvertera -->
         <converters:GuestIdToOwnerLabelConverter x:Key="GuestIdToOwnerLabelConverter"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="{StaticResource OwneBackgroundColor}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <!-- Fixed height for the forum details card -->
-            <RowDefinition Height="*"/>
+            <!-- Detalji izabranog foruma -->
             <RowDefinition Height="Auto"/>
-            <!-- Height for the comment input box and submit button -->
+            <!-- Lista komentara -->
+            <RowDefinition Height="*"/>
+            <!-- TextBox za unos komentara i Submit dugme -->
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Detalji izabranog foruma -->
-        <Border Grid.Row="0" Background="#007ACC" CornerRadius="10" Padding="10" Margin="10,10,10,0">
+        <Border Grid.Row="0" Background="{StaticResource OwnerBackgroundColor}" CornerRadius="10" Padding="10" Margin="10,10,10,0" Height="Auto">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -52,64 +45,97 @@
                 <!-- Icon and Username -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <Image Source="/Resources/Icons/OwnerIcons/user2.png" Width="30" Height="30" Margin="0,0,10,0"/>
-                    <TextBlock Text="{Binding SelectedForum.Username}" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedForum.Username}" FontWeight="Bold" VerticalAlignment="Center" Foreground="{StaticResource WhiteTextColor}"/>
                 </StackPanel>
 
                 <!-- Right side: Comment, Location, and Comments count -->
                 <StackPanel Grid.Column="1">
                     <!-- Comment -->
-                    <TextBlock Text="{Binding SelectedForum.Comment}" FontWeight="Bold" FontSize="18" Margin="0,10,0,0"/>
+                    <TextBlock Text="{Binding SelectedForum.Comment}" FontWeight="Bold" FontSize="18" Margin="10,10,0,0" Foreground="{StaticResource WhiteTextColor}"/>
 
                     <!-- Location and Comments count -->
                     <StackPanel Orientation="Horizontal" Margin="10,-20,0,0">
                         <!-- Location -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                        <StackPanel Orientation="Horizontal" Margin="0,20,10,0">
                             <Image Source="/Resources/Icons/OwnerIcons/LocationIcon.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock Text="{Binding SelectedForum.City}" Margin="0,0,5,0"/>
-                            <TextBlock Text="{Binding SelectedForum.Country}"/>
+                            <TextBlock Text="{Binding SelectedForum.City}" Margin="0,10,5,0" Foreground="{StaticResource WhiteTextColor}"/>
+                            <TextBlock Text="{Binding SelectedForum.Country}" Margin="0,10,5,0" Foreground="{StaticResource WhiteTextColor}"/>
                         </StackPanel>
 
                         <!-- Comments count -->
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Resources/Icons/OwnerIcons/CommentIcon.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock Text="{Binding SelectedForum.CommentsCount}"/>
+                            <Image Source="/Resources/Icons/OwnerIcons/CommentIcon.png" Width="20" Height="20" Margin="0,25,5,0"/>
+                            <TextBlock Text="{Binding SelectedForum.CommentsCount}" Margin="0,30,5,0" Foreground="{StaticResource WhiteTextColor}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <!-- Lista komentara -->
-        <!-- Lista komentara -->
-        <ListBox ItemsSource="{Binding ForumComments}" Margin="10,0,10,0" Grid.Row="1">
+        <ListBox ItemsSource="{Binding ForumComments}" Grid.Row="1" Margin="10" Width="Auto" Background="{StaticResource OwnerBackgroundColor}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <!-- Prikaz komentara -->
-                    <Border Background="LightGray" Padding="10" CornerRadius="10" Margin="0,0,0,10">
+                    <Border Background="{StaticResource OwnerButtonColor}" Width="745" Padding="10" CornerRadius="10" Margin="2,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="550"/>
-                                <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="{Binding Comment}" FontWeight="Bold" FontSize="16"/>
-                                <TextBlock Text="{Binding Username}" FontWeight="Bold" FontStyle="Italic" Foreground="LightGray" Margin="0,5,0,0"/>
+                            <!-- User icon and Username -->
+                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="0,0,10,0">
+                                <Image Source="/Resources/Icons/OwnerIcons/user2.png" Width="30" Height="30"/>
+                                <TextBlock Text="{Binding Username}" FontWeight="Bold" VerticalAlignment="Center" Foreground="{StaticResource WhiteTextColor}" TextAlignment="Center" Margin="0,5,0,0"/>
                             </StackPanel>
-                            <TextBlock Grid.Column="1" Text="{Binding GuestId, Converter={StaticResource GuestIdToOwnerLabelConverter}}" FontWeight="Bold" Foreground="Yellow" Margin="10,0,0,0"/>
-                            <Button Grid.Column="2" Content="Report" Width="60" Height="30" Click="ReportButton_Click" Tag="{Binding}" />
-                            <TextBlock x:Name="ReportsCountTextBlock" Grid.Column="3" Text="{Binding ReportsCount}" FontWeight="Bold" Foreground="Red"/>
+
+                            <!-- Comment -->
+                            <TextBlock Grid.Column="1" Text="{Binding Comment}" FontWeight="Bold" FontSize="16" Foreground="{StaticResource DarkTextColor}" TextWrapping="Wrap"/>
+
+                            <!-- Report icon and Reports count -->
+                            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding UserId, Converter={StaticResource GuestIdToOwnerLabelConverter}}" FontWeight="Bold" Foreground="Black" Margin="10,0,5,0"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding ReportsCount}" FontWeight="Bold" Foreground="Red" Margin="-30,0,75,0"  HorizontalAlignment="Right"/>
+                                    <Button Grid.Row="1" Content="Report" Width="60" Height="30" Background="{StaticResource OwnerButtonColor2}" Foreground="{StaticResource WhiteTextColor}" Click="ReportButton_Click" Tag="{Binding}"/>
+                                </Grid>
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Background" Value="{StaticResource OwnerBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource DarkTextColor}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource OwnerTabColor}"/>
+                            <Setter Property="Foreground" Value="{StaticResource DarkTextColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource OwnerBorderColor}"/>
+                            <Setter Property="Foreground" Value="{StaticResource DarkTextColor}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
+
 
         <!-- TextBox za unos komentara i Submit dugme -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
-            <TextBox Width="600" Height="30" Margin="0,0,10,0" Text="{Binding NewComment, UpdateSourceTrigger=PropertyChanged}" Background="#2A2A2A" Foreground="White"/>
-            <Button Content="Submit" Width="100" Height="30" Background="#007ACC" Foreground="White" Click="SubmitButton_Click"/>
+            <TextBox Width="600" Height="30" Margin="0,0,10,0" Text="{Binding NewComment, UpdateSourceTrigger=PropertyChanged}" Background="{StaticResource OwnerButtonColor2}" Foreground="{StaticResource DarkTextColor}"/>
+            <Button Content="Submit" Width="100" Height="30" Background="{StaticResource OwnerButtonColor2}" Foreground="{StaticResource WhiteTextColor}" Click="SubmitButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

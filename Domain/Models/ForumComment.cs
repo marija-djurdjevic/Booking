@@ -33,7 +33,7 @@ namespace BookingApp.Domain.Models
         }
         public ForumComment(int guestId, int forumId, string comment, int authorId, bool guestVisited, int reportsCount)
         {
-            GuestId = guestId;
+            UserId = guestId;
             ForumId = forumId;
             Comment = comment;
             AuthorId = authorId;
@@ -43,7 +43,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString(), GuestVisited.ToString(), ReportsCount.ToString() };
+            string[] csvValues = { Id.ToString(), UserId.ToString(), ForumId.ToString(), Comment, AuthorId.ToString(), GuestVisited.ToString(), ReportsCount.ToString() };
             return csvValues;
         }
 

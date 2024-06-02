@@ -17,31 +17,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     class ForumCommentsViewModel : INotifyPropertyChanged
     {
-        /*private readonly User _loggedInUser;
-        public ForumDto SelectedForum { get; set; }
-        private readonly ForumDto _selectedForum;
-        private readonly ForumService _forumService;
-
-        public ObservableCollection<ForumCommentDto> ForumComments { get; set; }
-        public string NewComment { get; set; }
-        public ForumCommentsViewModel(User loggedInUser, ForumDto selectedForum) 
-        {
-            _selectedForum = selectedForum;
-            _forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), Injector.CreateInstance<IGuestRepository>(), Injector.CreateInstance<IForumCommentRepository>());
-            SelectedForum = selectedForum;
-            LoadForumComments();
-            
-            _loggedInUser = loggedInUser;
-
-        }
-        private void LoadForumComments()
-        { 
-            
-                ForumComments = new ObservableCollection<ForumCommentDto>(_forumService.GetCommentsForForum(SelectedForum.Id));
-            
-            
-           
-        }*/
+       
         private readonly ForumService _forumService;
         
         public event PropertyChangedEventHandler PropertyChanged;
@@ -94,16 +70,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 OnPropertyChanged(nameof(NewComment));
             }
         }
-        /* private Dictionary<int, int> _reportCounts = new Dictionary<int, int>();
-         public Dictionary<int, int> ReportCounts
-         {
-             get { return _reportCounts; }
-             set
-             {
-                 _reportCounts = value;
-                 OnPropertyChanged(nameof(ReportCounts));
-             }
-         }*/
 
         private int reportsCount;
         public  int ReportsCount
@@ -125,8 +91,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         private void LoadForumComments()
         {
-            //ForumComments = new ObservableCollection<ForumCommentDto>(_forumService.GetCommentsForForum(SelectedForum.Id));
-           // ForumComments = new ObservableCollection<ForumComment>(_forumService.GetAllComments());
            ForumComments = new ObservableCollection<ForumComment>(_forumService.GetCommentsForForum(SelectedForum.Id));
         }
         public void AddComment()
@@ -135,7 +99,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             {
                 var newForumComment = new ForumComment
                 {
-                    UserId = LoggedInUser.Id,
+                    UserId = 0,
                     ForumId = SelectedForum.Id,
                     Comment = NewComment,
                     AuthorId = SelectedForum.GuestId,
@@ -145,11 +109,10 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 SelectedForum.Comments++;
                 SelectedForum.OwnersComments++;
                 _forumService.UpdateForum(SelectedForum.ToForum());
-                // Add new comment to the service and the collection
+               
                 _forumService.SendComment(newForumComment);
                 ForumComments.Add(newForumComment);
 
-                // Clear the new comment field
                 NewComment = string.Empty;
             }
         }
@@ -158,7 +121,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             if (!comment.GuestVisited)
             {
-                // Ažuriranje broja prijava komentara
                 comment.ReportsCount++;
                 _forumService.UpdateComment(comment);
                 MessageBox.Show("Comment reported!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -166,7 +128,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             }
             else
             {
-                // Prikaz poruke da gost nije prijavljen jer je već posjetio lokaciju
                 MessageBox.Show("Guest has visited the location and cannot be reported.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
