@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using BookingApp.Command;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.GuestViewModels
 {
@@ -66,8 +67,13 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         {
             if (parameter is KeyValuePair<Forum, Guest> forumGuest)
             {
-                forumGuest.Key.IsClosed = true;
-                forumService.UpdateForum(forumGuest.Key);
+                if (forumGuest.Key.IsClosed == false)
+                {
+                    forumGuest.Key.IsClosed = true;
+                    forumService.UpdateForum(forumGuest.Key);
+                    MessageBox.Show("Succesfully closed forum!");
+                }
+                else MessageBox.Show("This forum is already closed!");
             }
         }
 

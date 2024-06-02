@@ -15,9 +15,9 @@ namespace BookingApp.WPF.Views.GuestView
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values[0] is int guestComments && values[1] is int ownersComments)
+            if (values[0] is int GuestsComments && values[1] is int OwnersComments)
             {
-                if (guestComments > 20 && ownersComments > 10)
+                if (GuestsComments >= 20 && OwnersComments >= 10)
                 {
                     return new BitmapImage(new Uri("/Resources/Images/verified.png", UriKind.Relative));
                 }

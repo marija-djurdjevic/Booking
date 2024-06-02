@@ -14,3 +14,6 @@
 14|6|You used the SuperGuest discount on your reservation, you still have 2 points left.|True
 15|6|You used the SuperGuest discount on your reservation, you still have 1 points left.|True
 16|6|You used the SuperGuest discount on your reservation, you still have 0 points left.|True
+17|6|You used the SuperGuest discount on your reservation, you still have 3 points left.|False
+18|6|You used the SuperGuest discount on your reservation, you still have 2 points left.|False
+19|6|You used the SuperGuest discount on your reservation, you still have 1 points left.|False
