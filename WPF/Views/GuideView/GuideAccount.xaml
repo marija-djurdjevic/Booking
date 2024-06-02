@@ -110,7 +110,11 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Text="Guide Type:" Margin="10,36,10,33" FontSize="28" Grid.Row="0" Grid.RowSpan="2" />
-                        <TextBlock Grid.Row="1" Margin="190,25,0,19" FontSize="28" Text="{Binding GuideType}" />
+                        <TextBlock Grid.Row="1" Margin="164,25,0,20" FontSize="28">
+                            <Run Text="{Binding GuideType}" />
+                            <Run Text="{Binding Language}" />
+                        </TextBlock>
+
                         <TextBlock Grid.Row="2" Text="Guide Rating:" Margin="10,17,10,20" FontSize="28"/>
                         <TextBlock Grid.Row="1" Margin="190,112,0,-4" FontSize="28" Text="{Binding GuideRating}" Grid.RowSpan="2" />
 

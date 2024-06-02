@@ -18,6 +18,7 @@ using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BookingApp.View;
+using BookingApp.WPF.Views.GuideView;
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
     public class GuideAccountViewModel : BaseViewModel
@@ -191,6 +192,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
         }
 
+        public Action<object, RoutedEventArgs> LogOutAction { get; set; }
 
         public void ExecuteQuitJobCommand()
         {
@@ -207,6 +209,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
                 }
                 guideService.RemoveGuide(LoggedInUser.Id);
+                LogOutAction?.Invoke(this, new RoutedEventArgs());
             }
 
                 
@@ -229,7 +232,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         public void LoadData()
         {
             bool superGuide = false;
-
+            Language = "";
             var finishedLiveTours = liveTourRepository.GetFinishedTours();
             FinishedTours = new ObservableCollection<Tour>(finishedLiveTours.Select(tour => tourService.GetTourById(tour.TourId)).Where(tour => tour.GuideId == LoggedInUser.Id));
             var oneYearAgo = DateTime.Today.AddYears(-1);
@@ -281,7 +284,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 if (averageRating >= 4)
                 {
                     toursWithHighAverageRating = toursForLanguage;
-                    Language = language;
+                    Language = "for ";
+                    Language += language;
                     superGuide = true;
                     guideService.setStatus(LoggedInUser.Id,superGuide);
                     guideService.IsSuperGuideById(LoggedInUser.Id);
