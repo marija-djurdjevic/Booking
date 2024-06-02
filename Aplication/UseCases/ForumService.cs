@@ -90,7 +90,7 @@ namespace BookingApp.Aplication.UseCases
             {
                 foreach (Guest g in guestRepository.GetAll())
                 {
-                    if (fc.GuestId == g.Id && fc.ForumId == SelectedForum.Key.Id)
+                    if (fc.UserId == g.Id && fc.ForumId == SelectedForum.Key.Id)
                     {
                         var forumcommentGuest = new KeyValuePair<ForumComment, Guest>(fc, g);
                         HelpfulVar.Add(forumcommentGuest);
@@ -155,6 +155,21 @@ namespace BookingApp.Aplication.UseCases
 
             return commentsForForum;
         }
-
+        public void UpdateComment(ForumComment updatedComment)
+        {
+            forumCommentRepository.Update(updatedComment);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

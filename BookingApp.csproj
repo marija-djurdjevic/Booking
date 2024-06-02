@@ -197,6 +197,7 @@
     <None Remove="Resources\Images\TouristWizardImages\4.2.png" />
     <None Remove="Resources\Images\TouristWizardImages\5.1.png" />
     <None Remove="Resources\Images\unchecked.jpg" />
+    <None Remove="Resources\Images\verified.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Icons\TouristIcons\addimage.png" />
     <None Remove="Resources\Icons\TouristIcons\broken-image.png" />
@@ -492,6 +493,7 @@
     <Resource Include="Resources\Images\star (3).png" />
     <Resource Include="Resources\Images\star.png" />
     <Resource Include="Resources\Images\unchecked.jpg" />
+    <Resource Include="Resources\Images\verified.png" />
   </ItemGroup>
 
   <ItemGroup>

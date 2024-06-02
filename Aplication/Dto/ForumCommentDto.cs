@@ -16,7 +16,21 @@ namespace BookingApp.Aplication.Dto
         private string comment;
         private int authorId;
         private bool guestVisited;
+        private int reportsCount;
 
+        public int ReportsCount
+        {
+
+            get { return reportsCount; }
+            set
+            {
+                if (value != reportsCount)
+                {
+                    reportsCount = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool GuestVisited
         {
 
@@ -103,11 +117,12 @@ namespace BookingApp.Aplication.Dto
 
         public ForumCommentDto(ForumComment forumcomment)
         {
-            guestId = forumcomment.GuestId;
+            guestId = forumcomment.UserId;
             forumId = forumcomment.ForumId;
             comment = forumcomment.Comment;
             authorId = forumcomment.AuthorId;
             guestVisited = forumcomment.GuestVisited;
+            reportsCount = forumcomment.ReportsCount;
         }
 
         public ForumComment ToForumComment()
