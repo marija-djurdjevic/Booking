@@ -26,7 +26,10 @@ namespace BookingApp.WPF.Views.GuideView
         public GuideAccount(User user)
         {
             InitializeComponent();
-            DataContext = new GuideAccountViewModel(user);
+            var viewModel = new GuideAccountViewModel(user);
+            viewModel.LogOutAction = LogOutClick; // Postavljanje delegata
+            DataContext = viewModel;
+
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)

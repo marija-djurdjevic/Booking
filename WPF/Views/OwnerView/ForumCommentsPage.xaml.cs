@@ -1,4 +1,5 @@
 ﻿using BookingApp.Aplication.Dto;
+using BookingApp.Aplication.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
@@ -25,33 +26,16 @@ namespace BookingApp.WPF.Views.OwnerView
     {
         private User LoggedInUser;
         public ForumDto SelectedForum { get; set; }
+        private readonly ForumCommentsViewModel viewModel;
         public ForumCommentsPage(User loggedInUser, ForumDto selectedForum)
         {
             InitializeComponent();
             SelectedForum = selectedForum;
             LoggedInUser = loggedInUser;
+            viewModel = new ForumCommentsViewModel(LoggedInUser, SelectedForum);
             DataContext = new ForumCommentsViewModel(LoggedInUser, SelectedForum);
         }
-        /*private void SubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Dobij tekst iz TextBox-a
-            string newComment = CommentInput.Text;
-
-            if (!string.IsNullOrWhiteSpace(newComment))
-            {
-                // Dodaj novi komentar u kolekciju komentara (pod pretpostavkom da koristiš ObservableCollection)
-                var viewModel = this.DataContext as ForumCommentsViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.AddComment(newComment);
-                    CommentInput.Clear(); // Očisti TextBox nakon dodavanja komentara
-                }
-            }
-            else
-            {
-                MessageBox.Show("Molimo unesite validan komentar.", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }*/
+    
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             var viewModel = this.DataContext as ForumCommentsViewModel;
@@ -60,5 +44,34 @@ namespace BookingApp.WPF.Views.OwnerView
                 viewModel.AddComment();
             }
         }
+        private void ReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            ForumComment comment = (sender as FrameworkElement)?.DataContext as ForumComment;
+
+            viewModel.ReportComment(comment);
+
+            comment.ReportsCount++;
+
+            TextBlock reportsCountTextBlock = FindReportsCountTextBlock(sender as FrameworkElement);
+
+            if (reportsCountTextBlock != null)
+            {
+                reportsCountTextBlock.Text = comment.ReportsCount.ToString();
+            }
+        }
+
+        private TextBlock FindReportsCountTextBlock(FrameworkElement element)
+        {
+            while (element != null)
+            {
+                if (element is TextBlock textBlock && textBlock.Name == "ReportsCountTextBlock")
+                {
+                    return textBlock;
+                }
+                element = VisualTreeHelper.GetParent(element) as FrameworkElement;
+            }
+            return null;
+        }
+
     }
 }
