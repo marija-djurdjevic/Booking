@@ -20,13 +20,13 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for GuestReviewForm.xaml
     /// </summary>
-    public partial class GuestReviewForm : Window
+    public partial class GuestReviewForm : Page
     {
         private PropertyReservationDto _propertyReservationDto;
         private ReviewDto _reviewDto;
         private int _reservationId;
         private int _guestId;
-
+        
         ReviewRepository reviewRepository;
         public GuestReviewForm()
         {
@@ -41,21 +41,24 @@ namespace BookingApp.View
             _reservationId = reservationId;
             _guestId = guestId;
             _reviewDto = new ReviewDto();
-            DataContext = _reviewDto;
+            DataContext = this;
             reviewRepository = new ReviewRepository();
             _propertyReservationDto = propertyReservationDto;
 
-            FirstNameTextBox.Text = _propertyReservationDto.GuestFirstName;
-            LastNameTextBox.Text = _propertyReservationDto.GuestLastName;
+            //FirstNameTextBox.Text = _propertyReservationDto.GuestFirstName;
+            //LastNameTextBox.Text = _propertyReservationDto.GuestLastName;
 
         }
-
+        public string GuestFullName => $"{_propertyReservationDto.GuestFirstName} {_propertyReservationDto.GuestLastName}";
+        public string PropertyName => _propertyReservationDto.PropertyName;
+        public DateTime StartDate => _propertyReservationDto.StartDate;
+        public DateTime EndDate => _propertyReservationDto.EndDate;
         public void SaveReview_Click(Object sender, EventArgs e)
         {
             ReviewDto newReviewDto = new ReviewDto(_reservationId, _guestId,_reviewDto.Cleanliness, _reviewDto.Rules, _reviewDto.Comment);
             reviewRepository.AddReview(newReviewDto.ToReview());
             MessageBox.Show("Review created successfully!");
-            this.Close();
+            //this.Close();
         }
     }
 }

@@ -49,10 +49,15 @@ namespace BookingApp.View
 
                     propertyReservationDto.GuestFirstName = selectedReservation.GuestFirstName;
                     propertyReservationDto.GuestLastName = selectedReservation.GuestLastName;
+                    propertyReservationDto.PropertyName = selectedReservation.PropertyName;
+                    propertyReservationDto.StartDate = selectedReservation.StartDate;
+                    propertyReservationDto.EndDate = selectedReservation.EndDate;
 
                     GuestReviewForm guestReviewForm = new GuestReviewForm(propertyReservationDto, selectedReservation.Id, selectedReservation.GuestId);
 
-                    guestReviewForm.Show();
+                    //guestReviewForm.Show();
+                    
+                    this.NavigationService.Navigate(guestReviewForm);
                 }
             }
             else

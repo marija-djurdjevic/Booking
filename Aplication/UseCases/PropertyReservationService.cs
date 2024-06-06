@@ -286,7 +286,7 @@ namespace BookingApp.Aplication.UseCases
 
             return locationPopularity;
         }*/
-        public List<string> GetLeastPopularLocations(int bottomN)
+        /*public List<string> GetLeastPopularLocations(int bottomN)
         {
             var properties = propertyRepository.GetAllProperties();
             var reservationData = propertyReservationRepository.GetAll();
@@ -316,7 +316,40 @@ namespace BookingApp.Aplication.UseCases
                 .ToList();
 
             return locationPopularity;
+        }*/
+        public List<string> GetLeastPopularLocations(int bottomN)
+        {
+            var properties = propertyRepository.GetAllProperties();
+            var reservationData = propertyReservationRepository.GetAll();
+
+            var locationPopularity = properties
+                .GroupJoin(reservationData,
+                           property => property.Id,
+                           reservation => reservation.PropertyId,
+                           (property, reservations) => new
+                           {
+                               Location = property.Location,
+                               ReservationCount = reservations.Count(),
+                               TotalReservationDays = reservations.Sum(r => (r.EndDate - r.StartDate).Days),
+                               TotalDaysAvailable = reservations.Any() ? (reservations.Max(r => r.EndDate) - reservations.Min(r => r.StartDate)).Days : 1,
+                               MaxGuests = property.MaxGuests
+                           })
+                .GroupBy(x => new { x.Location, x.MaxGuests }) // Include MaxGuests in the group key
+                .Select(g => new
+                {
+                    Location = g.Key.Location,
+                    TotalReservations = g.Sum(x => x.ReservationCount),
+                    AverageOccupancyRate = g.Sum(x => x.TotalReservationDays) / (double)(g.Sum(x => x.TotalDaysAvailable) * g.Key.MaxGuests) // Access MaxGuests from the group key
+                })
+                .OrderBy(x => x.TotalReservations)
+                .ThenBy(x => x.AverageOccupancyRate)
+                .Take(bottomN)
+                .Select(x => x.Location.City + ", " + x.Location.Country + " (Reservations: " + x.TotalReservations + ", Occupancy Rate: " + (x.AverageOccupancyRate * 100).ToString("F2") + "%)")
+                .ToList();
+
+            return locationPopularity;
         }
+
 
 
         public bool CheckIfGuestVisited(Guest guest, Location location)
