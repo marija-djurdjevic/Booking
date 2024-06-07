@@ -11,14 +11,25 @@
         <Style TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
             <Setter Property="Background" Value="{StaticResource OwnerButtonColor2}"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Black"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Page.Resources>
-    <Grid Background="{StaticResource OwneBackgroundColor}" Margin="50,2,50,11">
+
+    <Grid Background="{StaticResource OwneBackgroundColor}" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -26,27 +37,26 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <!-- Add more RowDefinitions if needed -->
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Introductory Text -->
-        <TextBlock Foreground="AntiqueWhite" Text="Please enter the information requested below" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0,10"/>
+        <!-- Naslov -->
+        <TextBlock Text="Please enter the information below to register your property" Foreground="White" HorizontalAlignment="Center" FontSize="16" Margin="0,0" Grid.Row="0" Grid.ColumnSpan="3"/>
 
         <!-- Name -->
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" Margin="5,40">
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Name:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Name, Mode=TwoWay}" Margin="0,5" Width="200"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay}" Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Width="200" Height="30"/>
         </StackPanel>
 
         <!-- Type -->
-        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="5,0">
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Type:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="PropertyTypeComboBox" SelectedIndex="0" Text="{Binding Path=Type}" Margin="0,5" Width="200">
+            <ComboBox x:Name="PropertyTypeComboBox" SelectedIndex="0" Text="{Binding Path=Type}" Width="200" Height="30">
                 <ComboBoxItem Content="Apartment"/>
                 <ComboBoxItem Content="Cabin"/>
                 <ComboBoxItem Content="House"/>
@@ -54,43 +64,67 @@
         </StackPanel>
 
         <!-- Max Guests -->
-        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="5,40">
+        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center" Margin="20">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Max Guests:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding MaxGuests, Mode=TwoWay}" Margin="0,5" Width="200"/>
+            <TextBox Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Text="{Binding MaxGuests, Mode=TwoWay}" Width="200" Height="30"/>
         </StackPanel>
 
         <!-- Min Reservation Days -->
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="5,40">
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Min Reservation Days:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding MinReservationDays, Mode=TwoWay}" Margin="0,5" Width="200"/>
+            <TextBox Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Text="{Binding MinReservationDays, Mode=TwoWay}" Width="200" Height="30"/>
         </StackPanel>
 
         <!-- Cancellation Deadline -->
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="5,0">
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Cancellation Deadline:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding CancellationDeadline, Mode=TwoWay, FallbackValue=1}" Margin="0,5" Width="200"/>
+            <TextBox Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Text="{Binding CancellationDeadline, Mode=TwoWay, FallbackValue=1}" Width="200" Height="30"/>
         </StackPanel>
 
         <!-- Images Paths -->
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" Margin="5,40">
-            <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Images Paths (comma separated):" VerticalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding ImagesPaths}" Margin="0,5" Width="200"/>
-            <Button Content="Add Image Path" Margin="0,-50" Height="30" Click="AddImagePathButton_Click"/>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center">
+            <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Images:" Height="19"/>
+            <ListBox ItemsSource="{Binding AddedImages}" Width="200" Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" SelectedItem="{Binding SelectedImage}" Height="62">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding}" Width="50" Height="50" Margin="5"/>
+                         
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+           
+                
+                
+           
+            
         </StackPanel>
 
         <!-- Location - City -->
-        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Vertical" Margin="5,40">
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Location - City:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=LocationDto.City, Mode=TwoWay}" Margin="0,5" Width="200"/>
+            <TextBox Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Text="{Binding LocationDto.City, Mode=TwoWay}" Width="200" Height="30"/>
         </StackPanel>
 
         <!-- Location - Country -->
-        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="5,0">
+        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center">
             <TextBlock Foreground="{StaticResource WhiteTextColor}" Text="Location - Country:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=LocationDto.Country, Mode=TwoWay}" Margin="0,5" Width="200"/>
+            <TextBox Background="{StaticResource PageBackgroundColor}" Foreground="{StaticResource WhiteTextColor}" 
+   BorderBrush="{StaticResource WhiteTextColor}" BorderThickness="1" Text="{Binding LocationDto.Country, Mode=TwoWay}" Width="200" Height="30"/>
         </StackPanel>
 
-        <!-- Add Property Button -->
-        <Button Width="150" Height="30" Content="Save" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Margin="5,53" Click="SaveProperty_Click"/>
+        <!-- Save Button -->
+        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="-10,5,0,5" Width="268">
+
+            <Button Content="+" Width="30" Height="30" Click="AddImagePathButton_Click" BorderBrush="{StaticResource WhiteTextColor}"/>
+            <Button Content="-" Width="30" Height="30" Click="RemoveSelectedImage_Click" BorderBrush="{StaticResource WhiteTextColor}"/>
+            <Button Content="Save Property" Height="30" Click="SaveProperty_Click" Margin="5,0,0,0" BorderBrush="{StaticResource WhiteTextColor}"/>
+        </StackPanel>
     </Grid>
 </Page>

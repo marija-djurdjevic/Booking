@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,11 +23,13 @@ namespace BookingApp.Aplication.Dto
         private int cancellationDeadline;
         private PropertyType type;
         public List<ReservedDate> reservedDates;
+        public ObservableCollection<string> ImagesPaths2 { get; set; }
 
 
         public PropertyDto()
         {
             CancellationDeadline = 1;
+            ImagesPaths2 = new ObservableCollection<string>();
         }
 
         public PropertyDto(int ownerId, string name, LocationDto locationDto, PropertyType type, int maxGuests, int minReservationDays, int cancellationDeadline, List<string> imagesPaths)
