@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="CreateSuggestedTour"
     Width="1024"
     Height="768"
@@ -402,14 +403,15 @@ Source="{Binding CurrentImage, UpdateSourceTrigger=PropertyChanged, ValidatesOnD
 
 
                     <xctk:DateTimePicker
-    x:Name="StartDateTimePicker"
-    FontSize="20"
-    Grid.Row="0"
-    HorizontalContentAlignment="Left"
-    Margin="356,1541,424,-71"
-    Height="45"
-    Format="Custom" 
-    FormatString="dd.MM.yyyy HH:mm \h"/>
+                        x:Name="StartDateTimePicker"
+                        FontSize="20"
+                        Grid.Row="0"
+                        HorizontalContentAlignment="Left"
+                        Margin="356,1541,424,-71"
+                        Height="45"
+                        Format="Custom" 
+                        Minimum="{x:Static sys:DateTime.Today}"
+                        FormatString="dd.MM.yyyy HH:mm \h"/>
 
 
 

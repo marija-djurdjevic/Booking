@@ -152,8 +152,17 @@
             FormatString="dd.MM.yyyy HH:mm \h"
             FontSize="20"
             Margin="346,177,456,404"
-            Value="{Binding SelectedDateTime, Mode=OneWayToSource}" />
+            Value="{Binding SelectedDateTime, Mode=OneWayToSource}"
+             Loaded="StartDateTimePicker_Loaded"
+            >
 
+           
+        </xctk:DateTimePicker>
+            
+            
+            
+            
+            
 
 
         <Button

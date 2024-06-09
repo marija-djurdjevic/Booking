@@ -6,6 +6,7 @@ using BookingApp.Domain.Models.Enums;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.View;
+using BookingApp.View.GuideView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -173,7 +174,8 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
             }
             liveTourService.FinishTour(tourId);
             MessageBox.Show("Tour successfully finished.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-           
+            GuideMainPage main = new GuideMainPage(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(main);
 
         }
         public TourReservation SelectedTourist

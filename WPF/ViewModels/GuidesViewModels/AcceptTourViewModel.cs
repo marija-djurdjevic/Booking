@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Xceed.Wpf.Toolkit;
+using System.Windows.Controls;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -156,7 +158,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
                     if (acceptedToursByGuide.Any())
                     {
-                        MessageBox.Show("You have already accepted a part of this complex tour request and cannot accept another part.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        System.Windows.MessageBox.Show("You have already accepted a part of this complex tour request and cannot accept another part.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -172,7 +174,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                     var Guide = guideRepository.GetById(LoggedInUser.Id);
                     TouristGuideNotification touristGuideNotification = new TouristGuideNotification(SelectedTour.TouristId, Guide.Id, SelectedTour.Id, DateTime.Now, Domain.Models.Enums.NotificationType.RequestAccepted, Guide.FirstName+' '+Guide.LastName, SelectedDateTime);
                     notificationService.Save(touristGuideNotification);
-                    MessageBox.Show("Tour request successfully accepted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show("Tour request successfully accepted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     if (SelectedTour.ComplexId != -1)
                     {
@@ -191,7 +193,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Tour request has already been accepted and cannot be accepted again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Tour request has already been accepted and cannot be accepted again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     
 
@@ -199,13 +201,11 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             }
             else
             {
-                MessageBox.Show("Selected date is not available for booking.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Selected date is not available for booking.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-
-      
-
+       
 
 
     }

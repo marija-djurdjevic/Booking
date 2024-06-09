@@ -8,6 +8,8 @@ using BookingApp.Repositories;
 using BookingApp.View;
 using BookingApp.View.GuideView;
 using BookingApp.WPF.ViewModels.GuidesViewModel;
+using BookingApp.WPF.Views.GuideView;
+using MahApps.Metro.Controls;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using System;
@@ -21,6 +23,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Xceed.Wpf.Toolkit;
+using Xceed.Wpf.Toolkit.Primitives;
+
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -65,8 +70,7 @@ namespace BookingApp.WPF.ViewModels
 
 
         public User LoggedInUser { get; set; }
-
-
+       
         public CreateTourViewModel(User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -84,6 +88,7 @@ namespace BookingApp.WPF.ViewModels
             deleteImageCommand = new RelayCommand(DeleteImage);
             addDateCommand = new RelayCommand(AddDate);
             removeDateCommand = new RelayCommand(RemoveDate);
+           
             sideMenuCommand = new RelayCommand(ExecuteSideMenuClick);
             TourDto = new TourDto();
             LoadLanguages();
@@ -567,7 +572,7 @@ namespace BookingApp.WPF.ViewModels
             {
                 if (!ValidateAll())
                 {
-                    MessageBox.Show("Tour cannot be created. Please correct the errors.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Tour cannot be created. Please correct the errors.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 LocationDto newLocationDto = GetLocationDto();
@@ -575,8 +580,11 @@ namespace BookingApp.WPF.ViewModels
                 newTourDto.GuideId=LoggedInUser.Id;
                 CreateTourService createTourService = new CreateTourService(Injector.CreateInstance<ITourRepository>());
                 createTourService.CreateTour(newTourDto, KeyPointNames, startDate);
-                MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
             }
+            GuideMainPage main = new GuideMainPage(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(main);
         }
 
 
@@ -661,9 +669,7 @@ namespace BookingApp.WPF.ViewModels
             return isValid;
         }
 
-
-
-
-
+       
+        
     }
 }

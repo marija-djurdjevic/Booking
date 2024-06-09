@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:BookingApp.WPF.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="TourRequests"
     Width="1024"
     Height="768"
@@ -136,6 +137,7 @@
                     FontSize="24"
                     Text="Start date and time:" />
                 <xctk:DateTimePicker
+                    x:Name="StartDateTimePicker"
                     FontSize="20"
                     Grid.Row="0"
                     Grid.Column="1"
@@ -160,6 +162,7 @@
                     FontSize="24"
                     Text="End date and time:" />
                 <xctk:DateTimePicker
+                    x:Name="EndDateTimePicker"
                     FontSize="20"
                     Format="Custom" 
                     FormatString="dd.MM.yyyy HH:mm \h"
@@ -170,7 +173,10 @@
                     Margin="274,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Value="{Binding EndDateTime, Mode=TwoWay}" />
+                    Value="{Binding EndDateTime, Mode=TwoWay}"
+                    >
+                    
+                </xctk:DateTimePicker>
 
 
                 <Button 

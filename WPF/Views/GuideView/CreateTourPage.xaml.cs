@@ -17,6 +17,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BookingApp.Domain.Models;
+using Xceed.Wpf.Toolkit;
+using System.Reflection;
+using System.Windows.Controls.Primitives;
+
 
 namespace BookingApp.View
 {
@@ -29,12 +33,9 @@ namespace BookingApp.View
            
         }
         
-        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e){         }
+        
 
-       
+
+
     }
 }

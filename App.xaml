@@ -766,7 +766,7 @@
         <!--  BOJA ZA DUGME KAD JE ONMUSE I KAD NIJE  -->
         <SolidColorBrush x:Key="MouseOverButtonColor" Color="#C5E3F5"/>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="#f5f5f5" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -793,7 +793,7 @@
 
 
         <Style x:Key="SideManuuttonStyle" TargetType="Button">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="#f5f5f5" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -818,7 +818,7 @@
 
 
         <Style x:Key="AcceptButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="#f5f5f5" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>

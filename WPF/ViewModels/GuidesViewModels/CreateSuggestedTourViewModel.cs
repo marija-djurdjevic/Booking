@@ -18,6 +18,7 @@ using System.Linq.Expressions;
 using BookingApp.Domain.Models;
 using System.Windows;
 using System.ComponentModel;
+using BookingApp.View.GuideView;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -569,6 +570,9 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                 }
                 MessageBox.Show("Tour successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            GuideMainPage main = new GuideMainPage(LoggedInUser);
+            GuideMainWindow.MainFrame.Navigate(main);
         }
 
         private LocationDto GetLocationDto()

@@ -40,7 +40,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <GroupBox  Margin="10,25,0,50" Height="480" MaxWidth="970">
+                            <GroupBox  Margin="10,25,0,50" Height="480" MaxWidth="970" BorderBrush="Black" BorderThickness="2" >
 
                                 <GroupBox.Header>
                                     <Label>

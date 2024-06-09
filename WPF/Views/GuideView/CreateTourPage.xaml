@@ -8,7 +8,8 @@
     xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    
     Title="CreateTourPage"
     Width="1024"
     Height="768"
@@ -438,7 +439,8 @@
                         Height="45"
                         Format="Custom" 
                         FormatString="dd.MM.yyyy HH:mm \h"
-                     />
+                        Minimum="{x:Static sys:DateTime.Today}">
+                    </xctk:DateTimePicker>
 
 
 

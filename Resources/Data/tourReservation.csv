@@ -1,5 +1,5 @@
-1|10|4|Душко|Пилиповић|20||0|False|True
-2|10|4|Marko|Marković|50|Bijeljina|3|False|False
+1|10|4|Душко|Пилиповић|20|Bijeljina|0|False|True
+2|10|4|Marko|Marković|50|Bijeljina|3|False|True
 3|10|4|Ana|Anić|60|Bijeljina|3|False|False
 4|13|4|Душко|Пилиповић|20||0|False|True
 5|13|4|Petar|Petrovic|60||0|False|False
@@ -45,3 +45,11 @@
 47|63|4|Ime|Prez|88|dva|2|False|False
 48|61|17|Ана|Бабић|63||0|False|True
 49|63|17|Ана|Бабић|63|dva|2|False|True
+50|60|4|Srecko|Sojic|3|Tacka 2|2|False|False
+51|60|4|Jovo|Jovic|13|Tacka 2|2|False|False
+52|64|4|Душко|Пилиповић|20||0|False|True
+53|64|4|Ognjen|Papovic|21||0|False|False
+54|64|4|Vuk|Papovic|15||0|False|False
+55|69|4|Душко|Пилиповић|20||0|False|True
+56|69|4|Ognjen|Papovic|14||0|False|False
+57|69|4|Vuk|Papovic|12||0|False|False

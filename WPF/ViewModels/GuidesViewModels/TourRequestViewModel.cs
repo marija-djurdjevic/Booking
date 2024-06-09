@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.GuidesViewModels
 {
@@ -174,6 +175,30 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
 
         private void ExecuteSearchCommand()
         {
+
+            if (StartDateTime.HasValue && EndDateTime.HasValue)
+            {
+                if (EndDateTime.Value.Date < StartDateTime.Value.Date)
+                {
+                    // EndDateTime ne može biti manji od StartDateTime
+                    MessageBox.Show("End date must be greater than or equal to start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else if (StartDateTime.HasValue && !EndDateTime.HasValue)
+            {
+                // Ako je postavljen samo StartDateTime, ali ne i EndDateTime
+                MessageBox.Show("Please select an end date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (!StartDateTime.HasValue && EndDateTime.HasValue)
+            {
+                // Ako je postavljen samo EndDateTime, ali ne i StartDateTime
+                MessageBox.Show("Please select a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
             var allRequests = tourRequestService.GetAllSimpleRequests().Where(request => request.Status == TourRequestStatus.Pending);
             var filteredRequests = allRequests.Where(request =>
                 (string.IsNullOrEmpty(Language) || request.Language == Language) &&

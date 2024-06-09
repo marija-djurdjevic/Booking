@@ -88,7 +88,8 @@
                                 d:ItemsSource="{d:SampleData ItemCount=3}"
                                 ItemsSource="{Binding TodayTours}"
                                 SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
-                                SelectionMode="Single">
+                                SelectionMode="Single"
+                                >
 
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
