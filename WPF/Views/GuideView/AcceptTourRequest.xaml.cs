@@ -58,7 +58,7 @@ namespace BookingApp.WPF.Views.GuideView
         
                 for (int i = 1; i < freeDates.Count; i++)
                 {
-                    var previousFreeDate = freeDates[i].Item2;
+                    var previousFreeDate = freeDates[i-1].Item2;
                     var nextFreeDate = freeDates[i].Item1;
                     calendar.BlackoutDates.Add(new CalendarDateRange(previousFreeDate.AddDays(1), nextFreeDate.AddDays(-1)));
                 }
