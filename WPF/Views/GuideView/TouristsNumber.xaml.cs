@@ -30,9 +30,6 @@ namespace BookingApp.View.GuideView
             DataContext = new TouristsNumberPageViewModel(tourId,user);
         }
 
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+       
     }
 }

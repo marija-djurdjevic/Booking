@@ -23,7 +23,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private readonly TourRequestService tourRequestService;
         private readonly ComplexTourRequestService complexTourRequestService;
         private readonly RequestStatisticService requestStatisticService;
-
         private string language;
         private string location;
         private RelayCommand acceptCommand;

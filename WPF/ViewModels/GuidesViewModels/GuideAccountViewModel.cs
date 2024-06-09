@@ -97,7 +97,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             Year = new ObservableCollection<string>();
             SeriesCollection = new SeriesCollection();
             Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-
             LoadData();
             GuideRating = Math.Round(CountAverage(), 2);
             LoadChartData();
@@ -162,8 +161,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
                         totalTours++;
                     }
 
-                    //var fakeRating = random.Next(1, 6);
-                    //totalRating += fakeRating;
                 }
 
                 var averageRating = totalRating / totalTours;

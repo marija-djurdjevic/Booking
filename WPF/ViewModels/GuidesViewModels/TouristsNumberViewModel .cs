@@ -213,26 +213,7 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModel
         }
 
 
-      
-        private void SaveChartAsImage(StackPanel chartPanel)
-        {
-            var filePath = @"putanja_do_vaše_slike.png";
-            var width = (int)chartPanel.ActualWidth;
-            var height = (int)chartPanel.ActualHeight;
-            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
-            bitmap.Render(chartPanel);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                encoder.Save(stream);
-            }
-        }
-
-
-
+     
 
         private void ExecuteNavigateHome()
         {

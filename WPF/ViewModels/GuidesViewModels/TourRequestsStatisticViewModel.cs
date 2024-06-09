@@ -32,7 +32,6 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
         private ObservableCollection<string> years;
         private string location;
         private int requestsNumber;
-        //private int selectedYear;
         private RelayCommand searchCommand;
         private RelayCommand generalStatisticsCommand;
         private RelayCommand monthStatisticsCommand;

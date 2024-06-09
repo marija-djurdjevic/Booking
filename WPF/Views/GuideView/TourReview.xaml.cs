@@ -32,10 +32,5 @@ namespace BookingApp.View.GuideView
             DataContext = new TourReviewViewModel(tourId, user);
         }
 
-
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

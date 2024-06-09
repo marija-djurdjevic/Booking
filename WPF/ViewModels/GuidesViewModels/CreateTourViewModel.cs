@@ -94,18 +94,10 @@ namespace BookingApp.WPF.ViewModels
             LoadLanguages();
             LoadCitiesCountries();
 
-          //  ValidateNameCommand = new RelayCommand(ValidateName);
+          
         }
 
-        /*  private void ValidateName()
-          {
-              if (string.IsNullOrWhiteSpace(Name))
-              {
-                  MessageBox.Show("Ime ne može biti prazno.");
-              }
-          }
-        */
-
+        
 
         public string this[string columnName]
         {

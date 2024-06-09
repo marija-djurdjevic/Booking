@@ -180,20 +180,20 @@ namespace BookingApp.WPF.ViewModels.GuidesViewModels
             {
                 if (EndDateTime.Value.Date < StartDateTime.Value.Date)
                 {
-                    // EndDateTime ne može biti manji od StartDateTime
+                    
                     MessageBox.Show("End date must be greater than or equal to start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
             else if (StartDateTime.HasValue && !EndDateTime.HasValue)
             {
-                // Ako je postavljen samo StartDateTime, ali ne i EndDateTime
+                
                 MessageBox.Show("Please select an end date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (!StartDateTime.HasValue && EndDateTime.HasValue)
             {
-                // Ako je postavljen samo EndDateTime, ali ne i StartDateTime
+                
                 MessageBox.Show("Please select a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }

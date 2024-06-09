@@ -24,37 +24,21 @@ namespace BookingApp.View
 
     public partial class LiveTourPage : Page
     {
-        private int tourId;
-
-        private readonly TourRepository tourRepository;
-        private Tour selectedTour;
-        private readonly KeyPointRepository keyPointRepository;
-        private readonly TouristGuideNotificationRepository touristGuideNotificationRepository;
-        private readonly LiveTourRepository liveTourRepository;
-        private readonly TourReservationRepository tourReservationRepository;
+        
         private User loggedInUser;
         public LiveTourPage(int tourId, User loggedInUser)
         {
 
             InitializeComponent();
-            keyPointRepository = new KeyPointRepository();
             DataContext = new LiveTourViewModel(tourId,loggedInUser);
             this.loggedInUser = loggedInUser;
 
         }
 
 
-        private void NavigateToMainPage(object sender, MouseButtonEventArgs e)
-        {
-            GuideMainPage guideMainPage = new GuideMainPage(loggedInUser);
-            this.NavigationService.Navigate(guideMainPage);
-        }
+        
 
 
-        private void NavigateToSideMenuPage(object sender, MouseButtonEventArgs e)
-        {
-            SideMenuPage sideMenuPage = new SideMenuPage(loggedInUser);
-            this.NavigationService.Navigate(sideMenuPage);
-        }
+       
     }
 }
